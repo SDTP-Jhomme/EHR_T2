@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use App\Models\adminModel;
 
@@ -17,23 +18,34 @@ class adminController extends Controller
     {
         return view('admin/admission');
     }
-    public function dashboard()
+    public function dashboard(Request $request)
     {
-        $user = session('user');
-        if ($user) {
-            return redirect(route('admin-dashboard', ['user' => $user]));
-        } else {
-            return redirect(route('admin-login'));
-        }
-    }
-    public function adminLogin()
-    {
-        $user = session('user');
-        if ($user) {
-            return redirect(route('admin-dashboard', ['user' => $user]));
-        } else {
+        $user = $request->session()->get('user');
+
+        if (!$user) {
+            // Redirect to the login page or handle unauthorized access
             return view('admin/index');
         }
+
+        // Use the $user data as needed in your dashboard logic
+
+        return view('admin.dashboard', ['user' => $user]);
+    }
+
+    public function adminLogin(Request $request)
+    {
+
+        $user = $request->session()->get('user');
+
+        if (!$user) {
+            // Redirect to the login page or handle unauthorized access
+            return view('admin/index');
+        }
+
+        // Use the $user data as needed in your dashboard logic
+
+        return redirect()->route('admin-dashboard', ['user' => $user]);
+        // return view('admin.dashboard', ['user' => $user]);
     }
     public function login(Request $request)
     {
@@ -70,5 +82,21 @@ class adminController extends Controller
                 }
             }
         }
+    }
+    public function adminLogout(Request $request)
+    {
+        Session::forget('user');
+
+
+        // Perform any other logout-related actions
+
+        // Redirect the user to the desired page after logout
+        return redirect()->route('admin-login');
+    }
+
+    // lab-forms
+    public function cbc()
+    {
+        return view('admin/forms/cbc');
     }
 }

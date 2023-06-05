@@ -3,6 +3,7 @@
 <html lang="en">
 
 <head>
+    <link rel="shortcut icon" type="image/png" href="<?php echo asset('storage/assets/img/favicon.png') ?>">
     @section('title', 'Admission')
 </head>
 
@@ -29,14 +30,28 @@
                                                                     dolor sit amet consectetur adipisicing elit</p>
                                                             </div>
                                                             <div>
-                                                                <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="offcanvas" data-bs-target="#addClient" aria-controls="addClient">
+                                                                <el-button type="primary" @click="openAddDrawer = true" size="small" icon="el-icon-user-solid">Add New Student</el-button>
+                                                                <!-- <button type="button" class="btn btn-primary btn-sm" @click="openAddDrawer = true" data-bs-toggle="offcanvas" data-bs-target="#addClient" aria-controls="addClient">
                                                                     <i class="fas fa-user-plus pe-2"></i>
-                                                                    Add new clients
-                                                                </button>
+                                                                    Add new Student
+                                                                </button> -->
                                                             </div>
                                                         </div>
-                                                        <div class="table-responsive mt-1">
-                                                            <table class="table table-hover select-table">
+                                                        <el-table v-if="this.tableData" style="width: 100%" border height="400" v-loading="tableLoad" element-loading-text="Loading. Please wait..." element-loading-spinner="el-icon-loading">
+                                                            <el-table-column label="No." type="index" width="50">
+                                                            </el-table-column>
+                                                            <el-table-column sortable label="Name" width="200" prop="name">
+                                                            </el-table-column>
+                                                            <el-table-column sortable label="Last name" width="200" prop="last_name">
+                                                            </el-table-column>
+                                                            <el-table-column sortable label="Birthdate" width="200" prop="birthdate">
+                                                            </el-table-column>
+                                                            <el-table-column sortable label="Gender" prop="gender" width="110" column-key="gender">
+                                                                <!--  -->
+                                                            </el-table-column>
+                                                        </el-table>
+                                                        <!-- <div class="table-responsive mt-1">
+                                                            <table class="table table-hover select-table" v-if="this.tableData" style="width: 100%" border height="400" v-loading="tableLoad" element-loading-text="Loading. Please wait..." element-loading-spinner="el-icon-loading">
                                                                 <thead class="thead">
                                                                     <tr>
                                                                         <th>
@@ -62,9 +77,9 @@
                                                                         </td>
                                                                         <td>
                                                                             <div class="d-flex ">
-                                                                                <img src="<?php echo asset('storage/assets/avatar/default.png') ?>" alt="">
+                                                                                <img src="" :src="tableData.avatar" alt="">
                                                                                 <div>
-                                                                                    <h6>Name</h6>
+                                                                                    <h6 prop="name" v-for="tableData.name"></h6>
                                                                                     <p>Student</p>
                                                                                 </div>
                                                                             </div>
@@ -90,32 +105,13 @@
                                                                     </tr>
                                                                 </tbody>
                                                             </table>
-                                                        </div>
+                                                        </div> -->
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-8 col-lg-6">
-                                        <table id="myTable" class="table table-hover" height="400">
-                                            <div class="form-group input-group float-end w-25 ">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text bg-danger">
-                                                        <i class="fas fa-search p-2 px-3 text-light"></i>
-                                                    </span>
-                                                </div>
-                                                <input class="form-control form-control-sm" type="text" id="searchInput">
-                                            </div>
-                                            <thead>
-                                                <tr>
-                                                    <th class="col-1">No</th>
-                                                    <th class="col-3">username</th>
-                                                    <th class="col-3">password</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                            </tbody>
-                                        </table>
+                                    <div class="col-md-8 col-lg-12">
                                     </div>
                                 </div>
                             </div>
@@ -125,51 +121,247 @@
             </div>
         </div>
     </main>
-    <div class="offcanvas offcanvas-end" tabindex="-1" id="addClient" aria-labelledby="offcanvasNavbarLabel">
-        <button type="button" class="btn-close text-reset m-2 ms-auto" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        <div class="margin-top">
-            <div class="offcanvas-header">
-                <h5 class="offcanvas-title" id="offcanvasNavbarLabel">New Admission</h5>
-            </div>
-            <hr>
-            <div class="offcanvas-body">
-                <form id="adduser-form" class="">
-                    <div class="input-group mb-4">
-                        <span class="input-group-text group-text">Identification</span>
-                        <input type="text" class="form-control" id="identification" name="identification" placeholder="Identification" aria-label="Identification" aria-describedby="identification">
-                    </div>
-                    <div class="input-group mb-4">
-                        <span class="input-group-text group-text">First Name</span>
-                        <input type="text" class="form-control" id="firstname" name="firstname" placeholder="First Name" aria-label="First Name" aria-describedby="firstname">
-                    </div>
-                    <div class="input-group mb-4">
-                        <span class="input-group-text group-text">Middle Name <span class="text-muted card-subtitle ps-2">(optional)</span></span>
-                        <input type="text" class="form-control" id="midname" name="midname" placeholder="Middle Name" aria-label="Middle Name" aria-describedby="midname">
-                    </div>
-                    <div class="input-group mb-4">
-                        <span class="input-group-text group-text">Last Name</span>
-                        <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Last Name" aria-label="Last Name" aria-describedby="lastname">
-                    </div>
-                    <div class="input-group mb-4">
-                        <span class="input-group-text group-text me-3">Gender</span>
-                        <div class="mx-3">
-                            <input type="radio" class="btn-check" name="gender" id="gender" autocomplete="off">
-                            <label class="btn btn-outline-primary" for="gender">Male</label>
-                            <input type="radio" class="btn-check" name="gender" id="gender" autocomplete="off">
-                            <label class="btn btn-outline-danger" for="gender">Female</label>
+    <!-- Add Drawer -->
+    <el-drawer title="New Admission" :visible.sync="openAddDrawer" size="90%" :before-close="closeAddDrawer">
+        <div class="container-fluid p-4 d-flex flex-column pe-5">
+            <div id="registrationStep" class="step" v-if="active == 0">
+                <form @submit.prevent="submitForm" class="" method="post" action="{{route('admin-admission')}}">
+                    @csrf
+                    <div class="row justify-content-start align-items-center g-2 mb-4">
+                        <div class="col-lg-4 col-md-12">
+                            <div class="input-group mb-4" :class="{ 'has-error': identificationError }">
+                                <span class="input-group-text group-text">Identification No.</span>
+                                <input type="text" class="form-control" id="identification" name="identification" v-model="identification" onKeyup="addDashes(identification)">
+                            </div>
+                            <div v-text="identificationError" class="text-danger fst-italic ms-5"></div>
+                        </div>
+                        <div class="col-lg-4 col-md-12">
+                            <div class="input-group mb-4" :class="{ 'has-error': yearError }">
+                                <span class="input-group-text group-text">Year<span class="text-muted card-subtitle ps-2"></span></span>
+                                <select class="form-select" id="year" name="year" v-model="year">
+                                    <option value="" selected>Select Year</option>
+                                    <option value="First Year">First Year</option>
+                                    <option value="Second Year">Second Year</option>
+                                    <option value="Third Year">Third Year</option>
+                                    <option value="Fourth Year">Fourth Year</option>
+                                </select>
+                            </div>
+                            <div v-text="yearError" class="text-danger fst-italic ms-5"></div>
+                        </div>
+                        <div class="col-lg-4 col-md-12">
+                            <div class="input-group mb-4">
+                                <span class="input-group-text group-text">Course</span>
+                                <input type="text" class="form-control" id="course" name="course" v-model="course" value="Nursing" disabled>
+                            </div>
                         </div>
                     </div>
-                    <div id="datepicker-popup" class="input-group date datepicker navbar-date-picker">
-                        <span class="input-group-text group-text">Date of Birth</span>
-                        <input type="date" class="form-control" id="birthdate":picker-options="datePickerOptions" name="birthdate" placeholder="Date of Birth" aria-label="Date of Birth" aria-describedby="birthdate">
+                    <div class="row justify-content-start align-items-center g-2 mb-4">
+                        <div class="col-lg-4 col-md-12">
+                            <div class="input-group mb-4" :class="{ 'has-error': firstnameError }">
+                                <span class="input-group-text group-text">First Name</span>
+                                <input type="text" class="form-control" id="firstname" name="firstname" v-model="firstname" onKeyup="upperCase(firstname)">
+                            </div>
+                            <div v-text="firstnameError" class="text-danger fst-italic ms-5"></div>
+                        </div>
+                        <div class="col-lg-4 col-md-12">
+                            <div class="input-group mb-4" :class="{ 'has-error': midnameError }">
+                                <span class="input-group-text group-text">Middle Name <span class="text-muted card-subtitle ps-2"></span></span>
+                                <input type="text" class="form-control" id="midname" name="midname" v-model="midname" onKeyup="upperCase(midname)">
+                            </div>
+                            <div v-text="midnameError" class="text-danger fst-italic ms-5"></div>
+                        </div>
+                        <div class="col-lg-4 col-md-12">
+                            <div class="input-group mb-4" :class="{ 'has-error': lastnameError }">
+                                <span class="input-group-text group-text">Last Name</span>
+                                <input type="text" class="form-control" id="lastname" name="lastname" v-model="lastname" onKeyup="upperCase(lastname)">
+                            </div>
+                            <div v-text="lastnameError" class="text-danger fst-italic ms-5"></div>
+                        </div>
+                        <div class="col-lg-4 col-md-12">
+                            <div class="input-group mb-4" :class="{ 'has-error': phoneError }">
+                                <span class="input-group-text group-text">Phone Number</span>
+                                <input type="text" class="form-control" id="phone_number" name="phone_number" v-model="phone_number" placeholder="+639*******">
+                            </div>
+                            <div v-text="phoneError" class="text-danger fst-italic ms-5"></div>
+                        </div>
+                        <div class="col-lg-4 col-md-12">
+                            <div class="input-group mb-4" :class="{ 'has-error': genderError }">
+                                <span class="input-group-text group-text me-4">Gender</span>
+                                <input type="radio" class="btn-check" name="gender" id="male" value="Male" v-model="gender">
+                                <label class="btn btn-outline-primary px-4 mx-2" for="male">Male</label>
+                                <input type="radio" class="btn-check" name="gender" id="female" value="Female" v-model="gender">
+                                <label class="btn btn-outline-danger px-4 mx-2" for="female">Female</label>
+                            </div>
+                            <div v-text="genderError" class="text-danger fst-italic ms-5"></div>
+                        </div>
                     </div>
-                    <div class="form-group mt-4">
-                        <button type="submit" id="btn-login" class="btn-login">Save</button>
+                    <div class="row justify-content-start align-items-center g-2 mb-4">
+                        <div class="col-lg-4 col-md-12">
+                            <div class="input-group mb-4" :class="{ 'has-error': birthdateError }">
+                                <span class="input-group-text group-text" for="birthdaypicker">Date of Birth</span>
+                                <input type="date" name="birthdate" class="form-control" :max="maxDate" id="birthdaypicker" v-model="birthdate">
+                            </div>
+                            <div v-text="birthdateError" class="text-danger fst-italic ms-5"></div>
+                        </div>
+                        <div class="col-lg-4 col-md-12">
+                            <div class="input-group mb-4" :class="{ 'has-error': civilError }">
+                                <span class="input-group-text group-text">Civil Status<span class="text-muted card-subtitle ps-2"></span></span>
+                                <select class="form-select" id="civil" name="civil" v-model="civil">
+                                    <option value="" selected>Select Year</option>
+                                    <option value="Single">Single</option>
+                                    <option value="Married">Married</option>
+                                    <option value="Divorced">Divorced</option>
+                                    <option value="Widowed">Widowed</option>
+                                </select>
+                            </div>
+                            <div v-text="civilError" class="text-danger fst-italic ms-5"></div>
+                        </div>
+                        <div class="col-lg-4 col-md-12">
+                            <div class="input-group mb-4" :class="{ 'has-error': citizenError }">
+                                <span class="input-group-text group-text">Citizenship</span>
+                                <select class="form-select" id="citizen" name="citizen" v-model="citizen">
+                                    <option value="" selected>Select Year</option>
+                                    <option value="Filipino">Filipino</option>
+                                    <option value="American">American</option>
+                                </select>
+                            </div>
+                            <div v-text="citizenError" class="text-danger fst-italic ms-5"></div>
+                        </div>
+                    </div>
+                    <h4 class="">Address</h4>
+                    <div class="row justify-content-start align-items-center g-2 mb-4">
+                        <div class="col-lg-4 col-md-12">
+                            <div class="input-group mb-4" :class="{ 'has-error': streetError }">
+                                <span class="input-group-text group-text">Street No. and Street Address</span>
+                                <input type="text" class="form-control" id="street" name="street" v-model="street" onKeyup="upperCase(street)">
+                            </div>
+                            <div v-text="streetError" class="text-danger fst-italic ms-5"></div>
+                        </div>
+                        <div class="col-lg-4 col-md-12">
+                            <div class="input-group mb-4" :class="{ 'has-error': brgyError }">
+                                <span class="input-group-text group-text">Barangay </span>
+                                <input type="text" class="form-control" id="brgy" name="brgy" v-model="brgy" onKeyup="upperCase(brgy)">
+                            </div>
+                            <div v-text="brgyError" class="text-danger fst-italic ms-5"></div>
+                        </div>
+                        <div class="col-lg-4 col-md-12">
+                            <div class="input-group mb-4" :class="{ 'has-error': cityError }">
+                                <span class="input-group-text group-text">Municipality/City</span>
+                                <input type="text" class="form-control" id="city" name="city" v-model="city" onKeyup="upperCase(city)">
+                            </div>
+                            <div v-text="cityError" class="text-danger fst-italic ms-5"></div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center mt-2" v-if="active == 0">
+                        <button class="btn btn-outline-primary btn-sm" type="submit">Next <i class="fas fa-arrow-circle-right ps-2"></i></button>
                     </div>
                 </form>
+                <div class="progress mt-4" :space="800" :active="active" finish-status="success">
+                    <div class="progress-bar" v-if="active == 0" title="Step 1" role="progressbar" style="width: 35%;" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">Step 1</div>
+                </div>
             </div>
         </div>
-    </div>
+    </el-drawer>
+    <!-- active == 1 -->
+    <el-drawer title="New Admission" v-if="active == 1" :visible.sync="openAddDrawer" size="90%" :before-close="closeAddDrawer">
+        <div id="categoryStep" class="step container-fluid mt-2">
+            <div class="row justify-content-center align-items-center g-2 mb-4">
+                <div class="col-lg-4 col-md-12">
+                    <div>
+                        <a href="javascript:void(0)" @click="cbc">
+                            <div class="card card-overflow-hidden cbc-checkup" :class="{'card-border-cbc': this.isCBC}">
+                                <img class="w-25 mx-auto" src="<?php echo asset('storage/assets/img/cbc.png') ?>" alt="Complete Blood Count">
+                                <div :class="this.isCBC ? 'card-with-hover-active' : 'card-with-hover'">
+                                    <div class="card-text-center">
+                                        <h4 class="text-center">Complete Blood Count</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12">
+                    <div>
+                        <a href="javascript:void(0)" @click="urinalysis">
+                            <div class="card card-overflow-hidden urinalysis-checkup" :class="{'card-border-urinalysis': this.isUrinalysis}">
+                                <img class="w-25 mx-auto" src="<?php echo asset('storage/assets/img/urinalysis.png') ?>" alt="Urinalysis">
+                                <div :class="this.isUrinalysis ? 'card-with-hover-active' : 'card-with-hover'">
+                                    <div class="card-text-center">
+                                        <h4 class="text-center">Urinalysis</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12">
+                    <div>
+                        <a href="javascript:void(0)" @click="fecalysis">
+                            <div class="card card-overflow-hidden fecalysis-checkup" :class="{'card-border-fecalysis': this.isFecalysis}">
+                                <img class="w-25 mx-auto" src="<?php echo asset('storage/assets/img/fecalysis.png') ?>" alt="Fecalysis">
+                                <div :class="this.isFecalysis ? 'card-with-hover-active' : 'card-with-hover'">
+                                    <div class="card-text-center">
+                                        <h4 class="text-center">Fecalysis</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center align-items-center g-2">
+                <div class="col-lg-4 col-md-12">
+                    <div>
+                        <a href="javascript:void(0)" @click="xray">
+                            <div class="card card-overflow-hidden xray-checkup" :class="{'card-border-xray': this.isXray}">
+                                <img class="w-25 mx-auto" src="<?php echo asset('storage/assets/img/x-ray.png') ?>" alt="Chest X-ray">
+                                <div :class="this.isXray ? 'card-with-hover-active' : 'card-with-hover'">
+                                    <div class="card-text-center">
+                                        <h4 class="text-center">Chest X-ray (PA)</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12">
+                    <div>
+                        <a href="javascript:void(0)" @click="antigen">
+                            <div class="card card-overflow-hidden antigen-checkup" :class="{'card-border-antigen': this.isAntigen}">
+                                <img class="w-25 mx-auto" src="<?php echo asset('storage/assets/img/hepa-antigen.png') ?>" alt="Heppa B Antigen">
+                                <div :class="this.isAntigen ? 'card-with-hover-active' : 'card-with-hover'">
+                                    <div class="card-text-center">
+                                        <h4 class="text-center">Heppa B Antigen</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12">
+                    <div>
+                        <a href="javascript:void(0)" @click="vaccine">
+                            <div class="card card-overflow-hidden vaccine-checkup" :class="{'card-border-vaccine': this.isVaccine}">
+                                <img class="w-25 mx-auto" src="<?php echo asset('storage/assets/img/hepa-vaccine.png') ?>" alt="Heppa B Vaccine">
+                                <div :class="this.isVaccine ? 'card-with-hover-active' : 'card-with-hover'">
+                                    <div class="card-text-center">
+                                        <h4 class="text-center">Heppa B Vaccine</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center align-items-center mt-2" v-if="active == 1">
+                <button class="btn btn-outline-primary btn-sm me-2" @click="back"><i class="fas fa-arrow-circle-left pe-2"></i>Back</button>
+                <button class="btn btn-outline-primary btn-sm" @click="next">Next <i class="fas fa-arrow-circle-right ps-2"></i></button>
+            </div>
+            <div class="progress mt-4" :space="800" :active="active" finish-status="success">
+                <div class="progress-bar bg-warning" v-if="active == 1" title="Step 2" role="progressbar" style="width: 75%;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">Step 2</div>
+            </div>
+        </div>
+    </el-drawer>
     @endsection
 </body>
 

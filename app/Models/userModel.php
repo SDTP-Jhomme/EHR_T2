@@ -9,5 +9,39 @@ class userModel extends Model
 {
     use HasFactory;
     protected $table = 'client_info';
-    protected $fillables = ['identification', 'first_name', 'middle_name', 'last_name', 'password', 'birthdate', 'gender', 'avatar'];
+    protected $fillable = [
+        'identification',
+        'firstname',
+        'midname',
+        'lastname',
+        'password',
+        'birthdate',
+        'gender',
+        'avatar',
+        'year',
+        'course',
+        'civil',
+        'citizen',
+        'street',
+        'brgy',
+        'city',
+        'section',
+        'phone_number'
+    ];
+    public function cbc()
+    {
+        return $this->hasMany(cbcModel::class, 'student_id');
+    }
+    public function urinalysis()
+    {
+        return $this->hasMany(urinalysisModel::class, 'student_id');
+    }
+    public function xray()
+    {
+        return $this->hasMany(xrayModel::class, 'student_id');
+    }
+    public function antigen()
+    {
+        return $this->hasMany(antigenModel::class, 'student_id');
+    }
 }
