@@ -10,77 +10,76 @@
 <body>
     @section('sidebar')
     <main class="main-panel flex-lg-grow-1">
-        <div class="container-fluid">
-            <div class="content-wrapper">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="home-tab">
-                            <div class="row">
-                                <div class="row">
-                                    <div class="col-lg-8 d-flex flex-column">
-                                        <div class="row flex-grow">
-                                            <div class="col-12 grid-margin stretch-card">
-                                                <div class="card w-100 rounded">
-                                                    <div class="card-body">
-                                                        <div class="d-sm-flex justify-content-between align-items-start">
-                                                            <div>
-                                                                <h4 class="card-title card-title-dash">Clients Overview
-                                                                </h4>
-                                                                <p class="card-subtitle card-subtitle-dash">Lorem ipsum
-                                                                    dolor sit amet consectetur adipisicing elit</p>
-                                                            </div>
-                                                            <div>
-                                                                <el-button type="primary" @click="openAddDrawer = true" size="small" icon="el-icon-user-solid">Add New Student</el-button>
-                                                            </div>
-                                                        </div>
-                                                        <div class="d-flex justify-content-between align-items-center mb-3">
-                                                            <div class="d-flex">
-                                                                <el-select v-model="searchValue" size="mini" placeholder="Select Column" @changed="changeColumn" clearable>
-                                                                    <el-option v-for="search in options" :key="search.value" :label="search.label" :value="search.value">
-                                                                    </el-option>
-                                                                </el-select>
-                                                                <div class="ps-2">
-                                                                    <div v-if="searchValue == 'identification'">
-                                                                        <el-input v-model="searchID" size="mini" placeholder="Type to search..." clearable />
-                                                                    </div>
-                                                                    <div v-else-if="searchValue == 'name'">
-                                                                        <el-input v-model="searchName" size="mini" placeholder="Type to search..." clearable />
-                                                                    </div>
-                                                                    <div v-else>
-                                                                        <el-input v-model="searchNull" size="mini" placeholder="Type to search..." clearable />
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <el-table v-if="this.tableData"  :data="usersTable" style="width: 100%" border height="400" v-loading="tableLoad" element-loading-text="Loading. Please wait..." element-loading-spinner="el-icon-loading">
-                                                            <el-table-column label="No." type="index" width="50">
-                                                            </el-table-column>
-                                                            <el-table-column sortable label="Identification No." width="200" prop="identification">
-                                                            </el-table-column>
-                                                            <el-table-column sortable label="Name" width="200" prop="name">
-                                                            </el-table-column>
-                                                            <el-table-column sortable label="Last name" width="200" prop="last_name">
-                                                            </el-table-column>
-                                                            <el-table-column sortable label="Birthdate" width="200" prop="birthdate">
-                                                            </el-table-column>
-                                                            <el-table-column sortable label="Gender" prop="gender" width="110" column-key="gender">
-                                                                <!--  -->
-                                                            </el-table-column>
-                                                        </el-table>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-8 col-lg-12">
-                                    </div>
-                                </div>
+        <el-main>
+            <div class="container border rounded p-4">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <div class="d-flex">
+                        <el-select v-model="searchValue" size="mini" placeholder="Select Column" @changed="changeColumn" clearable>
+                            <el-option v-for="search in options" :key="search.value" :label="search.label" :value="search.value">
+                            </el-option>
+                        </el-select>
+                        <div class="ps-2">
+                            <div v-if="searchValue == 'identification'">
+                                <el-input v-model="searchID" size="mini" placeholder="Type to search..." clearable />
+                            </div>
+                            <div v-else-if="searchValue == 'name'">
+                                <el-input v-model="searchName" size="mini" placeholder="Type to search..." clearable />
+                            </div>
+                            <div v-else>
+                                <el-input v-model="searchNull" size="mini" placeholder="Type to search..." clearable />
                             </div>
                         </div>
                     </div>
                 </div>
+                <el-table v-if="this.tableData" :data="usersTable" style="width: 100%" border height="400" v-loading="tableLoad" element-loading-text="Loading. Please wait..." element-loading-spinner="el-icon-loading">
+                    <el-table-column label="No." type="index" width="50">
+                    </el-table-column>
+                    <el-table-column sortable label="Identification No." width="200" prop="identification">
+                    </el-table-column>
+                    <el-table-column sortable label="Full Name" width="200" prop="name">
+                    </el-table-column>
+                    <el-table-column sortable label="Name" width="200" prop="name">
+                    </el-table-column>
+                    <el-table-column sortable label="Phone No." width="200" prop="phone_number">
+                    </el-table-column>
+                    <el-table-column sortable label="Gender" prop="gender" width="110" column-key="gender" :filters="[{text: 'Female', value: 'Female'}, {text: 'Male', value: 'Male'}]" :filter-method="filterHandler">
+                        <template slot-scope="scope">
+                            <el-tag size="small" v-if="scope.row.gender == 'Male'">{{ scope.row.gender }}</el-tag>
+                            <el-tag size="small" v-else type="danger">{{ scope.row.gender }}</el-tag>
+                        </template>
+                    </el-table-column>
+                    <el-table-column sortable label="Section" prop="section" width="190" column-key="section" :filters="[{text: 'Maternity', value: 'Maternity'}, {text: 'Individual Treatment', value: 'Individual Treatment'}, {text: 'Immunization', value: 'Immunization'}]" :filter-method="filterHandler">
+                        <template slot-scope="scope">
+                            <el-tag size="small" v-if="scope.row.section == 'Maternity'">{{ scope.row.section }}</el-tag>
+                            <el-tag size="small" v-else-if="scope.row.section == 'Individual Treatment'" type="success">{{ scope.row.section }}</el-tag>
+                            <el-tag size="small" v-else-if="scope.row.section == 'Immunization'" type="danger">{{ scope.row.section }}</el-tag>
+                            <el-tag size="small" v-else type="warning">{{ scope.row.section }}</el-tag>
+                        </template>
+                    </el-table-column>
+                    <el-table-column sortable label="Status" width="110" prop="status">
+                        <template slot-scope="scope">
+                            <el-tag size="small" v-if="scope.row.status == 'Pending'" type="warning">{{ scope.row.status }}</el-tag>
+                            <el-tag size="small" v-else type="success">{{ scope.row.status }}</el-tag>
+                        </template>
+                    </el-table-column>
+                    <el-table-column label="Actions" width="140">
+                        <template slot-scope="scope">
+                            <el-tooltip class="item" effect="dark" content="View Details" placement="top-start">
+                                <el-button icon="el-icon-view" v-if="scope.row.section == 'Maternity'" size="mini" @click="handleView(scope.$index, scope.row)" plain>View Details</el-button>
+                                <el-button icon="el-icon-view" v-else-if="scope.row.section == 'Individual Treatment'" size="mini" type="success" @click="handleView(scope.$index, scope.row)" plain>View Details</el-button>
+                                <el-button icon="el-icon-view" v-else-if="scope.row.section == 'Immunization'" size="mini" type="danger" @click="handleView(scope.$index, scope.row)" plain>View Details</el-button>
+                                <el-button icon="el-icon-view" v-else size="mini" type="warning" @click="handleView(scope.$index, scope.row)" plain>View Details</el-button>
+                            </el-tooltip>
+                        </template>
+                    </el-table-column>
+                </el-table>
+                <div class="d-flex justify-content-between mt-2">
+                    <el-checkbox v-model="showAllData">Show All</el-checkbox>
+                    <el-pagination :current-page.sync="page" :pager-count="5" :page-size="this.pageSize" background layout="prev, pager, next" :total="this.tableData.length" @current-change="setPage">
+                    </el-pagination>
+                </div>
             </div>
-        </div>
+        </el-main>
     </main>
     <!-- Add Drawer -->
     <el-drawer title="New Admission" :visible.sync="openAddDrawer" size="90%" :before-close="closeAddDrawer">
