@@ -26,7 +26,8 @@ class userModel extends Model
         'brgy',
         'city',
         'section',
-        'phone_number'
+        'phone_number',
+        'status'
     ];
     public function cbc()
     {

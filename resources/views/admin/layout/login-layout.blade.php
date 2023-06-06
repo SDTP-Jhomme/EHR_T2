@@ -54,7 +54,7 @@
                 axios.post("{{route('admin-loginPost')}}", data)
                     .then(response => {
                         if (response.data.error) {
-                            console.log(response.data.adminErr);
+                            console.log(response.data.error);
                             this.userErr = response.data.adminErr
                             this.passErr = response.data.passErr
                             setTimeout(() => {
@@ -70,6 +70,12 @@
                             }, 1000)
                         }
                     })
+                    .catch(error => {
+                        // Handle error response
+                        console.error(error.response.data);
+                        // this.$message.error("Cannot submit the form. Please check the error(s).")
+                        return false;
+                    });
                 // Simulate a loading delay
                 setTimeout(() => {
                     this.fullscreenLoading = false;

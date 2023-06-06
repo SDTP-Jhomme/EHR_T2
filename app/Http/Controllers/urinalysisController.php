@@ -23,6 +23,7 @@ class urinalysisController extends Controller
         $clientInfoData['password'] = $hashed_password;
         $clientInfoData['avatar'] = $avatar;
         $clientInfoData['section'] = "Urinalysis";
+        $clientInfoData['status'] = "Active";
         $phoneNumber = $clientInfoData['phone_number'];
         $identification = $clientInfoData['identification'];
         $clientInfo = userModel::create($clientInfoData);

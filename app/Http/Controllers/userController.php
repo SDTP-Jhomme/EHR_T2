@@ -54,6 +54,7 @@ class userController extends Controller
                     "section" => $data_row->section,
                     "address" => $address,
                     "password" => $data_row->password,
+                    "status" => $data_row->status,
                 );
 
                 array_push($user_data, $array_data);

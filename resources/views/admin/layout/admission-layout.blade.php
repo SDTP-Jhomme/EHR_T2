@@ -252,6 +252,19 @@
                 }
                 return '';
             },
+                usersTable() {
+                    return this.tableData
+                        .filter((data) => {
+                            return data.name.toLowerCase().includes(this.searchName.toLowerCase());
+                        })
+                        .filter((data) => {
+                            return data.identification.toLowerCase().includes(this.searchID.toLowerCase());
+                        })
+                        .filter((data) => {
+                            return data.phone_number.toLowerCase().includes(this.searchContact.toLowerCase());
+                        })
+                        .slice(this.pageSize * this.page - this.pageSize, this.pageSize * this.page)
+                }
         },
 
         methods: {

@@ -31,14 +31,31 @@
                                                             </div>
                                                             <div>
                                                                 <el-button type="primary" @click="openAddDrawer = true" size="small" icon="el-icon-user-solid">Add New Student</el-button>
-                                                                <!-- <button type="button" class="btn btn-primary btn-sm" @click="openAddDrawer = true" data-bs-toggle="offcanvas" data-bs-target="#addClient" aria-controls="addClient">
-                                                                    <i class="fas fa-user-plus pe-2"></i>
-                                                                    Add new Student
-                                                                </button> -->
                                                             </div>
                                                         </div>
-                                                        <el-table v-if="this.tableData" style="width: 100%" border height="400" v-loading="tableLoad" element-loading-text="Loading. Please wait..." element-loading-spinner="el-icon-loading">
+                                                        <div class="d-flex justify-content-between align-items-center mb-3">
+                                                            <div class="d-flex">
+                                                                <el-select v-model="searchValue" size="mini" placeholder="Select Column" @changed="changeColumn" clearable>
+                                                                    <el-option v-for="search in options" :key="search.value" :label="search.label" :value="search.value">
+                                                                    </el-option>
+                                                                </el-select>
+                                                                <div class="ps-2">
+                                                                    <div v-if="searchValue == 'identification'">
+                                                                        <el-input v-model="searchID" size="mini" placeholder="Type to search..." clearable />
+                                                                    </div>
+                                                                    <div v-else-if="searchValue == 'name'">
+                                                                        <el-input v-model="searchName" size="mini" placeholder="Type to search..." clearable />
+                                                                    </div>
+                                                                    <div v-else>
+                                                                        <el-input v-model="searchNull" size="mini" placeholder="Type to search..." clearable />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <el-table v-if="this.tableData"  :data="usersTable" style="width: 100%" border height="400" v-loading="tableLoad" element-loading-text="Loading. Please wait..." element-loading-spinner="el-icon-loading">
                                                             <el-table-column label="No." type="index" width="50">
+                                                            </el-table-column>
+                                                            <el-table-column sortable label="Identification No." width="200" prop="identification">
                                                             </el-table-column>
                                                             <el-table-column sortable label="Name" width="200" prop="name">
                                                             </el-table-column>
@@ -50,62 +67,6 @@
                                                                 <!--  -->
                                                             </el-table-column>
                                                         </el-table>
-                                                        <!-- <div class="table-responsive mt-1">
-                                                            <table class="table table-hover select-table" v-if="this.tableData" style="width: 100%" border height="400" v-loading="tableLoad" element-loading-text="Loading. Please wait..." element-loading-spinner="el-icon-loading">
-                                                                <thead class="thead">
-                                                                    <tr>
-                                                                        <th>
-                                                                            <div class="form-check form-check-flat mt-0">
-                                                                                <label class="form-check-label">
-                                                                                    <input type="checkbox" class="form-check-input" aria-checked="false"><i class="input-helper"></i></label>
-                                                                            </div>
-                                                                        </th>
-                                                                        <th>Student</th>
-                                                                        <th>Year</th>
-                                                                        <th>Course</th>
-                                                                        <th>Status</th>
-                                                                        <th>Action</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    <tr>
-                                                                        <td>
-                                                                            <div class="form-check form-check-flat mt-0">
-                                                                                <label class="form-check-label">
-                                                                                    <input type="checkbox" class="form-check-input" aria-checked="false"><i class="input-helper"></i></label>
-                                                                            </div>
-                                                                        </td>
-                                                                        <td>
-                                                                            <div class="d-flex ">
-                                                                                <img src="" :src="tableData.avatar" alt="">
-                                                                                <div>
-                                                                                    <h6 prop="name" v-for="tableData.name"></h6>
-                                                                                    <p>Student</p>
-                                                                                </div>
-                                                                            </div>
-                                                                        </td>
-                                                                        <td>
-                                                                            <h6>Year</h6>
-                                                                            <p>section</p>
-                                                                        </td>
-                                                                        <td>
-                                                                            <h6>Course</h6>
-                                                                        </td>
-                                                                        <td>
-                                                                            <span class="badge badge-opacity-warning">In
-                                                                                progress</span>
-                                                                        </td>
-                                                                        <td>
-                                                                            <div class="">
-                                                                                <button type="button" class="btn-sm btn-primary me-1" data-bs-toggle="tooltip" data-bs-placement="bottom" title="View"><i class="fas fa-eye"></i></button>
-                                                                                <button type="button" class="btn-sm btn-warning me-1" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit"><i class="fas fa-edit text-light"></i></button>
-                                                                                <button type="button" class="btn-sm btn-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete"><i class="fas fa-trash"></i></button>
-                                                                            </div>
-                                                                        </td>
-                                                                    </tr>
-                                                                </tbody>
-                                                            </table>
-                                                        </div> -->
                                                     </div>
                                                 </div>
                                             </div>

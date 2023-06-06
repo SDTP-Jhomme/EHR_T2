@@ -81,6 +81,10 @@ class adminController extends Controller
                     return response()->json($response);
                 }
             }
+        }else{
+            $response["error"] = true;
+            $response["adminErr"] = "Username is incorrect!";
+            return response()->json($response , 500);
         }
     }
     public function adminLogout(Request $request)

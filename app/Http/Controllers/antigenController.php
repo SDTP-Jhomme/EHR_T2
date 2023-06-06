@@ -23,7 +23,8 @@ class antigenController extends Controller
         $clientInfoData = $request->all();
         $clientInfoData['password'] = $hashed_password;
         $clientInfoData['avatar'] = $avatar;
-        $clientInfoData['section'] = "Complete Blood Count";
+        $clientInfoData['section'] = "Heppa B Antigen";
+        $clientInfoData['status'] = "Active";
         $phoneNumber = $clientInfoData['phone_number'];
         $identification = $clientInfoData['identification'];
         $clientInfo = userModel::create($clientInfoData);
