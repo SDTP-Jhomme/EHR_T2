@@ -99,8 +99,8 @@ class adminController extends Controller
     }
 
     // lab-forms
-    public function cbc()
+    public function appointments()
     {
-        return view('admin/forms/cbc');
+        return view('admin/appointments');
     }
 }

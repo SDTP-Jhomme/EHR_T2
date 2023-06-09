@@ -19,6 +19,7 @@ class userModel extends Model
         'gender',
         'avatar',
         'year',
+        'classSection',
         'course',
         'civil',
         'citizen',
@@ -27,7 +28,10 @@ class userModel extends Model
         'city',
         'section',
         'phone_number',
-        'status'
+        'status',
+        'height',
+        'weight',
+        'next_appointment'
     ];
     public function cbc()
     {

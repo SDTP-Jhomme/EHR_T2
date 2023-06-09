@@ -15,7 +15,7 @@ class urinalysisController extends Controller
         $password = $this->random_password(8);
 
         $gender = $request->input('gender');
-        $avatar = ($gender == 'Male') ? "assets/avatar/default.png" : "assets/avatar/default-woman.png";
+        $avatar = ($gender == 'Male') ? "storage/assets/avatar/default.png" : "storage/assets/avatar/default-woman.png";
 
         $hashed_password = Hash::make($password);
 
@@ -119,5 +119,99 @@ class urinalysisController extends Controller
         }
 
         return $password;
+    }
+    public function fetchUrinalysis(){
+        $user_data = array();
+        $response = userModel::join('urinalysis_table', 'client_info.id', '=', 'urinalysis_table.student_id')
+        ->select('client_info.*', 'urinalysis_table.*') // Select all columns from 'client_info' and 'cbc' tables
+        ->get();
+        if ($response->count() > 0) {
+            foreach ($response as $data_row) {
+                $fullname = $this->fetchFullName($data_row);
+                $birthdate = date("F d, Y", strtotime($data_row->birthdate));
+                $avatar = $this->fetchAvatarPath($data_row->avatar);
+                $address = $this->fetchAddress($data_row);
+
+                $array_data = array(
+                    "id" => $data_row->id,
+                    "identification" => $data_row->identification,
+                    "name" => $fullname,
+                    "lastname" => $data_row->lastname,
+                    "firstname" => $data_row->firstname,
+                    "midname" => $data_row->midname,
+                    "birthdate" => $birthdate,
+                    "gender" => $data_row->gender,
+                    "avatar" => $avatar,
+                    "year" => $data_row->year,
+                    "course" => $data_row->course,
+                    "civil_status" => $data_row->civil,
+                    "citizenship" => $data_row->citizen,
+                    "section" => $data_row->section,
+                    "address" => $address,
+                    "password" => $data_row->password,
+                    "status" => $data_row->status,
+                    "phone_number" => $data_row->phone_number,
+                    "classSection" => $data_row->classSection,
+                    "age" => $data_row->age,
+                    "requestDate" => $data_row->requestDate,
+                    "color" => $data_row->color,
+                    "transparency" => $data_row->transparency,
+                    "gravity" => $data_row->gravity,
+                    "ph" => $data_row->ph,
+                    "sugar" => $data_row->sugar,
+                    "protein" => $data_row->protein,
+                    "pregnancy" => $data_row->pregnancy,
+                    "pus" => $data_row->pus,
+                    "rbc" => $data_row->rbc,
+                    "cast" => $data_row->cast,
+                    "urates" => $data_row->urates,
+                    "uric" => $data_row->uric,
+                    "cal" => $data_row->cal,
+                    "epith" => $data_row->epith,
+                    "mucus" => $data_row->mucus,
+                    "otherOthers" => $data_row->otherOthers,
+                    "pathologist" => $data_row->pathologist,
+                    "technologist" => $data_row->technologist
+                );
+                array_push($user_data, $array_data);
+            }
+        } else {
+            $response = array();
+            $response["error"] = true;
+            $response["message"] = "Table is empty!";
+        }
+            if($user_data){
+                $response["error"] = false;
+                return response()->json($user_data);
+            }else{
+                
+                $response["error"] = true;
+                $response["message"] = "Table is empty!";
+                return response()->json($user_data,500);
+            }
+    }
+    function fetchFullName($data_row)
+    {
+        $fullname = ucfirst($data_row->firstname) . " " . trim(substr(ucfirst($data_row->midname), 0, 1), "undefined") . " " . ucfirst($data_row->lastname);
+        return $fullname;
+    }
+
+    function fetchFormattedBirthdate($data_row)
+    {
+        $db_birthdate = $data_row->birthdate;
+        $birthday = substr($db_birthdate, 4, 11);
+        $birthdate = date("F d, Y", strtotime($birthday));
+        return $birthdate;
+    }
+
+    function fetchAvatarPath($db_avatar)
+    {
+        $avatar = $db_avatar;
+        return $avatar;
+    }
+    function fetchAddress($data_row)
+    {
+        $address = $data_row->street . " " . $data_row->barangay . " " . $data_row->city;
+        return $address;
     }
 }
