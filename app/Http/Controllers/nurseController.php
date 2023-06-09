@@ -21,7 +21,7 @@ class nurseController extends Controller
         $lastname = $request->input('lastname');
         $gender = $request->input('gender');
         $birthdate = $request->input('birthdate');
-        $avatar = ($gender == 'Male') ? "storage/assets/avatar/default.png" : "storage/assets/avatar/default-woman.png";
+        $avatar = ($gender == 'Male') ? "assets/avatar/default.png" : "assets/avatar/default-woman.png";
         $status = "Active";
         $street = $request->input('street');
         $brgy = $request->input('brgy');

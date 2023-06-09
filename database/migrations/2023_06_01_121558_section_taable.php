@@ -11,9 +11,6 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('cbc_table', function (Blueprint $table) {
-            $table->string('section');
-        });
         Schema::table('client_info', function (Blueprint $table) {
             $table->string('section');
         });

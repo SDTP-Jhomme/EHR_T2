@@ -6,17 +6,32 @@
         data() {
             return {
                 fullscreenLoading: true,
+                student_data: [],
+                avatar:""
             };
         },
         created() {
-
+            this.getID()
         },
         mounted() {
+            this.getID();
             setTimeout(() => {
                 this.fullscreenLoading = false
             }, 2000)
         },
         methods: {
+            getID() {
+                axios.post("{{route('student-fetch')}}")
+                    .then(response => {
+                        if (response) {
+                            this.student_data = response.data
+                            console.log(this.student_data)
+                        }
+                })
+                .catch(error => {
+                    console.error(error.response);
+                });
+            },
             logout() {
                     this.fullscreenLoading = true
                     axios.post("{{route('studentLogout')}}")

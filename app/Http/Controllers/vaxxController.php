@@ -15,7 +15,7 @@ class vaxxController extends Controller
         $password = $this->random_password(8);
 
         $gender = $request->input('gender');
-        $avatar = ($gender == 'Male') ? "storage/assets/avatar/default.png" : "storage/assets/avatar/default-woman.png";
+        $avatar = ($gender == 'Male') ? "assets/avatar/default.png" : "assets/avatar/default-woman.png";
 
         $hashed_password = Hash::make($password);
 

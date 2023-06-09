@@ -1,0 +1,106 @@
+.card-overflow-hidden {
+    overflow: hidden;
+}
+
+.cbc-checkup {
+    background-color: #ffc0db !important;
+}
+.urinalysis-checkup {
+    background-color: #fffdc0 !important;
+}
+
+.fecalysis-checkup {
+    background-color: #ffe0c0  !important;
+}
+
+.xray-checkup {
+    background-color: #e2c0ff  !important;
+}
+
+.antigen-checkup {
+    background-color: #c0ffd0 !important;
+}
+
+.vaccine-checkup {
+    background-color: #c0e4ff !important;
+}
+
+.card-border-cbc {
+    outline-style: solid !important;
+    outline-color: #e4abab !important;
+    outline-width: 3px !important;
+    outline-offset: -1px !important;
+}
+
+.card-border-urinalysis {
+    outline-style: solid !important;
+    outline-color: #e6e4aa !important;
+    outline-width: 3px !important;
+    outline-offset: -1px !important;
+}
+
+.card-border-fecalysis {
+    outline-style: solid !important;
+    outline-color: #dec2a6 !important;
+    outline-width: 3px !important;
+    outline-offset: -1px !important;
+}
+.card-border-xray {
+    outline-style: solid !important;
+    outline-color: #bea2d7 !important;
+    outline-width: 3px !important;
+    outline-offset: -1px !important;
+}
+
+.card-border-antigen {
+    outline-style: solid !important;
+    outline-color: #a3d9b1 !important;
+    outline-width: 3px !important;
+    outline-offset: -1px !important;
+}
+
+.card-border-vaccine {
+    outline-style: solid !important;
+    outline-color: #a3c2d9 !important;
+    outline-width: 3px !important;
+    outline-offset: -1px !important;
+}
+
+.card-with-hover {
+    position: absolute;
+    right: 0;
+    left: 0;
+    margin: 0 auto;
+    top: 100%;
+    background-color: rgb(255 255 255 / 15%);
+    height: 100%;
+    transition: all 0.4s;
+}
+
+.card-with-hover-active {
+    position: absolute;
+    right: 0;
+    left: 0;
+    margin: 0 auto;
+    top: 0;
+    background-color: rgb(255 255 255 / 15%);
+    height: 100%;
+    transition: all 0.4s;
+}
+
+.card-text-center {
+    position: relative;
+    top: 100%;
+    transform: translateY(-85%);
+    padding: 5px;
+    background: #ffffff;
+    line-height: 10px;
+}
+
+.card-text-center h4 {
+    color: #777777;
+}
+
+.card-overflow-hidden:hover .card-with-hover {
+    top: 0;
+}

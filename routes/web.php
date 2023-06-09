@@ -88,5 +88,5 @@ Route::get('PieChart', 'App\Http\Controllers\actionController@getChartData')->na
 Route::post('student/login','App\Http\Controllers\studentController@login')->name('student-loginPost');
 Route::get('student/dashboard','App\Http\Controllers\studentController@dashboard')->name('student-dashboard');
 Route::get('/','App\Http\Controllers\studentController@studentLogin')->name('student-login');
-Route::get('student-fetch', 'App\Http\Controllers\studentController@fetch')->name('student-fetch');
+Route::post('student-fetch', 'App\Http\Controllers\studentController@fetch')->name('student-fetch');
 Route::post('student/logout', 'App\Http\Controllers\studentController@studentLogout')->name('studentLogout');
