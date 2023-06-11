@@ -291,9 +291,9 @@
                         .filter((data) => {
                             return data.name.toLowerCase().includes(this.searchName.toLowerCase());
                         })
-                        .filter((data) => {
-                            return data.identification.toLowerCase().includes(this.searchID.toLowerCase());
-                        })
+                        // .filter((data) => {
+                        //     return data.identification.toLowerCase().includes(this.searchID.toLowerCase());
+                        // })
                         .filter((data) => {
                             return data.status.toLowerCase().includes(this.searchContact.toLowerCase());
                         })
@@ -373,15 +373,13 @@
                         console.log(response.data);
                         if (response.data.error) {
                             this.tableData = [];
-                            this.tableDataErr = response.data.error;
-                            console.log(this.tableDataErr);
                         } else {
                             this.tableData = response.data;
                             this.checkIdentification = response.data.map(res => res.identification);
                         }
                     })
                     .catch(error => {
-                        console.error(error);
+                        console.error(error.response);
                     });
             },
             calculateAge(birthDay) {

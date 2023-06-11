@@ -1,9 +1,9 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" type="text/css" href="<?php echo asset('storage/assets/css/style.css') ?>">
-<link rel="stylesheet" type="text/css" href="<?php echo asset('storage/assets/css/bootstrap.min.css') ?>">
-<link rel="stylesheet" type="text/css" href="<?php echo asset('storage/assets/fontawesome/css/all.min.css') ?>">
+<link rel="stylesheet" type="text/css" href="<?php echo asset('assets/css/style.css') ?>">
+<link rel="stylesheet" type="text/css" href="<?php echo asset('assets/css/bootstrap.min.css') ?>">
+<link rel="stylesheet" type="text/css" href="<?php echo asset('assets/fontawesome/css/all.min.css') ?>">
 <title>@yield('title')</title>
 
 <div id="app">
@@ -15,8 +15,8 @@
         <span class="spinner-text">Please Wait...</span>
     </div>
 </div>
-<script src="<?php echo asset('storage/assets/js/bootstrap.bundle.js') ?>"></script>
-<script src="<?php echo asset('storage/assets/js/main.js') ?>"></script>
+<script src="<?php echo asset('assets/js/bootstrap.bundle.js') ?>"></script>
+<script src="<?php echo asset('assets/js/main.js') ?>"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

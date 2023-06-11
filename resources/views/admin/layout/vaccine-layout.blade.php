@@ -1,11 +1,11 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" type="text/css" href="<?php echo asset('storage/assets/css/style.css') ?>">
-<link rel="stylesheet" type="text/css" href="<?php echo asset('storage/assets/css/table.css') ?>">
-<link rel="stylesheet" type="text/css" href="<?php echo asset('storage/assets/css/laboratory.css') ?>">
-<link rel="stylesheet" type="text/css" href="<?php echo asset('storage/assets/css/bootstrap.min.css') ?>">
-<link rel="stylesheet" type="text/css" href="<?php echo asset('storage/assets/fontawesome/css/all.min.css') ?>">
+<link rel="stylesheet" type="text/css" href="<?php echo asset('assets/css/style.css') ?>">
+<link rel="stylesheet" type="text/css" href="<?php echo asset('assets/css/table.css') ?>">
+<link rel="stylesheet" type="text/css" href="<?php echo asset('assets/css/laboratory.css') ?>">
+<link rel="stylesheet" type="text/css" href="<?php echo asset('assets/css/bootstrap.min.css') ?>">
+<link rel="stylesheet" type="text/css" href="<?php echo asset('assets/fontawesome/css/all.min.css') ?>">
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
 <link rel="stylesheet" ref="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
 
@@ -22,17 +22,17 @@
         <nav class="navbar">
             <div class="container-fluid d-flex align-items-center">
                 <div class="me-3">
-                    <img class="w-25 img-fluid rounded-circle" src="<?php echo asset('storage/assets/img/logo.png') ?>" alt="Logo image"> </a>
+                    <img class="w-25 img-fluid rounded-circle" src="<?php echo asset('assets/img/logo.png') ?>" alt="Logo image"> </a>
                 </div>
                 <div class="nav">
                     <li class="nav-item">
                         <div class="ms-auto mt-auto">
                             <div class="dropstart user-dropdown">
                                 <a class="nav-link" id="UserDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img class="img-xs rounded-circle" src="<?php echo asset('storage/assets/avatar/default.png') ?>" alt="Profile image"> </a>
+                                    <img class="img-xs rounded-circle" src="<?php echo asset('assets/avatar/default.png') ?>" alt="Profile image"> </a>
                                 <div class="dropdown-menu" aria-labelledby="UserDropdown">
                                     <div class="dropdown-header text-center">
-                                        <img class="img-md rounded-circle" src="<?php echo asset('storage/assets/avatar/default.png') ?>" alt="Profile image">
+                                        <img class="img-md rounded-circle" src="<?php echo asset('assets/avatar/default.png') ?>" alt="Profile image">
                                         <p class="mb-1 mt-3 fw-light text-muted">Allen Moreno</p>
                                     </div>
                                     <div class="dropdown-item">
@@ -52,7 +52,7 @@
     @yield('content')
     </div>
 </div>
-<script src="<?php echo asset('storage/assets/js/bootstrap.bundle.js') ?>"></script>
+<script src="<?php echo asset('assets/js/bootstrap.bundle.js') ?>"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

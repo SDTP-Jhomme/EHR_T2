@@ -3,7 +3,7 @@
 @extends('admin/layout/login-layout')
 
 <head>
-    <link rel="shortcut icon" type="image/png" href="<?php echo asset('storage/assets/img/favicon.png') ?>">
+    <link rel="shortcut icon" type="image/png" href="<?php echo asset('assets/img/favicon.png') ?>">
     @section('title', 'Admin-Login')
 </head>
 

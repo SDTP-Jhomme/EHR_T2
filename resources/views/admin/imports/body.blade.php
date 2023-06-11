@@ -1,5 +1,5 @@
 
-<script src="<?php echo asset('storage/assets/js/bootstrap.bundle.js') ?>"></script>
+<script src="<?php echo asset('assets/js/bootstrap.bundle.js') ?>"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- Vue.js CDN -->

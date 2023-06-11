@@ -18,10 +18,10 @@ use App\Http\Controllers\adminController;
 // });
 // admin side
 Route::post('/login','App\Http\Controllers\adminController@login')->name('admin-loginPost');
-Route::get('/dashboard','App\Http\Controllers\adminController@dashboard')->name('admin-dashboard');
-Route::get('/admission','App\Http\Controllers\adminController@admission')->name('admin-admission');
-Route::get('/appointments','App\Http\Controllers\adminController@appointments')->name('admin-appointments');
-Route::get('/login','App\Http\Controllers\adminController@adminLogin')->name('admin-login');
+Route::get('/admin/dashboard','App\Http\Controllers\adminController@dashboard')->name('admin-dashboard');
+Route::get('/admin/admission','App\Http\Controllers\adminController@admission')->name('admin-admission');
+Route::get('/admin/appointments','App\Http\Controllers\adminController@appointments')->name('admin-appointments');
+Route::get('/admin/login','App\Http\Controllers\adminController@adminLogin')->name('admin-login');
 
 Route::post('/admission','App\Http\Controllers\actionController@store')->name('admin-store');
 Route::get('fetch', 'App\Http\Controllers\adminController@fetch')->name('fetch');
@@ -86,7 +86,15 @@ Route::get('PieChart', 'App\Http\Controllers\actionController@getChartData')->na
 
 // student login and redirect
 Route::post('student/login','App\Http\Controllers\studentController@login')->name('student-loginPost');
-Route::get('student/dashboard','App\Http\Controllers\studentController@dashboard')->name('student-dashboard');
+Route::get('/dashboard','App\Http\Controllers\studentController@dashboard')->name('student-dashboard');
 Route::get('/','App\Http\Controllers\studentController@studentLogin')->name('student-login');
 Route::post('student-fetch', 'App\Http\Controllers\studentController@fetch')->name('student-fetch');
+Route::post('fetch-avatar', 'App\Http\Controllers\studentController@fetchAvatar')->name('fetchAvatar');
 Route::post('student/logout', 'App\Http\Controllers\studentController@studentLogout')->name('studentLogout');
+// students fetch records
+Route::post('student-cbc', 'App\Http\Controllers\fetch_userRecord@fetch_Cbc')->name('fetch_Cbc');
+Route::post('student-antigen', 'App\Http\Controllers\fetch_userRecord@fetch_Antigen')->name('fetch_Antigen');
+Route::post('student-urinalysis', 'App\Http\Controllers\fetch_userRecord@fetch_Urinalysis')->name('fetch_Urinalysis');
+Route::post('student-xray', 'App\Http\Controllers\fetch_userRecord@fetch_Xray')->name('fetch_Xray');
+Route::post('student-fecalysis', 'App\Http\Controllers\fetch_userRecord@fetch_Fecalysis')->name('fetch_Fecalysis');
+Route::post('student-vaccine', 'App\Http\Controllers\fetch_userRecord@fetch_Vaccine')->name('fetch_Vaccine');

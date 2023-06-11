@@ -32,6 +32,7 @@ class urinalysisModel extends Model
         'pathologist',
         'technologist',
         'student_id',
+        'section',
     ];
     public function user()
 {

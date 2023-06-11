@@ -55,6 +55,18 @@ class studentController extends Controller
         } 
         return response()->json($user_data);
     }
+    public function fetchAvatar(Request $request){
+        $user_id = $request->input('id');
+
+    $user = userModel::find($user_id);
+
+    if ($user) {
+        $avatar = $user->avatar;
+        return response()->json(['avatar' => $avatar]);
+    }
+
+    return response()->json(['error' => 'User not found']);
+    }
     public function dashboard(Request $request)
     {
         $user = $request->session()->get('student_id');
