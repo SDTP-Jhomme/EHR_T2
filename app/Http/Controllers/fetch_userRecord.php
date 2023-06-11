@@ -20,7 +20,7 @@ class fetch_userRecord extends Controller
         $studentId = Session::get('student_id');
         $response = cbcModel::join('client_info', 'cbc_table.student_id', '=', 'client_info.id')
             ->select('client_info.*', 'cbc_table.*')
-            ->where('client_info.id', $studentId)
+            ->where('cbc_table.student_id', $studentId)
             ->get();
         if ($response->count() > 0) {
             foreach ($response as $data_row) {
@@ -35,7 +35,8 @@ class fetch_userRecord extends Controller
                     "mch" => $data_row->mch,
                     "mchc" => $data_row->mchc,
                     "platelet" => $data_row->platelet,
-                    "section" => $data_row->section
+                    "section" => $data_row->section,
+                    "student_id" => $data_row->student_id
                 );
                 array_push($user_data, $array_data);
             }
@@ -57,7 +58,10 @@ class fetch_userRecord extends Controller
     {
         $user_data = array();
         $studentId = Session::get('student_id');
-        $response = antigenModel::all()->where('student_id', $studentId);
+        $response = antigenModel::join('client_info', 'antigen_table.student_id', '=', 'client_info.id')
+            ->select('client_info.*', 'antigen_table.*')
+            ->where('antigen_table.student_id', $studentId)
+            ->get();
         if ($response->count() > 0) {
             foreach ($response as $data_row) {
                 $array_data = array(
@@ -65,6 +69,7 @@ class fetch_userRecord extends Controller
                     "age" => $data_row->age,
                     "sampleDate" => $data_row->sampleDate,
                     "result" => $data_row->result,
+                    "student_id" => $data_row->student_id
                 );
 
 
@@ -75,12 +80,23 @@ class fetch_userRecord extends Controller
             $response["error"] = true;
             return response()->json($user_data, 500);
         }
+        if ($user_data) {
+            $response["error"] = false;
+            return response()->json($user_data);
+        } else {
+
+            $response["error"] = true;
+            return response()->json($user_data, 500);
+        }
     }
     public function fetch_Urinalysis()
     {
         $user_data = array();
         $studentId = Session::get('student_id');
-        $response = urinalysisModel::all()->where('student_id', $studentId);
+        $response = urinalysisModel::join('client_info', 'urinalysis_table.student_id', '=', 'client_info.id')
+            ->select('client_info.*', 'urinalysis_table.*')
+            ->where('urinalysis_table.student_id', $studentId)
+            ->get();
         if ($response->count() > 0) {
             foreach ($response as $data_row) {
                 $array_data = array(
@@ -104,9 +120,9 @@ class fetch_userRecord extends Controller
                     "mucus" => $data_row->mucus,
                     "otherOthers" => $data_row->otherOthers,
                     "pathologist" => $data_row->pathologist,
-                    "technologist" => $data_row->technologist
+                    "technologist" => $data_row->technologist,
+                    "student_id" => $data_row->student_id
                 );
-
 
                 array_push($user_data, $array_data);
             }
@@ -115,12 +131,23 @@ class fetch_userRecord extends Controller
             $response["error"] = true;
             return response()->json($user_data, 500);
         }
+        if ($user_data) {
+            $response["error"] = false;
+            return response()->json($user_data);
+        } else {
+
+            $response["error"] = true;
+            return response()->json($user_data, 500);
+        }
     }
     public function fetch_Xray()
     {
         $user_data = array();
         $studentId = Session::get('student_id');
-        $response = xrayModel::all()->where('student_id', $studentId);
+        $response = xrayModel::join('client_info', 'xray_table.student_id', '=', 'client_info.id')
+            ->select('client_info.*', 'xray_table.*')
+            ->where('xray_table.student_id', $studentId)
+            ->get();
         if ($response->count() > 0) {
             foreach ($response as $data_row) {
                 $array_data = array(
@@ -131,6 +158,7 @@ class fetch_userRecord extends Controller
                     "room_bed" => $data_row->room_bed,
                     "type_examination" => $data_row->type_examination,
                     "ph" => $data_row->ph,
+                    "student_id" => $data_row->student_id
                 );
 
 
@@ -141,12 +169,23 @@ class fetch_userRecord extends Controller
             $response["error"] = true;
             return response()->json($user_data, 500);
         }
+        if ($user_data) {
+            $response["error"] = false;
+            return response()->json($user_data);
+        } else {
+
+            $response["error"] = true;
+            return response()->json($user_data, 500);
+        }
     }
     public function fetch_Fecalysis()
     {
         $user_data = array();
         $studentId = Session::get('student_id');
-        $response = fecaModel::all()->where('student_id', $studentId);
+        $response = fecaModel::join('client_info', 'fecalysis_table.student_id', '=', 'client_info.id')
+            ->select('client_info.*', 'fecalysis_table.*')
+            ->where('fecalysis_table.student_id', $studentId)
+            ->get();
         if ($response->count() > 0) {
             foreach ($response as $data_row) {
                 $array_data = array(
@@ -169,7 +208,43 @@ class fetch_userRecord extends Controller
                     "otherTrophozoites" => $data_row->otherTrophozoites,
                     "remarks" => $data_row->remarks,
                     "pathologist" => $data_row->pathologist,
-                    "technologist" => $data_row->technologist
+                    "technologist" => $data_row->technologist,
+                    "student_id" => $data_row->student_id
+                );
+
+                array_push($user_data, $array_data);
+            }
+        } else {
+            $response = array();
+            $response["error"] = true;
+            return response()->json($user_data, 500);
+        }
+        if ($user_data) {
+            $response["error"] = false;
+            return response()->json($user_data);
+        } else {
+
+            $response["error"] = true;
+            return response()->json($user_data, 500);
+        }
+    }
+    public function fetch_Vaccine()
+    {
+        $user_data = array();
+        $studentId = Session::get('student_id');
+        $response = fecaModel::join('client_info', 'vaccine_table.student_id', '=', 'client_info.id')
+            ->select('client_info.*', 'vaccine_table.*')
+            ->where('vaccine_table.student_id', $studentId)
+            ->get();
+        if ($response->count() > 0) {
+            foreach ($response as $data_row) {
+                $array_data = array(
+                    "id" => $data_row->id,
+                    "age" => $data_row->age,
+                    "vaccinationDate" => $data_row->vaccinationDate,
+                    "vaccineBatch" => $data_row->vaccineBatch,
+                    "healthcareProvider" => $data_row->healthcareProvider,
+                    "student_id" => $data_row->student_id
                 );
 
 
@@ -180,27 +255,11 @@ class fetch_userRecord extends Controller
             $response["error"] = true;
             return response()->json($user_data, 500);
         }
-    }
-    public function fetch_Vaccine()
-    {
-        $user_data = array();
-        $studentId = Session::get('student_id');
-        $response = vaxxModel::all()->where('student_id', $studentId);
-        if ($response->count() > 0) {
-            foreach ($response as $data_row) {
-                $array_data = array(
-                    "id" => $data_row->id,
-                    "age" => $data_row->age,
-                    "vaccinationDate" => $data_row->vaccinationDate,
-                    "vaccineBatch" => $data_row->vaccineBatch,
-                    "healthcareProvider" => $data_row->healthcareProvider,
-                );
-
-
-                array_push($user_data, $array_data);
-            }
+        if ($user_data) {
+            $response["error"] = false;
+            return response()->json($user_data);
         } else {
-            $response = array();
+
             $response["error"] = true;
             return response()->json($user_data, 500);
         }

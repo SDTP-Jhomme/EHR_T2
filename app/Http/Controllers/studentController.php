@@ -10,12 +10,17 @@ use Illuminate\Support\Facades\Auth;
 class studentController extends Controller
 {
 
-    public function fetch(){
+    public function profile()
+    {
+        return view('student/profile');
+    }
+    public function fetch()
+    {
 
         $user_data = array();
         $studentId = Session::get('student_id');
 
-        $fetchAll = userModel::all()->where('id',$studentId);
+        $fetchAll = userModel::all()->where('id', $studentId);
         if ($fetchAll->count() > 0) {
             foreach ($fetchAll as $data_row) {
                 $fullname = $this->getFullName($data_row);
@@ -38,7 +43,7 @@ class studentController extends Controller
                     "course" => $data_row->course,
                     "civil_status" => $data_row->civil,
                     "citizenship" => $data_row->citizen,
-                    "section" => $data_row->section,
+                    // "section" => $data_row->section,
                     "address" => $address,
                     "password" => $data_row->password,
                     "status" => $data_row->status,
@@ -52,20 +57,58 @@ class studentController extends Controller
 
                 array_push($user_data, $array_data);
             }
-        } 
+        }
         return response()->json($user_data);
     }
-    public function fetchAvatar(Request $request){
-        $user_id = $request->input('id');
+    public function updateAvatar(Request $update)
+    {
+        $user_id = $update->input('id');
+        $file = $update->input('file');
 
-    $user = userModel::find($user_id);
+        $update = userModel::where('id', $user_id)->update($file);
 
-    if ($user) {
-        $avatar = $user->avatar;
-        return response()->json(['avatar' => $avatar]);
+        if ($update) {
+            // Success
+            $response["error"] = false;
+            $response["message"] = "Successfully updates data";
+            return response()->json($response);
+        } else {
+            // Failed to update or record not found
+            $response["error"] = true;
+            $response["message"] = "Failed updates data";
+            return response()->json($response, 500);
+        }
+
     }
+    public function checkPass(Request $check)
+    {
+        $user_id = $check->input('id');
+        $user_record = userModel::find($user_id);
 
-    return response()->json(['error' => 'User not found']);
+        if (!$user_record || !password_verify($check->input("currentPassword"), $user_record->password)) {
+            $response["error"] = true;
+            $response["message"] = "Password is incorrect!";
+        } else {
+            $response = true;
+        }
+
+        return response()->json($response);
+    }
+    public function updatePassword(Request $request)
+    {
+        $user_id = $request->input("id");
+        $new_password = $request->input("newPassword");
+
+        $user = userModel::find($user_id);
+
+        if (!$user) {
+            return response()->json(['message' => 'User not found'], 404);
+        }
+
+        $user->password = bcrypt($new_password);
+        $user->save();
+
+        return response()->json(['message' => 'Password updated successfully']);
     }
     public function dashboard(Request $request)
     {
@@ -159,7 +202,7 @@ class studentController extends Controller
     }
 
     function getAvatarPath($db_avatar)
-    { 
+    {
         $avatar = $db_avatar;
         return $avatar;
     }
@@ -167,7 +210,8 @@ class studentController extends Controller
     {
         $address = $data_row->street . " " . $data_row->barangay . " " . $data_row->city;
         return $address;
-    }function getYrSect($data_row)
+    }
+    function getYrSect($data_row)
     {
         $yearSect = $data_row->year . " - Section " . $data_row->classSection;
         return $yearSect;

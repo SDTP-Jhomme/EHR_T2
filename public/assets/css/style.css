@@ -778,6 +778,47 @@ form .input-group .form-control:focus {
 .card-overflow-hidden:hover .card-with-hover-cam {
     top: 0;
 }
-.display-none{
+.display-none {
     display: none !important;
+}
+.avatar-container {
+    height: 178px;
+    position: relative;
+}
+
+.avatar-container img {
+    border-radius: 5px;
+}
+
+.profile .profile-card img {
+    max-width: 120px;
+    height: 120px;
+    object-fit: cover;
+}
+.avatar-overlay {
+    height: 178px;
+    width: 100%;
+    position: absolute;
+    background-color: #000000;
+    border-radius: 5px;
+    opacity: 0;
+    transition: all 0.4s;
+}
+
+.avatar-container:hover .avatar-overlay {
+    opacity: 0.5;
+}
+
+.hover-remove-avatar {
+    position: absolute;
+    font-size: 25px;
+    line-height: 178px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    color: #ffffff;
+}
+
+.hover-remove-avatar i {
+    cursor: pointer;
 }

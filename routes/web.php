@@ -98,3 +98,7 @@ Route::post('student-urinalysis', 'App\Http\Controllers\fetch_userRecord@fetch_U
 Route::post('student-xray', 'App\Http\Controllers\fetch_userRecord@fetch_Xray')->name('fetch_Xray');
 Route::post('student-fecalysis', 'App\Http\Controllers\fetch_userRecord@fetch_Fecalysis')->name('fetch_Fecalysis');
 Route::post('student-vaccine', 'App\Http\Controllers\fetch_userRecord@fetch_Vaccine')->name('fetch_Vaccine');
+// student profile
+Route::get('profile/', 'App\Http\Controllers\studentController@profile')->name('profile');
+Route::post('/profile-pass', 'App\Http\Controllers\studentController@checkPass')->name('checkPass');
+Route::post('/update-pass', 'App\Http\Controllers\studentController@updatePassword')->name('updatePassword');
