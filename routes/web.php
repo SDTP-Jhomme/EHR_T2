@@ -87,7 +87,6 @@ Route::get('Chart', 'App\Http\Controllers\actionController@getDataByMonth')->nam
 Route::get('PieChart', 'App\Http\Controllers\actionController@getChartData')->name('getChartData');
 
 // student login and redirect
-Auth::routes();
 Route::post('student/login','App\Http\Controllers\studentController@login')->name('student-loginPost');
 Route::get('/dashboard','App\Http\Controllers\studentController@dashboard')->name('student-dashboard');
 Route::get('/','App\Http\Controllers\studentController@studentLogin')->name('student-login');
@@ -105,3 +104,14 @@ Route::post('student-vaccine', 'App\Http\Controllers\fetch_userRecord@fetch_Vacc
 Route::get('profile/', 'App\Http\Controllers\studentController@profile')->name('profile');
 Route::post('/profile-pass', 'App\Http\Controllers\studentController@checkPass')->name('checkPass');
 Route::post('/update-pass', 'App\Http\Controllers\studentController@updatePassword')->name('updatePassword');
+
+// teacher's login
+Route::post('department/login','App\Http\Controllers\deptController@login')->name('department-loginPost');
+Route::get('/department/dashboard','App\Http\Controllers\deptController@dashboard')->name('department-dashboard');
+Route::get('/department/login','App\Http\Controllers\deptController@teacherLogin')->name('department-login');
+Route::post('department-fetch', 'App\Http\Controllers\deptController@fetch')->name('department-fetch');
+Route::post('department/logout', 'App\Http\Controllers\deptController@departmentLogout')->name('departmentLogout');
+// teacher profile
+Route::get('profile/', 'App\Http\Controllers\deptController@profile')->name('profile');
+Route::post('/profile-pass', 'App\Http\Controllers\deptController@checkPass')->name('checkPass');
+Route::post('/update-pass', 'App\Http\Controllers\deptController@updatePassword')->name('updatePassword');

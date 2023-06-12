@@ -25,9 +25,9 @@
                                             <h4 class="mt-2 mb-4 pb-1">User Login</h4>
                                         </div>
 
-                                        <label class="form-label" for="identification">Identification No.</label>
+                                        <label class="form-label" for="email">Email Address</label>
                                         <div class="form-outline">
-                                            <input v-on:keyup.enter="login" type="text" id="identification" class="form-control" :class="{'has-error': this.userErr}" v-model="identification" />
+                                            <input v-on:keyup.enter="login" type="text" id="email" class="form-control" :class="{'has-error': this.userErr}" v-model="email" />
                                         </div>
                                         <div class="">
                                             <span class="text-danger fst-italic error" v-text="userErr"></span>

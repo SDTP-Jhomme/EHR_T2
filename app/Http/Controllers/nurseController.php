@@ -12,6 +12,7 @@ class nurseController extends Controller
     
     public function storeNurse(Request $request)
     {
+        date_default_timezone_set("Asia/Manila");
         $password = $this->random_password(8);
 
         $phone_number = $request->input('phone_number');
@@ -26,6 +27,7 @@ class nurseController extends Controller
         $street = $request->input('street');
         $brgy = $request->input('brgy');
         $city = $request->input('city');
+        $date_now = date("m-d-Y");
         $hashed_password = Hash::make($password);
 
         $storeNurse = new nurseModel;
@@ -42,6 +44,7 @@ class nurseController extends Controller
         $storeNurse['status'] = $status;
         $storeNurse['password'] = $hashed_password;
         $storeNurse['avatar'] = $avatar;
+        $storeNurse['last_login'] = $date_now;
         $storeNurse->save();
 
         if( $storeNurse){

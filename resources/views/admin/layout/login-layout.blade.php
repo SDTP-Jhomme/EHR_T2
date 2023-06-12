@@ -64,6 +64,13 @@
                                 this.passErr = response.data.passErr
                             }, 2000)
                         } else {
+                            this.$notify({
+                                title: 'Success',
+                                message: 'Successfully logged in!',
+                                type: 'success',
+                                position: 'top-left',
+                                showClose: false
+                            });
                             this.fullscreenLoading = true;
                             setTimeout(() => {
                                 window.location.href = "{{route('admin-dashboard')}}"

@@ -23,5 +23,6 @@ class nurseModel extends Model
         'status',
         'password',
         'avatar',
+        'last_login'
     ];
 }
