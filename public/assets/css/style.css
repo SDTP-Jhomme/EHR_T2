@@ -731,7 +731,7 @@ form .input-group .form-control:focus {
     margin-bottom: 10rem;
 }
 .header-bg {
-    background: #3bb197bd !important;
+    background: #a2e4d6bd !important;
 }
 
 .card-text-camera {
@@ -821,4 +821,62 @@ form .input-group .form-control:focus {
 
 .hover-remove-avatar i {
     cursor: pointer;
+}
+.topbar-divider {
+    width: 0;
+    border-right: 1px solid #5d5959df;
+    height: calc(4.375rem - 2rem);
+    margin: auto 1rem;
+}
+.nav .home-div .home-link {
+    color: #198754 !important;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease-in-out;
+    z-index: 1;
+    border-radius: 8px;
+}
+.nav .home-div .home-link::before {
+    content: "";
+    position: absolute;
+    background: #fdeff2;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    top: 100%;
+    transition: all 0.4s;
+    z-index: -1;
+    display: block;
+    margin-right: 0.5em; /* Adjust as needed */
+    height: 1px;
+}
+.nav .home-div .home-link:hover::before {
+    background: #076b3c;
+    top: 0;
+    border-radius: 0px;
+}
+.nav .home-div .home-link:hover {
+    color: #105032 !important;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+/* .gradient-custom-1 {
+    background: linear-gradient(
+        166deg,
+        rgba(40 191 199) 0%,
+        rgba(147 74 152 / 73%) 35%,
+        rgba(0, 164, 255, 1) 100%
+    );
+    opacity: 1;
+    transition: 0.3s !important;
+} */
+.gradient-custom-2 {
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif !important;
+    background-color: #08aeea;
+    background-image: linear-gradient(142deg, #08aeea 0%, #2af598 100%);
+    opacity: 1;
+    transition: 0.3s !important;
+}
+.font-style {
+    font-size: 1rem !important;
 }

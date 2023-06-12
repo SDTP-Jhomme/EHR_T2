@@ -6,6 +6,7 @@
 <link rel="stylesheet" type="text/css" href="<?php echo asset('assets/css/laboratory.css') ?>">
 <link rel="stylesheet" type="text/css" href="<?php echo asset('assets/css/bootstrap.min.css') ?>">
 <link rel="stylesheet" type="text/css" href="<?php echo asset('assets/fontawesome/css/all.min.css') ?>">
+<link rel="stylesheet" type="text/css" href="<?php echo asset('css/styles.css') ?>">
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
 <!-- Element UI CSS -->
 <link rel="stylesheet" href="https://unpkg.com/element-ui@2.15.13/lib/theme-chalk/index.css">

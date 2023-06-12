@@ -7,7 +7,7 @@
             return {
                 student_data: [],
                 fullscreenLoading: true,
-                backToHome: true,
+                backToHome: false,
                 avatar: "",
                 id:"",
                 error: true,
@@ -35,6 +35,10 @@
             setTimeout(() => {
                 this.fullscreenLoading = false
             }, 2000)
+            if (window.location.pathname !== " /profile") {
+                localStorage.clear()
+                this.backToHome = true;
+            }
         },
         methods: {
             getID() {
@@ -146,7 +150,8 @@
                                 this.$notify({
                                     title: 'Success',
                                     message: 'Successfully logged out!',
-                                    type: 'success'
+                                    type: 'success',
+                                    showClose: false
                                 });
                                 setTimeout(() => {
                                     window.location.href = "{{route('student-login')}}"

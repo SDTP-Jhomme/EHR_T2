@@ -9,7 +9,14 @@ use Illuminate\Support\Facades\Auth;
 
 class studentController extends Controller
 {
-
+    protected function attemptLogin(Request $request)
+    {
+        $remember = $request->filled('remember'); // Get the value of the "Remember Me" checkbox
+    
+        return $this->guard()->attempt(
+            $this->credentials($request), $remember
+        );
+    }
     public function profile()
     {
         return view('student/profile');
@@ -141,8 +148,12 @@ class studentController extends Controller
     }
     public function login(Request $request)
     {
+        date_default_timezone_set("Asia/Manila");
+        $date_now = date("m-d-Y");
+
         $identification = $request->input('identification');
         $password = $request->input('password');
+        $remember = $request->filled('remember'); // Get the value of the "Remember Me" checkbox
 
         $user = userModel::where('identification', $identification)->first();
 
@@ -162,15 +173,31 @@ class studentController extends Controller
                 $response["studentErr"] = "Identification No. is incorrect!";
                 return response()->json($response);
             } else {
-                $hashedPassword = $user->password;
-                if (password_verify($password, $hashedPassword)) {
-                    $response["error"] = false;
-                    $request->session()->put('student_id', $user->id);
+                $status = $user->status;
+
+                if ($status == "Inactive") {
+
+                    $response["error"] = true;
+                    $response["studentErr"] = "User is inactive!";
                     return response()->json($response);
                 } else {
-                    $response["error"] = true;
-                    $response["passErr"] = "Password is incorrect!";
-                    return response()->json($response);
+                    $hashedPassword = $user->password;
+                    $db_last_login = $user->last_login;
+                    if (password_verify($password, $hashedPassword)) {
+                        if ($db_last_login != "") {
+                            $request->session()->put('student_id', $user->id);
+                            userModel::where('id', $request)
+                                ->update(['last_login' => $date_now]);
+                        } else {
+                            $response["error"] = false;
+                            $request->session()->put('student_id', $user->id);
+                            return response()->json($response);
+                        }
+                    } else {
+                        $response["error"] = true;
+                        $response["passErr"] = "Password is incorrect!";
+                        return response()->json($response);
+                    }
                 }
             }
         } else {

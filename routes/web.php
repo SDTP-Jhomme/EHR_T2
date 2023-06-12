@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\adminController;
+use Illuminate\Support\Facades\Auth;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -85,6 +87,7 @@ Route::get('Chart', 'App\Http\Controllers\actionController@getDataByMonth')->nam
 Route::get('PieChart', 'App\Http\Controllers\actionController@getChartData')->name('getChartData');
 
 // student login and redirect
+Auth::routes();
 Route::post('student/login','App\Http\Controllers\studentController@login')->name('student-loginPost');
 Route::get('/dashboard','App\Http\Controllers\studentController@dashboard')->name('student-dashboard');
 Route::get('/','App\Http\Controllers\studentController@studentLogin')->name('student-login');

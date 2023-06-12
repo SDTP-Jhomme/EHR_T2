@@ -7,8 +7,8 @@
                     <img class="w-50 img-fluid rounded-circle" src="<?php echo asset('assets/img/logo.png') ?>" alt="Logo image"> </a>
                 </div>
                 <div class="nav">
-                    <li class="nav-item dropdown no-arrow" v-if="this.backToHome">
-                        <a class="nav-link" href="{{route('student-dashboard')}}">
+                    <li class="nav-item home-div" v-if="backToHome">
+                        <a class="nav-link home-link" href="{{route('student-dashboard')}}">
                             Back To Home
                         </a>
                     </li>

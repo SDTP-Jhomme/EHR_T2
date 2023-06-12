@@ -126,7 +126,8 @@
                                 this.$notify({
                                     title: 'Success',
                                     message: 'Successfully logged out!',
-                                    type: 'success'
+                                    type: 'success',
+                                    showClose: false
                                 });
                                 setTimeout(() => {
                                     window.location.href = "{{route('student-login')}}"

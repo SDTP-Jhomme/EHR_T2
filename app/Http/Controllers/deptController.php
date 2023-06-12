@@ -172,4 +172,7 @@ class deptController extends Controller
 
         return $password;
     }
+    public function teacherLogin(){
+        return view('department/login');
+    }
 }

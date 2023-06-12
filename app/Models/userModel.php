@@ -31,7 +31,8 @@ class userModel extends Model
         'status',
         'height',
         'weight',
-        'next_appointment'
+        'next_appointment',
+        'last_login'
     ];
     public function cbc()
     {
