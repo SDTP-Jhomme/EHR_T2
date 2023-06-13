@@ -9,7 +9,6 @@
 </head>
 
 <body>
-<!-- @include('imports/nav') -->
 <div id="app" v-loading.fullscreen.lock="fullscreenLoading">
         <section class="h-100 gradient-form" style="background-color: #eee;">
             <div class="container py-5 h-100">

@@ -336,8 +336,17 @@ class deptController extends Controller
 
         return response()->json(['message' => 'Password updated successfully']);
     }
-    public function profile()
+    public function profile(Request $request)
     {
-        return view('department/profile');
+        $user = $request->session()->get('teacher_id');
+
+        if (!$user) {
+            // Redirect to the login page or handle unauthorized access
+            return view('department/login');
+        }
+
+        // Use the $user data as needed in your dashboard logic
+
+        return view('department/profile', ['teacher_id' => $user]);
     }
 }

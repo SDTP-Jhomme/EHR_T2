@@ -174,7 +174,8 @@ class cbcController extends Controller
                     "mcv" => $data_row->mcv,
                     "mch" => $data_row->mch,
                     "mchc" => $data_row->mchc,
-                    "platelet" => $data_row->platelet
+                    "platelet" => $data_row->platelet,
+                    "student_id" => $data_row->student_id,
                 );
                 
 

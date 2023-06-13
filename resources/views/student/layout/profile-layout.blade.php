@@ -98,6 +98,7 @@
                     if (this.newPassword.length < 8) {
                         this.newPassErr = "Password should atleast eight(8) characters!";
                         this.errors = true;
+                        return;
                     } else {
                         this.errors = false;
                     }

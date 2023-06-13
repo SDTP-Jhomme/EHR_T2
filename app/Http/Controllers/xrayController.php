@@ -144,6 +144,7 @@ class xrayController extends Controller
                     "room_bed" => $data_row->room_bed,
                     "type_examination" => $data_row->type_examination,
                     "ph" => $data_row->ph,
+                    "student_id" => $data_row->student_id,
                 );
                 array_push($user_data, $array_data);
             }

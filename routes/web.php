@@ -116,3 +116,11 @@ Route::post('department/logout', 'App\Http\Controllers\deptController@department
 Route::get('department/', 'App\Http\Controllers\deptController@profile')->name('departmentprofile');
 Route::post('department/profile-pass', 'App\Http\Controllers\deptController@checkPass')->name('departmentcheckPass');
 Route::post('department/update-pass', 'App\Http\Controllers\deptController@updatePassword')->name('departmentupdatePassword');
+
+// teachers meds records 
+Route::get('department/records/cbc', 'App\Http\Controllers\medController@cbcFile')->name('cbcFile');
+Route::get('department/records/antigen', 'App\Http\Controllers\medController@antigenFile')->name('antigenFile');
+Route::get('department/records/urinalysis', 'App\Http\Controllers\medController@urinalysisFile')->name('urinalysisFile');
+Route::get('department/records/xray', 'App\Http\Controllers\medController@xrayFile')->name('xrayFile');
+Route::get('department/records/fecalysis', 'App\Http\Controllers\medController@fecalysisFile')->name('fecalysisFile');
+Route::get('department/records/vaccine', 'App\Http\Controllers\medController@vaccineFile')->name('vaccineFile');

@@ -98,6 +98,7 @@
                     if (this.newPassword.length < 8) {
                         this.newPassErr = "Password should atleast eight(8) characters!";
                         this.errors = true;
+                        return;
                     } else {
                         this.errors = false;
                     }
@@ -142,7 +143,7 @@
             },
             logout() {
                     this.fullscreenLoading = true
-                    axios.post("{{route('studentLogout')}}")
+                    axios.post("{{route('departmentLogout')}}")
                         .then(response => {
                             // console.log(response);
                             if (response.data.message) {
@@ -154,7 +155,7 @@
                                     showClose: false
                                 });
                                 setTimeout(() => {
-                                    window.location.href = "{{route('student-login')}}"
+                                    window.location.href = "{{route('department-login')}}"
                                 }, 1000)
                             }
                         })

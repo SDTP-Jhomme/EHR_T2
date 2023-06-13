@@ -1,5 +1,5 @@
 
-    <!-- header -->
+
     <header id="header" class="sticky-top home-nav">
         <nav class="navbar">
             <div class="container-fluid d-flex align-items-center">
@@ -13,14 +13,14 @@
                                 <a class="px-5 me-3 btn btn-primary" id="UserDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
                                   Login
                                 </a>
-                                <div class="dropdown-menu" aria-labelledby="UserDropdown">
+                                <!-- <div class="dropdown-menu" aria-labelledby="UserDropdown">
                                     <div class="dropdown-item">
-                                        <!-- <a class="nav-link" href="#">
+                                        <a class="nav-link" href="#">
                                             <i class="fas fa-power-off text-danger me-2"></i>
                                             Sign Out
-                                        </a> -->
+                                        </a>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </li>

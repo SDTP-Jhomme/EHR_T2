@@ -1,11 +1,11 @@
-@extends('department/layout/dashboard-layout')
+@extends('department/medical-records/layout/fecalysis-layout')
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     @include('imports/head')
     <link rel="shortcut icon" type="image/png" href="<?php echo asset('assets/img/favicon.png') ?>">
-    @section('title', 'Dashboard')
+    @section('title', 'Fecalysis Record')
 </head>
 
 <body>
@@ -13,8 +13,8 @@
     @include('department/imports/nav')
         <div class="container mt-3">
             <div class="row justify-content-center align-items-center g-2">
-                <div class="col ms-auto"><h3>Student List</h3></div>
-                <div class="col-lg-6 me-auto">
+                <div class="col ms-auto"><h3>Fecalysis List</h3></div>
+                <div class="col-lg-5 me-auto">
                     <div class="d-flex">
                         <el-select v-model="searchValue" placeholder="Select Column" @changed="changeColumn" clearable>
                             <el-option v-for="search in options" :key="search.value" :label="search.label" :value="search.value">
@@ -51,7 +51,7 @@
             </div>
             
             <div class="my-3">
-                <el-table v-if="this.tableData" :data="usersTable" style="width: 100%" border height="500" v-loading="tableLoad" element-loading-text="Loading. Please wait..." element-loading-spinner="el-icon-loading">
+                <el-table v-if="this.tableData" :data="usersTable" style="width: 100%" border height="400" v-loading="tableLoad" element-loading-text="Loading. Please wait..." element-loading-spinner="el-icon-loading">
                     <el-table-column label="No." type="index" width="50">
                     </el-table-column>
                     <el-table-column sortable label="Identification No." width="200" prop="identification">

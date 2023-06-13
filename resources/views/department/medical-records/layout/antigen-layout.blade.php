@@ -24,14 +24,6 @@
                     value: 'name',
                     label: 'Name'
                 }],
-                isAntigen: [],
-                isCbc: [],
-                isUrinalysis: [],
-                isXray: [],
-                isFecalysis: [],
-                isVaccine: [],
-                isCbc:[],
-                antigenSect:[],
                 viewStudent:[],
                 student_data:[],
                 viewDialog:false,
@@ -69,17 +61,15 @@
         created() {
             this.getID()
             this.getData()
-            this.fetchAntigen()
-            this.fetchCbc()
-            this.fetchUrinalysis()
-            this.fetchFecalysis()
-            this.fetchVaccine()
-            this.fetchXray()
         },
         mounted() {
             setTimeout(() => {
                 this.fullscreenLoading = false
             }, 2000)
+            if (window.location.pathname !== " /medical-records/antigen") {
+                localStorage.clear()
+                this.backToHome = true;
+            }
         },
         methods: {
             handleView(index, row) {
@@ -97,88 +87,8 @@
             setPage(value) {
                 this.page = value
             },
-            fetchXray() {
-                axios.post("{{route('fetchXray')}}")
-                    .then(response => {
-                        console.log(response.data);
-                        if (response) {
-                            this.isXray = response.data;
-                        } else {
-                            console.error(500);
-                        }
-                    })
-                    .catch(error => {
-                        console.error(error.response.data);
-                    });
-            },
-            fetchVaccine() {
-                axios.post("{{route('fetchVaccine')}}")
-                    .then(response => {
-                        if (response) {
-                            this.isVaccine = response.data;
-                        } else {
-                            console.error(500);
-                        }
-                    })
-                    .catch(error => {
-                        console.error(error.response.data);
-                    });
-            },
-            fetchFecalysis() {
-                axios.post("{{route('fetchFecalysis')}}")
-                    .then(response => {
-                        if (response) {
-                            this.isFecalysis = response.data;
-                        } else {
-                            console.error(500);
-                        }
-                    })
-                    .catch(error => {
-                        console.error(error.response.data);
-                    });
-            },
-            fetchUrinalysis() {
-                axios.post("{{route('fetchUrinalysis')}}")
-                    .then(response => {
-                        if (response) {
-                            this.isUrinalysis = response.data;
-                        } else {
-                            console.error(500);
-                        }
-                    })
-                    .catch(error => {
-                        console.error(error.response.data);
-                    });
-            },
-            fetchAntigen() {
-                axios.post("{{route('fetchAntigen')}}")
-                    .then(response => {
-                        if (response) {
-                            this.isAntigen = response.data;
-                        } else {
-                            console.error(500);
-                        }
-                    })
-                    .catch(error => {
-                        console.error(error.response.data);
-                    });
-            },
-            fetchCbc() {
-                axios.post("{{route('fetchCbc')}}")
-                    .then(response => {
-                        console.log(response.data);
-                        if (response) {
-                            this.isCbc = response.data;
-                        } else {
-                            console.error(500);
-                        }
-                    })
-                    .catch(error => {
-                        console.error(error.response.data);
-                    });
-            },
             getData() {
-                axios.post("{{route('fetchStudent')}}")
+                axios.post("{{route('fetchAntigen')}}")
                     .then(response => {
                         if (response.data.error) {
                             this.tableData = [];

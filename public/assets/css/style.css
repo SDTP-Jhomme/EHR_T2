@@ -871,7 +871,8 @@ form .input-group .form-control:focus {
     transition: 0.3s !important;
 } */
 .gradient-custom-2 {
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif !important;
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
+        sans-serif !important;
     background-color: #08aeea;
     background-image: linear-gradient(142deg, #08aeea 0%, #2af598 100%);
     opacity: 1;
@@ -880,8 +881,9 @@ form .input-group .form-control:focus {
 .font-style {
     font-size: 1rem !important;
 }
-.home-nav{
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif !important;
+.home-nav {
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
+        sans-serif !important;
     background-color: #08aeea;
     background-image: linear-gradient(142deg, #08aeea 0%, #2af598 100%);
 }

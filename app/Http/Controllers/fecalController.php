@@ -171,7 +171,8 @@ class fecalController extends Controller
                     "otherTrophozoites" => $data_row->otherTrophozoites,
                     "remarks" => $data_row->remarks,
                     "pathologist" => $data_row->pathologist,
-                    "technologist" => $data_row->technologist
+                    "technologist" => $data_row->technologist,
+                    "student_id" => $data_row->student_id,
                 );
                 array_push($user_data, $array_data);
             }
