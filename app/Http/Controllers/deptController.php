@@ -205,7 +205,7 @@ class deptController extends Controller
         return redirect()->route('department-dashboard', ['teacher_id' => $user]);
         // return view('student.dashboard', ['user' => $user]);
     }
-    public function login(Request $request)
+    public function deptlogin(Request $request)
     {
         date_default_timezone_set("Asia/Manila");
         $date_now = date("m-d-Y");

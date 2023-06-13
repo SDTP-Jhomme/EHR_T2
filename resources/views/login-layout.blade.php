@@ -7,7 +7,7 @@
         data() {
             return {
                 type: "password",
-                email: "",
+                identification: "",
                 password: "",
                 userErr: "",
                 passErr: "",
@@ -32,16 +32,16 @@
                 this.userErr = ""
                 this.passErr = ""
                 var data = new FormData()
-                data.append("email", this.email)
+                data.append("identification", this.identification)
                 data.append("password", this.password)
                 data.append("remember", this.remember)  
-                axios.post("{{route('department-loginPost')}}", data)
+                axios.post("{{route('student-loginPost')}}", data)
                     .then(response => {
                         if (response.data.error) {
-                            this.userErr = response.data.userErr
+                            this.userErr = response.data.studentErr
                             this.passErr = response.data.passErr
                             setTimeout(() => {
-                                this.userErr = response.data.userErr
+                                this.userErr = response.data.studentErr
                             }, 2000)
                             setTimeout(() => {
                                 this.passErr = response.data.passErr
@@ -55,7 +55,7 @@
                                 showClose: false
                             });
                             setTimeout(() => {
-                                window.location.href = "{{route('department-dashboard')}}"
+                                window.location.href = "{{route('student-dashboard')}}"
                             }, 1000)
                         }
                     })

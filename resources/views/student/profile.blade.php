@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    @include('imports/head')
+    @include('student/imports/head')
     <link rel="shortcut icon" type="image/png" href="<?php echo asset('assets/img/favicon.png') ?>">
     @section('title', 'Profile')
 </head>

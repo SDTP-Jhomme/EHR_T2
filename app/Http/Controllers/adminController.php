@@ -47,7 +47,7 @@ class adminController extends Controller
         return redirect()->route('admin-dashboard', ['user' => $user]);
         // return view('admin.dashboard', ['user' => $user]);
     }
-    public function login(Request $request)
+    public function admin_Login(Request $request)
     {
         $username = $request->input('username');
         $password = $request->input('password');

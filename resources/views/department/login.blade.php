@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-@extends('login-layout')
+@extends('department/layout/login-layout')
 
 <head>
 @include('imports/head')

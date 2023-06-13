@@ -65,7 +65,7 @@
                     const checkPassword = new FormData();
                     checkPassword.append("id",  this.id)
                     checkPassword.append("currentPassword", this.currentPassword)
-                    axios.post("{{route('checkPass')}}", checkPassword)
+                    axios.post("{{route('departmentcheckPass')}}", checkPassword)
                         .then(res => {
                             if (res) {
                                 console.log(res);
@@ -118,7 +118,7 @@
                     const newPassword = new FormData();
                     newPassword.append("id", this.id)
                     newPassword.append("newPassword", this.newPassword)
-                    axios.post("{{route('updatePassword')}}", newPassword)
+                    axios.post("{{route('departmentupdatePassword')}}", newPassword)
                         .then(res => {
                             if (res) {
                                 setTimeout(() => {

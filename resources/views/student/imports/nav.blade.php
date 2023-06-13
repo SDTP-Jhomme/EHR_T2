@@ -26,7 +26,7 @@
                                     </div>
                                     <hr>
                                     <div class="dropdown-item">
-                                        <a class="nav-link" href="{{route('profile')}}">
+                                        <a class="nav-link" href="{{route('studentprofile')}}">
                                             <i class="fas fa-user text-muted me-2"></i>
                                             Profile
                                         </a>

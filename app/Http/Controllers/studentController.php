@@ -17,7 +17,7 @@ class studentController extends Controller
             $this->credentials($request), $remember
         );
     }
-    public function profile()
+    public function studentProfile()
     {
         return view('student/profile');
     }
@@ -242,5 +242,9 @@ class studentController extends Controller
     {
         $yearSect = $data_row->year . " - Section " . $data_row->classSection;
         return $yearSect;
+    }public function loginAll(Request $request)
+    {
+
+        return view('login');
     }
 }
