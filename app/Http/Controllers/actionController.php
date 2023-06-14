@@ -32,6 +32,8 @@ class actionController extends Controller
             'lastname' => $update->input('lastname'),
             'gender' => $update->input('gender'),
             'birthdate' => $update->input('birthdate'),
+            'height' => $update->input('height'),
+            'weight' => $update->input('weight'),
             'phone_number' => $update->input('phone_number'),
 
         ];

@@ -171,7 +171,8 @@ class urinalysisController extends Controller
                     "mucus" => $data_row->mucus,
                     "otherOthers" => $data_row->otherOthers,
                     "pathologist" => $data_row->pathologist,
-                    "technologist" => $data_row->technologist
+                    "technologist" => $data_row->technologist,
+                    "student_id" => $data_row->student_id,
                 );
                 array_push($user_data, $array_data);
             }

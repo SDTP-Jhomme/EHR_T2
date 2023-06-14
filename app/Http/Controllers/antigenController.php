@@ -140,6 +140,7 @@ class antigenController extends Controller
                     "age" => $data_row->age,
                     "sampleDate" => $data_row->sampleDate,
                     "result" => $data_row->result,
+                    "student_id" => $data_row->student_id,
                 );
                 
 

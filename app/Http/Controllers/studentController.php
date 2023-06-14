@@ -9,13 +9,25 @@ use Illuminate\Support\Facades\Auth;
 
 class studentController extends Controller
 {
-
-    public function fetch(){
+    protected function attemptLogin(Request $request)
+    {
+        $remember = $request->filled('remember'); // Get the value of the "Remember Me" checkbox
+    
+        return $this->guard()->attempt(
+            $this->credentials($request), $remember
+        );
+    }
+    public function studentProfile()
+    {
+        return view('student/profile');
+    }
+    public function fetch()
+    {
 
         $user_data = array();
         $studentId = Session::get('student_id');
 
-        $fetchAll = userModel::all()->where('id',$studentId);
+        $fetchAll = userModel::all()->where('id', $studentId);
         if ($fetchAll->count() > 0) {
             foreach ($fetchAll as $data_row) {
                 $fullname = $this->getFullName($data_row);
@@ -38,7 +50,7 @@ class studentController extends Controller
                     "course" => $data_row->course,
                     "civil_status" => $data_row->civil,
                     "citizenship" => $data_row->citizen,
-                    "section" => $data_row->section,
+                    // "section" => $data_row->section,
                     "address" => $address,
                     "password" => $data_row->password,
                     "status" => $data_row->status,
@@ -52,20 +64,58 @@ class studentController extends Controller
 
                 array_push($user_data, $array_data);
             }
-        } 
+        }
         return response()->json($user_data);
     }
-    public function fetchAvatar(Request $request){
-        $user_id = $request->input('id');
+    public function updateAvatar(Request $update)
+    {
+        $user_id = $update->input('id');
+        $file = $update->input('file');
 
-    $user = userModel::find($user_id);
+        $update = userModel::where('id', $user_id)->update($file);
 
-    if ($user) {
-        $avatar = $user->avatar;
-        return response()->json(['avatar' => $avatar]);
+        if ($update) {
+            // Success
+            $response["error"] = false;
+            $response["message"] = "Successfully updates data";
+            return response()->json($response);
+        } else {
+            // Failed to update or record not found
+            $response["error"] = true;
+            $response["message"] = "Failed updates data";
+            return response()->json($response, 500);
+        }
+
     }
+    public function checkPass(Request $check)
+    {
+        $user_id = $check->input('id');
+        $user_record = userModel::find($user_id);
 
-    return response()->json(['error' => 'User not found']);
+        if (!$user_record || !password_verify($check->input("currentPassword"), $user_record->password)) {
+            $response["error"] = true;
+            $response["message"] = "Password is incorrect!";
+        } else {
+            $response = true;
+        }
+
+        return response()->json($response);
+    }
+    public function updatePassword(Request $request)
+    {
+        $user_id = $request->input("id");
+        $new_password = $request->input("newPassword");
+
+        $user = userModel::find($user_id);
+
+        if (!$user) {
+            return response()->json(['message' => 'User not found'], 404);
+        }
+
+        $user->password = bcrypt($new_password);
+        $user->save();
+
+        return response()->json(['message' => 'Password updated successfully']);
     }
     public function dashboard(Request $request)
     {
@@ -98,8 +148,12 @@ class studentController extends Controller
     }
     public function login(Request $request)
     {
+        date_default_timezone_set("Asia/Manila");
+        $date_now = date("m-d-Y");
+
         $identification = $request->input('identification');
         $password = $request->input('password');
+        $remember = $request->filled('remember'); // Get the value of the "Remember Me" checkbox
 
         $user = userModel::where('identification', $identification)->first();
 
@@ -119,15 +173,31 @@ class studentController extends Controller
                 $response["studentErr"] = "Identification No. is incorrect!";
                 return response()->json($response);
             } else {
-                $hashedPassword = $user->password;
-                if (password_verify($password, $hashedPassword)) {
-                    $response["error"] = false;
-                    $request->session()->put('student_id', $user->id);
+                $status = $user->status;
+
+                if ($status == "Inactive") {
+
+                    $response["error"] = true;
+                    $response["studentErr"] = "User is inactive!";
                     return response()->json($response);
                 } else {
-                    $response["error"] = true;
-                    $response["passErr"] = "Password is incorrect!";
-                    return response()->json($response);
+                    $hashedPassword = $user->password;
+                    $db_last_login = $user->last_login;
+                    if (password_verify($password, $hashedPassword)) {
+                        if ($db_last_login != "") {
+                            $request->session()->put('student_id', $user->id);
+                            userModel::where('id', $request)
+                                ->update(['last_login' => $date_now]);
+                        } else {
+                            $response["error"] = false;
+                            $request->session()->put('student_id', $user->id);
+                            return response()->json($response);
+                        }
+                    } else {
+                        $response["error"] = true;
+                        $response["passErr"] = "Password is incorrect!";
+                        return response()->json($response);
+                    }
                 }
             }
         } else {
@@ -159,7 +229,7 @@ class studentController extends Controller
     }
 
     function getAvatarPath($db_avatar)
-    { 
+    {
         $avatar = $db_avatar;
         return $avatar;
     }
@@ -167,9 +237,14 @@ class studentController extends Controller
     {
         $address = $data_row->street . " " . $data_row->barangay . " " . $data_row->city;
         return $address;
-    }function getYrSect($data_row)
+    }
+    function getYrSect($data_row)
     {
         $yearSect = $data_row->year . " - Section " . $data_row->classSection;
         return $yearSect;
+    }public function loginAll(Request $request)
+    {
+
+        return view('login');
     }
 }

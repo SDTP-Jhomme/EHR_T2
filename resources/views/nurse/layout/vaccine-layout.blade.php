@@ -32,6 +32,8 @@
                 gender: "",
                 phone_number: "",
                 birthdate: "",
+                height: "",
+                weight: "",
                 civil: "",
                 citizen: "",
                 street: "",
@@ -45,6 +47,8 @@
                 genderError: "",
                 phoneError:"",
                 birthdateError: "",
+                heightError: "",
+                weightError: "",
                 civilError: "",
                 citizenError: "",
                 streetError: "",
@@ -99,9 +103,9 @@
                 this.lastname = formData.lastname;
                 this.gender = formData.gender;
                 this.phone_number = formData.phone_number;
+                this.birthdate = formData.birthdate;
                 this.height = formData.height;
                 this.weight = formData.weight;
-                this.birthdate = formData.birthdate;
                 this.civil = formData.civil;
                 this.citizen = formData.citizen;
                 this.street = formData.street;

@@ -7,6 +7,12 @@
                     <img class="w-50 img-fluid rounded-circle" src="<?php echo asset('assets/img/logo.png') ?>" alt="Logo image"> </a>
                 </div>
                 <div class="nav">
+                    <li class="nav-item home-div" v-if="backToHome">
+                        <a class="nav-link home-link" href="{{route('student-dashboard')}}">
+                            Back To Home
+                        </a>
+                    </li>
+                    <div class="topbar-divider d-none d-sm-block"></div>
                     <li class="nav-item">
                         <div class="ms-auto mt-auto">
                             <div class="dropstart user-dropdown">
@@ -18,9 +24,17 @@
                                         <p>Logged in as:</p>
                                         <el-tag type="success"><span v-text="user.identification"></span></el-tag>
                                     </div>
+                                    <hr>
+                                    <div class="dropdown-item">
+                                        <a class="nav-link" href="{{route('studentprofile')}}">
+                                            <i class="fas fa-user text-muted me-2"></i>
+                                            Profile
+                                        </a>
+                                    </div>
+                                    <hr>
                                     <div class="dropdown-item">
                                         <a class="nav-link" href="#" @click="logout">
-                                            <i class="fas fa-power-off text-danger me-2"></i>
+                                            <i class="fas fa-power-off text-muted me-2"></i>
                                             Sign Out
                                         </a>
                                     </div>

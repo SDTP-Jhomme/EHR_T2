@@ -51,6 +51,10 @@
                     </el-table-column>
                     <el-table-column sortable label="Birthdate" width="200" prop="birthdate">
                     </el-table-column>
+                    <el-table-column sortable label="Height" width="200" prop="height">
+                    </el-table-column>
+                    <el-table-column sortable label="Weight" width="200" prop="weight">
+                    </el-table-column>
                     <el-table-column sortable label="Gender" width="150" prop="gender">
                         <template slot-scope="scope">
                             <el-tag size="small" v-if="scope.row.gender == 'Male'"><span v-text="scope.row.gender"></span></el-tag>
@@ -185,6 +189,22 @@
                                     <input type="date" name="birthdate" class="form-control" :max="maxDate" id="birthdaypicker" v-model="birthdate">
                                 </div>
                                 <div v-text="birthdateError" class="text-danger fst-italic ms-5"></div>
+                            </div>
+
+                            <div class="col-lg-4 col-md-12">
+                                <div class="input-group mb-4" :class="{ 'has-error': heightError }">
+                                    <span class="input-group-text group-text">Height</span>
+                                    <input type="text" name="height" class="form-control" v-model="height">
+                                </div>
+                                <div v-text="heightError" class="text-danger fst-italic ms-5"></div>
+                            </div>
+
+                            <div class="col-lg-4 col-md-12">
+                                <div class="input-group mb-4" :class="{ 'has-error': weightError }">
+                                    <span class="input-group-text group-text">Weight</span>
+                                    <input type="text" name="weight" class="form-control" v-model="weight">
+                                </div>
+                                <div v-text="weightError" class="text-danger fst-italic ms-5"></div>
                             </div>
 
                             <div class="col-lg-4 col-md-12">
@@ -371,6 +391,8 @@
                         <el-descriptions-item label="Identification Number"><span class="mx-2" v-text="viewStudent.identification"></el-descriptions-item>
                         <el-descriptions-item label="Name"><span class="mx-2" v-text="viewStudent.name"></el-descriptions-item>
                         <el-descriptions-item label="Birthday"><span class="mx-2" v-text="viewStudent.birthdate"></el-descriptions-item>
+                        <el-descriptions-item label="Height"><span class="mx-2" v-text="viewStudent.height"></el-descriptions-item>
+                        <el-descriptions-item label="Weight"><span class="mx-2" v-text="viewStudent.weight"></el-descriptions-item>
                         <el-descriptions-item label="Gender">
                             <el-tag v-if="viewStudent.gender == 'Male'"><span class="mx-2" v-text="viewStudent.gender"></el-tag>
                             <el-tag v-else type="danger"><span class="mx-2" v-text="viewStudent.gender"></el-tag>
@@ -448,6 +470,16 @@
                         <el-form-item label="Birthday" prop="birthdate">
                             <el-date-picker :picker-options="birthdayOptions" v-model="updateStudent.birthdate" type="date" placeholder="Select birthdate" clearable>
                             </el-date-picker>
+                        </el-form-item>
+                    </div>
+                    <div class="col">
+                        <el-form-item label="Height" prop="height">
+                        <el-input v-model="updateStudent.height" clearable></el-input>
+                        </el-form-item>
+                    </div>
+                    <div class="col">
+                        <el-form-item label="Weight" prop="weight">
+                        <el-input v-model="updateStudent.weight" clearable></el-input>
                         </el-form-item>
                     </div>
                     <div class="col">

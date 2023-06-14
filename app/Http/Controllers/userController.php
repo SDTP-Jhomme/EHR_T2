@@ -53,6 +53,8 @@ class userController extends Controller
                     "firstname" => $data_row->firstname,
                     "midname" => $data_row->midname,
                     "birthdate" => $birthdate,
+                    "height" => $data_row->height,
+                    "weight" => $data_row->weight,
                     "gender" => $data_row->gender,
                     "avatar" => $avatar,
                     "year" => $data_row->year,
@@ -65,8 +67,6 @@ class userController extends Controller
                     "status" => $data_row->status,
                     "phone_number" => $data_row->phone_number,
                     "classSection" => $data_row->classSection,
-                    "height" => $data_row->height,
-                    "weight" => $data_row->weight,
                     "next_appointment" => $data_row->next_appointment,
                     'yearandsection' => $yearSect
                 );

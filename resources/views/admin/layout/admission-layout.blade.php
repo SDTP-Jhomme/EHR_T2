@@ -291,9 +291,9 @@
                         .filter((data) => {
                             return data.name.toLowerCase().includes(this.searchName.toLowerCase());
                         })
-                        // .filter((data) => {
-                        //     return data.identification.toLowerCase().includes(this.searchID.toLowerCase());
-                        // })
+                        .filter((data) => {
+                            return data.identification.toLowerCase().includes(this.searchID.toLowerCase());
+                        })
                         .filter((data) => {
                             return data.status.toLowerCase().includes(this.searchContact.toLowerCase());
                         })

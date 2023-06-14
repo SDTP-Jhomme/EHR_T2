@@ -117,6 +117,8 @@
                 phone_number:"",
                 status: "",
                 birthdate: "",
+                height: "",
+                weight: "",
                 civil: "",
                 citizen: "",
                 street: "",
@@ -131,12 +133,32 @@
                 genderError: "",
                 phoneError:"",
                 birthdateError: "",
+                heightError: "",
+                weightError: "",
                 civilError: "",
                 citizenError: "",
                 streetError: "",
                 brgyError: "",
                 cityError: "",
                 checkIdentification: [],
+                addAdmission: {
+                    identification: "",
+                    year: "",
+                    classSection: "",
+                    firstname: "",
+                    midname: "",
+                    lastname: "",
+                    phone_number:"",
+                    gender: "",
+                    birthdate: "",
+                    height: "",
+                    weight: "",
+                    civil: "",
+                    citizen: "",
+                    street: "",
+                    brgy: "",
+                    city: "",
+                },
                 editStudent: [],
                 updateStudent: {
                     id: 0,
@@ -149,6 +171,8 @@
                     gender: "",
                     phone_number:"",
                     birthdate: "",
+                    height: "",
+                    weight: "",
                 },
                 year: [
                     {
@@ -261,6 +285,18 @@
                             validator: validateBirthdate,
                             trigger: 'blur'
                         }],
+                        height: [{
+                            required: true,
+                            message: 'Height is required!',
+                            trigger: 'blur'
+                            },
+                        ],
+                        weight: [{
+                            required: true,
+                            message: 'Weight is required!',
+                            trigger: 'blur'
+                            }, 
+                        ],
                         gender: [
                             {
                             required: true,
@@ -321,6 +357,8 @@
                 this.gender = formData.gender;
                 this.phone_number = formData.phone_number;
                 this.birthdate = formData.birthdate;
+                this.height = formData.height;
+                this.weight = formData.weight;
                 this.civil = formData.civil;
                 this.citizen = formData.citizen;
                 this.street = formData.street;
@@ -338,6 +376,8 @@
                     this.updateStudent.midname = value.midname ? value.midname : "";
                     this.updateStudent.lastname = value.lastname ? value.lastname : "";
                     this.updateStudent.birthdate = value.birthdate ? value.birthdate : "";
+                    this.updateStudent.height = value.height ? value.height : "";
+                    this.updateStudent.weight = value.weight ? value.weight : "";
                     this.updateStudent.gender = value.gender ? value.gender : "";
                     this.updateStudent.year = value.year ? value.year : "";
                     this.updateStudent.classSection = value.classSection ? value.classSection : "";
@@ -430,6 +470,8 @@
                     midname: row.midname,
                     lastname: row.lastname,
                     birthdate: row.birthdate,
+                    height: row.height,
+                    weight: row.weight,
                     gender: row.gender,
                     phone_number: row.phone_number,
                 }
@@ -446,6 +488,9 @@
                     localStorage.removeItem("identification")
                 })
                 .catch(() => {});
+            },
+            resetForm(addAdmission) {
+                this.$refs[addAdmission].resetFields();
             },
             resetFormData() {
                 this.submitForm = []
@@ -519,6 +564,8 @@
                     gender: this.gender,
                     phone_number:this.phone_number,
                     birthdate: this.birthdate,
+                    height: this.height,
+                    weight: this.weight,
                     civil: this.civil,
                     citizen: this.citizen,
                     street: this.street,
@@ -584,6 +631,16 @@
                 } else {
                     this.birthdateError = "";
                 }
+                if (!this.height) {
+                    this.heightError = "Height is required";
+                } else {
+                    this.heightError = "";
+                }
+                if (!this.weight) {
+                    this.weightError = "Weight is required";
+                } else {
+                    this.weightError = "";
+                }
                 if (!this.civil) {
                     this.civilError = "Civil Status is required";
                 } else {
@@ -621,6 +678,8 @@
                     !this.lastnameError &&
                     !this.genderError &&
                     !this.birthdateError &&
+                    !this.heightError &&
+                    !this.weightError &&
                     !this.civilError &&
                     !this.citizenError &&
                     !this.streetError &&
@@ -775,7 +834,7 @@
             updateUser(updateStudent) {
                     this.$refs[updateStudent].validate((valid) => {
                         if (valid) {
-                            if (this.editStudent.identification != this.updateStudent.identification || this.editStudent.year != this.updateStudent.year|| this.editStudent.classSection != this.updateStudent.classSection|| this.editStudent.firstname != this.updateStudent.firstname || this.editStudent.midname != this.updateStudent.midname || this.editStudent.lastname != this.updateStudent.lastname || this.editStudent.birthdate != this.updateStudent.birthdate || this.editStudent.gender != this.updateStudent.gender|| this.editStudent.phone_number != this.updateStudent.phone_number ) {
+                            if (this.editStudent.identification != this.updateStudent.identification || this.editStudent.year != this.updateStudent.year|| this.editStudent.classSection != this.updateStudent.classSection|| this.editStudent.firstname != this.updateStudent.firstname || this.editStudent.midname != this.updateStudent.midname || this.editStudent.lastname != this.updateStudent.lastname || this.editStudent.birthdate != this.updateStudent.birthdate || this.editStudent.height != this.updateStudent.height || this.editStudent.weight != this.updateStudent.weight || this.editStudent.gender != this.updateStudent.gender|| this.editStudent.phone_number != this.updateStudent.phone_number ) {
                                 this.loadButton = true;
                                 this.$confirm('This will update user ' + this.editStudent.firstname + '. Continue?', {
                                         confirmButtonText: 'Confirm',
@@ -794,6 +853,8 @@
                                         updateData.append("midname", this.updateStudent.midname)
                                         updateData.append("lastname", this.updateStudent.lastname)
                                         updateData.append("birthdate", birthdayFormat)
+                                        updateData.append("height", this.updateStudent.height)
+                                        updateData.append("weight", this.updateStudent.weight)
                                         updateData.append("gender", this.updateStudent.gender)
                                         updateData.append("phone_number", this.updateStudent.phone_number)
                                         axios.post("{{route('studentUpdate')}}", updateData)

@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\adminController;
+use Illuminate\Support\Facades\Auth;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,7 +19,7 @@ use App\Http\Controllers\adminController;
 //     return view('welcome');
 // });
 // admin side
-Route::post('/login','App\Http\Controllers\adminController@login')->name('admin-loginPost');
+Route::post('/login','App\Http\Controllers\adminController@admin_Login')->name('admin-loginPost');
 Route::get('/admin/dashboard','App\Http\Controllers\adminController@dashboard')->name('admin-dashboard');
 Route::get('/admin/admission','App\Http\Controllers\adminController@admission')->name('admin-admission');
 Route::get('/admin/appointments','App\Http\Controllers\adminController@appointments')->name('admin-appointments');
@@ -105,7 +107,6 @@ Route::get('/','App\Http\Controllers\studentController@studentLogin')->name('stu
 Route::post('student-fetch', 'App\Http\Controllers\studentController@fetch')->name('student-fetch');
 Route::post('fetch-avatar', 'App\Http\Controllers\studentController@fetchAvatar')->name('fetchAvatar');
 Route::post('student/logout', 'App\Http\Controllers\studentController@studentLogout')->name('studentLogout');
-
 // students fetch records
 Route::post('student-cbc', 'App\Http\Controllers\fetch_userRecord@fetch_Cbc')->name('fetch_Cbc');
 Route::post('student-antigen', 'App\Http\Controllers\fetch_userRecord@fetch_Antigen')->name('fetch_Antigen');
@@ -113,3 +114,26 @@ Route::post('student-urinalysis', 'App\Http\Controllers\fetch_userRecord@fetch_U
 Route::post('student-xray', 'App\Http\Controllers\fetch_userRecord@fetch_Xray')->name('fetch_Xray');
 Route::post('student-fecalysis', 'App\Http\Controllers\fetch_userRecord@fetch_Fecalysis')->name('fetch_Fecalysis');
 Route::post('student-vaccine', 'App\Http\Controllers\fetch_userRecord@fetch_Vaccine')->name('fetch_Vaccine');
+// student profile
+Route::get('student/', 'App\Http\Controllers\studentController@studentProfile')->name('studentprofile');
+Route::post('/profile-pass', 'App\Http\Controllers\studentController@checkPass')->name('checkPass');
+Route::post('/update-pass', 'App\Http\Controllers\studentController@updatePassword')->name('updatePassword');
+
+// teacher's login
+Route::post('department/login','App\Http\Controllers\deptController@deptlogin')->name('department-loginPost');
+Route::get('/department/dashboard','App\Http\Controllers\deptController@dashboard')->name('department-dashboard');
+Route::get('/department/login','App\Http\Controllers\deptController@teacherLogin')->name('department-login');
+Route::post('department-fetch', 'App\Http\Controllers\deptController@fetch')->name('department-fetch');
+Route::post('department/logout', 'App\Http\Controllers\deptController@departmentLogout')->name('departmentLogout');
+// teacher profile
+Route::get('department/', 'App\Http\Controllers\deptController@profile')->name('departmentprofile');
+Route::post('department/profile-pass', 'App\Http\Controllers\deptController@checkPass')->name('departmentcheckPass');
+Route::post('department/update-pass', 'App\Http\Controllers\deptController@updatePassword')->name('departmentupdatePassword');
+
+// teachers meds records 
+Route::get('department/records/cbc', 'App\Http\Controllers\medController@cbcFile')->name('cbcFile');
+Route::get('department/records/antigen', 'App\Http\Controllers\medController@antigenFile')->name('antigenFile');
+Route::get('department/records/urinalysis', 'App\Http\Controllers\medController@urinalysisFile')->name('urinalysisFile');
+Route::get('department/records/xray', 'App\Http\Controllers\medController@xrayFile')->name('xrayFile');
+Route::get('department/records/fecalysis', 'App\Http\Controllers\medController@fecalysisFile')->name('fecalysisFile');
+Route::get('department/records/vaccine', 'App\Http\Controllers\medController@vaccineFile')->name('vaccineFile');

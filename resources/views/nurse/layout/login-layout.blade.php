@@ -2,8 +2,14 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" type="text/css" href="<?php echo asset('assets/css/style.css') ?>">
+<link rel="stylesheet" type="text/css" href="<?php echo asset('assets/css/table.css') ?>">
+<link rel="stylesheet" type="text/css" href="<?php echo asset('assets/css/laboratory.css') ?>">
 <link rel="stylesheet" type="text/css" href="<?php echo asset('assets/css/bootstrap.min.css') ?>">
 <link rel="stylesheet" type="text/css" href="<?php echo asset('assets/fontawesome/css/all.min.css') ?>">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+<!-- Element UI CSS -->
+<link rel="stylesheet" href="https://unpkg.com/element-ui@2.15.13/lib/theme-chalk/index.css">
+  <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
 <title>@yield('title')</title>
 
 <div id="app">
@@ -16,10 +22,15 @@
     </div>
 </div>
 <script src="<?php echo asset('assets/js/bootstrap.bundle.js') ?>"></script>
-<script src="<?php echo asset('assets/js/main.js') ?>"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Vue.js CDN -->
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+<!-- Element UI JavaScript -->
+<script src="https://unpkg.com/element-ui@2.15.13/lib/index.js"></script>
+<!-- English locale -->
+<script src="https://unpkg.com/element-ui/lib/umd/locale/en.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.0/dist/chart.min.js"></script>
 <script>
     const app = new Vue({
         el: '#app',
@@ -64,6 +75,13 @@
                                 this.passErr = response.data.passErr
                             }, 2000)
                         } else {
+                            this.$notify({
+                                title: 'Success',
+                                message: 'Successfully logged in!',
+                                type: 'success',
+                                position: 'top-left',
+                                showClose: false
+                            });
                             this.fullscreenLoading = true;
                             setTimeout(() => {
                                 window.location.href = "{{route('nurse-dashboard')}}"

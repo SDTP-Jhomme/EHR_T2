@@ -55,7 +55,7 @@
                                     <div class="form-group mb-4">
                                         <label class="form-label">Vaccination Date:</label>
                                         <div class="input-group">
-                                            <input type="date" class="form-control" v-model="formattedDate" disabled/>
+                                            <input type="date" class="form-control" v-model="vaccinationDate" disabled/>
                                         </div>
                                     </div>
                                 </div>
@@ -80,7 +80,7 @@
                             </div>
                             <div class="d-flex justify-content-center align-items-center mt-2">
                                 <button class="btn btn-outline-primary btn-sm me-2" @click="back"><i class="fas fa-arrow-circle-left pe-2"></i>Back</button>
-                                <button class="btn btn-outline-primary btn-sm" type="submit">Submit <i class="fas fa-arrow-circle-right ps-2"></i></button>
+                                <button class="btn btn-outline-primary btn-sm" type="submit" @click="submitVaccine">Submit <i class="fas fa-arrow-circle-right ps-2"></i></button>
                             </div>
                             <div class="mt-2 mb-4">
                                 <div class="row justify-content-center align-items-center g-2">

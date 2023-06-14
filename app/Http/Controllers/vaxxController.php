@@ -82,6 +82,7 @@ class vaxxController extends Controller
         return $birthdate;
     }
 
+
     function getAvatarPath($db_avatar)
     {
         $avatar = "../assets/$db_avatar";
@@ -124,6 +125,8 @@ class vaxxController extends Controller
                     "firstname" => $data_row->firstname,
                     "midname" => $data_row->midname,
                     "birthdate" => $birthdate,
+                    "height" => $data_row->height,
+                    "weight" => $data_row->weight,
                     "gender" => $data_row->gender,
                     "avatar" => $avatar,
                     "year" => $data_row->year,
@@ -140,6 +143,7 @@ class vaxxController extends Controller
                     "vaccinationDate" => $data_row->vaccinationDate,
                     "vaccineBatch" => $data_row->vaccineBatch,
                     "healthcareProvider" => $data_row->healthcareProvider,
+                    "student_id" => $data_row->student_id,
                 );
                 
 

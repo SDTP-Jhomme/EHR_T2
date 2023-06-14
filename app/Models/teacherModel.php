@@ -20,5 +20,6 @@ class teacherModel extends Model
         'status',
         'password',
         'avatar',
+        'last_login'
     ];
 }

@@ -14,7 +14,7 @@
             <div class="container p-0">
                 <el-row :gutter="20">
                     <el-col :span="12">
-                        <el-button type="primary" @click="openAddDrawer = true" size="small" icon="el-icon-user-solid">Add New Nurse</el-button>
+                        <el-button type="primary" @click="openAddDrawer = true" size="small" icon="el-icon-user-solid">Add New Teacher</el-button>
                     </el-col>
                 </el-row>
             </div>
@@ -90,7 +90,7 @@
         </el-main>
         <!----------------------------------------------------------------------------------- Modals/Drawers ----------------------------------------------------------------------------------->
         <!-- Add Drawer -->
-        <el-drawer title="Add Nurse" :visible.sync="openAddDrawer" size="70%" :before-close="closeAddDrawer">
+        <el-drawer title="Add Teacher" :visible.sync="openAddDrawer" size="70%" :before-close="closeAddDrawer">
             <div class="container p-4 d-flex flex-column pe-5">
                 <el-form :label-position="topLabel" :model="addTeacher" :rules="rules" ref="addTeacher">
                     <div class="row justify-content-start align-items-center g-2">
