@@ -24,6 +24,7 @@ Route::get('/admin/dashboard','App\Http\Controllers\adminController@dashboard')-
 Route::get('/admin/admission','App\Http\Controllers\adminController@admission')->name('admin-admission');
 Route::get('/admin/appointments','App\Http\Controllers\adminController@appointments')->name('admin-appointments');
 Route::get('/admin/login','App\Http\Controllers\adminController@adminLogin')->name('admin-login');
+Route::post('/admin/table','App\Http\Controllers\adminController@printTable')->name('print-table');
 
 Route::post('/admission','App\Http\Controllers\actionController@store')->name('admin-store');
 Route::get('fetch', 'App\Http\Controllers\adminController@fetch')->name('fetch');

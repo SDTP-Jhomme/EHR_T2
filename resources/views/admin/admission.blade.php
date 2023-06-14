@@ -10,8 +10,8 @@
 <body>
     @section('sidebar')
     <main class="main-panel flex-lg-grow-1">
-        <el-main>
-            <div class="container border rounded p-4">
+        <el-main class=" mb-4">
+            <div class="container border rounded p-4 mb-2">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <p class="mb-0">Student Information Table</p>
                     <div class="d-flex">
@@ -30,9 +30,10 @@
                                 <el-input v-model="searchNull" size="mini" placeholder="Type to search..." clearable />
                             </div>
                         </div>
+                            <el-button type="text" @click="dialogTableVisible = true">open a Table nested Dialog</el-button>
                     </div>
                 </div>
-                <el-table v-if="this.tableData" :data="usersTable" style="width: 100%" border height="600" v-loading="tableLoad" element-loading-text="Loading. Please wait..." element-loading-spinner="el-icon-loading">
+                <el-table v-if="this.tableData" :data="usersTable" style="width: 100%" border height="500" v-loading="tableLoad" element-loading-text="Loading. Please wait..." element-loading-spinner="el-icon-loading">
                     <el-table-column label="No." type="index" width="50">
                     </el-table-column>
                     <el-table-column sortable label="Identification No." width="200" prop="identification">
@@ -76,6 +77,29 @@
                     <el-checkbox v-model="showAllData">Show All</el-checkbox>
                     <el-pagination :current-page.sync="page" :pager-count="5" :page-size="this.pageSize" background layout="prev, pager, next" :total="this.tableData.length" @current-change="setPage">
                     </el-pagination>
+                </div>
+                <div class="container">
+                    <el-dialog title="Shipping address" :visible.sync="dialogTableVisible">
+                    <el-table :data="gridData">
+                        <el-table-column property="date" label="Date" width="150"></el-table-column>
+                        <el-table-column property="name" label="Name" width="200"></el-table-column>
+                        <el-table-column property="address" label="Address"></el-table-column>
+                    </el-table>
+                    <div class="row justify-content-center align-items-center g-2">
+                        <div class="col-lg-3 col-md-8 me-5">
+                            <el-date-picker
+                            v-model="dateRange"
+                            type="daterange"
+                            start-placeholder="Start Date"
+                            end-placeholder="End Date"
+                            :picker-options="reportOptions">
+                            </el-date-picker>
+                        </div>
+                        <div class="col-lg-3 col-md-8">
+                            <el-button type="primary" @click="printTable" round>Print Table</el-button>
+                        </div>
+                    </div>
+                    </el-dialog>
                 </div>
             </div>
         </el-main>

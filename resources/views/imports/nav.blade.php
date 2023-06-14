@@ -9,19 +9,15 @@
                 <div class="nav">
                     <li class="nav-item">
                         <div class="ms-auto mt-auto">
-                            <div class="dropstart user-dropdown">
-                                <a class="px-5 me-3 btn btn-primary" id="UserDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-                                  Login
-                                </a>
-                                <!-- <div class="dropdown-menu" aria-labelledby="UserDropdown">
-                                    <div class="dropdown-item">
-                                        <a class="nav-link" href="#">
-                                            <i class="fas fa-power-off text-danger me-2"></i>
-                                            Sign Out
-                                        </a>
-                                    </div>
-                                </div> -->
-                            </div>
+                            <!-- <el-dropdown>
+                                <el-button class="text-uppercase" type="primary">
+                                    Login<i class="ms-2 el-icon-arrow-down el-icon--left"></i>
+                                </el-button>
+                                <el-dropdown-menu slot="dropdown">
+                                    <el-button class="dropdown-item" type="text" @click="studentLogin = true">Student Login</el-button>
+                                    <el-button class="dropdown-item" type="text" @click="teacherLogin = true">Teacher Login</el-button>
+                                </el-dropdown-menu>
+                            </el-dropdown> -->
                         </div>
                     </li>
                 </div>

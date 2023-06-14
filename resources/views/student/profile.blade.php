@@ -12,15 +12,12 @@
     <div id="app" v-loading.fullscreen.lock="fullscreenLoading">
     @include('student/imports/nav')
         <el-container v-for="user in student_data">
-            <el-header height="0px"></el-header>
             <el-main>
-                <el-row class="mb-3">
-                    <el-col :span="12" :offset="2">
+                <div class="row justify-content-center align-items-start g-2">
+                    <div class="col-lg-1 col-md-7">
                         <h3>Profile</h3>
-                    </el-col>
-                </el-row>
-                <el-row :gutter="30" class="mb-3" type="flex" justify="center">
-                    <el-col :span="6">
+                    </div>
+                    <div class="col-lg-4 col-md-7">
                         <div class="card profile shadow">
                             <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
                                 <img :src="user.avatar" alt="Profile" class="rounded-circle mb-3">
@@ -28,8 +25,8 @@
                                 <p>Student</p>
                             </div>
                         </div>
-                    </el-col>
-                    <el-col :span="12">
+                    </div>
+                    <div class="col-lg-4 col-md-7">
                         <div class="card p-4 shadow">
                             <el-tabs>
                                 <el-tab-pane>
@@ -46,8 +43,8 @@
                                 </el-tab-pane>
                             </el-tabs>
                         </div>
-                    </el-col>
-                </el-row>
+                    </div>
+                </div>
             </el-main>
         </el-container>
     </div>

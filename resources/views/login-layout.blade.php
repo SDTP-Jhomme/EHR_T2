@@ -12,7 +12,8 @@
                 userErr: "",
                 passErr: "",
                 fullscreenLoading: true,
-                remember: false,
+                studentLogin: false,
+                teacherLogin: false,
             };
         },
         mounted() {

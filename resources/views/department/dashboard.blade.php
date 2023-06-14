@@ -93,7 +93,7 @@
         </div>
         <!----------------------------------------------------------------------------------- Modals/Drawers ----------------------------------------------------------------------------------->
         <!-- View Dialog -->
-        <el-dialog :visible.sync="viewDialog" width="35%" :before-close="closeViewDialog">
+        <el-dialog :visible.sync="viewDialog" width="40%" :before-close="closeViewDialog">
             <template #title>
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="fs-5">User<span class="mx-2" v-text="viewStudent.firstname"></span></div>
@@ -101,15 +101,38 @@
             </template>
             <div class="container">
                 <div class="">
-                    <el-descriptions direction="horizontal" :column="1" border>
-                        <el-descriptions-item label="Identification Number"><span class="mx-2" v-text="viewStudent.identification"></el-descriptions-item>
-                        <el-descriptions-item label="Name"><span class="mx-2" v-text="viewStudent.name"></el-descriptions-item>
-                        <el-descriptions-item label="Birthday"><span class="mx-2" v-text="viewStudent.birthdate"></el-descriptions-item>
-                        <el-descriptions-item label="Gender">
-                            <el-tag v-if="viewStudent.gender == 'Male'"><span class="mx-2" v-text="viewStudent.gender"></el-tag>
-                            <el-tag v-else type="danger"><span class="mx-2" v-text="viewStudent.gender"></el-tag>
-                        </el-descriptions-item>
-                    </el-descriptions>
+                    <el-form direction="horizontal" :column="1" border>
+                        <div class="row justify-content-start align-items-center g-2">
+                            <div class="col-lg-5 col-md-6">
+                                <el-form-item label="Identification Number">
+                                    <el-input class="" v-model="viewStudent.identification" disabled>
+                                </el-form-item>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                                <el-form-item label="Name">
+                                    <el-input class="" v-model="viewStudent.name" disabled>
+                                </el-form-item>
+                            </div>
+                        </div>
+                        <div class="row justify-content-start align-items-center g-2">
+                            <div class="col-lg-4 col-md-6">
+                                <el-form-item label="Birthday">
+                                    <el-input class="" v-model="viewStudent.birthdate" disabled>
+                                </el-form-item>
+                            </div>
+                            <div class="col-lg-4 col-md-6">
+                                <label class="">Gender</label>
+                                <el-form-item class="mt-3" label="">
+                                    <el-tag v-if="viewStudent.gender == 'Male'">
+                                        <span class="" v-text="viewStudent.gender"></span>
+                                    </el-tag>
+                                    <el-tag v-else type="danger">
+                                        <span class="" v-text   ="viewStudent.gender"></span>
+                                    </el-tag>
+                                </el-form-item>
+                            </div>
+                        </div>
+                    </el-form>
                 </div>
             </div>
             <span slot="footer" class="dialog-footer">

@@ -62,7 +62,13 @@
                         return date > new Date()
                     }
                 },
+                reportOptions: {
+                    disabledDate(date) {
+                        return date > new Date()
+                    }
+                },
                 fullscreenLoading: true,
+                dialogTableVisible: false,
                 page: 1,
                 pageSize: 10,
                 topLabel: "top",
@@ -74,6 +80,8 @@
                 viewStudent: [],
                 status: true,
                 switch: false,
+                dateRange: [],
+                excelErrors:true,
                 showAllData: false,
                     searchValue: "",
                     searchNull: "",
@@ -302,6 +310,51 @@
         },
 
         methods: {
+            printTable() {
+                const startDate = this.dateRange[0];
+                const endDate = this.dateRange[1];
+                let excelErrors = false; // Variable to track errors
+
+                if (!startDate) {
+                    this.$message.error('Select Start date!');
+                    excelErrors = true; // Set the error flag
+                }else if (!endDate) {
+                    this.$message.error('Select End date!');
+                    excelErrors = true; // Set the error flag
+                }else{
+                    excelErrors = false; // Set the error flag
+                }
+
+                if (startDate > endDate) {
+                    this.$message.error("End Date should be greater than the start date!");
+                    excelErrors = true; // Set the error flag
+                }
+
+                if (!excelErrors) {
+                    const dateRange = new FormData();
+                    dateRange.append("startDate", startDate.toString());
+                    dateRange.append("endDate", endDate.toString());
+
+                    axios.post("{{route('print-table')}}", dateRange)
+                    .then(res => {
+                        if (res.data.error) {
+                        this.$message.error("An error occurred while downloading the Excel report.");
+                        } else {
+                        this.$message.success("Report has been printed successfully!");
+                        this.startDate = "";
+                        this.endDate = "";
+                        this.data = res.data; // Assign the retrieved data to the data property
+                        this.$nextTick(() => {
+                            window.print(); // Trigger the print dialog after updating the table
+                        });
+                        }
+                    })
+                    .catch(error => {
+                        this.$message.error("An error occurred while downloading the Excel report.");
+                        console.error(error.response);
+                    });
+                }
+            },
             changeColumn(selected) {
                 this.searchNull = ""
                 this.searchName = ""
