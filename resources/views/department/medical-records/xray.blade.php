@@ -101,15 +101,74 @@
             </template>
             <div class="container">
                 <div class="">
-                    <el-descriptions direction="horizontal" :column="1" border>
-                        <el-descriptions-item label="Identification Number"><span class="mx-2" v-text="viewStudent.identification"></el-descriptions-item>
-                        <el-descriptions-item label="Name"><span class="mx-2" v-text="viewStudent.name"></el-descriptions-item>
-                        <el-descriptions-item label="Birthday"><span class="mx-2" v-text="viewStudent.birthdate"></el-descriptions-item>
-                        <el-descriptions-item label="Gender">
-                            <el-tag v-if="viewStudent.gender == 'Male'"><span class="mx-2" v-text="viewStudent.gender"></el-tag>
-                            <el-tag v-else type="danger"><span class="mx-2" v-text="viewStudent.gender"></el-tag>
-                        </el-descriptions-item>
-                    </el-descriptions>
+                <div class="card-body content">
+                    <h3 class="card-title">Chest X-ray (PA)</h3>
+                    <div class="container">
+                        <div class="row align-items-center g-2 my-2">
+                            <div class="col-lg-4 col-md-12">
+                                <div class="form-group mb-4">
+                                    <label class="form-label">First Name</label>
+                                    <input type="text" class="form-control" v-model="viewStudent.name" disabled />
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-12">
+                                <div class="form-group mb-4">
+                                    <label class="form-label">Age</label>
+                                    <input type="text" class="form-control" v-model="viewStudent.age" disabled />
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-12">
+                                <div class="form-group mb-4">
+                                    <label class="form-label">Gender</label>
+                                    <input type="text" class="form-control" v-model="viewStudent.gender" disabled />
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-12">
+                                <div class="form-group mb-4">
+                                    <label class="form-label">Address</label>
+                                    <input type="text" class="form-control" v-model="viewStudent.address" disabled />
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row align-items-center g-2 my-2">
+                            <div class="col-lg-4 col-md-12">
+                                <div class="form-group mb-4">
+                                    <label class="form-label">Case No.:</label>
+                                    <input type="text" class="form-control" v-model="viewStudent.case_No" disabled/>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-12">
+                                <div class="form-group mb-4">
+                                    <label class="form-label">Referred by:ICHC</label>
+                                    <input type="text" class="form-control" v-model="viewStudent.referred_by" disabled />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row align-items-center g-2 my-2">
+                            <div class="col-lg-4 col-md-12">
+                                <div class="form-group mb-4">
+                                    <label class="form-label">Room & Bed No:</label>
+                                    <input type="text" class="form-control" v-model="viewStudent.room_bed" disabled/>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-12">
+                                <div class="form-group mb-4">
+                                    <label class="form-label">Clinical Impression:</label>
+                                    <input type="text" class="form-control" v-model="viewStudent.clinical_impression" disabled/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row align-items-center g-2 my-2">
+                            <div class="col-lg-4 col-md-12">
+                                <div class="form-group mb-4">
+                                    <label class="form-label">Type of Examination:</label>
+                                    <input type="text" class="form-control" v-model="viewStudent.type_examination" disabled/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 </div>
             </div>
             <span slot="footer" class="dialog-footer">

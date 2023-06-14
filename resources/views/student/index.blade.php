@@ -297,343 +297,343 @@
                                             <div class="col-lg-4 col-md-12">
                                                 <div class="form-group mb-4">
                                                     <label class="form-label">Medical Technologist:</label>
-                                                    <input type="text" class="form-control" v-model="urinalysis.technologist" disabled/>
+                                                        <input type="text" class="form-control" v-model="urinalysis.technologist" disabled/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <div v-for="vaccine in isVaccine" v-if="vaccine.student_id === user.id" class="card mb-3">
+                                <div class="card-body content">
+                                    <h3 class="card-title">Heppa B Vaccine</h3>
+                                    <div class="container">
+                                        <div class="row align-items-center g-2 my-2">
+                                            <div class="col-lg-4 col-md-12">
+                                                <div class="form-group mb-4">
+                                                    <label class="form-label">First Name</label>
+                                                    <input type="text" class="form-control" v-model="user.name" disabled />
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-12">
+                                                <div class="form-group mb-4">
+                                                    <label class="form-label">Age</label>
+                                                    <input type="text" class="form-control" v-model="vaccine.age" disabled />
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-12">
+                                                <div class="form-group mb-4">
+                                                    <label class="form-label">Gender</label>
+                                                    <input type="text" class="form-control" v-model="user.gender" disabled />
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-12">
+                                                <div class="form-group mb-4">
+                                                    <label class="form-label">Address</label>
+                                                    <input type="text" class="form-control" v-model="user.address" disabled />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row align-items-center g-2 my-2">
+                                            <div class="col-lg-3 col-md-12">
+                                                <div class="form-group mb-4">
+                                                    <label class="form-label">Vaccination Date:</label>
+                                                    <div class="input-group">
+                                                        <input type="date" class="form-control" v-model="vaccine.vaccinationDate" disabled/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3 col-md-12">
+                                                <div class="form-group mb-4">
+                                                    <label class="form-label">Vaccine Batch:</label>
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control" v-model="vaccine.vaccineBatch"disabled/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3 col-md-12">
+                                                <div class="form-group mb-4">
+                                                    <label class="form-label">Healthcare Provider:</label>
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control" v-model="vaccine.healthcareProvider"disabled/>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div v-for="vaccine in isVaccine" v-if="vaccine.student_id === user.id" class="card mb-3">
-                            <div class="card-body content">
-                                <h3 class="card-title">Heppa B Vaccine</h3>
-                                <div class="container">
-                                    <div class="row align-items-center g-2 my-2">
-                                        <div class="col-lg-4 col-md-12">
-                                            <div class="form-group mb-4">
-                                                <label class="form-label">First Name</label>
-                                                <input type="text" class="form-control" v-model="user.name" disabled />
+                            <div v-for="xray in isXray" v-if="xray.student_id == user.id" class="card mb-3">
+                                <div class="card-body content">
+                                    <h3 class="card-title">Chest X-ray (PA)</h3>
+                                    <div class="container">
+                                        <div class="row align-items-center g-2 my-2">
+                                            <div class="col-lg-4 col-md-12">
+                                                <div class="form-group mb-4">
+                                                    <label class="form-label">First Name</label>
+                                                    <input type="text" class="form-control" v-model="user.name" disabled />
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-12">
-                                            <div class="form-group mb-4">
-                                                <label class="form-label">Age</label>
-                                                <input type="text" class="form-control" v-model="vaccine.age" disabled />
+                                            <div class="col-lg-4 col-md-12">
+                                                <div class="form-group mb-4">
+                                                    <label class="form-label">Age</label>
+                                                    <input type="text" class="form-control" v-model="xray.age" disabled />
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-12">
-                                            <div class="form-group mb-4">
-                                                <label class="form-label">Gender</label>
-                                                <input type="text" class="form-control" v-model="user.gender" disabled />
+                                            <div class="col-lg-4 col-md-12">
+                                                <div class="form-group mb-4">
+                                                    <label class="form-label">Gender</label>
+                                                    <input type="text" class="form-control" v-model="user.gender" disabled />
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-12">
-                                            <div class="form-group mb-4">
-                                                <label class="form-label">Address</label>
-                                                <input type="text" class="form-control" v-model="user.address" disabled />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                    <div class="row align-items-center g-2 my-2">
-                                        <div class="col-lg-3 col-md-12">
-                                            <div class="form-group mb-4">
-                                                <label class="form-label">Vaccination Date:</label>
-                                                <div class="input-group">
-                                                    <input type="date" class="form-control" v-model="vaccine.vaccinationDate" disabled/>
+                                            <div class="col-lg-4 col-md-12">
+                                                <div class="form-group mb-4">
+                                                    <label class="form-label">Address</label>
+                                                    <input type="text" class="form-control" v-model="user.address" disabled />
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-lg-3 col-md-12">
-                                            <div class="form-group mb-4">
-                                                <label class="form-label">Vaccine Batch:</label>
-                                                <div class="input-group">
-                                                    <input type="text" class="form-control" v-model="vaccine.vaccineBatch"disabled/>
+                                        <hr>
+                                        <div class="row align-items-center g-2 my-2">
+                                            <div class="col-lg-4 col-md-12">
+                                                <div class="form-group mb-4">
+                                                    <label class="form-label">Case No.:</label>
+                                                    <input type="text" class="form-control" v-model="xray.case_No" disabled/>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-12">
+                                                <div class="form-group mb-4">
+                                                    <label class="form-label">Referred by:ICHC</label>
+                                                    <input type="text" class="form-control" v-model="xray.referred_by" disabled />
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-lg-3 col-md-12">
-                                            <div class="form-group mb-4">
-                                                <label class="form-label">Healthcare Provider:</label>
-                                                <div class="input-group">
-                                                    <input type="text" class="form-control" v-model="vaccine.healthcareProvider"disabled/>
+                                        <div class="row align-items-center g-2 my-2">
+                                            <div class="col-lg-4 col-md-12">
+                                                <div class="form-group mb-4">
+                                                    <label class="form-label">Room & Bed No:</label>
+                                                    <input type="text" class="form-control" v-model="xray.room_bed" disabled/>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-12">
+                                                <div class="form-group mb-4">
+                                                    <label class="form-label">Clinical Impression:</label>
+                                                    <input type="text" class="form-control" v-model="xray.clinical_impression" disabled/>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div v-for="xray in isXray" v-if="xray.student_id == user.id" class="card mb-3">
-                            <div class="card-body content">
-                                <h3 class="card-title">Chest X-ray (PA)</h3>
-                                <div class="container">
-                                    <div class="row align-items-center g-2 my-2">
-                                        <div class="col-lg-4 col-md-12">
-                                            <div class="form-group mb-4">
-                                                <label class="form-label">First Name</label>
-                                                <input type="text" class="form-control" v-model="user.name" disabled />
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-12">
-                                            <div class="form-group mb-4">
-                                                <label class="form-label">Age</label>
-                                                <input type="text" class="form-control" v-model="xray.age" disabled />
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-12">
-                                            <div class="form-group mb-4">
-                                                <label class="form-label">Gender</label>
-                                                <input type="text" class="form-control" v-model="user.gender" disabled />
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-12">
-                                            <div class="form-group mb-4">
-                                                <label class="form-label">Address</label>
-                                                <input type="text" class="form-control" v-model="user.address" disabled />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                    <div class="row align-items-center g-2 my-2">
-                                        <div class="col-lg-4 col-md-12">
-                                            <div class="form-group mb-4">
-                                                <label class="form-label">Case No.:</label>
-                                                <input type="text" class="form-control" v-model="xray.case_No" disabled/>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-12">
-                                            <div class="form-group mb-4">
-                                                <label class="form-label">Referred by:ICHC</label>
-                                                <input type="text" class="form-control" v-model="xray.referred_by" disabled />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row align-items-center g-2 my-2">
-                                        <div class="col-lg-4 col-md-12">
-                                            <div class="form-group mb-4">
-                                                <label class="form-label">Room & Bed No:</label>
-                                                <input type="text" class="form-control" v-model="xray.room_bed" disabled/>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-12">
-                                            <div class="form-group mb-4">
-                                                <label class="form-label">Clinical Impression:</label>
-                                                <input type="text" class="form-control" v-model="xray.clinical_impression" disabled/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row align-items-center g-2 my-2">
-                                        <div class="col-lg-4 col-md-12">
-                                            <div class="form-group mb-4">
-                                                <label class="form-label">Type of Examination:</label>
-                                                <input type="text" class="form-control" v-model="xray.type_examination" disabled/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div v-for="antigen in isAntigen" v-if="antigen.student_id === user.id" class="card mb-3">
-                            <div class="card-body content">
-                                <h3 class="card-title">Heppa B Antigen</h3>
-                                <div class="container">
-                                    <div class="row align-items-center g-2 my-2">
-                                        <div class="col-lg-4 col-md-12">
-                                            <div class="form-group mb-4">
-                                                <label class="form-label">First Name</label>
-                                                <input type="text" class="form-control" v-model="user.name" disabled />
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-12">
-                                            <div class="form-group mb-4">
-                                                <label class="form-label">Age</label>
-                                                <input type="text" class="form-control" v-model="antigen.age" disabled />
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-12">
-                                            <div class="form-group mb-4">
-                                                <label class="form-label">Gender</label>
-                                                <input type="text" class="form-control" v-model="user.gender" disabled />
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-12">
-                                            <div class="form-group mb-4">
-                                                <label class="form-label">Address</label>
-                                                <input type="text" class="form-control" v-model="user.address" disabled />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                    <div class="row justify-content-center align-items-center g-2 my-2">
-                                        <div class="col-lg-3 col-md-12">
-                                            <div class="form-group mb-4">
-                                                <label class="form-label">Sample Date:</label>
-                                                <div class="input-group">
-                                                    <input type="date" class="form-control" v-model="antigen.sampleDate" disabled/>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3 col-md-12">
-                                            <div class="form-group mb-4">
-                                                <label class="form-label">Result:</label>
-                                                <div class="input-group">
-                                                    <input type="text" class="form-control" v-model="antigen.result"disabled/>
+                                        <div class="row align-items-center g-2 my-2">
+                                            <div class="col-lg-4 col-md-12">
+                                                <div class="form-group mb-4">
+                                                    <label class="form-label">Type of Examination:</label>
+                                                    <input type="text" class="form-control" v-model="xray.type_examination" disabled/>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div v-for="fecalysis in isFecalysis" v-if="fecalysis.student_id === user.id" class="card mb-3">
-                            <div class="card-body content">
-                                <h3 class="card-title">Fecalysis</h3>
-                                <div class="container">
-                                    <div class="row align-items-center g-2 my-2">
-                                        <div class="col-lg-4 col-md-12">
-                                            <div class="form-group mb-4">
-                                                <label class="form-label">First Name</label>
-                                                <input type="text" class="form-control" v-model="user.name" disabled />
+                            <div v-for="antigen in isAntigen" v-if="antigen.student_id === user.id" class="card mb-3">
+                                <div class="card-body content">
+                                    <h3 class="card-title">Heppa B Antigen</h3>
+                                    <div class="container">
+                                        <div class="row align-items-center g-2 my-2">
+                                            <div class="col-lg-4 col-md-12">
+                                                <div class="form-group mb-4">
+                                                    <label class="form-label">First Name</label>
+                                                    <input type="text" class="form-control" v-model="user.name" disabled />
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-12">
+                                                <div class="form-group mb-4">
+                                                    <label class="form-label">Age</label>
+                                                    <input type="text" class="form-control" v-model="antigen.age" disabled />
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-12">
+                                                <div class="form-group mb-4">
+                                                    <label class="form-label">Gender</label>
+                                                    <input type="text" class="form-control" v-model="user.gender" disabled />
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-12">
+                                                <div class="form-group mb-4">
+                                                    <label class="form-label">Address</label>
+                                                    <input type="text" class="form-control" v-model="user.address" disabled />
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="col-lg-4 col-md-12">
-                                            <div class="form-group mb-4">
-                                                <label class="form-label">Age</label>
-                                                <input type="text" class="form-control" v-model="fecalysis.age" disabled />
+                                        <hr>
+                                        <div class="row justify-content-center align-items-center g-2 my-2">
+                                            <div class="col-lg-3 col-md-12">
+                                                <div class="form-group mb-4">
+                                                    <label class="form-label">Sample Date:</label>
+                                                    <div class="input-group">
+                                                        <input type="date" class="form-control" v-model="antigen.sampleDate" disabled/>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-12">
-                                            <div class="form-group mb-4">
-                                                <label class="form-label">Gender</label>
-                                                <input type="text" class="form-control" v-model="user.gender" disabled />
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-12">
-                                            <div class="form-group mb-4">
-                                                <label class="form-label">Address</label>
-                                                <input type="text" class="form-control" v-model="user.address" disabled />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                    <div class="row align-items-center g-2 my-2">
-                                        <div class="col-lg-4 col-md-12">
-                                            <div class="form-group mb-4">
-                                                <label class="form-label">Requested By:</label>
-                                                <input type="text" class="form-control" v-model="fecalysis.requestBy" disabled/>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-12">
-                                            <div class="form-group mb-4">
-                                                <label class="form-label">Date of request:</label>
-                                                <input type="date" class="form-control" v-model="fecalysis.requestDate" disabled />
-                                            </div>
-                                        </div>
-                                        <h5 class="text-success">PHYSICAL PROPERTIES</h5>
-                                        <div class="col-lg-4 col-md-12">
-                                            <div class="form-group mb-4">
-                                                <label class="form-label">Color:</label>
-                                                <input type="text" class="form-control" v-model="fecalysis.color" disabled/>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-12">
-                                            <div class="form-group mb-4">
-                                                <label class="form-label">Consistency:</label>
-                                                <input type="text" class="form-control" v-model="fecalysis.consistency" disabled/>
+                                            <div class="col-lg-3 col-md-12">
+                                                <div class="form-group mb-4">
+                                                    <label class="form-label">Result:</label>
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control" v-model="antigen.result"disabled/>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row align-items-center g-2 my-2">
-                                        <h5 class="text-success">CHEMICAL PROPERTIES</h5>
-                                        <div class="col-lg-4 col-md-12">
-                                            <div class="form-group mb-4">
-                                                <label class="form-label">Occult Blood:</label>
-                                                <input type="text" class="form-control" v-model="fecalysis.occult"disabled />
+                                </div>
+                            </div>
+                            <div v-for="fecalysis in isFecalysis" v-if="fecalysis.student_id === user.id" class="card mb-3">
+                                <div class="card-body content">
+                                    <h3 class="card-title">Fecalysis</h3>
+                                    <div class="container">
+                                        <div class="row align-items-center g-2 my-2">
+                                            <div class="col-lg-4 col-md-12">
+                                                <div class="form-group mb-4">
+                                                    <label class="form-label">First Name</label>
+                                                    <input type="text" class="form-control" v-model="user.name" disabled />
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-12">
+                                                <div class="form-group mb-4">
+                                                    <label class="form-label">Age</label>
+                                                    <input type="text" class="form-control" v-model="fecalysis.age" disabled />
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-12">
+                                                <div class="form-group mb-4">
+                                                    <label class="form-label">Gender</label>
+                                                    <input type="text" class="form-control" v-model="user.gender" disabled />
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-12">
+                                                <div class="form-group mb-4">
+                                                    <label class="form-label">Address</label>
+                                                    <input type="text" class="form-control" v-model="user.address" disabled />
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="col-lg-4 col-md-12">
-                                            <div class="form-group mb-4">
-                                                <label class="form-label">Others:</label>
-                                                <input type="text" class="form-control" v-model="fecalysis.otherOccult" disabled/>
+                                        <hr>
+                                        <div class="row align-items-center g-2 my-2">
+                                            <div class="col-lg-4 col-md-12">
+                                                <div class="form-group mb-4">
+                                                    <label class="form-label">Requested By:</label>
+                                                    <input type="text" class="form-control" v-model="fecalysis.requestBy" disabled/>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-12">
+                                                <div class="form-group mb-4">
+                                                    <label class="form-label">Date of request:</label>
+                                                    <input type="date" class="form-control" v-model="fecalysis.requestDate" disabled />
+                                                </div>
+                                            </div>
+                                            <h5 class="text-success">PHYSICAL PROPERTIES</h5>
+                                            <div class="col-lg-4 col-md-12">
+                                                <div class="form-group mb-4">
+                                                    <label class="form-label">Color:</label>
+                                                    <input type="text" class="form-control" v-model="fecalysis.color" disabled/>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-12">
+                                                <div class="form-group mb-4">
+                                                    <label class="form-label">Consistency:</label>
+                                                    <input type="text" class="form-control" v-model="fecalysis.consistency" disabled/>
+                                                </div>
                                             </div>
                                         </div>
-                                        <h5 class="text-success">MICROSCOPIC FINDINGS</h5>
-                                        <div class="col-lg-4 col-md-12">
-                                            <div class="form-group mb-4">
-                                                <label class="form-label">Pus cells:</label>
-                                                <input type="text" class="form-control" v-model="fecalysis.pus" disabled/>
+                                        <div class="row align-items-center g-2 my-2">
+                                            <h5 class="text-success">CHEMICAL PROPERTIES</h5>
+                                            <div class="col-lg-4 col-md-12">
+                                                <div class="form-group mb-4">
+                                                    <label class="form-label">Occult Blood:</label>
+                                                    <input type="text" class="form-control" v-model="fecalysis.occult"disabled />
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-12">
+                                                <div class="form-group mb-4">
+                                                    <label class="form-label">Others:</label>
+                                                    <input type="text" class="form-control" v-model="fecalysis.otherOccult" disabled/>
+                                                </div>
+                                            </div>
+                                            <h5 class="text-success">MICROSCOPIC FINDINGS</h5>
+                                            <div class="col-lg-4 col-md-12">
+                                                <div class="form-group mb-4">
+                                                    <label class="form-label">Pus cells:</label>
+                                                    <input type="text" class="form-control" v-model="fecalysis.pus" disabled/>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-12">
+                                                <div class="form-group mb-4">
+                                                    <label class="form-label">RBC:</label>
+                                                    <input type="text" class="form-control" v-model="fecalysis.rbc" disabled/>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-12">
+                                                <div class="form-group mb-4">
+                                                    <label class="form-label">Fat GLobules:</label>
+                                                    <input type="text" class="form-control" v-model="fecalysis.fat" disabled/>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="col-lg-4 col-md-12">
-                                            <div class="form-group mb-4">
-                                                <label class="form-label">RBC:</label>
-                                                <input type="text" class="form-control" v-model="fecalysis.rbc" disabled/>
+                                        <div class="row align-items-center g-2 my-2">
+                                            <h5 class="text-success">HELMINTHS</h5>
+                                            <div class="col-lg-4 col-md-12">
+                                                <div class="form-group mb-4">
+                                                    <label class="form-label">Ova:</label>
+                                                    <input type="text" class="form-control" v-model="fecalysis.ova" disabled/>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-12">
+                                                <div class="form-group mb-4">
+                                                    <label class="form-label">Larva:</label>
+                                                    <input type="text" class="form-control" v-model="fecalysis.larva" disabled/>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-12">
+                                                <div class="form-group mb-4">
+                                                    <label class="form-label">Adult Forms:</label>
+                                                    <input type="text" class="form-control" v-model="fecalysis.adult" disabled/>
+                                                </div>
+                                            </div>
+                                            <h5 class="text-success">PROTOZOA</h5>
+                                            <div class="col-lg-4 col-md-12">
+                                                <div class="form-group mb-4">
+                                                    <label class="form-label">Cyst:</label>
+                                                    <input type="text" class="form-control" v-model="fecalysis.cyst" disabled/>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-12">
+                                                <div class="form-group mb-4">
+                                                    <label class="form-label">Trophozoites:</label>
+                                                    <input type="text" class="form-control" v-model="fecalysis.trophozoites" disabled/>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-12">
+                                                <div class="form-group mb-4">
+                                                    <label class="form-label">Others:</label>
+                                                    <input type="text" class="form-control" v-model="fecalysis.otherTrophozoites" disabled/>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="col-lg-4 col-md-12">
-                                            <div class="form-group mb-4">
-                                                <label class="form-label">Fat GLobules:</label>
-                                                <input type="text" class="form-control" v-model="fecalysis.fat" disabled/>
-                                            </div>
+                                        <div class="form-group mb-4">
+                                            <h5 class="text-dark">REMARKS</h5>
+                                            <textarea type="text" class="form-control" v-model="fecalysis.remarks"disabled></textarea>
                                         </div>
-                                    </div>
-                                    <div class="row align-items-center g-2 my-2">
-                                        <h5 class="text-success">HELMINTHS</h5>
-                                        <div class="col-lg-4 col-md-12">
-                                            <div class="form-group mb-4">
-                                                <label class="form-label">Ova:</label>
-                                                <input type="text" class="form-control" v-model="fecalysis.ova" disabled/>
+                                        <div class="row align-items-center g-2 my-2">
+                                            <div class="col-lg-4 col-md-12">
+                                                <div class="form-group mb-4">
+                                                    <label class="form-label">Pathologist:</label>
+                                                    <input type="text" class="form-control" v-model="fecalysis.pathologist" disabled/>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-12">
-                                            <div class="form-group mb-4">
-                                                <label class="form-label">Larva:</label>
-                                                <input type="text" class="form-control" v-model="fecalysis.larva" disabled/>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-12">
-                                            <div class="form-group mb-4">
-                                                <label class="form-label">Adult Forms:</label>
-                                                <input type="text" class="form-control" v-model="fecalysis.adult" disabled/>
-                                            </div>
-                                        </div>
-                                        <h5 class="text-success">PROTOZOA</h5>
-                                        <div class="col-lg-4 col-md-12">
-                                            <div class="form-group mb-4">
-                                                <label class="form-label">Cyst:</label>
-                                                <input type="text" class="form-control" v-model="fecalysis.cyst" disabled/>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-12">
-                                            <div class="form-group mb-4">
-                                                <label class="form-label">Trophozoites:</label>
-                                                <input type="text" class="form-control" v-model="fecalysis.trophozoites" disabled/>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-12">
-                                            <div class="form-group mb-4">
-                                                <label class="form-label">Others:</label>
-                                                <input type="text" class="form-control" v-model="fecalysis.otherTrophozoites" disabled/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group mb-4">
-                                        <h5 class="text-dark">REMARKS</h5>
-                                        <textarea type="text" class="form-control" v-model="fecalysis.remarks"disabled></textarea>
-                                    </div>
-                                    <div class="row align-items-center g-2 my-2">
-                                        <div class="col-lg-4 col-md-12">
-                                            <div class="form-group mb-4">
-                                                <label class="form-label">Pathologist:</label>
-                                                <input type="text" class="form-control" v-model="fecalysis.pathologist" disabled/>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-12">
-                                            <div class="form-group mb-4">
-                                                <label class="form-label">Medical Technologist:</label>
-                                                <input type="text" class="form-control" v-model="fecalysis.technologist" disabled/>
+                                            <div class="col-lg-4 col-md-12">
+                                                <div class="form-group mb-4">
+                                                    <label class="form-label">Medical Technologist:</label>
+                                                    <input type="text" class="form-control" v-model="fecalysis.technologist" disabled/>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

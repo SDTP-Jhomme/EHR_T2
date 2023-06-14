@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use App\Models\adminModel;
+use App\Models\userModel;
 
 $response = array('error' => false);
 class adminController extends Controller
@@ -81,10 +82,10 @@ class adminController extends Controller
                     return response()->json($response);
                 }
             }
-        }else{
+        } else {
             $response["error"] = true;
             $response["adminErr"] = "Username is incorrect!";
-            return response()->json($response , 500);
+            return response()->json($response, 500);
         }
     }
     public function adminLogout(Request $request)
@@ -102,5 +103,35 @@ class adminController extends Controller
     public function appointments()
     {
         return view('admin/appointments');
+    }
+    // public function downloadExcel(Request $request)
+    // {
+    //     $startDate = $request->input('start_date');
+    //     $endDate = $request->input('end_date');
+
+    //     // Fetch your data based on the date range
+
+    //     $data = [
+    //         'start' => $startDate,
+    //         'end' => $endDate
+    //     ];
+    //     $dlExcel = Excel::download(new YourExcelExport($data), 'student-records.xlsx');
+    //     if($dlExcel){
+    //         $response["error"] = false;
+    //         return response()->json($response);
+    //     }else{
+    //         $response["error"] = true;
+    //         return response()->json($response, 500);
+    //     }
+    // }
+    public function printTable(Request $request)
+    {
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+
+        // Fetch your data based on the date range
+        $data = userModel::whereBetween('created_at', [$startDate, $endDate])->get();
+        // Return the response or perform any other necessary operations
+        return response()->json($data);
     }
 }

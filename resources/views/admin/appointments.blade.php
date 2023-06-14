@@ -59,9 +59,9 @@
                     </el-table-column>
                     <el-table-column sortable label="Weight" width="150" prop="weight">
                     </el-table-column>
-                    <el-table-column sortable label="Section" width="200" prop="section">
+                    <el-table-column sortable label="Medical Purpose" width="200" prop="section">
                     </el-table-column>
-                    <el-table-column sortable label="Next Appointment" width="200" prop="next_appointment">
+                    <el-table-column sortable label="Schedule" width="200" prop="next_appointment">
                     </el-table-column>
                 </el-table>
                 <div class="d-flex justify-content-between mt-2">
