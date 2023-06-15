@@ -1,3 +1,4 @@
+@yield('title')
 <script>
     // Vue.use(ElementUI, { locale: 'en' });
     // console.log(Vue);
@@ -283,6 +284,23 @@
         },
 
         methods: {
+            antigenPrint(){
+                const antigenContent = document.getElementById('antigen').innerHTML;
+                const printWindow = window.open('', '_blank');
+                printWindow.document.open();
+                printWindow.document.write(`
+                    <html>
+                    <head>
+                    <title>Print</title>
+                    </head>
+                    <body>
+                    ${antigenContent}
+                    </body>
+                    </html>
+                `);
+                printWindow.document.close();
+                printWindow.print();
+            },
             changeColumn(selected) {
                 this.searchNull = ""
                 this.searchName = ""

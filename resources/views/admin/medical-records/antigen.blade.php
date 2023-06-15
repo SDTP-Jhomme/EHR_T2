@@ -5,7 +5,7 @@
 <head>
     @include('admin/imports/head')
     <link rel="shortcut icon" type="image/png" href="<?php echo asset('assets/img/favicon.png') ?>">
-    @section('title', 'CBC Records')
+    @section('title', 'Heppa B Antigen Records')
 </head>
 
 <body>
@@ -87,32 +87,71 @@
         </el-main>
         <!----------------------------------------------------------------------------------- Modals/Drawers ----------------------------------------------------------------------------------->
         <!-- View Dialog -->
-        <el-dialog :visible.sync="viewDialog" width="90%" :before-close="closeViewDialog">
+        <el-dialog :visible.sync="viewDialog" width="50%" :before-close="closeViewDialog">
             <template #title>
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="fs-5">User<span class="mx-2" v-text="viewStudent.firstname"></span></div>
-                    <div class="pe-4">
-                        <el-avatar :size="70" :src="viewStudent.avatar"></el-avatar>
-                    </div>
                 </div>
             </template>
             <div class="container">
                 <div class="">
-                    <el-descriptions direction="horizontal" :column="1" border>
-                        <el-descriptions-item label="Identification Number"><span class="mx-2" v-text="viewStudent.identification"></el-descriptions-item>
-                        <el-descriptions-item label="Name"><span class="mx-2" v-text="viewStudent.name"></el-descriptions-item>
-                        <el-descriptions-item label="Birthday"><span class="mx-2" v-text="viewStudent.birthdate"></el-descriptions-item>
-                        <el-descriptions-item label="Gender">
-                            <el-tag v-if="viewStudent.gender == 'Male'"><span class="mx-2" v-text="viewStudent.gender"></el-tag>
-                            <el-tag v-else type="danger"><span class="mx-2" v-text="viewStudent.gender"></el-tag>
-                        </el-descriptions-item>
-                        <el-descriptions-item label="Sample Date"><span class="mx-2" v-text="viewStudent.sampleDate"></el-descriptions-item>
-                        <el-descriptions-item label="Result"><span class="mx-2" v-text="viewStudent.result"></el-descriptions-item>
-                    </el-descriptions>
+                    <div class="card-body content">
+                        <h3 class="card-title">Heppa B Antigen</h3>
+                        <div id="antigen" ref="antigenContent" class="container">
+                            <div class="row align-items-center g-2 my-2">
+                                <div class="col-lg-4 col-md-12">
+                                    <div class="form-group mb-4">
+                                        <label class="form-label">Name</label>
+                                        <input type="text" class="form-control" v-model="viewStudent.name" disabled />
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-12">
+                                    <div class="form-group mb-4">
+                                        <label class="form-label">Age</label>
+                                        <input type="text" class="form-control" v-model="viewStudent.age" disabled />
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-12">
+                                    <div class="form-group mb-4">
+                                        <label class="form-label">Gender</label>
+                                        <input type="text" class="form-control" v-model="viewStudent.gender" disabled />
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-12">
+                                    <div class="form-group mb-4">
+                                        <label class="form-label">Address</label>
+                                        <input type="text" class="form-control" v-model="viewStudent.address" disabled />
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row justify-content-center align-items-center g-2 my-2">
+                                <div class="col-lg-3 col-md-12">
+                                    <div class="form-group mb-4">
+                                        <label class="form-label">Sample Date:</label>
+                                        <div class="input-group">
+                                            <input type="date" class="form-control" v-model="viewStudent.sampleDate" disabled/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-12">
+                                    <div class="form-group mb-4">
+                                        <label class="form-label">Result:</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" v-model="viewStudent.result"disabled/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <span slot="footer" class="dialog-footer">
-                <el-button type="primary" @click="closeViewDialog">Close</el-button>
+                <el-button-group>
+                    <el-button type="primary" @click="closeViewDialog">Close</el-button>
+                    <el-button type="primary" @click="antigenPrint">Print<i class="el-icon-printer ps-2"></i></el-button>
+                </el-button-group>
             </span>
         </el-dialog>
     </main>

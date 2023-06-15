@@ -87,39 +87,131 @@
         </el-main>
         <!----------------------------------------------------------------------------------- Modals/Drawers ----------------------------------------------------------------------------------->
         <!-- View Dialog -->
-        <el-dialog :visible.sync="viewDialog" width="50%" :before-close="closeViewDialog">
+        <el-dialog :visible.sync="viewDialog" width="75%" :before-close="closeViewDialog">
             <template #title>
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="fs-5">User<span class="mx-2" v-text="viewStudent.firstname"></span></div>
-                    <div class="pe-4">
-                        <el-avatar :size="70" :src="viewStudent.avatar"></el-avatar>
-                    </div>
                 </div>
             </template>
             <div class="container">
-                <div class="">
-                    <el-descriptions direction="horizontal" :column="1" border>
-                        <el-descriptions-item label="Identification Number"><span class="mx-2" v-text="viewStudent.identification"></el-descriptions-item>
-                        <el-descriptions-item label="Age"><span class="mx-2" v-text="viewStudent.age"></el-descriptions-item>
-                        <el-descriptions-item label="Name"><span class="mx-2" v-text="viewStudent.name"></el-descriptions-item>
-                        <el-descriptions-item label="Birthday"><span class="mx-2" v-text="viewStudent.birthdate"></el-descriptions-item>
-                        <el-descriptions-item label="Gender">
-                            <el-tag v-if="viewStudent.gender == 'Male'"><span class="mx-2" v-text="viewStudent.gender"></el-tag>
-                            <el-tag v-else type="danger"><span class="mx-2" v-text="viewStudent.gender"></el-tag>
-                        </el-descriptions-item>
-                        <el-descriptions-item label="Hemoglobin"><span class="mx-2" v-text="viewStudent.hemoglobin"></el-descriptions-item>
-                        <el-descriptions-item label="Hematocrit"><span class="mx-2" v-text="viewStudent.hematocrit"></el-descriptions-item>
-                        <el-descriptions-item label="White Blood Cell Count (WBC)"><span class="mx-2" v-text="viewStudent.wbc"></el-descriptions-item>
-                        <el-descriptions-item label="Red Blood Cell Count (RBC)"><span class="mx-2" v-text="viewStudent.rbc"></el-descriptions-item>
-                        <el-descriptions-item label="Mean Corpuscular Volume (MCV)"><span class="mx-2" v-text="viewStudent.mcv"></el-descriptions-item>
-                        <el-descriptions-item label="Mean Corpuscular Hemoglobin (MCH)"><span class="mx-2" v-text="viewStudent.mch"></el-descriptions-item>
-                        <el-descriptions-item label="Mean Corpuscular Hemoglobin Concentration (MCHC)"><span class="mx-2" v-text="viewStudent.mch"></el-descriptions-item>
-                        <el-descriptions-item label="Platelet Count"><span class="mx-2" v-text="viewStudent.platelet"></el-descriptions-item>
-                    </el-descriptions>
+                <div class="card">
+                    <div class="card-body content">
+                        <h3 class="card-title">Complete Blood Count</h3>
+                        <div class="container">
+                            <div class="row align-items-center g-2 my-2">
+                                <div class="col-lg-4 col-md-12">
+                                    <div class="form-group mb-4">
+                                        <label class="form-label">Name</label>
+                                        <input type="text" class="form-control" v-model="viewStudent.name" disabled />
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-12">
+                                    <div class="form-group mb-4">
+                                        <label class="form-label">Age</label>
+                                        <input type="text" class="form-control" v-model="viewStudent.age" disabled />
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-12">
+                                    <div class="form-group mb-4">
+                                        <label class="form-label">Gender</label>
+                                        <input type="text" class="form-control" v-model="viewStudent.gender" disabled />
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-12">
+                                    <div class="form-group mb-4">
+                                        <label class="form-label">Address</label>
+                                        <input type="text" class="form-control" v-model="viewStudent.address" disabled />
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row align-items-center g-2 my-2">
+                                <div class="col-lg-4 col-md-12">
+                                    <div class="form-group mb-4">
+                                        <label class="form-label">Hemoglobin:</label>
+                                        <div class="input-group">
+                                            <input type="number" class="form-control" v-model="viewStudent.hemoglobin" disabled/>
+                                            <span class="input-group-text">g/dL</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-12">
+                                    <div class="form-group mb-4">
+                                        <label class="form-label">Hematocrit:</label>
+                                        <div class="input-group">
+                                            <input type="number" class="form-control" v-model="viewStudent.hematocrit" disabled/>
+                                            <span class="input-group-text">% </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-12">
+                                    <div class="form-group mb-4">
+                                        <label class="form-label">White Blood Cell Count (WBC):</label>
+                                        <div class="input-group">
+                                            <input type="number" class="form-control" v-model="viewStudent.wbc" disabled/>
+                                            <span class="input-group-text">x 10^9/L</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row align-items-center g-2 my-2">
+                                <div class="col-lg-4 col-md-12">
+                                    <div class="form-group mb-4">
+                                        <label class="form-label"> Red Blood Cell Count (RBC):</label>
+                                        <div class="input-group">
+                                            <input type="number" class="form-control" v-model="viewStudent.rbc" disabled/>
+                                            <span class="input-group-text">x 10^12/L</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-12">
+                                    <div class="form-group mb-4">
+                                        <label class="form-label"> Mean Corpuscular Volume (MCV):</label>
+                                        <div class="input-group">
+                                            <input type="number" class="form-control" v-model="viewStudent.mcv" disabled/>
+                                            <span class="input-group-text">fL</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-12">
+                                    <div class="form-group mb-4">
+                                        <label class="form-label"> Mean Corpuscular Hemoglobin (MCH):</label>
+                                        <div class="input-group">
+                                            <input type="number" class="form-control" v-model="viewStudent.mch" disabled/>
+                                            <span class="input-group-text">pg</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row align-items-center g-2 my-2">
+                                <div class="col-lg-4 col-md-12">
+                                    <div class="form-group mb-4">
+                                        <label class="form-label">Mean Corpuscular Hemoglobin Concentration (MCHC):</label>
+                                        <div class="input-group">
+                                            <input type="number" class="form-control" v-model="viewStudent.mchc" disabled/>
+                                            <span class="input-group-text"> g/dL</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-12">
+                                    <div class="form-group mb-4">
+                                        <label class="form-label">Platelet Count:</label>
+                                        <div class="input-group">
+                                            <input type="number" class="form-control" v-model="viewStudent.platelet" disabled/>
+                                            <span class="input-group-text">x 10^9/L</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <span slot="footer" class="dialog-footer">
-                <el-button type="primary" @click="closeViewDialog">Close</el-button>
+                <el-button-group>
+                    <el-button type="primary" @click="closeViewDialog">Close</el-button>
+                    <el-button type="primary">Print<i class="el-icon-printer ps-2"></i></el-button>
+                </el-button-group>
             </span>
         </el-dialog>
     </main>

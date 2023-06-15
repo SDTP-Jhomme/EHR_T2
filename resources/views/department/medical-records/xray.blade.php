@@ -107,7 +107,7 @@
                         <div class="row align-items-center g-2 my-2">
                             <div class="col-lg-4 col-md-12">
                                 <div class="form-group mb-4">
-                                    <label class="form-label">First Name</label>
+                                    <label class="form-label">Name</label>
                                     <input type="text" class="form-control" v-model="viewStudent.name" disabled />
                                 </div>
                             </div>

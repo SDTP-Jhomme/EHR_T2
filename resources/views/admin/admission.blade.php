@@ -30,7 +30,7 @@
                                 <el-input v-model="searchNull" size="mini" placeholder="Type to search..." clearable />
                             </div>
                         </div>
-                            <el-button type="text" @click="dialogTableVisible = true">open a Table nested Dialog</el-button>
+                        <el-button class="ms-2" type="primary" size="mini" @click="printTable">Print Table</el-button>
                     </div>
                 </div>
                 <el-table v-if="this.tableData" :data="usersTable" style="width: 100%" border height="500" v-loading="tableLoad" element-loading-text="Loading. Please wait..." element-loading-spinner="el-icon-loading">
@@ -78,28 +78,7 @@
                     <el-pagination :current-page.sync="page" :pager-count="5" :page-size="this.pageSize" background layout="prev, pager, next" :total="this.tableData.length" @current-change="setPage">
                     </el-pagination>
                 </div>
-                <div class="container">
-                    <el-dialog title="Shipping address" :visible.sync="dialogTableVisible">
-                    <el-table :data="gridData">
-                        <el-table-column property="date" label="Date" width="150"></el-table-column>
-                        <el-table-column property="name" label="Name" width="200"></el-table-column>
-                        <el-table-column property="address" label="Address"></el-table-column>
-                    </el-table>
-                    <div class="row justify-content-center align-items-center g-2">
-                        <div class="col-lg-3 col-md-8 me-5">
-                            <el-date-picker
-                            v-model="dateRange"
-                            type="daterange"
-                            start-placeholder="Start Date"
-                            end-placeholder="End Date"
-                            :picker-options="reportOptions">
-                            </el-date-picker>
-                        </div>
-                        <div class="col-lg-3 col-md-8">
-                            <el-button type="primary" @click="printTable" round>Print Table</el-button>
-                        </div>
-                    </div>
-                    </el-dialog>
+                <div class="container" id="myTable" >
                 </div>
             </div>
         </el-main>
@@ -217,5 +196,4 @@
     </main>
     @endsection
 </body>
-
 </html>

@@ -91,49 +91,168 @@
             <template #title>
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="fs-5">User<span class="mx-2" v-text="viewStudent.firstname"></span></div>
-                    <div class="pe-4">
-                        <el-avatar :size="70" :src="viewStudent.avatar"></el-avatar>
-                    </div>
                 </div>
             </template>
             <div class="container">
                 <div class="">
-                    <el-descriptions direction="horizontal" :column="1" border>
-                        <el-descriptions-item label="Identification Number"><span class="mx-2" v-text="viewStudent.identification"></el-descriptions-item>
-                        <el-descriptions-item label="Name"><span class="mx-2" v-text="viewStudent.name"></el-descriptions-item>
-                        <el-descriptions-item label="Birthday"><span class="mx-2" v-text="viewStudent.birthdate"></el-descriptions-item>
-                        <el-descriptions-item label="Gender">
-                            <el-tag v-if="viewStudent.gender == 'Male'"><span class="mx-2" v-text="viewStudent.gender"></el-tag>
-                            <el-tag v-else type="danger"><span class="mx-2" v-text="viewStudent.gender"></el-tag>
-                        </el-descriptions-item>
-                        <el-descriptions-item label="Requested By"><span class="mx-2" v-text="viewStudent.requestBy"></el-descriptions-item>
-                        <el-descriptions-item label="Date of request"><span class="mx-2" v-text="viewStudent.requestDate"></el-descriptions-item>
-                        <h5 class="text-success">PHYSICAL PROPERTIES</h5>
-                        <el-descriptions-item label="Color"><span class="mx-2" v-text="viewStudent.color"></el-descriptions-item>
-                        <el-descriptions-item label="Consistency"><span class="mx-2" v-text="viewStudent.consistency"></el-descriptions-item>
-                        <h5 class="text-success">CHEMICAL PROPERTIES</h5>
-                        <el-descriptions-item label="Occult Blood"><span class="mx-2" v-text="viewStudent.occult"></el-descriptions-item>
-                        <el-descriptions-item label="Others"><span class="mx-2" v-text="viewStudent.otherOccult"></el-descriptions-item>
-                        <h5 class="text-success">MICROSCOPIC FINDINGS</h5>
-                        <el-descriptions-item label="Pus cells"><span class="mx-2" v-text="viewStudent.pus"></el-descriptions-item>
-                        <el-descriptions-item label="RBC"><span class="mx-2" v-text="viewStudent.rbc"></el-descriptions-item>
-                        <el-descriptions-item label="Fat GLobules"><span class="mx-2" v-text="viewStudent.fat"></el-descriptions-item>
-                        <h5 class="text-success">HELMINTHS</h5>
-                        <el-descriptions-item label="Ova"><span class="mx-2" v-text="viewStudent.ova"></el-descriptions-item>
-                        <el-descriptions-item label="Larva"><span class="mx-2" v-text="viewStudent.larva"></el-descriptions-item>
-                        <el-descriptions-item label="Adult Forms"><span class="mx-2" v-text="viewStudent.adult"></el-descriptions-item>
+                    <div class="card-body content">
+                        <h3 class="card-title">Fecalysis</h3>
+                        <div class="container">
+                            <div class="row align-items-center g-2 my-2">
+                                <div class="col-lg-4 col-md-12">
+                                    <div class="form-group mb-4">
+                                        <label class="form-label">Name</label>
+                                        <input type="text" class="form-control" v-model="viewStudent.name" disabled />
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-12">
+                                    <div class="form-group mb-4">
+                                        <label class="form-label">Age</label>
+                                        <input type="text" class="form-control" v-model="viewStudent.age" disabled />
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-12">
+                                    <div class="form-group mb-4">
+                                        <label class="form-label">Gender</label>
+                                        <input type="text" class="form-control" v-model="viewStudent.gender" disabled />
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-12">
+                                    <div class="form-group mb-4">
+                                        <label class="form-label">Address</label>
+                                        <input type="text" class="form-control" v-model="viewStudent.address" disabled />
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row align-items-center g-2 my-2">
+                                <div class="col-lg-4 col-md-12">
+                                    <div class="form-group mb-4">
+                                        <label class="form-label">Requested By:</label>
+                                        <input type="text" class="form-control" v-model="viewStudent.requestBy" disabled/>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-12">
+                                    <div class="form-group mb-4">
+                                        <label class="form-label">Date of request:</label>
+                                        <input type="date" class="form-control" v-model="viewStudent.requestDate" disabled />
+                                    </div>
+                                </div>
+                                <h5 class="text-success">PHYSICAL PROPERTIES</h5>
+                                <div class="col-lg-4 col-md-12">
+                                    <div class="form-group mb-4">
+                                        <label class="form-label">Color:</label>
+                                        <input type="text" class="form-control" v-model="viewStudent.color" disabled/>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-12">
+                                    <div class="form-group mb-4">
+                                        <label class="form-label">Consistency:</label>
+                                        <input type="text" class="form-control" v-model="viewStudent.consistency" disabled/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row align-items-center g-2 my-2">
+                                <h5 class="text-success">CHEMICAL PROPERTIES</h5>
+                                <div class="col-lg-4 col-md-12">
+                                    <div class="form-group mb-4">
+                                        <label class="form-label">Occult Blood:</label>
+                                        <input type="text" class="form-control" v-model="viewStudent.occult"disabled />
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-12">
+                                    <div class="form-group mb-4">
+                                        <label class="form-label">Others:</label>
+                                        <input type="text" class="form-control" v-model="viewStudent.otherOccult" disabled/>
+                                    </div>
+                                </div>
+                                <h5 class="text-success">MICROSCOPIC FINDINGS</h5>
+                                <div class="col-lg-4 col-md-12">
+                                    <div class="form-group mb-4">
+                                        <label class="form-label">Pus cells:</label>
+                                        <input type="text" class="form-control" v-model="viewStudent.pus" disabled/>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-12">
+                                    <div class="form-group mb-4">
+                                        <label class="form-label">RBC:</label>
+                                        <input type="text" class="form-control" v-model="viewStudent.rbc" disabled/>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-12">
+                                    <div class="form-group mb-4">
+                                        <label class="form-label">Fat GLobules:</label>
+                                        <input type="text" class="form-control" v-model="viewStudent.fat" disabled/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row align-items-center g-2 my-2">
+                                <h5 class="text-success">HELMINTHS</h5>
+                                <div class="col-lg-4 col-md-12">
+                                    <div class="form-group mb-4">
+                                        <label class="form-label">Ova:</label>
+                                        <input type="text" class="form-control" v-model="viewStudent.ova" disabled/>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-12">
+                                    <div class="form-group mb-4">
+                                        <label class="form-label">Larva:</label>
+                                        <input type="text" class="form-control" v-model="viewStudent.larva" disabled/>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-12">
+                                    <div class="form-group mb-4">
+                                        <label class="form-label">Adult Forms:</label>
+                                        <input type="text" class="form-control" v-model="viewStudent.adult" disabled/>
+                                    </div>
+                                </div>
                                 <h5 class="text-success">PROTOZOA</h5>
-                        <el-descriptions-item label="Cyst"><span class="mx-2" v-text="viewStudent.cyst"></el-descriptions-item>
-                        <el-descriptions-item label="Trophozoites"><span class="mx-2" v-text="viewStudent.trophozoites"></el-descriptions-item>
-                        <el-descriptions-item label="Others"><span class="mx-2" v-text="viewStudent.otherTrophozoites"></el-descriptions-item>
-                        <el-descriptions-item label="REMARKS"><span class="mx-2" v-text="viewStudent.remarks"></el-descriptions-item>
-                        <el-descriptions-item label="Pathologist"><span class="mx-2" v-text="viewStudent.pathologist"></el-descriptions-item>
-                        <el-descriptions-item label="Medical Technologist"><span class="mx-2" v-text="viewStudent.technologist"></el-descriptions-item>
-                    </el-descriptions>
+                                <div class="col-lg-4 col-md-12">
+                                    <div class="form-group mb-4">
+                                        <label class="form-label">Cyst:</label>
+                                        <input type="text" class="form-control" v-model="viewStudent.cyst" disabled/>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-12">
+                                    <div class="form-group mb-4">
+                                        <label class="form-label">Trophozoites:</label>
+                                        <input type="text" class="form-control" v-model="viewStudent.trophozoites" disabled/>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-12">
+                                    <div class="form-group mb-4">
+                                        <label class="form-label">Others:</label>
+                                        <input type="text" class="form-control" v-model="viewStudent.otherTrophozoites" disabled/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group mb-4">
+                                <h5 class="text-dark">REMARKS</h5>
+                                <textarea type="text" class="form-control" v-model="viewStudent.remarks"disabled></textarea>
+                            </div>
+                            <div class="row align-items-center g-2 my-2">
+                                <div class="col-lg-4 col-md-12">
+                                    <div class="form-group mb-4">
+                                        <label class="form-label">Pathologist:</label>
+                                        <input type="text" class="form-control" v-model="viewStudent.pathologist" disabled/>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-12">
+                                    <div class="form-group mb-4">
+                                        <label class="form-label">Medical Technologist:</label>
+                                        <input type="text" class="form-control" v-model="viewStudent.technologist" disabled/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <span slot="footer" class="dialog-footer">
-                <el-button type="primary" @click="closeViewDialog">Close</el-button>
+                <el-button-group>
+                    <el-button type="primary" @click="closeViewDialog">Close</el-button>
+                    <el-button type="primary">Print<i class="el-icon-printer ps-2"></i></el-button>
+                </el-button-group>
             </span>
         </el-dialog>
     </main>
