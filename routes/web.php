@@ -46,6 +46,7 @@ Route::post('fetch-urinalysis', 'App\Http\Controllers\urinalysisController@fetch
 Route::post('fetch-xray', 'App\Http\Controllers\xrayController@fetchXray')->name('fetchXray');
 Route::post('fetch-fecalysis', 'App\Http\Controllers\fecalController@fetchFecalysis')->name('fetchFecalysis');
 Route::post('fetch-vaccine', 'App\Http\Controllers\fecalController@fetchVaccine')->name('fetchVaccine');
+
 // pages records
 Route::get('records/cbc', 'App\Http\Controllers\medController@cbcPage')->name('cbcPage');
 Route::get('records/antigen', 'App\Http\Controllers\medController@antigenPage')->name('antigenPage');
@@ -53,12 +54,25 @@ Route::get('records/urinalysis', 'App\Http\Controllers\medController@urinalysisP
 Route::get('records/xray', 'App\Http\Controllers\medController@xrayPage')->name('xrayPage');
 Route::get('records/fecalysis', 'App\Http\Controllers\medController@fecalysisPage')->name('fecalysisPage');
 Route::get('records/vaccine', 'App\Http\Controllers\medController@vaccinePage')->name('vaccinePage');
+
+
+//nurse login
+Route::post('/nurse-login','App\Http\Controllers\nurseController@login')->name('nurse-loginPost');
+Route::get('/nurse/dashboard','App\Http\Controllers\nurseController@dashboard')->name('nurse-dashboard');
+Route::get('/nurse/admission','App\Http\Controllers\nurseController@admission')->name('nurse-admission');
+Route::get('/nurse/appointments','App\Http\Controllers\nurseController@appointments')->name('nurse-appointments');
+
+Route::get('/nurse/login','App\Http\Controllers\nurseController@nurseLogin')->name('nurse-login');
+Route::get('fetch', 'App\Http\Controllers\nurseController@fetch')->name('fetch');
+Route::get('nurseLogout', 'App\Http\Controllers\nurseController@nurseLogout')->name('nurseLogout');
+
 // nurse store,routes,updates and fetch
 Route::post('/nurse-fetch', 'App\Http\Controllers\nurseController@fetchNurse')->name('fetchNurse');
 Route::post('/nurse-store', 'App\Http\Controllers\nurseController@storeNurse')->name('storeNurse');
 Route::post('/nurse-update', 'App\Http\Controllers\nurseController@nurseUpdate')->name('nurseUpdate');
 Route::post('/nurse-status', 'App\Http\Controllers\nurseController@nurseStatus')->name('nurseStatus');
 Route::get('/nurse', 'App\Http\Controllers\actionController@nurse')->name('nurse');
+
 // teacher store,routes,updates and fetch
 Route::post('/teacher-fetch', 'App\Http\Controllers\deptController@teacherFetch')->name('teacherFetch');
 Route::post('/teacher-store', 'App\Http\Controllers\deptController@storeTeacher')->name('storeTeacher');
@@ -94,7 +108,6 @@ Route::get('/','App\Http\Controllers\studentController@studentLogin')->name('stu
 Route::post('student-fetch', 'App\Http\Controllers\studentController@fetch')->name('student-fetch');
 Route::post('fetch-avatar', 'App\Http\Controllers\studentController@fetchAvatar')->name('fetchAvatar');
 Route::post('student/logout', 'App\Http\Controllers\studentController@studentLogout')->name('studentLogout');
-// Route::get('login/', 'App\Http\Controllers\studentController@loginAll')->name('login');
 // students fetch records
 Route::post('student-cbc', 'App\Http\Controllers\fetch_userRecord@fetch_Cbc')->name('fetch_Cbc');
 Route::post('student-antigen', 'App\Http\Controllers\fetch_userRecord@fetch_Antigen')->name('fetch_Antigen');

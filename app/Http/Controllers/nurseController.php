@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use App\Models\nurseModel;
 use Illuminate\Support\Facades\Hash;
@@ -10,6 +11,105 @@ use Twilio\Rest\Client;
 class nurseController extends Controller
 {
     
+    //nurse login
+    public function fetch()
+    {
+        $response = nurseModel::all();
+        return response()->json($response);
+    }
+    public function admission()
+    {
+        return view('nurse/admission');
+    }
+    public function dashboard(Request $request)
+    {
+        $user = $request->session()->get('user');
+
+        if (!$user) {
+            // Redirect to the login page or handle unauthorized access
+            return view('nurse/index');
+        }
+
+        // Use the $user data as needed in your dashboard logic
+
+        return view('nurse.dashboard', ['user' => $user]);
+    }
+
+    public function nurseLogin(Request $request)
+    {
+
+        $user = $request->session()->get('user');
+
+        if (!$user) {
+            // Redirect to the login page or handle unauthorized access
+            return view('nurse/index');
+        }
+
+        // Use the $user data as needed in your dashboard logic
+
+        return redirect()->route('nurse-dashboard', ['user' => $user]);
+        // return view('admin.dashboard', ['user' => $user]);
+    }
+    public function login(Request $request)
+    {
+        $identification = $request->input('identification');
+        $password = $request->input('password');
+
+        $user = nurseModel::where('identification', $identification)->first();
+
+        if (empty($identification)) {
+            $response["error"] = true;
+            $response["adminErr"] = "Identification is required!";
+            return response()->json($response);
+        }
+        if (empty($password)) {
+            $response["error"] = true;
+            $response["passErr"] = "Password is required!";
+            return response()->json($response);
+        }
+        if ($identification && $password) {
+            if (!$user) {
+                $response["error"] = true;
+                $response["adminErr"] = "identification is incorrect!";
+                return response()->json($response);
+            } else {
+                $hashedPassword = $user->password;
+                if (password_verify($password, $hashedPassword)) {
+                    $response["error"] = false;
+                    $request->session()->put('user', $user);
+                    return response()->json($response);
+                } else {
+                    $response["error"] = true;
+                    $response["passErr"] = "Password is incorrect!";
+                    return response()->json($response);
+                }
+            }
+        }else{
+            $response["error"] = true;
+            $response["adminErr"] = "identification is incorrect!";
+            return response()->json($response , 500);
+        }
+    }
+    public function nurseLogout(Request $request)
+    {
+        Session::forget('user');
+
+
+        // Perform any other logout-related actions
+
+        // Redirect the user to the desired page after logout
+        return redirect()->route('nurse-login');
+    }
+    //nurse login END
+
+
+    // lab-forms
+    public function appointments()
+    {
+        return view('nurse/appointments');
+    }
+
+
     public function storeNurse(Request $request)
     {
         date_default_timezone_set("Asia/Manila");
@@ -185,4 +285,5 @@ class nurseController extends Controller
 
         return $password;
     }
+    
 }

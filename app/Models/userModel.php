@@ -16,6 +16,8 @@ class userModel extends Model
         'lastname',
         'password',
         'birthdate',
+        'height',
+        'weight',
         'gender',
         'avatar',
         'year',
@@ -29,8 +31,6 @@ class userModel extends Model
         'section',
         'phone_number',
         'status',
-        'height',
-        'weight',
         'next_appointment',
         'last_login'
     ];
