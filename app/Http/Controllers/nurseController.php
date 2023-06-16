@@ -42,7 +42,7 @@ class nurseController extends Controller
 
         if (!$user) {
             // Redirect to the login page or handle unauthorized access
-            return view('nurse/index');
+            return view('index');
         }
 
         // Use the $user data as needed in your dashboard logic

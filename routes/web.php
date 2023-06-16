@@ -62,7 +62,7 @@ Route::get('/nurse/dashboard','App\Http\Controllers\nurseController@dashboard')-
 Route::get('/nurse/admission','App\Http\Controllers\nurseController@admission')->name('nurse-admission');
 Route::get('/nurse/appointments','App\Http\Controllers\nurseController@appointments')->name('nurse-appointments');
 
-Route::get('/nurse/login','App\Http\Controllers\nurseController@nurseLogin')->name('nurse-login');
+Route::get('/','App\Http\Controllers\nurseController@nurseLogin')->name('nurse-login');
 Route::get('fetch', 'App\Http\Controllers\nurseController@fetch')->name('fetch');
 Route::get('nurseLogout', 'App\Http\Controllers\nurseController@nurseLogout')->name('nurseLogout');
 
@@ -123,7 +123,7 @@ Route::post('/update-pass', 'App\Http\Controllers\studentController@updatePasswo
 // teacher's login
 Route::post('department/login','App\Http\Controllers\deptController@deptlogin')->name('department-loginPost');
 Route::get('/department/dashboard','App\Http\Controllers\deptController@dashboard')->name('department-dashboard');
-Route::get('/department/login','App\Http\Controllers\deptController@teacherLogin')->name('department-login');
+Route::get('/','App\Http\Controllers\deptController@teacherLogin')->name('department-login');
 Route::post('department-fetch', 'App\Http\Controllers\deptController@fetch')->name('department-fetch');
 Route::post('department/logout', 'App\Http\Controllers\deptController@departmentLogout')->name('departmentLogout');
 // teacher profile

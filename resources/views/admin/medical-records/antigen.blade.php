@@ -87,7 +87,7 @@
         </el-main>
         <!----------------------------------------------------------------------------------- Modals/Drawers ----------------------------------------------------------------------------------->
         <!-- View Dialog -->
-        <el-dialog :visible.sync="viewDialog" width="50%" :before-close="closeViewDialog">
+        <el-dialog :visible.sync="viewDialog" width="70%" :before-close="closeViewDialog">
             <template #title>
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="fs-5">User<span class="mx-2" v-text="viewStudent.firstname"></span></div>
@@ -95,32 +95,32 @@
             </template>
             <div class="container">
                 <div class="">
-                    <div class="card-body content">
                         <h3 class="card-title">Heppa B Antigen</h3>
-                        <div id="antigen" ref="antigenContent" class="container">
+                    <div class="card-body content">
+                        <div id="antigen" ref="antigenContent" class="container-fluid">
                             <div class="row align-items-center g-2 my-2">
-                                <div class="col-lg-4 col-md-12">
+                                <div class="col-lg-6 col-md-12">
                                     <div class="form-group mb-4">
                                         <label class="form-label">Name</label>
-                                        <input type="text" class="form-control" v-model="viewStudent.name" disabled />
+                                        <input type="text" class="form-control form-input " v-model="viewStudent.name" disabled />
                                     </div>
                                 </div>
-                                <div class="col-lg-4 col-md-12">
+                                <div class="col-lg-6 col-md-12">
                                     <div class="form-group mb-4">
                                         <label class="form-label">Age</label>
-                                        <input type="text" class="form-control" v-model="viewStudent.age" disabled />
+                                        <input type="text" class="form-control form-input " v-model="viewStudent.age" disabled />
                                     </div>
                                 </div>
-                                <div class="col-lg-4 col-md-12">
+                                <div class="col-lg-6 col-md-12">
                                     <div class="form-group mb-4">
                                         <label class="form-label">Gender</label>
-                                        <input type="text" class="form-control" v-model="viewStudent.gender" disabled />
+                                        <input type="text" class="form-control form-input " v-model="viewStudent.gender" disabled />
                                     </div>
                                 </div>
-                                <div class="col-lg-4 col-md-12">
+                                <div class="col-lg-6 col-md-12">
                                     <div class="form-group mb-4">
                                         <label class="form-label">Address</label>
-                                        <input type="text" class="form-control" v-model="viewStudent.address" disabled />
+                                        <input type="text" class="form-control form-input " v-model="viewStudent.address" disabled />
                                     </div>
                                 </div>
                             </div>
@@ -130,7 +130,7 @@
                                     <div class="form-group mb-4">
                                         <label class="form-label">Sample Date:</label>
                                         <div class="input-group">
-                                            <input type="date" class="form-control" v-model="viewStudent.sampleDate" disabled/>
+                                            <input type="date" class="form-control form-input " v-model="viewStudent.sampleDate" disabled/>
                                         </div>
                                     </div>
                                 </div>
@@ -138,7 +138,7 @@
                                     <div class="form-group mb-4">
                                         <label class="form-label">Result:</label>
                                         <div class="input-group">
-                                            <input type="text" class="form-control" v-model="viewStudent.result"disabled/>
+                                            <input type="text" class="form-control form-input " v-model="viewStudent.result"disabled/>
                                         </div>
                                     </div>
                                 </div>
