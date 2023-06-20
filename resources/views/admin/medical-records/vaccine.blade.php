@@ -97,7 +97,7 @@
                 <div class="">
                 <div class="card-body content">
                     <h3 class="card-title">Heppa B Vaccine</h3>
-                    <div class="container">
+                    <div id="vaxx" class="container">
                         <div class="row align-items-center g-2 my-2">
                             <div class="col-lg-4 col-md-12">
                                 <div class="form-group mb-4">
@@ -158,7 +158,7 @@
             <span slot="footer" class="dialog-footer">
                 <el-button-group>
                     <el-button type="primary" @click="closeViewDialog">Close</el-button>
-                    <el-button type="primary">Print<i class="el-icon-printer ps-2"></i></el-button>
+                    <el-button type="primary" @click="printRecord">Print<i class="el-icon-printer ps-2"></i></el-button>
                 </el-button-group>
             </span>
         </el-dialog>

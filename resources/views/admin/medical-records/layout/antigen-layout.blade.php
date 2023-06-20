@@ -27,23 +27,23 @@
   .col-lg-6 {
     flex: 0 0 auto;
     width: 100%;
-}
-  .col-lg-3 {
-    flex: 0 0 auto;
-    width: 25%;
-}
-  .form-input {
-  border: none;
-  border-bottom: 1px solid #ccc;
-  padding: 0.5rem 0;
-  background-color: transparent;
-  box-shadow: none;
-}
+    }
+    .col-lg-3 {
+        flex: 0 0 auto;
+        width: 25%;
+    }
+    .form-input {
+    border: none;
+    border-bottom: 1px solid #ccc;
+    padding: 0.5rem 0;
+    background-color: transparent;
+    box-shadow: none;
+    }
 
-.form-input:focus {
-  outline: none;
-  border-bottom-color: #007bff;
-}
+    .form-input:focus {
+    outline: none;
+    border-bottom-color: #007bff;
+    }
 }
 </style>
 <script>
