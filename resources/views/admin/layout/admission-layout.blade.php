@@ -78,6 +78,7 @@
                 editDialog: false,
                 viewDialog: false,
                 viewStudent: [],
+                studentTable: false,
                 status: true,
                 switch: false,
                 dateRange: [],
@@ -104,6 +105,7 @@
                 openAddDrawer: false,
                 checkIdentification: [],
                 editStudent: [],
+                printing: false,
                 updateStudent: {
                     id: 0,
                     identification: "",
@@ -311,49 +313,119 @@
 
         methods: {
             printTable() {
-                const startDate = this.dateRange[0];
-                const endDate = this.dateRange[1];
-                let excelErrors = false; // Variable to track errors
+                // Create a new table element
+                const table = document.createElement("table");
+                table.classList.add("table-responsive", "table-bordered");
+                table.style.width = "100%"; // Set the table width to 100%
 
-                if (!startDate) {
-                    this.$message.error('Select Start date!');
-                    excelErrors = true; // Set the error flag
-                }else if (!endDate) {
-                    this.$message.error('Select End date!');
-                    excelErrors = true; // Set the error flag
-                }else{
-                    excelErrors = false; // Set the error flag
-                }
 
-                if (startDate > endDate) {
-                    this.$message.error("End Date should be greater than the start date!");
-                    excelErrors = true; // Set the error flag
-                }
+                // Create the table header
+                const thead = document.createElement("thead");
+                const headerRow = document.createElement("tr");
 
-                if (!excelErrors) {
-                    const dateRange = new FormData();
-                    dateRange.append("startDate", startDate.toString());
-                    dateRange.append("endDate", endDate.toString());
+                const idHeader = document.createElement("th");
+                idHeader.classList.add("col-2");
+                idHeader.textContent = "Id No.";
 
-                    axios.post("{{route('print-table')}}", dateRange)
-                    .then(res => {
-                        if (res.data.error) {
-                        this.$message.error("An error occurred while downloading the Excel report.");
-                        } else {
-                        this.$message.success("Report has been printed successfully!");
-                        this.startDate = "";
-                        this.endDate = "";
-                        this.data = res.data; // Assign the retrieved data to the data property
-                        this.$nextTick(() => {
-                            window.print(); // Trigger the print dialog after updating the table
-                        });
+                const nameHeader = document.createElement("th");
+                nameHeader.classList.add("col-3");
+                nameHeader.textContent = "Name";
+
+                const genderHeader = document.createElement("th");
+                genderHeader.classList.add("col-2");
+                genderHeader.textContent = "Gender";
+
+                const birthdateHeader = document.createElement("th");
+                birthdateHeader.classList.add("col-2");
+                birthdateHeader.textContent = "Birthdate";
+
+                const yearHeader = document.createElement("th");
+                yearHeader.classList.add("col-2");
+                yearHeader.textContent = "Year";
+
+                const sectionHeader = document.createElement("th");
+                sectionHeader.classList.add("col-3");
+                sectionHeader.textContent = "Section";
+
+                headerRow.appendChild(idHeader);
+                headerRow.appendChild(nameHeader);
+                headerRow.appendChild(genderHeader);
+                headerRow.appendChild(birthdateHeader);
+                headerRow.appendChild(yearHeader);
+                headerRow.appendChild(sectionHeader);
+                thead.appendChild(headerRow);
+
+                // Create the table body
+                const tbody = document.createElement("tbody");
+                this.tableData.forEach(user => {
+                const row = document.createElement("tr");
+
+                const idCell = document.createElement("td");
+                idCell.classList.add("col-2");
+                idCell.textContent = user.identification;
+
+                const nameCell = document.createElement("td");
+                nameCell.classList.add("col-3");
+                nameCell.textContent = user.name;
+
+                const genderCell = document.createElement("td");
+                genderCell.classList.add("col-2");
+                genderCell.textContent = user.gender;
+
+                const birthdateCell = document.createElement("td");
+                birthdateCell.classList.add("col-2");
+                birthdateCell.textContent = user.birthdate;
+
+                const yearCell = document.createElement("td");
+                yearCell.classList.add("col-2");
+                yearCell.textContent = user.year;
+
+                const sectionCell = document.createElement("td");
+                sectionCell.classList.add("col-3");
+                sectionCell.textContent = user.classSection;
+
+                row.appendChild(idCell);
+                row.appendChild(nameCell);
+                row.appendChild(genderCell);
+                row.appendChild(birthdateCell);
+                row.appendChild(yearCell);
+                row.appendChild(sectionCell);
+                tbody.appendChild(row);
+                });
+
+                table.appendChild(thead);
+                table.appendChild(tbody);
+
+                // Open a new window/tab and display the table
+                const newWindow = window.open();
+                newWindow.document.write(`
+                <html>
+                    <head>
+                    <title>Students Total Registered</title>
+                    <link rel="stylesheet" href="<?php echo asset('assets/css/style.css') ?>">
+                    <link rel="stylesheet" href="<?php echo asset('assets/css/table.css') ?>">
+                    <link rel="stylesheet" href="<?php echo asset('assets/css/laboratory.css') ?>">
+                    <link rel="stylesheet" href="<?php echo asset('assets/css/bootstrap.min.css') ?>">
+                    <link rel="stylesheet" href="<?php echo asset('assets/fontawesome/css/all.min.css') ?>">
+                    <link rel="shortcut icon" type="image/png" href="<?php echo asset('assets/img/favicon.png') ?>">
+                    <style>
+                        @media print {
+                        .print-table button {
+                            display: none;
                         }
-                    })
-                    .catch(error => {
-                        this.$message.error("An error occurred while downloading the Excel report.");
-                        console.error(error.response);
-                    });
-                }
+                        }
+                    </style>
+                    </head>
+                    <body>
+                        <div class="container-fluid d-flex justify-content-center mt-5">
+                            ${table.outerHTML}
+                        </div>
+                    </body>
+                </html>
+                `);
+                setTimeout(() => {
+                    newWindow.print();
+                }, 500)
             },
             changeColumn(selected) {
                 this.searchNull = ""
@@ -570,6 +642,12 @@
                 },
         },
     });
+    function printAndRemoveButtons(button) {
+        window.print();
+        const cancelButton = button.previousElementSibling;
+        cancelButton.parentNode.removeChild(cancelButton);
+        button.parentNode.removeChild(button);
+        }
     window.addDashes = function addDashes(f) {
         // Remove any non-alphanumeric characters
         var alphanumericOnly = f.value.replace(/\W/g, '');

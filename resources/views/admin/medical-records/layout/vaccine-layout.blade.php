@@ -1,3 +1,46 @@
+<style scoped>
+@media print {
+  body * {
+    visibility: hidden;
+  } 
+  #vaxx, #vaxx * {
+    visibility: visible;
+  } 
+  #vaxx {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    right: 0;
+    margin: 0;
+  }
+  .row {
+    --bs-gutter-x: 1.5rem;
+    --bs-gutter-y: 0;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: calc(-1 * var(--bs-gutter-y));
+    margin-right: calc(-0.5 * var(--bs-gutter-x));
+    margin-left: calc(-0.5 * var(--bs-gutter-x));
+    }
+  .col-lg-4 {
+    flex: 0 0 auto;
+    width: 50%;
+    }
+    .form-control {
+    border: none;
+    border-bottom: 1px solid #ccc;
+    padding: 0.5rem 0;
+    background-color: transparent;
+    box-shadow: none;
+    }
+
+    .form-control:focus {
+    outline: none;
+    border-bottom-color: #007bff;
+    }
+}
+</style>
 <script>
     // Vue.use(ElementUI, { locale: 'en' });
     // console.log(Vue);
@@ -283,6 +326,15 @@
         },
 
         methods: {
+            printRecord(){
+                // Add a <style> element to the <head> of the document
+                var style = document.createElement('style');
+                document.head.appendChild(style);
+
+                // Set the default print style to landscape mode
+                style.sheet.insertRule('@page { size: landscape; }', 0);
+                window.print();
+            },
             changeColumn(selected) {
                 this.searchNull = ""
                 this.searchName = ""

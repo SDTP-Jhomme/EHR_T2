@@ -9,15 +9,16 @@
                 <div class="nav">
                     <li class="nav-item">
                         <div class="ms-auto mt-auto">
-                            <!-- <el-dropdown>
+                            <el-dropdown>
                                 <el-button class="text-uppercase" type="primary">
                                     Login<i class="ms-2 el-icon-arrow-down el-icon--left"></i>
                                 </el-button>
                                 <el-dropdown-menu slot="dropdown">
-                                    <el-button class="dropdown-item" type="text" @click="studentLogin = true">Student Login</el-button>
-                                    <el-button class="dropdown-item" type="text" @click="teacherLogin = true">Teacher Login</el-button>
+                                    <el-link class="dropdown-item" type="primary" :underline="false" @click="studentLogin = true; teacherLogin = false; nurseLogin = false">Student</el-link>
+                                    <el-link class="dropdown-item" type="primary":underline="false" @click="teacherLogin = true; studentLogin = false; nurseLogin = false">Teacher</el-link>
+                                    <el-link class="dropdown-item" type="primary":underline="false" @click="nurseLogin = true; studentLogin = false; teacherLogin = false">Nurse</el-link>
                                 </el-dropdown-menu>
-                            </el-dropdown> -->
+                            </el-dropdown>
                         </div>
                     </li>
                 </div>

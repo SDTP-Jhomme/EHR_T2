@@ -1,7 +1,6 @@
 
 <script src="<?php echo asset('assets/js/bootstrap.bundle.js') ?>"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- Vue.js CDN -->
 <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
 <!-- Element UI JavaScript -->
@@ -9,3 +8,6 @@
 <!-- English locale -->
 <script src="https://unpkg.com/element-ui/lib/umd/locale/en.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.0/dist/chart.min.js"></script>
+<!-- datatable.js CDN -->
+<script src="https://cdn.datatables.net/1.11.2/js/jquery.dataTables.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

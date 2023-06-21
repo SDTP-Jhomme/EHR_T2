@@ -1,3 +1,51 @@
+@yield('title')
+<style scoped>
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #antigen, #antigen * {
+    visibility: visible;
+  }
+  #antigen {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    right: 0;
+    margin: 0;
+  }
+  .row {
+    --bs-gutter-x: 1.5rem;
+    --bs-gutter-y: 0;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: calc(-1 * var(--bs-gutter-y));
+    margin-right: calc(-0.5 * var(--bs-gutter-x));
+    margin-left: calc(-0.5 * var(--bs-gutter-x));
+    }
+  .col-lg-6 {
+    flex: 0 0 auto;
+    width: 100%;
+    }
+    .col-lg-3 {
+        flex: 0 0 auto;
+        width: 25%;
+    }
+    .form-input {
+    border: none;
+    border-bottom: 1px solid #ccc;
+    padding: 0.5rem 0;
+    background-color: transparent;
+    box-shadow: none;
+    }
+
+    .form-input:focus {
+    outline: none;
+    border-bottom-color: #007bff;
+    }
+}
+</style>
 <script>
     // Vue.use(ElementUI, { locale: 'en' });
     // console.log(Vue);
@@ -283,6 +331,9 @@
         },
 
         methods: {
+            antigenPrint(){
+                window.print();
+            },
             changeColumn(selected) {
                 this.searchNull = ""
                 this.searchName = ""
