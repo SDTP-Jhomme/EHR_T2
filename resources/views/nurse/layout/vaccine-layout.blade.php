@@ -39,6 +39,7 @@
                 street: "",
                 brgy: "",
                 city: "",
+                next_appointment: "",
                 identificationError: "",
                 yearError: "",
                 firstnameError: "",
@@ -54,6 +55,7 @@
                 streetError: "",
                 brgyError: "",
                 cityError: "",
+                next_appointmentError: "",
                 // cbc
                 errors: {},
                 vaccinationDate: "",
@@ -113,6 +115,7 @@
                 this.city = formData.city;
                 this.name = formData.name;
                 this.address = formData.address;
+                this.next_appointment = formData.next_appointment;
             }
             console.log(formData)
         },

@@ -73,6 +73,14 @@ Route::post('/nurse-update', 'App\Http\Controllers\nurseController@nurseUpdate')
 Route::post('/nurse-status', 'App\Http\Controllers\nurseController@nurseStatus')->name('nurseStatus');
 Route::get('/nurse', 'App\Http\Controllers\actionController@nurse')->name('nurse');
 
+// nurse meds records 
+Route::get('nurse/records/cbc', 'App\Http\Controllers\medController@cbcForms')->name('cbcForms');
+Route::get('nurse/records/antigen', 'App\Http\Controllers\medController@antigenForms')->name('antigenForms');
+Route::get('nurse/records/urinalysis', 'App\Http\Controllers\medController@urinalysisForms')->name('urinalysisForms');
+Route::get('nurse/records/xray', 'App\Http\Controllers\medController@xrayForms')->name('xrayForms');
+Route::get('nurse/records/fecalysis', 'App\Http\Controllers\medController@fecalysisForms')->name('fecalysisForms');
+Route::get('nurse/records/vaccine', 'App\Http\Controllers\medController@vaccineForms')->name('vaccineForms');
+
 // teacher store,routes,updates and fetch
 Route::post('/teacher-fetch', 'App\Http\Controllers\deptController@teacherFetch')->name('teacherFetch');
 Route::post('/teacher-store', 'App\Http\Controllers\deptController@storeTeacher')->name('storeTeacher');
@@ -90,6 +98,14 @@ Route::get('vaccine-form', 'App\Http\Controllers\userController@vaccineForm')->n
 // updates users
 Route::post('student-update', 'App\Http\Controllers\actionController@studentUpdate')->name('studentUpdate');
 Route::post('student-status', 'App\Http\Controllers\actionController@studentStatus')->name('studentStatus');
+
+//update medical forms
+Route::post('cbc-update', 'App\Http\Controllers\cbcController@cbcUpdate')->name('cbcUpdate');
+Route::post('cbc-status', 'App\Http\Controllers\cbcController@cbcUpdate')->name('cbcStatus');
+Route::post('antigen-update', 'App\Http\Controllers\antigenController@antigenUpdate')->name('antigenUpdate');
+Route::post('antigen-status', 'App\Http\Controllers\antigenController@antigenStatus')->name('antigenStatus');
+Route::post('fecal-update', 'App\Http\Controllers\fecalController@fecalUpdate')->name('fecalUpdate');
+Route::post('fecal-status', 'App\Http\Controllers\fecalController@fecalStatus')->name('fecalStatus');
 
 // count data records
 Route::post('count-cbc', 'App\Http\Controllers\actionController@countCbc')->name('countCbc');

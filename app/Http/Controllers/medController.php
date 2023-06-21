@@ -43,4 +43,23 @@ class medController extends Controller
     public function vaccineFile(){
         return view('department/medical-records/vaccine');
     }
+
+    public function cbcForms(){
+        return view('nurse/medical-records/cbc');
+    }
+    public function antigenForms(){
+        return view('nurse/medical-records/antigen');
+    }
+    public function urinalysisForms(){
+        return view('nurse/medical-records/urinalysis');
+    }
+    public function xrayForms(){
+        return view('nurse/medical-records/xray');
+    }
+    public function fecalysisForms(){
+        return view('nurse/medical-records/fecalysis');
+    }
+    public function vaccineForms(){
+        return view('nurse/medical-records/vaccine');
+    }
 }

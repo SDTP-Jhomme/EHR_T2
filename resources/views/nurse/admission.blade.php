@@ -258,7 +258,16 @@
                                     <input type="text" class="form-control" id="city" name="city" v-model="city" onKeyup="upperCase(city)">
                                 </div>
                                 <div v-text="cityError" class="text-danger fst-italic ms-5"></div>
-                            </div>                           
+                            </div>
+                        </div>
+
+                        <h4 class="">Appointment</h4>
+                        <div class="col-lg-4 col-md-12">
+                            <div class="input-group mb-4" :class="{ 'has-error': next_appointmentError }">
+                                <span class="input-group-text group-text">Next Appointment</span>
+                                <input type="date" name="next_appointment" class="form-control" id="next_appointmentpicker" v-model="next_appointment">
+                            </div>
+                            <div v-text="next_appointmentError" class="text-danger fst-italic ms-5"></div>
                         </div>
                         
                         <div class="d-flex justify-content-center align-items-center mt-2" v-if="active == 0">
@@ -391,8 +400,6 @@
                         <el-descriptions-item label="Identification Number"><span class="mx-2" v-text="viewStudent.identification"></el-descriptions-item>
                         <el-descriptions-item label="Name"><span class="mx-2" v-text="viewStudent.name"></el-descriptions-item>
                         <el-descriptions-item label="Birthday"><span class="mx-2" v-text="viewStudent.birthdate"></el-descriptions-item>
-                        <el-descriptions-item label="Height"><span class="mx-2" v-text="viewStudent.height"></el-descriptions-item>
-                        <el-descriptions-item label="Weight"><span class="mx-2" v-text="viewStudent.weight"></el-descriptions-item>
                         <el-descriptions-item label="Gender">
                             <el-tag v-if="viewStudent.gender == 'Male'"><span class="mx-2" v-text="viewStudent.gender"></el-tag>
                             <el-tag v-else type="danger"><span class="mx-2" v-text="viewStudent.gender"></el-tag>
@@ -404,6 +411,7 @@
                 <el-button type="primary" @click="closeViewDialog">Close</el-button>
             </span>
         </el-dialog>
+
         <!-- Edit Dialog -->
         <el-dialog :visible.sync="editDialog" width="50%" :before-close="closeEditDialog">
             <template #title>
@@ -413,7 +421,7 @@
                 <div class="row justify-content-start align-items-center g-2">
                     <div class="col">
                         <el-form-item label="Identification Number" prop="identification">
-                            <el-input v-model="updateStudent.identification" maxlength="7" onKeyup="addDashes(this)" clearable></el-input>
+                            <el-input v-model="updateStudent.identification" maxlength="7" onKeyup="addDashes(this)" clearable disabled></el-input>
                         </el-form-item>
                     </div>
                     <div class="col">

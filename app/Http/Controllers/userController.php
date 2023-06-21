@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\userModel;
 use App\Models\nurseModel;
+use Twilio\Rest\Client;
 
 class userController extends Controller
 {

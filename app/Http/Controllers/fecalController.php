@@ -215,4 +215,66 @@ class fecalController extends Controller
         $address = $data_row->street . " " . $data_row->barangay . " " . $data_row->city;
         return $address;
     }
+
+    // update fecal
+    public function fecalUpdate(Request $update)
+    {
+        $update_user = [
+            // 'sampleDate' => $update->input('sampleDate'),
+            // 'result' => $update->input('result'),
+            "requestBy" => $update->input('requestBy'),
+            "color" => $update->input('color'),
+            "consistency" => $update->input('consistency'),
+            "occult" => $update->input('occult'),
+            "otherOccult" => $update->input('otherOccult'),
+            "pus" => $update->input('pus'),
+            "rbc" => $update->input('rbc'),
+            "fat" => $update->input('fat'),
+            "ova" => $update->input('ova'),
+            "larva" => $update->input('larva'),
+            "adult" => $update->input('adult'),
+            "cyst" => $update->input('cyst'),
+            "trophozoites" => $update->input('trophozoites'),
+            "otherTrophozoites" => $update->input('otherTrophozoites'),
+            "remarks" => $update->input('remarks'),
+            "pathologist" => $update->input('pathologist'),
+            "technologist" => $update->input('technologist'),
+        ];
+        $id = $update->input('id');
+        $update = fecaModel::where('id', $id)->update($update_user);
+        if ($update) {
+            // Success
+            $response["error"] = false;
+            $response["message"] = "Successfully updates data";
+            return response()->json($response);
+        } else {
+            // Failed to update or record not found
+            $response["error"] = true;
+            $response["message"] = "Failed updates data";
+            return response()->json($response, 500);
+        }
+
+    }
+
+    public function fecalStatus(Request $update)
+    {
+        $update_user = [
+            'status' => $update->input('status'),
+
+        ];
+        $id = $update->input('id');
+        $update = fecaModel::where('id', $id)->update($update_user);
+        if ($update) {
+            // Success
+            $response["error"] = false;
+            $response["message"] = "Successfully updates data";
+            return response()->json($response);
+        } else {
+            // Failed to update or record not found
+            $response["error"] = true;
+            $response["message"] = "Failed updates data";
+            return response()->json($response, 500);
+        }
+
+    }
 }

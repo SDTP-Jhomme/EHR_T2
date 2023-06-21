@@ -89,6 +89,23 @@
                     gender: "",
                     phone_number:"",
                     birthdate: "",
+                    requestBy: "",
+                    color: "",
+                    consistency: "",
+                    occult: "",
+                    otherOccult: "",
+                    pus: "",
+                    rbc: "",
+                    fat: "",
+                    ova: "",
+                    larva: "",
+                    adult: "",
+                    cyst: "",
+                    trophozoites: "",
+                    otherTrophozoites: "",
+                    remarks: "",
+                    pathologist: "",
+                    technologist: "",
                 },
                 year: [
                     {
@@ -215,6 +232,125 @@
                             trigger: "blur",
                             },
                         ],
+                        requestBy: [
+                            {
+                            required: true,
+                            message: "Phone number is required!",
+                            trigger: "blur",
+                            },
+                        ],
+                        color: [
+                            {
+                            required: true,
+                            message: "Phone number is required!",
+                            trigger: "blur",
+                            },
+                        ],
+                        consistency: [
+                            {
+                            required: true,
+                            message: "Phone number is required!",
+                            trigger: "blur",
+                            },
+                        ],
+                        occult: [
+                            {
+                            required: true,
+                            message: "Phone number is required!",
+                            trigger: "blur",
+                            },
+                        ],
+                        otherOccult: [
+                            {
+                            required: true,
+                            message: "Phone number is required!",
+                            trigger: "blur",
+                            },
+                        ],
+                        pus: [
+                            {
+                            required: true,
+                            message: "Phone number is required!",
+                            trigger: "blur",
+                            },
+                        ],
+                        rbc: [
+                            {
+                            required: true,
+                            message: "Phone number is required!",
+                            trigger: "blur",
+                            },
+                        ],
+                        fat: [
+                            {
+                            required: true,
+                            message: "Phone number is required!",
+                            trigger: "blur",
+                            },
+                        ],
+                        ova: [
+                            {
+                            required: true,
+                            message: "Phone number is required!",
+                            trigger: "blur",
+                            },
+                        ],
+                        larva: [
+                            {
+                            required: true,
+                            message: "Phone number is required!",
+                            trigger: "blur",
+                            },
+                        ],
+                        adult: [
+                            {
+                            required: true,
+                            message: "Phone number is required!",
+                            trigger: "blur",
+                            },
+                        ],
+                        cyst: [
+                            {
+                            required: true,
+                            message: "Phone number is required!",
+                            trigger: "blur",
+                            },
+                        ],
+                        trophozoites: [
+                            {
+                            required: true,
+                            message: "Phone number is required!",
+                            trigger: "blur",
+                            },
+                        ],
+                        otherTrophozoites: [
+                            {
+                            required: true,
+                            message: "Phone number is required!",
+                            trigger: "blur",
+                            },
+                        ],
+                        remarks: [
+                            {
+                            required: true,
+                            message: "Phone number is required!",
+                            trigger: "blur",
+                            },
+                        ],
+                        pathologist: [
+                            {
+                            required: true,
+                            message: "Phone number is required!",
+                            trigger: "blur",
+                            },
+                        ],
+                        technologist: [
+                            {
+                            required: true,
+                            message: "Phone number is required!",
+                            trigger: "blur",
+                            },
+                        ],
                     },
             };
         },
@@ -241,6 +377,23 @@
                     this.updateStudent.year = value.year ? value.year : "";
                     this.updateStudent.classSection = value.classSection ? value.classSection : "";
                     this.updateStudent.phone_number = value.phone_number ? value.phone_number : "";
+                    this.updateStudent.requestBy = value.requestBy ? value.requestBy : "";
+                    this.updateStudent.color = value.color ? value.color : "";
+                    this.updateStudent.consistency = value.consistency ? value.consistency : "";
+                    this.updateStudent.occult = value.occult ? value.occult : "";
+                    this.updateStudent.otherOccult = value.otherOccult ? value.otherOccult : "";
+                    this.updateStudent.pus = value.pus ? value.pus : "";
+                    this.updateStudent.rbc = value.rbc ? value.rbc : "";
+                    this.updateStudent.fat = value.fat ? value.fat : "";
+                    this.updateStudent.ova = value.ova ? value.ova : "";
+                    this.updateStudent.larva = value.larva ? value.larva : "";
+                    this.updateStudent.adult = value.adult ? value.adult : "";
+                    this.updateStudent.cyst = value.cyst ? value.cyst : "";
+                    this.updateStudent.trophozoites = value.trophozoites ? value.trophozoites : "";
+                    this.updateStudent.otherTrophozoites = value.otherTrophozoites ? value.otherTrophozoites : "";
+                    this.updateStudent.remarks = value.remarks ? value.remarks : "";
+                    this.updateStudent.pathologist = value.pathologist ? value.pathologist : "";
+                    this.updateStudent.technologist = value.technologist ? value.technologist : "";
                 },
                 searchValue(value) {
                     if (value == "" || value == "identification" || value == "name" || value == "status") {
@@ -331,6 +484,23 @@
                     birthdate: row.birthdate,
                     gender: row.gender,
                     phone_number: row.phone_number,
+                    requestBy: row.requestBy,
+                    color: row.color,
+                    consistency: row.consistency,
+                    occult: row.occult,
+                    otherOccult: row.otherOccult,
+                    pus: row.pus,
+                    rbc: row.rbc,
+                    fat: row.fat,
+                    ova: row.ova,
+                    larva: row.larva,
+                    adult: row.adult,
+                    cyst: row.cyst,
+                    trophozoites: row.trophozoites,
+                    otherTrophozoites: row.otherTrophozoites,
+                    remarks: row.remarks,
+                    pathologist: row.pathologist,
+                    technologist: row.technologist,
                 }
                 this.editDialog = true;
             },
@@ -407,7 +577,7 @@
             updateUser(updateStudent) {
                     this.$refs[updateStudent].validate((valid) => {
                         if (valid) {
-                            if (this.editStudent.identification != this.updateStudent.identification || this.editStudent.year != this.updateStudent.year|| this.editStudent.classSection != this.updateStudent.classSection|| this.editStudent.firstname != this.updateStudent.firstname || this.editStudent.midname != this.updateStudent.midname || this.editStudent.lastname != this.updateStudent.lastname || this.editStudent.birthdate != this.updateStudent.birthdate || this.editStudent.gender != this.updateStudent.gender|| this.editStudent.phone_number != this.updateStudent.phone_number ) {
+                            if (this.editStudent.identification != this.updateStudent.identification || this.editStudent.year != this.updateStudent.year|| this.editStudent.classSection != this.updateStudent.classSection|| this.editStudent.firstname != this.updateStudent.firstname || this.editStudent.midname != this.updateStudent.midname || this.editStudent.lastname != this.updateStudent.lastname || this.editStudent.birthdate != this.updateStudent.birthdate || this.editStudent.gender != this.updateStudent.gender|| this.editStudent.phone_number != this.updateStudent.phone_number || this.editStudent.color != this.updateStudent.color || this.editStudent.consistency != this.updateStudent.consistency || this.editStudent.occult != this.updateStudent.occult || this.editStudent.otherOccult != this.updateStudent.otherOccult || this.editStudent.pus != this.updateStudent.pus || this.editStudent.rbc != this.updateStudent.rbc || this.editStudent.fat != this.updateStudent.fat || this.editStudent.ova != this.updateStudent.ova || this.editStudent.larva != this.updateStudent.larva || this.editStudent.adult != this.updateStudent.adult || this.editStudent.cyst != this.updateStudent.cyst || this.editStudent.trophozoites != this.updateStudent.trophozoites || this.editStudent.otherTrophozoites != this.updateStudent.otherTrophozoites || this.editStudent.remarks != this.updateStudent.remarks || this.editStudent.pathologist != this.updateStudent.pathologist || this.editStudent.technologist != this.updateStudent.technologist  ) {
                                 this.loadButton = true;
                                 this.$confirm('This will update user ' + this.editStudent.firstname + '. Continue?', {
                                         confirmButtonText: 'Confirm',
@@ -428,7 +598,24 @@
                                         updateData.append("birthdate", birthdayFormat)
                                         updateData.append("gender", this.updateStudent.gender)
                                         updateData.append("phone_number", this.updateStudent.phone_number)
-                                        axios.post("{{route('studentUpdate')}}", updateData)
+                                        updateData.append("requestBy", this.updateStudent.requestBy)
+                                        updateData.append("color", this.updateStudent.color)
+                                        updateData.append("consistency", this.updateStudent.consistency)
+                                        updateData.append("occult", this.updateStudent.occult)
+                                        updateData.append("otherOccult", this.updateStudent.otherOccult)
+                                        updateData.append("pus", this.updateStudent.pus)
+                                        updateData.append("rbc", this.updateStudent.rbc)
+                                        updateData.append("fat", this.updateStudent.fat)
+                                        updateData.append("ova", this.updateStudent.ova)
+                                        updateData.append("larva", this.updateStudent.larva)
+                                        updateData.append("adult", this.updateStudent.adult)
+                                        updateData.append("cyst", this.updateStudent.cyst)
+                                        updateData.append("trophozoites", this.updateStudent.trophozoites)
+                                        updateData.append("otherTrophozoites", this.updateStudent.otherTrophozoites)
+                                        updateData.append("remarks", this.updateStudent.remarks)
+                                        updateData.append("pathologist", this.updateStudent.pathologist)
+                                        updateData.append("technologist", this.updateStudent.technologist)
+                                        axios.post("{{route('fecalUpdate')}}", updateData)
                                             .then(response => {
                                                 if (response.data) {
                                                     this.loadButton = false;
@@ -473,7 +660,7 @@
                     var updateStatus = new FormData()
                     updateStatus.append("id", row.id)
                     updateStatus.append("status", row.status)
-                    axios.post("{{route('studentStatus')}}", updateStatus)
+                    axios.post("{{route('fecalStatus')}}", updateStatus)
                         .then(response => {
                             if (response.data) {
                                 this.loadButton = false;

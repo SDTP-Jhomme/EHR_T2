@@ -89,6 +89,8 @@
                     gender: "",
                     phone_number:"",
                     birthdate: "",
+                    sampleDate: "",
+                    result: "",
                 },
                 year: [
                     {
@@ -215,6 +217,21 @@
                             trigger: "blur",
                             },
                         ],
+                        sampleDate: [
+                            {
+                            required: true,
+                            message: 'Sample Date is required!',
+                            trigger: 'blur'
+                            },
+                        ],
+                        result: [
+                            {
+                            required: true,
+                            message: "Result is required!",
+                            trigger: "blur",
+                            },
+                        ],
+                        
                     },
             };
         },
@@ -241,6 +258,8 @@
                     this.updateStudent.year = value.year ? value.year : "";
                     this.updateStudent.classSection = value.classSection ? value.classSection : "";
                     this.updateStudent.phone_number = value.phone_number ? value.phone_number : "";
+                    this.updateStudent.sampleDate = value.sampleDate ? value.sampleDate : "";
+                    this.updateStudent.result = value.result ? value.result : "";
                 },
                 searchValue(value) {
                     if (value == "" || value == "identification" || value == "name" || value == "status") {
@@ -331,6 +350,8 @@
                     birthdate: row.birthdate,
                     gender: row.gender,
                     phone_number: row.phone_number,
+                    sampleDate: row.sampleDate,
+                    result: row.result,
                 }
                 this.editDialog = true;
             },
@@ -405,7 +426,7 @@
             updateUser(updateStudent) {
                     this.$refs[updateStudent].validate((valid) => {
                         if (valid) {
-                            if (this.editStudent.identification != this.updateStudent.identification || this.editStudent.year != this.updateStudent.year|| this.editStudent.classSection != this.updateStudent.classSection|| this.editStudent.firstname != this.updateStudent.firstname || this.editStudent.midname != this.updateStudent.midname || this.editStudent.lastname != this.updateStudent.lastname || this.editStudent.birthdate != this.updateStudent.birthdate || this.editStudent.gender != this.updateStudent.gender|| this.editStudent.phone_number != this.updateStudent.phone_number ) {
+                            if (this.editStudent.identification != this.updateStudent.identification || this.editStudent.year != this.updateStudent.year|| this.editStudent.classSection != this.updateStudent.classSection|| this.editStudent.firstname != this.updateStudent.firstname || this.editStudent.midname != this.updateStudent.midname || this.editStudent.lastname != this.updateStudent.lastname || this.editStudent.birthdate != this.updateStudent.birthdate || this.editStudent.gender != this.updateStudent.gender || this.editStudent.phone_number != this.updateStudent.phone_number || this.editStudent.sampleDate != this.updateStudent.sampleDate || this.editStudent.result != this.updateStudent.result ) {
                                 this.loadButton = true;
                                 this.$confirm('This will update user ' + this.editStudent.firstname + '. Continue?', {
                                         confirmButtonText: 'Confirm',
@@ -426,7 +447,9 @@
                                         updateData.append("birthdate", birthdayFormat)
                                         updateData.append("gender", this.updateStudent.gender)
                                         updateData.append("phone_number", this.updateStudent.phone_number)
-                                        axios.post("{{route('studentUpdate')}}", updateData)
+                                        updateData.append("sampleDate", sampleDateFormat)
+                                        updateData.append("result", this.updateStudent.result)
+                                        axios.post("{{route('antigenUpdate')}}", updateData)
                                             .then(response => {
                                                 if (response.data) {
                                                     this.loadButton = false;
@@ -471,7 +494,7 @@
                     var updateStatus = new FormData()
                     updateStatus.append("id", row.id)
                     updateStatus.append("status", row.status)
-                    axios.post("{{route('studentStatus')}}", updateStatus)
+                    axios.post("{{route('antigenStatus')}}", updateStatus)
                         .then(response => {
                             if (response.data) {
                                 this.loadButton = false;

@@ -1,4 +1,5 @@
 <script>
+    document.getElementById("radioBtn").disabled = true;
     // Vue.use(ElementUI, { locale: 'en' });
     // console.log(Vue);
     ELEMENT.locale(ELEMENT.lang.en);
@@ -89,6 +90,14 @@
                     gender: "",
                     phone_number:"",
                     birthdate: "",
+                    hemoglobin: "",
+                    hematocrit: "",
+                    wbc: "",
+                    rbc: "",
+                    mcv: "",
+                    mch: "",
+                    mchc: "",
+                    platelet: "",
                 },
                 year: [
                     {
@@ -215,6 +224,62 @@
                             trigger: "blur",
                             },
                         ],
+                        hemoglobin: [
+                            {
+                            required: true,
+                            message: "Hemoglobin is required!",
+                            trigger: "blur",
+                            },
+                        ],
+                        hematocrit: [
+                            {
+                            required: true,
+                            message: "Hematocrit is required!",
+                            trigger: "blur",
+                            },
+                        ],
+                        wbc: [
+                            {
+                            required: true,
+                            message: "Wbc is required!",
+                            trigger: "blur",
+                            },
+                        ],
+                        rbc: [
+                            {
+                            required: true,
+                            message: "Rbc is required!",
+                            trigger: "blur",
+                            },
+                        ],
+                        mcv: [
+                            {
+                            required: true,
+                            message: "Mcv is required!",
+                            trigger: "blur",
+                            },
+                        ],
+                        mch: [
+                            {
+                            required: true,
+                            message: "Mch is required!",
+                            trigger: "blur",
+                            },
+                        ],
+                        mchc: [
+                            {
+                            required: true,
+                            message: "Mch is required!",
+                            trigger: "blur",
+                            },
+                        ],
+                        platelet: [
+                            {
+                            required: true,
+                            message: "Mch is required!",
+                            trigger: "blur",
+                            },
+                        ],
                     },
             };
         },
@@ -241,6 +306,14 @@
                     this.updateStudent.year = value.year ? value.year : "";
                     this.updateStudent.classSection = value.classSection ? value.classSection : "";
                     this.updateStudent.phone_number = value.phone_number ? value.phone_number : "";
+                    this.updateStudent.hemoglobin = value.hemoglobin ? value.hemoglobin : "";
+                    this.updateStudent.hematocrit = value.hematocrit ? value.hematocrit : "";
+                    this.updateStudent.wbc = value.wbc ? value.wbc : "";
+                    this.updateStudent.rbc = value.rbc ? value.rbc : "";
+                    this.updateStudent.mcv = value.mcv ? value.mcv : "";
+                    this.updateStudent.mch = value.mch ? value.mch : "";
+                    this.updateStudent.mchc = value.mchc ? value.mchc : "";
+                    this.updateStudent.platelet = value.platelet ? value.platelet : "";
                 },
                 searchValue(value) {
                     if (value == "" || value == "identification" || value == "name" || value == "status") {
@@ -331,6 +404,14 @@
                     birthdate: row.birthdate,
                     gender: row.gender,
                     phone_number: row.phone_number,
+                    hemoglobin: row.hemoglobin,
+                    hematocrit: row.hematocrit,
+                    wbc: row.wbc,
+                    rbc: row.rbc,
+                    mcv: row.mcv,
+                    mch: row.mch,
+                    mchc: row.mchc,
+                    platelet: row.platelet,
                 }
                 this.editDialog = true;
             },
@@ -405,7 +486,7 @@
             updateUser(updateStudent) {
                     this.$refs[updateStudent].validate((valid) => {
                         if (valid) {
-                            if (this.editStudent.identification != this.updateStudent.identification || this.editStudent.year != this.updateStudent.year|| this.editStudent.classSection != this.updateStudent.classSection|| this.editStudent.firstname != this.updateStudent.firstname || this.editStudent.midname != this.updateStudent.midname || this.editStudent.lastname != this.updateStudent.lastname || this.editStudent.birthdate != this.updateStudent.birthdate || this.editStudent.gender != this.updateStudent.gender|| this.editStudent.phone_number != this.updateStudent.phone_number ) {
+                            if (this.editStudent.identification != this.updateStudent.identification || this.editStudent.year != this.updateStudent.year|| this.editStudent.classSection != this.updateStudent.classSection|| this.editStudent.firstname != this.updateStudent.firstname || this.editStudent.midname != this.updateStudent.midname || this.editStudent.lastname != this.updateStudent.lastname || this.editStudent.birthdate != this.updateStudent.birthdate || this.editStudent.gender != this.updateStudent.gender || this.editStudent.phone_number != this.updateStudent.phone_number || this.editStudent.hemoglobin != this.updateStudent.hemoglobin || this.editStudent.hematocrit != this.updateStudent.hematocrit || this.editStudent.wbc != this.updateStudent.wbc || this.editStudent.rbc != this.updateStudent.rbc || this.editStudent.mcv != this.updateStudent.mcv || this.editStudent.mch != this.updateStudent.mch || this.editStudent.mchc != this.updateStudent.mchc || this.editStudent.platelet != this.updateStudent.platelet ) {
                                 this.loadButton = true;
                                 this.$confirm('This will update user ' + this.editStudent.firstname + '. Continue?', {
                                         confirmButtonText: 'Confirm',
@@ -426,7 +507,15 @@
                                         updateData.append("birthdate", birthdayFormat)
                                         updateData.append("gender", this.updateStudent.gender)
                                         updateData.append("phone_number", this.updateStudent.phone_number)
-                                        axios.post("{{route('studentUpdate')}}", updateData)
+                                        updateData.append("hemoglobin", this.updateStudent.hemoglobin)
+                                        updateData.append("hematocrit", this.updateStudent.hematocrit)
+                                        updateData.append("wbc", this.updateStudent.wbc)
+                                        updateData.append("rbc", this.updateStudent.rbc)
+                                        updateData.append("mcv", this.updateStudent.mcv)
+                                        updateData.append("mch", this.updateStudent.mch)
+                                        updateData.append("mchc", this.updateStudent.mchc)
+                                        updateData.append("platelet", this.updateStudent.platelet)
+                                        axios.post("{{route('cbcUpdate')}}", updateData)
                                             .then(response => {
                                                 if (response.data) {
                                                     this.loadButton = false;
@@ -471,7 +560,7 @@
                     var updateStatus = new FormData()
                     updateStatus.append("id", row.id)
                     updateStatus.append("status", row.status)
-                    axios.post("{{route('studentStatus')}}", updateStatus)
+                    axios.post("{{route('cbcStatus')}}", updateStatus)
                         .then(response => {
                             if (response.data) {
                                 this.loadButton = false;

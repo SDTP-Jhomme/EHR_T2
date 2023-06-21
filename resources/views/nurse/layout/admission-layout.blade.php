@@ -124,6 +124,7 @@
                 street: "",
                 brgy: "",
                 city: "",
+                next_appointment: "",
                 identificationError: "",
                 yearError: "",
                 classSectionError: "",
@@ -140,6 +141,7 @@
                 streetError: "",
                 brgyError: "",
                 cityError: "",
+                next_appointmentError: "",
                 checkIdentification: [],
                 addAdmission: {
                     identification: "",
@@ -366,6 +368,7 @@
                 this.city = formData.city;
                 this.name = formData.name;
                 this.address = formData.address;
+                this.next_appointment = formData.next_appointment;
             }
         },
             watch: {
@@ -571,6 +574,7 @@
                     street: this.street,
                     brgy: this.brgy,
                     city: this.city,
+                    next_appointment: this.next_appointment,
                     name: this.firstname + ' ' + this.midname.substr(0, 1) + ' ' + this.lastname,
                     address: this.street + ' ' + this.brgy + ' ' + this.city,
                     age: this.age,
@@ -666,6 +670,11 @@
                 } else {
                     this.cityError = "";
                 }
+                if (!this.next_appointment) {
+                    this.next_appointmentError = "Next Appointment is required";
+                } else {
+                    this.next_appointmentError = "";
+                }
 
                 // Check if all fields are valid and proceed with form submission if they are
 
@@ -684,7 +693,8 @@
                     !this.citizenError &&
                     !this.streetError &&
                     !this.brgyError &&
-                    !this.cityError
+                    !this.cityError &&
+                    !this.next_appointmentError
                 ) {
                     // All fields are valid, perform form submission logic here
                     console.log("Form submitted");

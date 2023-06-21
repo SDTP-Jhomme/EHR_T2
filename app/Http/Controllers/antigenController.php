@@ -184,4 +184,50 @@ class antigenController extends Controller
         $address = $data_row->street . " " . $data_row->barangay . " " . $data_row->city;
         return $address;
     }
+
+    //update cbc
+    public function antigenUpdate(Request $update)
+    {
+        $update_user = [
+            'sampleDate' => $update->input('sampleDate'),
+            'result' => $update->input('result'),
+
+        ];
+        $id = $update->input('id');
+        $update = antigenModel::where('id', $id)->update($update_user);
+        if ($update) {
+            // Success
+            $response["error"] = false;
+            $response["message"] = "Successfully updates data";
+            return response()->json($response);
+        } else {
+            // Failed to update or record not found
+            $response["error"] = true;
+            $response["message"] = "Failed updates data";
+            return response()->json($response, 500);
+        }
+
+    }
+
+    public function antigenStatus(Request $update)
+    {
+        $update_user = [
+            'status' => $update->input('status'),
+
+        ];
+        $id = $update->input('id');
+        $update = antigenModel::where('id', $id)->update($update_user);
+        if ($update) {
+            // Success
+            $response["error"] = false;
+            $response["message"] = "Successfully updates data";
+            return response()->json($response);
+        } else {
+            // Failed to update or record not found
+            $response["error"] = true;
+            $response["message"] = "Failed updates data";
+            return response()->json($response, 500);
+        }
+
+    }
 }

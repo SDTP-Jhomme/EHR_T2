@@ -1,4 +1,4 @@
-<script>
+    <script>
     // Vue.use(ElementUI, { locale: 'en' });
     // console.log(Vue);
     ELEMENT.locale(ELEMENT.lang.en);

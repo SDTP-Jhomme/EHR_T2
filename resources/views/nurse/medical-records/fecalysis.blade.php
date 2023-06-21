@@ -74,6 +74,11 @@
                                         <el-button icon="el-icon-view" size="mini" type="warning" @click="handleView(scope.$index, scope.row)"></el-button>
                                     </el-tooltip>
                                 </div>
+                                <div class="col">
+                                    <el-tooltip class="item" effect="dark" content="Edit" placement="top-start">
+                                        <el-button icon="el-icon-edit" size="mini" type="primary" @click="handleEdit(scope.$index, scope.row)"></el-button>
+                                    </el-tooltip>
+                                </div>
                             </div>
                         </template>
                     </el-table-column>
@@ -134,6 +139,225 @@
             </div>
             <span slot="footer" class="dialog-footer">
                 <el-button type="primary" @click="closeViewDialog">Close</el-button>
+            </span>
+        </el-dialog>
+
+        <!-- Edit Dialog -->
+        <el-dialog :visible.sync="editDialog" width="50%" :before-close="closeEditDialog">
+            <template #title>
+                Edit Hepa Antigen <span class="mx-2" v-text="editStudent.firstname"></span>
+            </template>
+            <el-form :label-position="leftLabel" label-width="160px" :model="updateStudent" :rules="editRules" ref="updateStudent">
+                <div class="row justify-content-start align-items-center g-2">
+                    <div class="col">
+                        <el-form-item label="Identification Number" prop="identification">
+                            <el-input v-model="updateStudent.identification" maxlength="7" onKeyup="addDashes(this)" disabled clearable></el-input>
+                        </el-form-item>
+                    </div>
+                    <div class="col">
+                        <el-form-item label="Year Level" prop="year">
+                            <el-select v-model="updateStudent.year" placeholder="Select" id="selectYear" disabled>
+                                <el-option
+                                    v-for="item in year"
+                                    :key="item.value"
+                                    :label="item.label"
+                                    :value="item.value"
+                                >
+                                </el-option>
+                            </el-select>
+                        </el-form-item>
+                    </div>
+                    <div class="col">
+                        <el-form-item label="Section" prop="classSection">
+                            <el-select v-model="updateStudent.classSection" placeholder="Select" disabled>
+                                <el-option
+                                    v-for="item in classSection"
+                                    :key="item.value"
+                                    :label="item.label"
+                                    :value="item.value"
+                                >
+                                </el-option>
+                            </el-select>
+                        </el-form-item>
+                    </div>
+                </div>
+
+                <div class="row justify-content-start align-items-center g-2">
+                    <div class="col">
+                        <el-form-item label="First Name" prop="firstname">
+                            <el-input v-model="updateStudent.firstname" disabled clearable></el-input>
+                        </el-form-item>
+                    </div>
+                    <div class="col">
+                        <el-form-item label="Middle Name" prop="midname">
+                            <el-input v-model="updateStudent.midname" disabled clearable></el-input>
+                        </el-form-item>
+                    </div>
+                    <div class="col">
+                        <el-form-item label="Last Name" prop="lastname">
+                            <el-input v-model="updateStudent.lastname" disabled clearable></el-input>
+                        </el-form-item>
+                    </div>
+                </div>
+
+                <div class="row justify-content-start align-items-center g-2">
+                    <div class="col">
+                        <el-form-item label="Phone No." prop="phone_number">
+                            <el-input v-model="updateStudent.phone_number" disabled clearable></el-input>
+                        </el-form-item>
+                    </div>
+                    <div class="col">
+                        <el-form-item label="Birthday" prop="birthdate">
+                            <el-date-picker :picker-options="birthdayOptions" v-model="updateStudent.birthdate" type="date" placeholder="Select birthdate" disabled clearable>
+                            </el-date-picker>
+                        </el-form-item>
+                    </div>
+                    <div class="col">
+                        <el-form-item label="Gender" prop="gender" id="radioBtn">
+                            <el-radio-group v-model="updateStudent.gender" disabled>
+                                <el-radio-button label="Female" for="radioBtn"></el-radio-button>
+                                <el-radio-button label="Male" for="radioBtn"></el-radio-button>
+                            </el-radio-group>
+                        </el-form-item>
+                    </div>
+                </div>
+
+                <div class="row justify-content-start align-items-center g-2">
+                    <div class="col">
+                        <el-form-item label="Request By" prop="requestBy">
+                            <el-input v-model="updateStudent.requestBy" placeholder="Enter Request By" clearable>
+                            </el-input>
+                        </el-form-item>
+                    </div>
+
+                    <div class="col">
+                        <el-form-item label="Color" prop="color">
+                            <el-input v-model="updateStudent.color" placeholder="Enter Color" clearable>
+                            </el-input>
+                        </el-form-item>
+                    </div>
+
+                    <div class="col">
+                        <el-form-item label="Consistency" prop="consistency">
+                            <el-input v-model="updateStudent.consistency" placeholder="Enter Consistency" clearable>
+                            </el-input>
+                        </el-form-item>
+                    </div>
+                </div>
+
+                <div class="row justify-content-start align-items-center g-2">
+                    <div class="col">
+                        <el-form-item label="Occult" prop="occult">
+                            <el-input v-model="updateStudent.occult" placeholder="Enter Occult" clearable>
+                            </el-input>
+                        </el-form-item>
+                    </div>
+
+                    <div class="col">
+                        <el-form-item label="Other Occult" prop="otherOccult">
+                            <el-input v-model="updateStudent.otherOccult" placeholder="Enter Other Occult" clearable>
+                            </el-input>
+                        </el-form-item>
+                    </div>
+
+                    <div class="col">
+                        <el-form-item label="Pus" prop="pus">
+                            <el-input v-model="updateStudent.pus" placeholder="Enter Pus" clearable>
+                            </el-input>
+                        </el-form-item>
+                    </div>
+                </div>
+
+                <div class="row justify-content-start align-items-center g-2">
+                    <div class="col">
+                        <el-form-item label="RBC" prop="rbc">
+                            <el-input v-model="updateStudent.rbc" placeholder="Enter RBC" clearable>
+                            </el-input>
+                        </el-form-item>
+                    </div>
+
+                    <div class="col">
+                        <el-form-item label="Fat" prop="fat">
+                            <el-input v-model="updateStudent.fat" placeholder="Enter Fat" clearable>
+                            </el-input>
+                        </el-form-item>
+                    </div>
+
+                    <div class="col">
+                        <el-form-item label="OVA" prop="ova">
+                            <el-input v-model="updateStudent.ova" placeholder="Enter OVA" clearable>
+                            </el-input>
+                        </el-form-item>
+                    </div>
+                </div>
+
+                <div class="row justify-content-start align-items-center g-2">
+                    <div class="col">
+                        <el-form-item label="Larva" prop="larva">
+                            <el-input v-model="updateStudent.larva" placeholder="Enter Larva" clearable>
+                            </el-input>
+                        </el-form-item>
+                    </div>
+
+                    <div class="col">
+                        <el-form-item label="Adult" prop="adult">
+                            <el-input v-model="updateStudent.adult" placeholder="Enter Adult" clearable>
+                            </el-input>
+                        </el-form-item>
+                    </div>
+
+                    <div class="col">
+                        <el-form-item label="Cyst" prop="cyst">
+                            <el-input v-model="updateStudent.cyst" placeholder="Enter Cyst" clearable>
+                            </el-input>
+                        </el-form-item>
+                    </div>
+                </div>
+
+                <div class="row justify-content-start align-items-center g-2">
+                    <div class="col">
+                        <el-form-item label="Trophozoites" prop="trophozoites">
+                            <el-input v-model="updateStudent.trophozoites" placeholder="Enter Trophozoites" clearable>
+                            </el-input>
+                        </el-form-item>
+                    </div>
+
+                    <div class="col">
+                        <el-form-item label="Other Trophozoites" prop="otherTrophozoites">
+                            <el-input v-model="updateStudent.otherTrophozoites" placeholder="Enter Other Trophozoites" clearable>
+                            </el-input>
+                        </el-form-item>
+                    </div>
+
+                    <div class="col">
+                        <el-form-item label="Remarks" prop="remarks">
+                            <el-input v-model="updateStudent.remarks" placeholder="Enter Remarks" clearable>
+                            </el-input>
+                        </el-form-item>
+                    </div>
+                </div>
+
+                <div class="row justify-content-start align-items-center g-2">
+                    <div class="col">
+                        <el-form-item label="Pathologist" prop="pathologist">
+                            <el-input v-model="updateStudent.pathologist" placeholder="Enter Pathologist" clearable>
+                            </el-input>
+                        </el-form-item>
+                    </div>
+
+                    <div class="col">
+                        <el-form-item label="Technologist" prop="technologist">
+                            <el-input v-model="updateStudent.technologist" placeholder="Enter Technologist" clearable>
+                            </el-input>
+                        </el-form-item>
+                    </div>
+                </div>
+
+
+            </el-form>
+            <span slot="footer" class="dialog-footer">
+                <el-button :loading="loadButton" @click="closeEditDialog('updateStudent')">Cancel</el-button>
+                <el-button :loading="loadButton" type="primary" @click="updateUser('updateStudent')">Update</el-button>
             </span>
         </el-dialog>
     </main>

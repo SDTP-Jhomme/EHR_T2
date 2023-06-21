@@ -9,6 +9,7 @@ use App\Models\fecaModel;
 use App\Models\urinalysisModel;
 use App\Models\vaxxModel;
 use App\Models\xrayModel;
+use Twilio\Rest\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 

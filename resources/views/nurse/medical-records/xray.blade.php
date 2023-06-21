@@ -74,6 +74,11 @@
                                         <el-button icon="el-icon-view" size="mini" type="warning" @click="handleView(scope.$index, scope.row)"></el-button>
                                     </el-tooltip>
                                 </div>
+                                <div class="col">
+                                    <el-tooltip class="item" effect="dark" content="Edit" placement="top-start">
+                                        <el-button icon="el-icon-edit" size="mini" type="primary" @click="handleEdit(scope.$index, scope.row)"></el-button>
+                                    </el-tooltip>
+                                </div>
                             </div>
                         </template>
                     </el-table-column>

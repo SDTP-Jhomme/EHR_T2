@@ -195,4 +195,56 @@ class cbcController extends Controller
             return response()->json($user_data,500);
         }
     }
+
+    //update cbc
+    public function cbcUpdate(Request $update)
+    {
+        $update_user = [
+            'hemoglobin' => $update->input('hemoglobin'),
+            'hematocrit' => $update->input('hematocrit'),
+            'wbc' => $update->input('wbc'),
+            'rbc' => $update->input('rbc'),
+            'mcv' => $update->input('mcv'),
+            'mch' => $update->input('mch'),
+            'mchc' => $update->input('mchc'),
+            'platelet' => $update->input('platelet'),
+
+        ];
+        $id = $update->input('id');
+        $update = cbcModel::where('id', $id)->update($update_user);
+        if ($update) {
+            // Success
+            $response["error"] = false;
+            $response["message"] = "Successfully updates data";
+            return response()->json($response);
+        } else {
+            // Failed to update or record not found
+            $response["error"] = true;
+            $response["message"] = "Failed updates data";
+            return response()->json($response, 500);
+        }
+
+    }
+
+    public function cbcStatus(Request $update)
+    {
+        $update_user = [
+            'status' => $update->input('status'),
+
+        ];
+        $id = $update->input('id');
+        $update = cbcModel::where('id', $id)->update($update_user);
+        if ($update) {
+            // Success
+            $response["error"] = false;
+            $response["message"] = "Successfully updates data";
+            return response()->json($response);
+        } else {
+            // Failed to update or record not found
+            $response["error"] = true;
+            $response["message"] = "Failed updates data";
+            return response()->json($response, 500);
+        }
+
+    }
 }
