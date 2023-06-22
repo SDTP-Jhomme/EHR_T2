@@ -72,6 +72,7 @@
                 direction: 'btt',
                 loadButton: false,
                 editDialog: false,
+                viewUploadDialog: false,
                 viewDialog: false,
                 viewStudent: [],
                 status: true,
@@ -162,6 +163,21 @@
                     city: "",
                 },
                 editStudent: [],
+                updateStudent: {
+                    id: 0,
+                    identification: "",
+                    year: "",
+                    classSection: "",
+                    firstname: "",
+                    midname: "",
+                    lastname: "",
+                    gender: "",
+                    phone_number:"",
+                    birthdate: "",
+                    height: "",
+                    weight: "",
+                },
+                uploadStudent: [],
                 updateStudent: {
                     id: 0,
                     identification: "",
@@ -462,6 +478,18 @@
                     })
                     .catch(() => {});
             },
+            closeviewUploadDialog(editStudent) {
+                this.$confirm('Are you sure you want to cancel Uploading Files?', {
+                        confirmButtonText: 'Yes',
+                        cancelButtonText: 'No',
+                    })
+                    .then(() => {
+                        this.viewUploadDialog = false
+                        this.$refs[editStudent].resetFields();
+                        localStorage.removeItem("identification")
+                    })
+                    .catch(() => {});
+            },
             handleEdit(index, row) {
                 localStorage.setItem("identification", row.identification)
                 this.editStudent = {
@@ -480,7 +508,31 @@
                 }
                 this.editDialog = true;
             },
-            //wala ga close ang drawer
+            handleUpload(index, row) {
+                localStorage.setItem("identification", row.identification)
+                this.selectedFiles = {
+
+                    }
+                    this.viewUploadDialog = true;
+                },
+                uploadFile() {
+                // Create a FormData object to store the selected file(s)
+                const formData = new FormData();
+                for (let i = 0; i < this.selectedFiles.length; i++) {
+                    formData.append('files', this.selectedFiles[i]);
+                }
+                axios.post('/upload', formData)
+                .then(response => {
+                    // File(s) uploaded successfully
+                    console.log(response.data);
+                    // Perform any necessary actions after upload
+                })
+                .catch(error => {
+                // Handle error
+                console.error(error);
+                });
+            },
+            
             closeAddDrawer() {
                 this.$confirm('Are you sure you want to cancel adding new Admission?', {
                     confirmButtonText: 'Yes',

@@ -51,7 +51,10 @@
                         label: 'Status'
                     }],
                 tableData: [],
+                openAddDrawer: false,
+                status:true,
                 tableLoad: false,
+                openAddDrawer: false,
             };
         },
         created() {
@@ -113,6 +116,23 @@
             filterHandler(value, row, column) {
                 const property = column['property'];
                 return row[property] === value;
+            },
+            closeAddDrawer() {
+                this.$confirm('Are you sure you want to cancel adding new Admission?', {
+                    confirmButtonText: 'Yes',
+                    cancelButtonText: 'No',
+                })
+                .then(() => {
+                    this.openAddDrawer = false
+                    localStorage.removeItem("identification")
+                })
+                .catch(() => {});
+            },
+            resetForm(addAdmission) {
+                this.$refs[addAdmission].resetFields();
+            },
+            resetFormData() {
+                this.submitForm = []
             },
             getData() {
                 axios.post("{{route('fetchStudent')}}")

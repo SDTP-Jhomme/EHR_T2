@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use App\Models\nurseModel;
+use App\Models\appointmentModel;
 use Illuminate\Support\Facades\Hash;
 use Twilio\Rest\Client;
 
@@ -106,6 +107,8 @@ class nurseController extends Controller
     // lab-forms
     public function appointments()
     {
+        // $data=appointmentModel::all();
+
         return view('nurse/appointments');
     }
 

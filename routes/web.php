@@ -62,7 +62,7 @@ Route::get('/nurse/dashboard','App\Http\Controllers\nurseController@dashboard')-
 Route::get('/nurse/admission','App\Http\Controllers\nurseController@admission')->name('nurse-admission');
 Route::get('/nurse/appointments','App\Http\Controllers\nurseController@appointments')->name('nurse-appointments');
 
-Route::get('/','App\Http\Controllers\nurseController@nurseLogin')->name('nurse-login');
+Route::get('/nurse/login','App\Http\Controllers\nurseController@nurseLogin')->name('nurse-login');
 Route::get('fetch', 'App\Http\Controllers\nurseController@fetch')->name('fetch');
 Route::get('nurseLogout', 'App\Http\Controllers\nurseController@nurseLogout')->name('nurseLogout');
 
@@ -80,6 +80,7 @@ Route::get('nurse/records/urinalysis', 'App\Http\Controllers\medController@urina
 Route::get('nurse/records/xray', 'App\Http\Controllers\medController@xrayForms')->name('xrayForms');
 Route::get('nurse/records/fecalysis', 'App\Http\Controllers\medController@fecalysisForms')->name('fecalysisForms');
 Route::get('nurse/records/vaccine', 'App\Http\Controllers\medController@vaccineForms')->name('vaccineForms');
+
 
 // teacher store,routes,updates and fetch
 Route::post('/teacher-fetch', 'App\Http\Controllers\deptController@teacherFetch')->name('teacherFetch');

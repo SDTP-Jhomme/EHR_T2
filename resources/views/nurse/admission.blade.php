@@ -82,6 +82,11 @@
                                         <el-button icon="el-icon-edit" size="mini" type="primary" @click="handleEdit(scope.$index, scope.row)"></el-button>
                                     </el-tooltip>
                                 </div>
+                                <div class="col">
+                                    <el-tooltip class="item" effect="dark" content="Upload Files" placement="top-start">
+                                        <el-button icon="el-icon-folder" size="mini" type="danger" @click="handleUpload(scope.$index, scope.row)"></el-button>
+                                    </el-tooltip>
+                                </div>
                             </div>
                         </template>
                     </el-table-column>
@@ -113,7 +118,7 @@
                             <div class="col-lg-4 col-md-12">
                                 <div class="input-group mb-4" :class="{ 'has-error': yearError }">
                                     <span class="input-group-text group-text">Year<span class="text-muted card-subtitle ps-2"></span></span>
-                                    <select class="form-select" id="year" name="year" v-model="year">
+                                    <select class="form-select" id="year" name="year" v-model="year" disabled>
                                         <option value="" selected>Select Year</option>
                                         <option value="First Year">First Year</option>
                                         <option value="Second Year">Second Year</option>
@@ -127,7 +132,7 @@
                             <div class="col-lg-4 col-md-12">
                                 <div class="input-group mb-4">
                                     <span class="input-group-text group-text">Section</span>
-                                    <select class="form-select" id="classSection" name="classSection" v-model="classSection">
+                                    <select class="form-select" id="classSection" name="classSection" v-model="classSection" disabled>
                                         <option value="" selected>Select Section</option>
                                         <option value="A Section">A</option>
                                         <option value="B Section">B</option>
@@ -141,7 +146,7 @@
                             <div class="col-lg-4 col-md-12">
                                 <div class="input-group mb-4" :class="{ 'has-error': firstnameError }">
                                     <span class="input-group-text group-text">First Name</span>
-                                    <input type="text" class="form-control" id="firstname" name="firstname" v-model="firstname" onKeyup="upperCase(firstname)">
+                                    <input type="text" class="form-control" id="firstname" name="firstname" v-model="firstname" onKeyup="upperCase(firstname)" disabled>
                                 </div>
                                 <div v-text="firstnameError" class="text-danger fst-italic ms-5"></div>
                             </div>
@@ -149,7 +154,7 @@
                             <div class="col-lg-4 col-md-12">
                                 <div class="input-group mb-4" :class="{ 'has-error': midnameError }">
                                     <span class="input-group-text group-text">Middle Name <span class="text-muted card-subtitle ps-2"></span></span>
-                                    <input type="text" class="form-control" id="midname" name="midname" v-model="midname" onKeyup="upperCase(midname)">
+                                    <input type="text" class="form-control" id="midname" name="midname" v-model="midname" onKeyup="upperCase(midname)" disabled>
                                 </div>
                                 <div v-text="midnameError" class="text-danger fst-italic ms-5"></div>
                             </div>
@@ -157,7 +162,7 @@
                             <div class="col-lg-4 col-md-12">
                                 <div class="input-group mb-4" :class="{ 'has-error': lastnameError }">
                                     <span class="input-group-text group-text">Last Name</span>
-                                    <input type="text" class="form-control" id="lastname" name="lastname" v-model="lastname" onKeyup="upperCase(lastname)">
+                                    <input type="text" class="form-control" id="lastname" name="lastname" v-model="lastname" onKeyup="upperCase(lastname)" disabled>
                                 </div>
                                 <div v-text="lastnameError" class="text-danger fst-italic ms-5"></div>
                             </div>
@@ -165,7 +170,7 @@
                             <div class="col-lg-4 col-md-12">
                                 <div class="input-group mb-4" :class="{ 'has-error': phoneError }">
                                     <span class="input-group-text group-text">Phone Number</span>
-                                    <input type="text" class="form-control" id="phone_number" name="phone_number" v-model="phone_number" placeholder="+639*******">
+                                    <input type="text" class="form-control" id="phone_number" name="phone_number" v-model="phone_number" placeholder="+639*******" disabled>
                                 </div>
                                 <div v-text="phoneError" class="text-danger fst-italic ms-5"></div>
                             </div>
@@ -173,9 +178,9 @@
                             <div class="col-lg-4 col-md-12">
                                 <div class="input-group mb-4" :class="{ 'has-error': genderError }">
                                     <span class="input-group-text group-text me-4">Gender</span>
-                                    <input type="radio" class="btn-check" name="gender" id="male" value="Male" v-model="gender">
+                                    <input type="radio" class="btn-check" name="gender" id="male" value="Male" v-model="gender" disabled>
                                     <label class="btn btn-outline-primary px-4 mx-2" for="male">Male</label>
-                                    <input type="radio" class="btn-check" name="gender" id="female" value="Female" v-model="gender">
+                                    <input type="radio" class="btn-check" name="gender" id="female" value="Female" v-model="gender" disabled>
                                     <label class="btn btn-outline-danger px-4 mx-2" for="female">Female</label>
                                 </div>
                                 <div v-text="genderError" class="text-danger fst-italic ms-5"></div>
@@ -186,7 +191,7 @@
                             <div class="col-lg-4 col-md-12">
                                 <div class="input-group mb-4" :class="{ 'has-error': birthdateError }">
                                     <span class="input-group-text group-text" for="birthdaypicker">Date of Birth</span>
-                                    <input type="date" name="birthdate" class="form-control" :max="maxDate" id="birthdaypicker" v-model="birthdate">
+                                    <input type="date" name="birthdate" class="form-control" :max="maxDate" id="birthdaypicker" v-model="birthdate" disabled>
                                 </div>
                                 <div v-text="birthdateError" class="text-danger fst-italic ms-5"></div>
                             </div>
@@ -194,7 +199,7 @@
                             <div class="col-lg-4 col-md-12">
                                 <div class="input-group mb-4" :class="{ 'has-error': heightError }">
                                     <span class="input-group-text group-text">Height</span>
-                                    <input type="text" name="height" class="form-control" v-model="height">
+                                    <input type="text" name="height" class="form-control" v-model="height" disabled>
                                 </div>
                                 <div v-text="heightError" class="text-danger fst-italic ms-5"></div>
                             </div>
@@ -202,7 +207,7 @@
                             <div class="col-lg-4 col-md-12">
                                 <div class="input-group mb-4" :class="{ 'has-error': weightError }">
                                     <span class="input-group-text group-text">Weight</span>
-                                    <input type="text" name="weight" class="form-control" v-model="weight">
+                                    <input type="text" name="weight" class="form-control" v-model="weight" disabled>
                                 </div>
                                 <div v-text="weightError" class="text-danger fst-italic ms-5"></div>
                             </div>
@@ -210,7 +215,7 @@
                             <div class="col-lg-4 col-md-12">
                                 <div class="input-group mb-4" :class="{ 'has-error': civilError }">
                                     <span class="input-group-text group-text">Civil Status<span class="text-muted card-subtitle ps-2"></span></span>
-                                    <select class="form-select" id="civil" name="civil" v-model="civil">
+                                    <select class="form-select" id="civil" name="civil" v-model="civil" disabled>
                                         <option value="" selected>Select Year</option>
                                         <option value="Single">Single</option>
                                         <option value="Married">Married</option>
@@ -224,7 +229,7 @@
                             <div class="col-lg-4 col-md-12">
                                 <div class="input-group mb-4" :class="{ 'has-error': citizenError }">
                                     <span class="input-group-text group-text">Citizenship</span>
-                                    <select class="form-select" id="citizen" name="citizen" v-model="citizen">
+                                    <select class="form-select" id="citizen" name="citizen" v-model="citizen" disabled>
                                         <option value="" selected>Select Year</option>
                                         <option value="Filipino">Filipino</option>
                                         <option value="American">American</option>
@@ -239,7 +244,7 @@
                             <div class="col-lg-4 col-md-12">
                                 <div class="input-group mb-4" :class="{ 'has-error': streetError }">
                                     <span class="input-group-text group-text">Street No. and Street Address</span>
-                                    <input type="text" class="form-control" id="street" name="street" v-model="street" onKeyup="upperCase(street)">
+                                    <input type="text" class="form-control" id="street" name="street" v-model="street" onKeyup="upperCase(street)" disabled>
                                 </div>
                                 <div v-text="streetError" class="text-danger fst-italic ms-5"></div>
                             </div>
@@ -247,7 +252,7 @@
                             <div class="col-lg-4 col-md-12">
                                 <div class="input-group mb-4" :class="{ 'has-error': brgyError }">
                                     <span class="input-group-text group-text">Barangay </span>
-                                    <input type="text" class="form-control" id="brgy" name="brgy" v-model="brgy" onKeyup="upperCase(brgy)">
+                                    <input type="text" class="form-control" id="brgy" name="brgy" v-model="brgy" onKeyup="upperCase(brgy)" disabled>
                                 </div>
                                 <div v-text="brgyError" class="text-danger fst-italic ms-5"></div>
                             </div>
@@ -255,7 +260,7 @@
                             <div class="col-lg-4 col-md-12">
                                 <div class="input-group mb-4" :class="{ 'has-error': cityError }">
                                     <span class="input-group-text group-text">Municipality/City</span>
-                                    <input type="text" class="form-control" id="city" name="city" v-model="city" onKeyup="upperCase(city)">
+                                    <input type="text" class="form-control" id="city" name="city" v-model="city" onKeyup="upperCase(city)" disabled>
                                 </div>
                                 <div v-text="cityError" class="text-danger fst-italic ms-5"></div>
                             </div>
@@ -503,6 +508,151 @@
             <span slot="footer" class="dialog-footer">
                 <el-button :loading="loadButton" @click="closeEditDialog('updateStudent')">Cancel</el-button>
                 <el-button :loading="loadButton" type="primary" @click="updateUser('updateStudent')">Update</el-button>
+            </span>
+        </el-dialog>
+
+        <!-- Upload Dialog -->
+        <el-dialog :visible.sync="viewUploadDialog" width="50%" :before-close="closeviewUploadDialog">
+            <template #title>
+                Upload Files <span class="mx-2" v-text="editStudent.firstname"></span>
+            </template>
+            <el-form :label-position="center" label-width="160px" :model="updateStudent" :rules="editRules" ref="updateStudent">
+                <div class="row justify-content-start align-items-center g-2">
+                    <div class="col">
+                        <el-tooltip class="item" effect="dark" content="Upload CBC Files" placement="top-start">
+                            <el-button label="CBC" icon="el-icon-folder" size="big" type="warning" v-model="updateStudent.identification" clearable></el-button>
+                        </el-tooltip>
+                        <el-form-item label="Complete Blood Count" prop="cbc">
+                        </el-form-item>
+                    </div>
+
+                    <div class="col">
+                        <el-tooltip class="item" effect="dark" content="Upload X-Ray Files" placement="top-start">
+                            <el-button label="X-Ray" icon="el-icon-folder" size="big" type="warning" v-model="updateStudent.identification" clearable></el-button>
+                        </el-tooltip>
+                        <el-form-item label="Chest X-ray (PA)" prop="xray">
+                        </el-form-item>
+                    </div>
+
+                    <div class="col">
+                        <el-tooltip class="item" effect="dark" content="Upload Fecalysis Files" placement="top-start"> 
+                            <el-button label="Fecalysis" icon="el-icon-folder" size="big" type="warning" v-model="updateStudent.identification" clearable></el-button>
+                        </el-tooltip>
+                        <el-form-item label="Fecalysis" prop="fecalysis">
+                        </el-form-item>
+                    </div>
+                </div>
+
+                <div class="row justify-content-start align-items-center g-2">
+                    <div class="col">
+                        <el-tooltip class="item" effect="dark" content="Upload Antigen Files" placement="top-start"> 
+                            <el-button label="Antigen" icon="el-icon-folder" size="big" type="warning" v-model="updateStudent.identification" clearable></el-button>
+                        </el-tooltip>
+                        <el-form-item label="Heppa B Antigen" prop="antigen">
+                        </el-form-item>
+                    </div>
+
+                    <div class="col">
+                        <el-tooltip class="item" effect="dark" content="Upload Vaccine Files" placement="top-start"> 
+                            <el-button label="Vaccine" icon="el-icon-folder" size="big" type="warning" v-model="updateStudent.identification" clearable></el-button>
+                        </el-tooltip>
+                        <el-form-item label="Heppa B Vaccine" prop="vaccine">
+                        </el-form-item>
+                    </div>
+
+                    <div class="col">
+                        <el-tooltip class="item" effect="dark" content="Upload Urinalysis Files" placement="top-start"> 
+                            <el-button label="Urinalysis" icon="el-icon-folder" size="big" type="warning" v-model="updateStudent.identification" clearable></el-button>
+                        </el-tooltip>
+                        <el-form-item label="Urinalysis" prop="urinalysis">
+                        </el-form-item>
+                    </div>
+                </div>
+                <!-- <div class="row justify-content-start align-items-center g-2">
+                    <div class="col">
+                        <el-form-item label="Identification Number" prop="identification">
+                            <el-input v-model="updateStudent.identification" maxlength="7" onKeyup="addDashes(this)" clearable disabled></el-input>
+                        </el-form-item>
+                    </div>
+                    <div class="col">
+                        <el-form-item label="Year Level" prop="year">
+                            <el-select v-model="updateStudent.year" placeholder="Select">
+                                <el-option
+                                    v-for="item in year"
+                                    :key="item.value"
+                                    :label="item.label"
+                                    :value="item.value"
+                                >
+                                </el-option>
+                            </el-select>
+                        </el-form-item>
+                    </div>
+                    <div class="col">
+                        <el-form-item label="Section" prop="classSection">
+                            <el-select v-model="updateStudent.classSection" placeholder="Select">
+                                <el-option
+                                    v-for="item in classSection"
+                                    :key="item.value"
+                                    :label="item.label"
+                                    :value="item.value"
+                                >
+                                </el-option>
+                            </el-select>
+                        </el-form-item>
+                    </div>
+                </div>
+                <div class="row justify-content-start align-items-center g-2">
+                    <div class="col">
+                        <el-form-item label="First Name" prop="firstname">
+                            <el-input v-model="updateStudent.firstname" clearable></el-input>
+                        </el-form-item>
+                    </div>
+                    <div class="col">
+                        <el-form-item label="Middle Name" prop="midname">
+                            <el-input v-model="updateStudent.midname" clearable></el-input>
+                        </el-form-item>
+                    </div>
+                    <div class="col">
+                        <el-form-item label="Last Name" prop="lastname">
+                            <el-input v-model="updateStudent.lastname" clearable></el-input>
+                        </el-form-item>
+                    </div>
+                </div>
+                <div class="row justify-content-start align-items-center g-2">
+                    <div class="col">
+                        <el-form-item label="Phone No." prop="phone_number">
+                            <el-input v-model="updateStudent.phone_number" clearable></el-input>
+                        </el-form-item>
+                    </div>
+                    <div class="col">
+                        <el-form-item label="Birthday" prop="birthdate">
+                            <el-date-picker :picker-options="birthdayOptions" v-model="updateStudent.birthdate" type="date" placeholder="Select birthdate" clearable>
+                            </el-date-picker>
+                        </el-form-item>
+                    </div>
+                    <div class="col">
+                        <el-form-item label="Height" prop="height">
+                        <el-input v-model="updateStudent.height" clearable></el-input>
+                        </el-form-item>
+                    </div>
+                    <div class="col">
+                        <el-form-item label="Weight" prop="weight">
+                        <el-input v-model="updateStudent.weight" clearable></el-input>
+                        </el-form-item>
+                    </div>
+                    <div class="col">
+                        <el-form-item label="Gender" prop="gender">
+                            <el-radio-group v-model="updateStudent.gender">
+                                <el-radio-button label="Female"></el-radio-button>
+                                <el-radio-button label="Male"></el-radio-button>
+                            </el-radio-group>
+                        </el-form-item>
+                    </div>
+                </div> -->
+            </el-form>
+            <span slot="footer" class="dialog-footer">
+                <el-button :loading="loadButton" @click="closeviewUploadDialog">Cancel</el-button>
+                <el-button :loading="loadButton" type="primary" @click="uploadFile">Upload</el-button>
             </span>
         </el-dialog>
     </main>
