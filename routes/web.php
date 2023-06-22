@@ -18,6 +18,11 @@ use Illuminate\Support\Facades\Auth;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
+// request table and counts
+Route::post('fetch-request', 'App\Http\Controllers\requestController@fetchRequest')->name('fetchRequest');
+Route::post('count-request', 'App\Http\Controllers\requestController@countRequest')->name('countRequest');
+Route::post('request-statusUpdate', 'App\Http\Controllers\actionController@updateStatus')->name('updateStatus');
+Route::post('appointment-request', 'App\Http\Controllers\requestController@storeReq')->name('storeReq');
 // admin side
 Route::post('/login','App\Http\Controllers\adminController@admin_Login')->name('admin-loginPost');
 Route::get('/admin/dashboard','App\Http\Controllers\adminController@dashboard')->name('admin-dashboard');
@@ -62,7 +67,7 @@ Route::get('/nurse/dashboard','App\Http\Controllers\nurseController@dashboard')-
 Route::get('/nurse/admission','App\Http\Controllers\nurseController@admission')->name('nurse-admission');
 Route::get('/nurse/appointments','App\Http\Controllers\nurseController@appointments')->name('nurse-appointments');
 
-Route::get('/','App\Http\Controllers\nurseController@nurseLogin')->name('nurse-login');
+Route::get('/nurse-login','App\Http\Controllers\nurseController@nurseLogin')->name('nurse-login');
 Route::get('fetch', 'App\Http\Controllers\nurseController@fetch')->name('fetch');
 Route::get('nurseLogout', 'App\Http\Controllers\nurseController@nurseLogout')->name('nurseLogout');
 
@@ -87,7 +92,8 @@ Route::get('xray-form', 'App\Http\Controllers\userController@xrayForm')->name('x
 Route::get('antigen-form', 'App\Http\Controllers\userController@antigenForm')->name('antigenForm');
 Route::get('vaccine-form', 'App\Http\Controllers\userController@vaccineForm')->name('vaccineForm');
 
-// updates users
+//add and updates users
+Route::post('student-add', 'App\Http\Controllers\userController@storeStudent')->name('storeStudent');
 Route::post('student-update', 'App\Http\Controllers\actionController@studentUpdate')->name('studentUpdate');
 Route::post('student-status', 'App\Http\Controllers\actionController@studentStatus')->name('studentStatus');
 
@@ -123,7 +129,7 @@ Route::post('/update-pass', 'App\Http\Controllers\studentController@updatePasswo
 // teacher's login
 Route::post('department/login','App\Http\Controllers\deptController@deptlogin')->name('department-loginPost');
 Route::get('/department/dashboard','App\Http\Controllers\deptController@dashboard')->name('department-dashboard');
-Route::get('/','App\Http\Controllers\deptController@teacherLogin')->name('department-login');
+Route::get('/department-login','App\Http\Controllers\deptController@teacherLogin')->name('department-login');
 Route::post('department-fetch', 'App\Http\Controllers\deptController@fetch')->name('department-fetch');
 Route::post('department/logout', 'App\Http\Controllers\deptController@departmentLogout')->name('departmentLogout');
 // teacher profile

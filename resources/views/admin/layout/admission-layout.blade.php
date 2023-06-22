@@ -2,24 +2,25 @@
 <title>@yield('title')</title>
 <div id="app">
     <div v-if="fullscreenLoading" class="fullscreen-loading">
-        <div class="spinner-heart" role="status">
+          <div class="spinner-heart" role="status">
             <span class="visually-hidden">Loading...</span>
         </div>
-        <span class="spinner-text">Loading...</span>
+          <span class="spinner-text">Loading...</span>
     </div>
 @include('admin/imports/nav')
-    @yield('header')
+      @yield('header')
     <!-- sidebar -->
     <div class="container-fluid page-wrapper">
 @include('admin/imports/sidebar')
         @yield('sidebar')
     </div>
 </div>
+
+
 @include('admin/imports/body')
 
+
 <script>
-    // Vue.use(ElementUI, { locale: 'en' });
-    // console.log(Vue);
     ELEMENT.locale(ELEMENT.lang.en);
     new Vue({
         el: '#app',
@@ -30,6 +31,7 @@
                 } else {
                     callback();
                 }
+
             };
             const validateUpdateID = (rule, value, callback) => {
                 if (localStorage.getItem("identification") != value) {
@@ -73,7 +75,7 @@
                 pageSize: 10,
                 topLabel: "top",
                 leftLabel: "left",
-                direction: 'btt',
+                direction: 'ltr',
                 loadButton: false,
                 editDialog: false,
                 viewDialog: false,
@@ -106,18 +108,226 @@
                 checkIdentification: [],
                 editStudent: [],
                 printing: false,
+                addStudent:{
+                    identification: "",
+                    firstname: "",
+                    midname: "",
+                    lastname: "",
+                    course:"Nursing",
+                    year: "",
+                    classSection: "",
+                    gender: "",
+                    phone_number:"",
+                    birthdate: "",
+                    street: "",
+                    brgy: "",
+                    city: "",
+                    guardianFname: "",
+                    guardianMname: "",
+                    guardianLname: "",
+                    guardianPhone_number: "",
+                    citizen: "",
+                    civil: "",
+                },
+                rules:{
+                    identification: [
+                        {
+                        required: true,
+                        message: "Identification no. is required!",
+                        trigger: "blur",
+                        }, {
+                            validator: validateAddID,
+                            trigger: 'blur'
+                        }
+                    ],
+                    firstname: [
+                        {
+                        required: true,
+                        message: "First name is required!",
+                        trigger: "blur",
+                        },
+                        {
+                        pattern: /^[a-zA-Z ]*$/,
+                        message: "Invalid first name format!",
+                        trigger: "blur",
+                        },
+                        {
+                        min: 2,
+                        message: "First name should be at least two(2) characters!",
+                        trigger: "blur",
+                        },
+                    ],
+                    midname: [
+                        {
+                        pattern: /^[a-zA-Z- ]*$/,
+                        message: "Invalid last name format!",
+                        trigger: "blur",
+                        },
+                        {
+                        min: 2,
+                        message: "Last name should be at least two(2) characters!",
+                        trigger: "blur",
+                        },
+                    ],
+                    lastname: [
+                        {
+                        required: true,
+                        message: "Last name is required!",
+                        trigger: "blur",
+                        },
+                        {
+                        pattern: /^[a-zA-Z- ]*$/,
+                        message: "Invalid last name format!",
+                        trigger: "blur",
+                        },
+                        {
+                        min: 2,
+                        message: "Last name should be at least two(2) characters!",
+                        trigger: "blur",
+                        },
+                    ],
+                    year: [
+                        {
+                        required: true,
+                        message: "Year Level is required!",
+                        trigger: "blur",
+                        },
+                    ],
+                    classSection: [
+                        {
+                        required: true,
+                        message: "Class Section is required!",
+                        trigger: "blur",
+                        },
+                    ],
+                    citizen: [
+                        {
+                        required: true,
+                        message: "Citizenship is required!",
+                        trigger: "blur",
+                        },
+                    ],
+                    civil: [
+                        {
+                        required: true,
+                        message: "Civil Status is required!",
+                        trigger: "blur",
+                        },
+                    ],
+                    birthdate: [{
+                        required: true,
+                        message: 'Birthday is required!',
+                        trigger: 'blur'
+                    }, {
+                        validator: validateBirthdate,
+                        trigger: 'blur'
+                    }],
+                    gender: [
+                        {
+                        required: true,
+                        message: "Gender is required!",
+                        trigger: "blur",
+                        },
+                    ],
+                    phone_number: [
+                        {
+                        required: true,
+                        message: "Phone number is required!",
+                        trigger: "blur",
+                        },
+                    ],
+                    street: [
+                        {
+                        required: true,
+                        message: "Street is required!",
+                        trigger: "blur",
+                        },
+                    ],
+                    brgy: [
+                        {
+                        required: true,
+                        message: "Barangay is required!",
+                        trigger: "blur",
+                        },
+                    ],
+                    city: [
+                        {
+                        required: true,
+                        message: "City is required!",
+                        trigger: "blur",
+                        },
+                    ],
+                    guardianFname: [
+                        {
+                        required: true,
+                        message: "First name is required!",
+                        trigger: "blur",
+                        },
+                        {
+                        pattern: /^[a-zA-Z ]*$/,
+                        message: "Invalid first name format!",
+                        trigger: "blur",
+                        },
+                        {
+                        min: 2,
+                        message: "First name should be at least two(2) characters!",
+                        trigger: "blur",
+                        },
+                    ],
+                    guardianMname: [
+                        {
+                        pattern: /^[a-zA-Z- ]*$/,
+                        message: "Invalid last name format!",
+                        trigger: "blur",
+                        },
+                        {
+                        min: 2,
+                        message: "Last name should be at least two(2) characters!",
+                        trigger: "blur",
+                        },
+                    ],
+                    guardianLname: [
+                        {
+                        required: true,
+                        message: "Last name is required!",
+                        trigger: "blur",
+                        },
+                        {
+                        pattern: /^[a-zA-Z- ]*$/,
+                        message: "Invalid last name format!",
+                        trigger: "blur",
+                        },
+                        {
+                        min: 2,
+                        message: "Last name should be at least two(2) characters!",
+                        trigger: "blur",
+                        },
+                    ],
+                    guardianPhone_number: [
+                        {
+                        required: true,
+                        message: "Please input Guardians Phone Number!",
+                        trigger: "blur",
+                        },
+                    ],
+                },
                 updateStudent: {
                     id: 0,
                     identification: "",
                     year: "",
                     classSection: "",
-                    course: "Nursing",
                     firstname: "",
                     midname: "",
                     lastname: "",
                     gender: "",
                     phone_number:"",
                     birthdate: "",
+                    guardianFname: "",
+                    guardianMname: "",
+                    guardianLname: "",
+                    guardianPhone_number: "",
+                    citizen: "",
+                    civil: "",
                 },
                 year: [
                     {
@@ -149,6 +359,34 @@
                     {
                         year: "C",
                         label: "C",
+                    },
+                ],
+                civil: [
+                    {
+                        value: "Single",
+                        label: "Single",
+                    },
+                    {
+                        value: "Married",
+                        label: "Married",
+                    },
+                    {
+                        value: "Widowed",
+                        label: "Widowed",
+                    },
+                    {
+                        value: "Divorced",
+                        label: "Divorced",
+                    },
+                ],
+                citizen: [
+                    {
+                        value: "Filipino",
+                        label: "Filipino",
+                    },
+                    {
+                        value: "American",
+                        label: "American",
                     },
                 ],
                     editRules: {
@@ -222,6 +460,20 @@
                             trigger: "blur",
                             },
                         ],
+                        citizen: [
+                            {
+                            required: true,
+                            message: "Citizenship is required!",
+                            trigger: "blur",
+                            },
+                        ],
+                        civil: [
+                            {
+                            required: true,
+                            message: "Civil Status is required!",
+                            trigger: "blur",
+                            },
+                        ],
                         birthdate: [{
                             required: true,
                             message: 'Birthday is required!',
@@ -244,6 +496,30 @@
                             trigger: "blur",
                             },
                         ],
+                    guardianName: [
+                        {
+                        required: true,
+                        message: "First name is required!",
+                        trigger: "blur",
+                        },
+                        {
+                        pattern: /^[a-zA-Z ]*$/,
+                        message: "Invalid first name format!",
+                        trigger: "blur",
+                        },
+                        {
+                        min: 2,
+                        message: "First name should be at least two(2) characters!",
+                        trigger: "blur",
+                        },
+                    ],
+                    guardianPhone_number: [
+                        {
+                        required: true,
+                        message: "City is required!",
+                        trigger: "blur",
+                        },
+                    ],
                     },
             };
         },
@@ -259,6 +535,22 @@
             this.age = localStorage.age ? localStorage.age : 0
         },
             watch: {
+                'addStudent.birthdate': {
+                    handler(newDate) {
+                    const birthdayFormat = newDate.getFullYear() + "-" + ((newDate.getMonth() + 1) > 9 ? '' : '0') + (newDate.getMonth() + 1) + "-" + (newDate.getDate() > 9 ? '' : '0') + newDate.getDate();
+                    const age = this.calculateAge(birthdayFormat);
+                    localStorage.setItem("age", age);
+                    },
+                    deep: true
+                },
+                'updateStudent.birthdate': {
+                    handler(newDate) {
+                    const birthdayFormat = newDate.getFullYear() + "-" + ((newDate.getMonth() + 1) > 9 ? '' : '0') + (newDate.getMonth() + 1) + "-" + (newDate.getDate() > 9 ? '' : '0') + newDate.getDate();
+                    const age = this.calculateAge(birthdayFormat);
+                    localStorage.setItem("age", age);
+                    },
+                    deep: true
+                },
                 editStudent(value) {
                     this.updateStudent.id = value.id ? value.id : "";
                     this.updateStudent.identification = value.identification ? value.identification : "";
@@ -270,6 +562,12 @@
                     this.updateStudent.year = value.year ? value.year : "";
                     this.updateStudent.classSection = value.classSection ? value.classSection : "";
                     this.updateStudent.phone_number = value.phone_number ? value.phone_number : "";
+                    this.updateStudent.civil = value.civil ? value.civil : "";
+                    this.updateStudent.citizen = value.citizen ? value.citizen : "";
+                    this.updateStudent.guardianFname = value.guardianFname ? value.guardianFname : "";
+                    this.updateStudent.guardianMname = value.guardianMname ? value.guardianMname : "";
+                    this.updateStudent.guardianLname = value.guardianLname ? value.guardianLname : "";
+                    this.updateStudent.guardianPhone_number = value.guardianPhone_number ? value.guardianPhone_number : "";
                 },
                 searchValue(value) {
                     if (value == "" || value == "identification" || value == "name" || value == "status") {
@@ -289,28 +587,20 @@
                 },
             },
         computed: {
-            formattedDate() {
-                if (this.requestDate) {
-                    const [year, month, day] = this.requestDate.split('/');
-                    return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
-                }
-                return '';
-            },
-                usersTable() {
-                    return this.tableData
-                        .filter((data) => {
-                            return data.name.toLowerCase().includes(this.searchName.toLowerCase());
-                        })
-                        .filter((data) => {
-                            return data.identification.toLowerCase().includes(this.searchID.toLowerCase());
-                        })
-                        .filter((data) => {
-                            return data.status.toLowerCase().includes(this.searchContact.toLowerCase());
-                        })
-                        .slice(this.pageSize * this.page - this.pageSize, this.pageSize * this.page)
-                }
+            usersTable() {
+                return this.tableData
+                    .filter((data) => {
+                        return data.name.toLowerCase().includes(this.searchName.toLowerCase());
+                    })
+                    .filter((data) => {
+                        return data.identification.toLowerCase().includes(this.searchID.toLowerCase());
+                    })
+                    .filter((data) => {
+                        return data.status.toLowerCase().includes(this.searchContact.toLowerCase());
+                    })
+                    .slice(this.pageSize * this.page - this.pageSize, this.pageSize * this.page)
+            }
         },
-
         methods: {
             printTable() {
                 // Create a new table element
@@ -475,6 +765,12 @@
                     birthdate: row.birthdate,
                     gender: row.gender,
                     phone_number: row.phone_number,
+                    guardianFname: row.guardianFname,
+                    guardianMname: row.guardianMname,
+                    guardianLname: row.guardianLname,
+                    guardianPhone_number: row.guardianPhone_number,
+                    civil: row.civil,
+                    citizen: row.citizen,
                 }
                 this.editDialog = true;
             },
@@ -484,8 +780,8 @@
                     cancelButtonText: 'No',
                 })
                 .then(() => {
+                    this.openAddDrawer = false;
                     this.$refs[addStudent].resetFields();
-                    this.openAddDrawer = false
                 })
                 .catch(() => {});
             },
@@ -547,6 +843,71 @@
 
                 return age + ` year${age > 1 ? "s" : ""} old`;
             },
+                addUser(addStudent) {
+                    this.$refs[addStudent].validate((valid) => {
+                        if (valid) {
+                            this.loadButton = true;
+                            this.openAddDrawer = false;
+                            const age = localStorage.getItem("age");
+                            const birthday = this.addStudent.birthdate;
+                            const birthdayFormat = birthday.getFullYear() + "-" + ((birthday.getMonth() + 1) > 9 ? '' : '0') + (birthday.getMonth() + 1) + "-" + (birthday.getDate() > 9 ? '' : '0') + birthday.getDate();
+                            var newData = new FormData()
+                            newData.append("identification", this.addStudent.identification)
+                            newData.append("firstname", this.addStudent.firstname)
+                            newData.append("midname", this.addStudent.midname)
+                            newData.append("lastname", this.addStudent.lastname)
+                            newData.append("year", this.addStudent.year)
+                            newData.append("classSection", this.addStudent.classSection)
+                            newData.append("course", this.addStudent.course)
+                            newData.append("gender", this.addStudent.gender)
+                            newData.append("phone_number", this.addStudent.phone_number)
+                            newData.append("birthdate", birthdayFormat)
+                            newData.append("street", this.addStudent.street)
+                            newData.append("brgy", this.addStudent.brgy)
+                            newData.append("city", this.addStudent.city)
+                            newData.append("guardianFname", this.addStudent.guardianFname)
+                            newData.append("guardianMname", this.addStudent.guardianMname)
+                            newData.append("guardianLname", this.addStudent.guardianLname)
+                            newData.append("guardianPhone_number", this.addStudent.guardianPhone_number)
+                            newData.append("age", age)
+                            newData.append("citizen", this.addStudent.citizen)
+                            newData.append("civil", this.addStudent.civil)
+                            axios.post("{{route('storeStudent')}}", newData)
+                                .then(response => {
+                                console.log(response);
+                                    if (response.data) {
+                                        this.tableLoad = true;
+                                        setTimeout(() => {
+                                            this.$message({
+                                                message: 'New Student Account has been added successfully!',
+                                                type: 'success'
+                                            });
+                                            this.tableLoad = false;
+                                            this.getData()
+                                            setTimeout(() => {
+                                                this.openAddDialog = true;
+                                            }, 1500)
+                                        }, 1500);
+                                        this.resetFormData();
+                                        this.newUser = response.data;
+                                        this.loadButton = false;
+                                    }
+                                })
+                                .catch(error => {
+                                    console.error(error.response.data);
+                                });
+                        } else {
+                            this.$message.error("Cannot submit the form. Please check the error(s).")
+                            return false;
+                        }
+                    });
+                },
+                resetForm(addStudent) {
+                    this.$refs[addStudent].resetFields();
+                },
+                resetFormData() {
+                    this.addStudent = []
+                },
             updateUser(updateStudent) {
                     this.$refs[updateStudent].validate((valid) => {
                         if (valid) {
@@ -557,6 +918,7 @@
                                         cancelButtonText: 'Cancel',
                                     })
                                     .then(() => {
+                                        const age = localStorage.getItem("age");
                                         const birthday = new Date(Date.parse(this.updateStudent.birthdate));
                                         const birthdayFormat = birthday.getFullYear() + "-" + ((birthday.getMonth() + 1) > 9 ? '' : '0') + (birthday.getMonth() + 1) + "-" + (birthday.getDate() > 9 ? '' : '0') + birthday.getDate();
                                         this.editDialog = false;
@@ -571,6 +933,13 @@
                                         updateData.append("birthdate", birthdayFormat)
                                         updateData.append("gender", this.updateStudent.gender)
                                         updateData.append("phone_number", this.updateStudent.phone_number)
+                                        updateData.append("guardianFname", this.updateStudent.guardianFname)
+                                        updateData.append("guardianMname", this.updateStudent.guardianMname)
+                                        updateData.append("guardianLname", this.updateStudent.guardianLname)
+                                        updateData.append("guardianPhone_number", this.updateStudent.guardianPhone_number)
+                                        updateData.append("age", age)
+                                        updateData.append("citizen", this.updateStudent.citizen)
+                                        updateData.append("civil", this.updateStudent.civil)
                                         axios.post("{{route('studentUpdate')}}", updateData)
                                             .then(response => {
                                                 if (response.data) {

@@ -11,7 +11,7 @@
                 </div>
                 <div class="nav">
                     <li class="nav-item">
-                        <div class="ms-auto mt-auto">
+                        <div class="ms-auto d-flex mt-auto">
                             <div class="dropstart user-dropdown">
                                 <a class="nav-link" id="UserDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
                                     <img class="img-xs rounded-circle" src="<?php echo asset('assets/avatar/default.png') ?>" alt="Profile image"> </a>

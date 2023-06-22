@@ -23,6 +23,10 @@ class actionController extends Controller
     }
     public function studentUpdate(Request $update)
     {
+        $guardianFname= $update->input('guardianFname');
+        $guardianMname= $update->input('guardianMname');
+        $guardianLname= $update->input('guardianLname');
+        $contact_person = $guardianFname . " " . $guardianMname . " " . $guardianLname;
         $update_user = [
             'identification' => $update->input('identification'),
             'year' => $update->input('year'),
@@ -32,10 +36,12 @@ class actionController extends Controller
             'lastname' => $update->input('lastname'),
             'gender' => $update->input('gender'),
             'birthdate' => $update->input('birthdate'),
-            'height' => $update->input('height'),
-            'weight' => $update->input('weight'),
             'phone_number' => $update->input('phone_number'),
-
+            'contact_person' => $contact_person,
+            'contact_person_num' => $update->input('guardianPhone_number'),
+            'age' => $update->input('age'),
+            'citizen' => $update->input('citizen'),
+            'civil' => $update->input('civil'),
         ];
         $id = $update->input('id');
         $update = userModel::where('id', $id)->update($update_user);

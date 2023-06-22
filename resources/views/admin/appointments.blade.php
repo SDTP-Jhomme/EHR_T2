@@ -26,6 +26,9 @@
                             <div v-else-if="searchValue == 'name'">
                                 <el-input v-model="searchName" size="mini" placeholder="Type to search..." clearable />
                             </div>
+                            <div v-else-if="searchValue == 'status'">
+                                <el-input v-model="searchContact" size="mini" placeholder="Type to search..." clearable />
+                            </div>
                             <div v-else>
                                 <el-input v-model="searchNull" size="mini" placeholder="Type to search..." clearable />
                             </div>
@@ -37,6 +40,8 @@
                     </el-table-column>
                     <el-table-column sortable label="Identification No." width="200" prop="identification">
                     </el-table-column>
+                    <el-table-column sortable label="Date Requested" width="220" prop="created_at">
+                    </el-table-column>
                     <el-table-column sortable label="Full Name" width="220" prop="name">
                     </el-table-column>
                     <el-table-column sortable label="Year and Section" width="220" prop="yearandsection">
@@ -47,21 +52,14 @@
                             <el-tag size="small" v-if="scope.row.year == 'Third Year'" type="danger"><span v-text="scope.row.yearandsection"></span></el-tag>
                         </template>
                     </el-table-column>
-                    <el-table-column sortable label="Birthdate" width="200" prop="birthdate">
-                    </el-table-column>
-                    <el-table-column sortable label="Gender" width="150" prop="gender">
+                    <el-table-column sortable label="Status" width="100" prop="med_status">
                         <template slot-scope="scope">
-                            <el-tag size="small" v-if="scope.row.gender == 'Male'"><span v-text="scope.row.gender"></span></el-tag>
-                            <el-tag size="small" v-else type="danger"><span v-text="scope.row.gender"></span></el-tag>
+                            <el-tag size="small" type="success" v-if="scope.row.med_status == 'Approved'"><span v-text="scope.row.med_status"></span></el-tag>
+                            <el-tag size="small" type="warning" v-if="scope.row.med_status == 'Pending'"><span v-text="scope.row.med_status"></span></el-tag>
+                            <el-tag size="small" type="danger" v-if="scope.row.med_status == 'Rejected'"><span v-text="scope.row.med_status"></span></el-tag>
                         </template>
                     </el-table-column>
-                    <el-table-column sortable label="Height" width="150" prop="height">
-                    </el-table-column>
-                    <el-table-column sortable label="Weight" width="150" prop="weight">
-                    </el-table-column>
-                    <el-table-column sortable label="Medical Purpose" width="200" prop="section">
-                    </el-table-column>
-                    <el-table-column sortable label="Schedule" width="200" prop="next_appointment">
+                    <el-table-column sortable label="Requested Schedule"prop="request_date">
                     </el-table-column>
                 </el-table>
                 <div class="d-flex justify-content-between mt-2">

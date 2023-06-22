@@ -48,7 +48,7 @@ class studentController extends Controller
                     "avatar" => $avatar,
                     "year" => $data_row->year,
                     "course" => $data_row->course,
-                    "civil_status" => $data_row->civil,
+                    "civil" => $data_row->civil,
                     "citizenship" => $data_row->citizen,
                     // "section" => $data_row->section,
                     "address" => $address,
@@ -56,10 +56,9 @@ class studentController extends Controller
                     "status" => $data_row->status,
                     "phone_number" => $data_row->phone_number,
                     "classSection" => $data_row->classSection,
-                    "height" => $data_row->height,
-                    "weight" => $data_row->weight,
                     "next_appointment" => $data_row->next_appointment,
-                    'yearandsection' => $yearSect
+                    'yearandsection' => $yearSect,
+                    'age' => $data_row->age
                 );
 
                 array_push($user_data, $array_data);

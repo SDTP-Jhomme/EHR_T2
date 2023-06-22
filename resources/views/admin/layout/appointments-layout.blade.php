@@ -25,6 +25,7 @@
         el: '#app',
         data() {
             return {
+                reqDialog:false,
                 fullscreenLoading: true,
                 page: 1,
                 pageSize: 10,
@@ -35,37 +36,39 @@
                 status: true,
                 switch: false,
                 showAllData: false,
-                    searchValue: "",
-                    searchNull: "",
-                    searchName: "",
-                    searchID: "",
-                    searchContact: "",
-                    options: [{
-                        value: 'identification',
-                        label: 'Identifiaction No.'
-                    }, {
-                        value: 'name',
-                        label: 'Name'
-                    }, {
-                        value: 'status',
-                        label: 'Status'
-                    }],
+                searchValue: "",
+                searchNull: "",
+                searchName: "",
+                searchID: "",
+                searchContact: "",
+                options: [{
+                    value: 'identification',
+                    label: 'Identifiaction No.'
+                }, {
+                    value: 'name',
+                    label: 'Name'
+                }],
                 tableData: [],
                 tableLoad: false,
+                reqCount: [],
+                med_status:{
+                    approved:'approved',
+                    rejected:'rejected'
+                }
             };
         },
         created() {
-            this.getData()
+            this.approvedData()
+            this.countReq()
         },
         mounted() {
-            this.getData();
             setTimeout(() => {
                 this.fullscreenLoading = false
             }, 1000)
         },
             watch: {
                 searchValue(value) {
-                    if (value == "" || value == "identification" || value == "name" || value == "status") {
+                    if (value == "" || value == "identification" || value == "name") {
                         this.searchNull = '';
                         this.searchID = '';
                         this.searchName = '';
@@ -88,10 +91,7 @@
                         return data.name.toLowerCase().includes(this.searchName.toLowerCase());
                     })
                     .filter((data) => {
-                        return data.section.toLowerCase().includes(this.searchID.toLowerCase());
-                    })
-                    .filter((data) => {
-                        return data.status.toLowerCase().includes(this.searchContact.toLowerCase());
+                        return data.identification.toLowerCase().includes(this.searchID.toLowerCase());
                     })
                     .slice(this.pageSize * this.page - this.pageSize, this.pageSize * this.page)
             }
@@ -114,21 +114,26 @@
                 const property = column['property'];
                 return row[property] === value;
             },
-            getData() {
-                axios.post("{{route('fetchStudent')}}")
+            approvedData() {
+                axios.post("{{route('fetchRequest')}}")
                     .then(response => {
-                        console.log(response.data);
                         if (response.data.error) {
                             this.tableData = [];
-                            this.tableDataErr = response.data.error;
-                            console.log(this.tableDataErr);
                         } else {
                             this.tableData = response.data;
-                            this.checkIdentification = response.data.map(res => res.identification);
                         }
                     })
                     .catch(error => {
-                        console.error(error);
+                        console.error(error.response);
+                    });
+            },
+            countReq() {
+                axios.post("{{route('countRequest')}}")
+                    .then(response => {
+                        this.reqCount = response.data;
+                    })
+                    .catch(error => {
+                        console.error(error.response);
                     });
             },
         },

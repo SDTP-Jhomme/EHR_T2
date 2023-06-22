@@ -96,7 +96,7 @@
                     <div class="row justify-content-start align-items-center g-2">
                         <div class="col-4">
                             <el-form-item label="Identification Number" prop="identification">
-                                <el-input v-model="addNurse.identification" maxlength="7" onKeyup="addDashes(this)" clearable></el-input>
+                                <el-input v-model="addNurse.identification" maxlength="7" clearable></el-input>
                             </el-form-item>
                         </div>
                     </div>

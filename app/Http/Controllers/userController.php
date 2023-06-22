@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\userModel;
 use App\Models\nurseModel;
+use Illuminate\Support\Facades\Hash;
+use Twilio\Rest\Client;
+
 
 class userController extends Controller
 {
@@ -32,6 +35,94 @@ class userController extends Controller
     {
         return view('admin/forms/vaccine');
     }
+    public function storeStudent(Request $request)
+    {
+        date_default_timezone_set("Asia/Manila");
+        $password = $this->random_password(8);
+
+        $phone_number = $request->input('phone_number');
+        $identification = $request->input('identification');
+        $firstname = $request->input('firstname');
+        $midname = $request->input('midname');
+        $lastname = $request->input('lastname');
+        $gender = $request->input('gender');
+        $birthdate = $request->input('birthdate');
+        $avatar = ($gender == 'Male') ? "assets/avatar/default.png" : "assets/avatar/default-woman.png";
+        $status = "Active";
+        $street = $request->input('street');
+        $brgy = $request->input('brgy');
+        $city = $request->input('city');
+        $date_now = date("m-d-Y");
+        $year = $request->input('year');
+        $classSection = $request->input('classSection');
+        $course = $request->input('course');
+        $age = $request->input('age');
+        $citizen = $request->input('citizen');
+        $civil = $request->input('civil');
+
+        // guardian info
+        $guardianFname = $request->input("guardianFname");
+        $guardianMname = $request->input('guardianMname');
+        $guardianLname = $request->input('guardianLname');
+        $contact_person = $guardianFname . " " . $guardianMname . " " . $guardianLname;
+        $guardianPhone_number = $request->input('guardianPhone_number');
+        $hashed_password = Hash::make($password);
+
+
+        // Send an SMS notification
+        $to = $phone_number; // Replace with the recipient's phone number
+        $message = 'Use this as your username ' . $identification . ' and this is your Password ' . $password; // Customize the message as needed
+        $twilioSid = env('TWILIO_SID');
+        $twilioToken = env('TWILIO_AUTH_TOKEN');
+        $twilioPhoneNumber = env('TWILIO_PHONE_NUMBER');
+
+        $twilioClient = new Client($twilioSid, $twilioToken);
+        $twilioClient->messages->create($to, [
+            'from' => $twilioPhoneNumber,
+            'body' => $message,
+        ]);
+
+        $storeStudent = new userModel;
+        $storeStudent['identification'] = $identification;
+        $storeStudent['firstname'] = $firstname;
+        $storeStudent['midname'] = $midname;
+        $storeStudent['lastname'] = $lastname;
+        $storeStudent['gender'] = $gender;
+        $storeStudent['phone_number'] = $phone_number;
+        $storeStudent['birthdate'] = $birthdate;
+        $storeStudent['street'] = $street;
+        $storeStudent['brgy'] = $brgy;
+        $storeStudent['city'] = $city;
+        $storeStudent['status'] = $status;
+        $storeStudent['password'] = $hashed_password;
+        $storeStudent['avatar'] = $avatar;
+        $storeStudent['year'] = $year;
+        $storeStudent['course'] = $course;
+        $storeStudent['classSection'] = $classSection;
+        $storeStudent['last_login'] = $date_now;
+        $storeStudent['contact_person'] = $contact_person;
+        $storeStudent['contact_person_num'] = $guardianPhone_number;
+        $storeStudent['age'] = $age;
+        $storeStudent['citizen'] = $citizen;
+        $storeStudent['civil'] = $civil;
+        $storeStudent->save();
+
+        if ($storeStudent) {
+            $response = array(
+                'identification' => $identification,
+                'password' => $password,
+                'storeStudent' => $storeStudent,
+            );
+            $response["error"] = false;
+            $response["message"] = "Successfully stores data";
+            return response()->json($response);
+        } else {
+            $response["error"] = true;
+            $response["message"] = "Failed to store data";
+
+            return response()->json($response, 500);
+        }
+    }
     public function fetchStudent()
     {
         $user_data = array();
@@ -44,6 +135,25 @@ class userController extends Controller
                 $avatar = $this->getAvatarPath($data_row->avatar);
                 $address = $this->getAddress($data_row);
                 $yearSect = $this->getYrSect($data_row);
+                $contact_person = explode(" ", $data_row->contact_person);
+
+
+                if (isset($contact_person[0])) {
+                    $guardianFname = $contact_person[0];
+                } else {
+                    $guardianFname = ""; // Handle the case when the first word is not available
+                }
+
+                if (isset($contact_person[1])) {
+                    $guardianMname = $contact_person[1];
+                } else {
+                    $guardianMname = ""; // Handle the case when the second word is not available
+                }
+                if (isset($contact_person[2])) {
+                    $guardianLname = $contact_person[2];
+                } else {
+                    $guardianLname = ""; // Handle the case when the second word is not available
+                }
 
                 $array_data = array(
                     "id" => $data_row->id,
@@ -53,22 +163,24 @@ class userController extends Controller
                     "firstname" => $data_row->firstname,
                     "midname" => $data_row->midname,
                     "birthdate" => $birthdate,
-                    "height" => $data_row->height,
-                    "weight" => $data_row->weight,
+                    "guardian" => $data_row->contact_person,
+                    "guardianFname" => $guardianFname,
+                    "guardianMname" => $guardianMname,
+                    "guardianLname" => $guardianLname,
+                    "guardianPhone_number" => $data_row->contact_person_num,
                     "gender" => $data_row->gender,
                     "avatar" => $avatar,
                     "year" => $data_row->year,
                     "course" => $data_row->course,
-                    "civil_status" => $data_row->civil,
-                    "citizenship" => $data_row->citizen,
-                    "section" => $data_row->section,
+                    "civil" => $data_row->civil,
+                    "citizen" => $data_row->citizen,
                     "address" => $address,
                     "password" => $data_row->password,
                     "status" => $data_row->status,
                     "phone_number" => $data_row->phone_number,
                     "classSection" => $data_row->classSection,
-                    "next_appointment" => $data_row->next_appointment,
-                    'yearandsection' => $yearSect
+                    'yearandsection' => $yearSect,
+                    "age" => $data_row->age,
                 );
 
                 array_push($user_data, $array_data);
@@ -104,10 +216,23 @@ class userController extends Controller
     {
         $address = $data_row->street . " " . $data_row->barangay . " " . $data_row->city;
         return $address;
-    }function getYrSect($data_row)
+    }
+    function getYrSect($data_row)
     {
         $yearSect = $data_row->year . " - Section " . $data_row->classSection;
         return $yearSect;
+    }
+    private function random_password($length = 5)
+    {
+        $characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        $password = '';
+
+        for ($i = 0; $i < $length; $i++) {
+            $index = rand(0, strlen($characters) - 1);
+            $password .= $characters[$index];
+        }
+
+        return $password;
     }
 
 }

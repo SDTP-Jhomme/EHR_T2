@@ -26,6 +26,13 @@
                                     </div>
                                     <hr>
                                     <div class="dropdown-item">
+                                        <a class="nav-link" type="button" @click="openAppointmentDialog = true">
+                                            <i class="el-icon-date text-muted me-2"></i>
+                                            Request Appointment
+                                        </a>
+                                    </div>
+                                    <hr>
+                                    <div class="dropdown-item">
                                         <a class="nav-link" href="{{route('studentprofile')}}">
                                             <i class="fas fa-user text-muted me-2"></i>
                                             Profile
