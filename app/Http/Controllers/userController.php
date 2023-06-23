@@ -169,7 +169,7 @@ class userController extends Controller
                     "guardianLname" => $guardianLname,
                     "guardianPhone_number" => $data_row->contact_person_num,
                     "gender" => $data_row->gender,
-                    "avatar" => $avatar,
+                    "avatar" => '../../'.$avatar,
                     "year" => $data_row->year,
                     "course" => $data_row->course,
                     "civil" => $data_row->civil,

@@ -557,17 +557,32 @@
                     cancelButtonText: 'No',
                 })
                 .then(() => {
-                    localStorage.removeItem("identification")
-                    localStorage.removeItem("active")
-                    localStorage.removeItem("isCBC")
-                    localStorage.removeItem("isUrinalysis")
-                    localStorage.removeItem("isFecalysis")
-                    localStorage.removeItem("isXray")
-                    localStorage.removeItem("isAntigen")
-                    localStorage.removeItem("isVaccine")
-                    localStorage.removeItem("identification")
-                    localStorage.removeItem("viewStudent")
-                    this.resultDialog = false
+                    if(this.active == 0){
+                        localStorage.removeItem("student_id")
+                        localStorage.removeItem("active")
+                        localStorage.removeItem("isCBC")
+                        localStorage.removeItem("isUrinalysis")
+                        localStorage.removeItem("isFecalysis")
+                        localStorage.removeItem("isXray")
+                        localStorage.removeItem("isAntigen")
+                        localStorage.removeItem("isVaccine")
+                        localStorage.removeItem("age")
+                        localStorage.removeItem("viewStudent")
+                        this.resultDialog = false
+                    }else{
+                        this.active--;
+                        localStorage.removeItem("student_id")
+                        localStorage.removeItem("active")
+                        localStorage.removeItem("isCBC")
+                        localStorage.removeItem("isUrinalysis")
+                        localStorage.removeItem("isFecalysis")
+                        localStorage.removeItem("isXray")
+                        localStorage.removeItem("isAntigen")
+                        localStorage.removeItem("isVaccine")
+                        localStorage.removeItem("age")
+                        localStorage.removeItem("viewStudent")
+                        this.resultDialog = false
+                    }
                 })
                 .catch(() => {});
             },
@@ -577,9 +592,9 @@
                         cancelButtonText: 'No',
                     })
                     .then(() => {
+                        localStorage.removeItem("identification")
                         this.editDialog = false
                         this.$refs[editStudent].resetFields();
-                        localStorage.removeItem("identification")
                     })
                     .catch(() => {});
             },
@@ -1019,6 +1034,9 @@
                         }, 1000)
                     }
                 })
+                    .catch(error => {
+                        console.error(error.response.data);
+                    });
             }
         },
     });

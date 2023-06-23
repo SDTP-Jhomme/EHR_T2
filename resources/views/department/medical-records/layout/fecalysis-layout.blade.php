@@ -25,8 +25,9 @@
                     label: 'Name'
                 }],
                 viewStudent:[],
-                student_data:[],
+                isFecalysis:[],
                 viewDialog:false,
+                studentData:[],
             };
         },
         watch:{
@@ -61,6 +62,7 @@
         created() {
             this.getID()
             this.getData()
+            this.fetchData()
         },
         mounted() {
             setTimeout(() => {
@@ -93,9 +95,8 @@
                         if (response.data.error) {
                             this.tableData = [];
                         } else {
-                            this.student_data = response.data;
+                            this.isFecalysis = response.data;
                             this.tableData = response.data;
-                            console.log(this.tableData);
                             this.checkIdentification = response.data.map(res => res.identification);
                         }
                     })
@@ -109,6 +110,20 @@
                         if (response) {
                             this.teacher_data = response.data;
                             this.avatar = response.data[0].avatar;
+                        } else {
+                            console.error(500);
+                        }
+                })
+                .catch(error => {
+                    console.error(error.response);
+                });
+            },
+            fetchData() {
+                axios.post("{{route('fetchStudent')}}")
+                    .then(response => {
+                        if (response) {
+                            this.studentData = response.data;
+                            console.log(this.studentData);
                         } else {
                             console.error(500);
                         }

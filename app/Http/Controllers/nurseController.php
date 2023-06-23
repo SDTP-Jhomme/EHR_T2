@@ -10,6 +10,24 @@ use Twilio\Rest\Client;
 
 class nurseController extends Controller
 {
+    public function cbcPage(){
+        return view('nurse/medical-records/cbc');
+    }
+    public function antigenPage(){
+        return view('nurse/medical-records/antigen');
+    }
+    public function urinalysisPage(){
+        return view('nurse/medical-records/urinalysis');
+    }
+    public function xrayPage(){
+        return view('nurse/medical-records/xray');
+    }
+    public function fecalysisPage(){
+        return view('nurse/medical-records/fecalysis');
+    }
+    public function vaccinePage(){
+        return view('nurse/medical-records/vaccine');
+    }
     
     //nurse login
     public function fetch()
@@ -48,7 +66,7 @@ class nurseController extends Controller
         // Use the $user data as needed in your dashboard logic
 
         return redirect()->route('nurse-dashboard', ['user' => $user]);
-        // return view('admin.dashboard', ['user' => $user]);
+        // return view('nurse.dashboard', ['user' => $user]);
     }
     public function login(Request $request)
     {
@@ -59,7 +77,7 @@ class nurseController extends Controller
 
         if (empty($identification)) {
             $response["error"] = true;
-            $response["adminErr"] = "Identification is required!";
+            $response["nurseErr"] = "Identification is required!";
             return response()->json($response);
         }
         if (empty($password)) {
@@ -70,7 +88,7 @@ class nurseController extends Controller
         if ($identification && $password) {
             if (!$user) {
                 $response["error"] = true;
-                $response["adminErr"] = "identification is incorrect!";
+                $response["nurseErr"] = "identification is incorrect!";
                 return response()->json($response);
             } else {
                 $hashedPassword = $user->password;
@@ -86,7 +104,7 @@ class nurseController extends Controller
             }
         }else{
             $response["error"] = true;
-            $response["adminErr"] = "identification is incorrect!";
+            $response["nurseErr"] = "identification is incorrect!";
             return response()->json($response , 500);
         }
     }

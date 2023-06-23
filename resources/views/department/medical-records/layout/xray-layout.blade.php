@@ -25,7 +25,7 @@
                     label: 'Name'
                 }],
                 viewStudent:[],
-                student_data:[],
+                isXray:[],
                 viewDialog:false,
             };
         },
@@ -93,7 +93,7 @@
                         if (response.data.error) {
                             this.tableData = [];
                         } else {
-                            this.student_data = response.data;
+                            this.isXray = response.data;
                             this.tableData = response.data;
                             console.log(this.tableData);
                             this.checkIdentification = response.data.map(res => res.identification);

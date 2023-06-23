@@ -97,39 +97,75 @@
                 </div>
             </template>
             <div class="container">
-                <div class="">
-                    <el-descriptions direction="horizontal" :column="1" border>
-                        <el-descriptions-item label="Identification Number"><span class="mx-2" v-text="viewStudent.identification"></el-descriptions-item>
-                        <el-descriptions-item label="Name"><span class="mx-2" v-text="viewStudent.name"></el-descriptions-item>
-                        <el-descriptions-item label="Birthday"><span class="mx-2" v-text="viewStudent.birthdate"></el-descriptions-item>
-                        <el-descriptions-item label="Gender">
-                            <el-tag v-if="viewStudent.gender == 'Male'"><span class="mx-2" v-text="viewStudent.gender"></el-tag>
-                            <el-tag v-else type="danger"><span class="mx-2" v-text="viewStudent.gender"></el-tag>
-                        </el-descriptions-item>
-                        <el-descriptions-item label="Requested By"><span class="mx-2" v-text="viewStudent.requestBy"></el-descriptions-item>
-                        <el-descriptions-item label="Date of request"><span class="mx-2" v-text="viewStudent.requestDate"></el-descriptions-item>
-                        <h5 class="text-success">PHYSICAL PROPERTIES</h5>
-                        <el-descriptions-item label="Color"><span class="mx-2" v-text="viewStudent.color"></el-descriptions-item>
-                        <el-descriptions-item label="Consistency"><span class="mx-2" v-text="viewStudent.consistency"></el-descriptions-item>
-                        <h5 class="text-success">CHEMICAL PROPERTIES</h5>
-                        <el-descriptions-item label="Occult Blood"><span class="mx-2" v-text="viewStudent.occult"></el-descriptions-item>
-                        <el-descriptions-item label="Others"><span class="mx-2" v-text="viewStudent.otherOccult"></el-descriptions-item>
-                        <h5 class="text-success">MICROSCOPIC FINDINGS</h5>
-                        <el-descriptions-item label="Pus cells"><span class="mx-2" v-text="viewStudent.pus"></el-descriptions-item>
-                        <el-descriptions-item label="RBC"><span class="mx-2" v-text="viewStudent.rbc"></el-descriptions-item>
-                        <el-descriptions-item label="Fat GLobules"><span class="mx-2" v-text="viewStudent.fat"></el-descriptions-item>
-                        <h5 class="text-success">HELMINTHS</h5>
-                        <el-descriptions-item label="Ova"><span class="mx-2" v-text="viewStudent.ova"></el-descriptions-item>
-                        <el-descriptions-item label="Larva"><span class="mx-2" v-text="viewStudent.larva"></el-descriptions-item>
-                        <el-descriptions-item label="Adult Forms"><span class="mx-2" v-text="viewStudent.adult"></el-descriptions-item>
-                                <h5 class="text-success">PROTOZOA</h5>
-                        <el-descriptions-item label="Cyst"><span class="mx-2" v-text="viewStudent.cyst"></el-descriptions-item>
-                        <el-descriptions-item label="Trophozoites"><span class="mx-2" v-text="viewStudent.trophozoites"></el-descriptions-item>
-                        <el-descriptions-item label="Others"><span class="mx-2" v-text="viewStudent.otherTrophozoites"></el-descriptions-item>
-                        <el-descriptions-item label="REMARKS"><span class="mx-2" v-text="viewStudent.remarks"></el-descriptions-item>
-                        <el-descriptions-item label="Pathologist"><span class="mx-2" v-text="viewStudent.pathologist"></el-descriptions-item>
-                        <el-descriptions-item label="Medical Technologist"><span class="mx-2" v-text="viewStudent.technologist"></el-descriptions-item>
-                    </el-descriptions>
+                <div class="row justify-content-center align-items-center g-2 mb-3">
+                    <div class="col-lg-3 col-md-12">
+                        <label class="form-label">Identification No.</label>
+                        <el-input v-model="viewStudent.identification" disabled></el-input>
+                    </div>
+                    <div class="col-lg-3 col-md-12">
+                        <label class="form-label">Year Level</label>
+                        <el-input v-model="viewStudent.year" disabled></el-input>
+                    </div>
+                    <div class="col-lg-3 col-md-12">
+                        <label class="form-label">Section</label>
+                        <el-input v-model="viewStudent.classSection" disabled></el-input>
+                    </div>
+                    <div class="col-lg-3 col-md-12">
+                        <label class="form-label">Course</label>
+                        <el-input v-model="viewStudent.course" disabled></el-input>
+                    </div>
+                </div>
+                <div class="row justify-content-center align-items-center g-2 mb-3">
+                    <div class="col-lg-3 col-md-12">
+                        <label class="form-label">Name</label>
+                        <el-input v-model="viewStudent.name" disabled></el-input>
+                    </div>
+                    <div class="col-lg-3 col-md-12">
+                        <label class="form-label">Gender</label>
+                        <el-input v-model="viewStudent.gender" disabled></el-input>
+                    </div>
+                    <div class="col-lg-3 col-md-12">
+                        <label class="form-label">Birthdate</label>
+                        <el-input v-model="viewStudent.birthdate" disabled></el-input>
+                    </div>
+                    <div class="col-lg-3 col-md-12">
+                        <label class="form-label">Age</label>
+                        <el-input v-model="viewStudent.age" disabled></el-input>
+                    </div>
+                </div>
+                <div class="row justify-content-center align-items-center g-2 mb-3">
+                    <div class="col-lg-3 col-md-12">
+                        <label class="form-label">Address</label>
+                        <el-input v-model="viewStudent.address" disabled></el-input>
+                    </div>
+                    <div class="col-lg-3 col-md-12">
+                        <label class="form-label">Citizenship</label>
+                        <el-input v-model="viewStudent.citizen" disabled></el-input>
+                    </div>
+                    <div class="col-lg-3 col-md-12">
+                        <label class="form-label">Civil Status</label>
+                        <el-input v-model="viewStudent.civil" disabled></el-input>
+                    </div>
+                    <div class="col-lg-3 col-md-12">
+                        <label class="form-label">Phone No.</label>
+                        <el-input v-model="viewStudent.phone_number" disabled></el-input>
+                    </div>
+                </div>
+                <div class="row justify-content-center align-items-center g-2 mb-3">
+                    <div class="col-lg-6 col-md-12">
+                        <label class="form-label">Contact Person</label>
+                        <el-input v-model="viewStudent.guardian" disabled></el-input>
+                    </div>
+                    <div class="col-lg-6 col-md-12">
+                        <label class="form-label">Contact Person Phone No.</label>
+                        <el-input v-model="viewStudent.guardianPhone_number" disabled></el-input>
+                    </div>
+                </div>
+                <hr>
+                <div v-for="fecal in isFecalysis" class="card">                
+                    <div class="card-body">
+                        <img :src="fecal.result" class="img-fluid rounded-top" alt="Antigen Result">
+                    </div>
                 </div>
             </div>
             <span slot="footer" class="dialog-footer">

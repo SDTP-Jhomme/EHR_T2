@@ -93,72 +93,89 @@
         </div>
         <!----------------------------------------------------------------------------------- Modals/Drawers ----------------------------------------------------------------------------------->
         <!-- View Dialog -->
-        <el-dialog :visible.sync="viewDialog" width="35%" :before-close="closeViewDialog">
+        <el-dialog :visible.sync="viewDialog" width="75%" :before-close="closeViewDialog">
             <template #title>
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="fs-5">User<span class="mx-2" v-text="viewStudent.firstname"></span></div>
                 </div>
             </template>
             <div class="container">
-                <div class="">
-                <div class="card-body content">
-                    <h3 class="card-title">Heppa B Vaccine</h3>
-                    <div class="container">
-                        <div class="row align-items-center g-2 my-2">
-                            <div class="col-lg-4 col-md-12">
-                                <div class="form-group mb-4">
+                <div class="card">
+                    <div class="card-body content">
+                        <h3 class="card-title">Heppa B Vaccine</h3>
+                        <div class="container">
+                            <div class="row justify-content-center align-items-center g-2 mb-3">
+                                <div class="col-lg-3 col-md-12">
+                                    <label class="form-label">Identification No.</label>
+                                    <el-input v-model="viewStudent.identification" disabled></el-input>
+                                </div>
+                                <div class="col-lg-3 col-md-12">
+                                    <label class="form-label">Year Level</label>
+                                    <el-input v-model="viewStudent.year" disabled></el-input>
+                                </div>
+                                <div class="col-lg-3 col-md-12">
+                                    <label class="form-label">Section</label>
+                                    <el-input v-model="viewStudent.classSection" disabled></el-input>
+                                </div>
+                                <div class="col-lg-3 col-md-12">
+                                    <label class="form-label">Course</label>
+                                    <el-input v-model="viewStudent.course" disabled></el-input>
+                                </div>
+                            </div>
+                            <div class="row justify-content-center align-items-center g-2 mb-3">
+                                <div class="col-lg-3 col-md-12">
                                     <label class="form-label">Name</label>
-                                    <input type="text" class="form-control" v-model="viewStudent.name" disabled />
+                                    <el-input v-model="viewStudent.name" disabled></el-input>
                                 </div>
-                            </div>
-                            <div class="col-lg-4 col-md-12">
-                                <div class="form-group mb-4">
-                                    <label class="form-label">Age</label>
-                                    <input type="text" class="form-control" v-model="viewStudent.age" disabled />
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-12">
-                                <div class="form-group mb-4">
+                                <div class="col-lg-3 col-md-12">
                                     <label class="form-label">Gender</label>
-                                    <input type="text" class="form-control" v-model="viewStudent.gender" disabled />
+                                    <el-input v-model="viewStudent.gender" disabled></el-input>
+                                </div>
+                                <div class="col-lg-3 col-md-12">
+                                    <label class="form-label">Birthdate</label>
+                                    <el-input v-model="viewStudent.birthdate" disabled></el-input>
+                                </div>
+                                <div class="col-lg-3 col-md-12">
+                                    <label class="form-label">Age</label>
+                                    <el-input v-model="viewStudent.age" disabled></el-input>
                                 </div>
                             </div>
-                            <div class="col-lg-4 col-md-12">
-                                <div class="form-group mb-4">
+                            <div class="row justify-content-center align-items-center g-2 mb-3">
+                                <div class="col-lg-3 col-md-12">
                                     <label class="form-label">Address</label>
-                                    <input type="text" class="form-control" v-model="viewStudent.address" disabled />
+                                    <el-input v-model="viewStudent.address" disabled></el-input>
+                                </div>
+                                <div class="col-lg-3 col-md-12">
+                                    <label class="form-label">Citizenship</label>
+                                    <el-input v-model="viewStudent.citizen" disabled></el-input>
+                                </div>
+                                <div class="col-lg-3 col-md-12">
+                                    <label class="form-label">Civil Status</label>
+                                    <el-input v-model="viewStudent.civil" disabled></el-input>
+                                </div>
+                                <div class="col-lg-3 col-md-12">
+                                    <label class="form-label">Phone No.</label>
+                                    <el-input v-model="viewStudent.phone_number" disabled></el-input>
                                 </div>
                             </div>
-                        </div>
-                        <hr>
-                        <div class="row align-items-center g-2 my-2">
-                            <div class="col-lg-3 col-md-12">
-                                <div class="form-group mb-4">
-                                    <label class="form-label">Vaccination Date:</label>
-                                    <div class="input-group">
-                                        <input type="date" class="form-control" v-model="viewStudent.vaccinationDate" disabled/>
-                                    </div>
+                            <div class="row justify-content-center align-items-center g-2 mb-3">
+                                <div class="col-lg-6 col-md-12">
+                                    <label class="form-label">Contact Person</label>
+                                    <el-input v-model="viewStudent.guardian" disabled></el-input>
+                                </div>
+                                <div class="col-lg-6 col-md-12">
+                                    <label class="form-label">Contact Person Phone No.</label>
+                                    <el-input v-model="viewStudent.guardianPhone_number" disabled></el-input>
                                 </div>
                             </div>
-                            <div class="col-lg-3 col-md-12">
-                                <div class="form-group mb-4">
-                                    <label class="form-label">Vaccine Batch:</label>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" v-model="viewStudent.vaccineBatch"disabled/>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-12">
-                                <div class="form-group mb-4">
-                                    <label class="form-label">Healthcare Provider:</label>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" v-model="viewStudent.healthcareProvider"disabled/>
-                                    </div>
+                            <hr>
+                            <div v-for="vaxx in isVaxx" class="card">                
+                                <div class="card-body">
+                                    <img :src="vaxx.result" class="img-fluid rounded-top" alt="Antigen Result">
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
                 </div>
             </div>
             <span slot="footer" class="dialog-footer">

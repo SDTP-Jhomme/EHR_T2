@@ -87,7 +87,7 @@
         </el-main>
         <!----------------------------------------------------------------------------------- Modals/Drawers ----------------------------------------------------------------------------------->
         <!-- View Dialog -->
-        <el-dialog :visible.sync="viewDialog" width="35%" :before-close="closeViewDialog">
+        <el-dialog :visible.sync="viewDialog" width="50%" :before-close="closeViewDialog">
             <template #title>
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="fs-5">User<span class="mx-2" v-text="viewStudent.firstname"></span></div>
@@ -97,40 +97,75 @@
                 </div>
             </template>
             <div class="container">
-                <div class="">
-                    <el-descriptions direction="horizontal" :column="1" border>
-                        <el-descriptions-item label="Identification Number"><span class="mx-2" v-text="viewStudent.identification"></el-descriptions-item>
-                        <el-descriptions-item label="Name"><span class="mx-2" v-text="viewStudent.name"></el-descriptions-item>
-                        <el-descriptions-item label="Birthday"><span class="mx-2" v-text="viewStudent.birthdate"></el-descriptions-item>
-                        <el-descriptions-item label="Gender">
-                            <el-tag v-if="viewStudent.gender == 'Male'"><span class="mx-2" v-text="viewStudent.gender"></el-tag>
-                            <el-tag v-else type="danger"><span class="mx-2" v-text="viewStudent.gender"></el-tag>
-                        </el-descriptions-item>
-                        <el-descriptions-item label="Date of request"><span class="mx-2" v-text="viewStudent.requestDate"></el-descriptions-item>
-                        <h5 class="text-success">PHYSICAL PROPERTIES</h5>
-                        <el-descriptions-item label="Color"><span class="mx-2" v-text="viewStudent.color"></el-descriptions-item>
-                        <el-descriptions-item label="Transparency"><span class="mx-2" v-text="viewStudent.transparency"></el-descriptions-item>
-                        <el-descriptions-item label="Specific Gravity"><span class="mx-2" v-text="viewStudent.gravity"></el-descriptions-item>
-                                <h5 class="text-success">CHEMICAL ANALYSIS</h5>
-                        <el-descriptions-item label="Ph"><span class="mx-2" v-text="viewStudent.ph"></el-descriptions-item>
-                        <el-descriptions-item label="Sugar"><span class="mx-2" v-text="viewStudent.sugar"></el-descriptions-item>
-                        <el-descriptions-item label="Protein"><span class="mx-2" v-text="viewStudent.protein"></el-descriptions-item>
-                        <el-descriptions-item label="Pregnancy Test"><span class="mx-2" v-text="viewStudent.pregnancy"></el-descriptions-item>
-                                <h5 class="text-success">MICROSCOPIC EXAMINATION</h5>
-                        <el-descriptions-item label="Pus cells"><span class="mx-2" v-text="viewStudent.pus"></el-descriptions-item>
-                        <el-descriptions-item label="RBC"><span class="mx-2" v-text="viewStudent.rbc"></el-descriptions-item>
-                        <el-descriptions-item label="Cast"><span class="mx-2" v-text="viewStudent.cast"></el-descriptions-item>
-                                <h5 class="text-success">CRYSTAL</h5>
-                        <el-descriptions-item label="Urates"><span class="mx-2" v-text="viewStudent.urates"></el-descriptions-item>
-                        <el-descriptions-item label="Uric Acid"><span class="mx-2" v-text="viewStudent.uric"></el-descriptions-item>
-                        <el-descriptions-item label="Cal Ox"><span class="mx-2" v-text="viewStudent.cal"></el-descriptions-item>
-                                <h5 class="text-success">OTHERS</h5>
-                        <el-descriptions-item label="Epith Cells"><span class="mx-2" v-text="viewStudent.epith"></el-descriptions-item>
-                        <el-descriptions-item label="Mucus Threads"><span class="mx-2" v-text="viewStudent.mucus"></el-descriptions-item>
-                        <el-descriptions-item label="Others"><span class="mx-2" v-text="viewStudent.otherOthers"></el-descriptions-item>
-                        <el-descriptions-item label="Pathologist"><span class="mx-2" v-text="viewStudent.pathologist"></el-descriptions-item>
-                        <el-descriptions-item label="Medical Technologist"><span class="mx-2" v-text="viewStudent.technologist"></el-descriptions-item>
-                    </el-descriptions>
+                <div class="row justify-content-center align-items-center g-2 mb-3">
+                    <div class="col-lg-3 col-md-12">
+                        <label class="form-label">Identification No.</label>
+                        <el-input v-model="viewStudent.identification" disabled></el-input>
+                    </div>
+                    <div class="col-lg-3 col-md-12">
+                        <label class="form-label">Year Level</label>
+                        <el-input v-model="viewStudent.year" disabled></el-input>
+                    </div>
+                    <div class="col-lg-3 col-md-12">
+                        <label class="form-label">Section</label>
+                        <el-input v-model="viewStudent.classSection" disabled></el-input>
+                    </div>
+                    <div class="col-lg-3 col-md-12">
+                        <label class="form-label">Course</label>
+                        <el-input v-model="viewStudent.course" disabled></el-input>
+                    </div>
+                </div>
+                <div class="row justify-content-center align-items-center g-2 mb-3">
+                    <div class="col-lg-3 col-md-12">
+                        <label class="form-label">Name</label>
+                        <el-input v-model="viewStudent.name" disabled></el-input>
+                    </div>
+                    <div class="col-lg-3 col-md-12">
+                        <label class="form-label">Gender</label>
+                        <el-input v-model="viewStudent.gender" disabled></el-input>
+                    </div>
+                    <div class="col-lg-3 col-md-12">
+                        <label class="form-label">Birthdate</label>
+                        <el-input v-model="viewStudent.birthdate" disabled></el-input>
+                    </div>
+                    <div class="col-lg-3 col-md-12">
+                        <label class="form-label">Age</label>
+                        <el-input v-model="viewStudent.age" disabled></el-input>
+                    </div>
+                </div>
+                <div class="row justify-content-center align-items-center g-2 mb-3">
+                    <div class="col-lg-3 col-md-12">
+                        <label class="form-label">Address</label>
+                        <el-input v-model="viewStudent.address" disabled></el-input>
+                    </div>
+                    <div class="col-lg-3 col-md-12">
+                        <label class="form-label">Citizenship</label>
+                        <el-input v-model="viewStudent.citizen" disabled></el-input>
+                    </div>
+                    <div class="col-lg-3 col-md-12">
+                        <label class="form-label">Civil Status</label>
+                        <el-input v-model="viewStudent.civil" disabled></el-input>
+                    </div>
+                    <div class="col-lg-3 col-md-12">
+                        <label class="form-label">Phone No.</label>
+                        <el-input v-model="viewStudent.phone_number" disabled></el-input>
+                    </div>
+                </div>
+                <div class="row justify-content-center align-items-center g-2 mb-3">
+                    <div class="col-lg-6 col-md-12">
+                        <label class="form-label">Contact Person</label>
+                        <el-input v-model="viewStudent.guardian" disabled></el-input>
+                    </div>
+                    <div class="col-lg-6 col-md-12">
+                        <label class="form-label">Contact Person Phone No.</label>
+                        <el-input v-model="viewStudent.guardianPhone_number" disabled></el-input>
+                    </div>
+                </div>
+                <hr>
+                <div v-for="urine in isUrinalysis" class="card">                
+                    <div class="card-body">
+                        <img :src="urine.result" class="img-fluid rounded-top" alt="Antigen Result">
+                    </div>
                 </div>
             </div>
             <span slot="footer" class="dialog-footer">

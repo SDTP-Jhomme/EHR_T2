@@ -37,22 +37,22 @@
                     <div class="collapse" id="payment">
                         <ul class="nav flex-column sub-menu">
                             <li class="nav-item">
-                                <a class="nav-link" href="{{route('cbcPage')}}"><i class="fas fa-file-medical pe-2"></i>CBC</a>
+                                <a class="nav-link" href="{{route('cbc_Page')}}"><i class="fas fa-file-medical pe-2"></i>CBC</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{route('urinalysisPage')}}"><i class="fas fa-file-medical pe-2"></i>Urinalysis</a>
+                                <a class="nav-link" href="{{route('urinalysis_Page')}}"><i class="fas fa-file-medical pe-2"></i>Urinalysis</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{route('fecalysisPage')}}"><i class="fas fa-file-medical pe-2"></i>Fecalysis</a>
+                                <a class="nav-link" href="{{route('fecalysis_Page')}}"><i class="fas fa-file-medical pe-2"></i>Fecalysis</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{route('xrayPage')}}"><i class="fas fa-file-medical pe-2"></i>X-ray</a>
+                                <a class="nav-link" href="{{route('xray_Page')}}"><i class="fas fa-file-medical pe-2"></i>X-ray</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{route('antigenPage')}}"><i class="fas fa-file-medical pe-2"></i>Hepa Antigen</a>
+                                <a class="nav-link" href="{{route('antigen_Page')}}"><i class="fas fa-file-medical pe-2"></i>Hepa Antigen</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{route('vaccinePage')}}"><i class="fas fa-file-medical pe-2"></i>Hepa Vaccine</a>
+                                <a class="nav-link" href="{{route('vaccine_Page')}}"><i class="fas fa-file-medical pe-2"></i>Hepa Vaccine</a>
                             </li>
                         </ul>
                     </div>

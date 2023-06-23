@@ -1,5 +1,5 @@
 <title>@yield('title')</title>
-@include('admin/imports/body')
+@include('nurse/imports/body')
 <script>
     ELEMENT.locale(ELEMENT.lang.en);
     new Vue({

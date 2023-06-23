@@ -52,13 +52,20 @@ Route::post('fetch-xray', 'App\Http\Controllers\xrayController@fetchXray')->name
 Route::post('fetch-fecalysis', 'App\Http\Controllers\fecalController@fetchFecalysis')->name('fetchFecalysis');
 Route::post('fetch-vaccine', 'App\Http\Controllers\fecalController@fetchVaccine')->name('fetchVaccine');
 
-// pages records
-Route::get('records/cbc', 'App\Http\Controllers\medController@cbcPage')->name('cbcPage');
-Route::get('records/antigen', 'App\Http\Controllers\medController@antigenPage')->name('antigenPage');
-Route::get('records/urinalysis', 'App\Http\Controllers\medController@urinalysisPage')->name('urinalysisPage');
-Route::get('records/xray', 'App\Http\Controllers\medController@xrayPage')->name('xrayPage');
-Route::get('records/fecalysis', 'App\Http\Controllers\medController@fecalysisPage')->name('fecalysisPage');
-Route::get('records/vaccine', 'App\Http\Controllers\medController@vaccinePage')->name('vaccinePage');
+//admin pages records
+Route::get('admin/records/cbc', 'App\Http\Controllers\medController@cbcPage')->name('cbcPage');
+Route::get('admin/records/antigen', 'App\Http\Controllers\medController@antigenPage')->name('antigenPage');
+Route::get('admin/records/urinalysis', 'App\Http\Controllers\medController@urinalysisPage')->name('urinalysisPage');
+Route::get('admin/records/xray', 'App\Http\Controllers\medController@xrayPage')->name('xrayPage');
+Route::get('admin/records/fecalysis', 'App\Http\Controllers\medController@fecalysisPage')->name('fecalysisPage');
+Route::get('admin/records/vaccine', 'App\Http\Controllers\medController@vaccinePage')->name('vaccinePage');
+//nurse pages records
+Route::get('nurse/records/cbc', 'App\Http\Controllers\nurseController@cbcPage')->name('cbc_Page');
+Route::get('nurse/records/antigen', 'App\Http\Controllers\nurseController@antigenPage')->name('antigen_Page');
+Route::get('nurse/records/urinalysis', 'App\Http\Controllers\nurseController@urinalysisPage')->name('urinalysis_Page');
+Route::get('nurse/records/xray', 'App\Http\Controllers\nurseController@xrayPage')->name('xray_Page');
+Route::get('nurse/records/fecalysis', 'App\Http\Controllers\nurseController@fecalysisPage')->name('fecalysis_Page');
+Route::get('nurse/records/vaccine', 'App\Http\Controllers\nurseController@vaccinePage')->name('vaccine_Page');
 
 
 //nurse login
@@ -84,7 +91,7 @@ Route::post('/teacher-store', 'App\Http\Controllers\deptController@storeTeacher'
 Route::post('/teacher-update', 'App\Http\Controllers\deptController@teacherUpdate')->name('teacherUpdate');
 Route::post('/teacher-status', 'App\Http\Controllers\deptController@teacherStatus')->name('teacherStatus');
 Route::get('/teacher', 'App\Http\Controllers\actionController@teacher')->name('teacher');
-// form routes
+//admin form routes
 Route::get('cbc-form', 'App\Http\Controllers\userController@cbcForm')->name('cbcForm');
 Route::get('urinalysis-form', 'App\Http\Controllers\userController@urinalysisForm')->name('urinalysisForm');
 Route::get('fecalysis-form', 'App\Http\Controllers\userController@fecalysisForm')->name('fecalysisForm');

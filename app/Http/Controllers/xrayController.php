@@ -117,6 +117,25 @@ class xrayController extends Controller
                 $birthdate = date("F d, Y", strtotime($data_row->birthdate));
                 $avatar = $this->fetchAvatarPath($data_row->avatar);
                 $address = $this->fetchAddress($data_row);
+                $contact_person = explode(" ", $data_row->contact_person);
+
+
+                if (isset($contact_person[0])) {
+                    $guardianFname = $contact_person[0];
+                } else {
+                    $guardianFname = ""; // Handle the case when the first word is not available
+                }
+
+                if (isset($contact_person[1])) {
+                    $guardianMname = $contact_person[1];
+                } else {
+                    $guardianMname = ""; // Handle the case when the second word is not available
+                }
+                if (isset($contact_person[2])) {
+                    $guardianLname = $contact_person[2];
+                } else {
+                    $guardianLname = ""; // Handle the case when the second word is not available
+                }
 
                 $array_data = array(
                     "id" => $data_row->id,
@@ -130,8 +149,8 @@ class xrayController extends Controller
                     "avatar" => $avatar,
                     "year" => $data_row->year,
                     "course" => $data_row->course,
-                    "civil_status" => $data_row->civil,
-                    "citizenship" => $data_row->citizen,
+                    "civil" => $data_row->civil,
+                    "citizen" => $data_row->citizen,
                     "section" => $data_row->section,
                     "address" => $address,
                     "password" => $data_row->password,
@@ -139,8 +158,13 @@ class xrayController extends Controller
                     "phone_number" => $data_row->phone_number,
                     "classSection" => $data_row->classSection,
                     "age" => $data_row->age,
-                    "result" => $data_row->result,
+                    "result" => '../../storage/'.$data_row->result,
                     "student_id" => $data_row->student_id,
+                    "guardian" => $data_row->contact_person,
+                    "guardianFname" => $guardianFname,
+                    "guardianMname" => $guardianMname,
+                    "guardianLname" => $guardianLname,
+                    "guardianPhone_number" => $data_row->contact_person_num,
                 );
                 array_push($user_data, $array_data);
             }

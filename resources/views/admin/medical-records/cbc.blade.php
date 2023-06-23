@@ -87,131 +87,89 @@
         </el-main>
         <!----------------------------------------------------------------------------------- Modals/Drawers ----------------------------------------------------------------------------------->
         <!-- View Dialog -->
-        <el-dialog :visible.sync="viewDialog" width="75%" :before-close="closeViewDialog">
+        <el-dialog :visible.sync="viewDialog" width="50%" :before-close="closeViewDialog">
             <template #title>
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="fs-5">User<span class="mx-2" v-text="viewStudent.firstname"></span></div>
+                    <div class="pe-4">
+                        <el-avatar :size="70" :src="viewStudent.avatar"></el-avatar>
+                    </div>
                 </div>
             </template>
             <div class="container">
-                <div class="card">
-                    <div class="card-body content">
-                        <h3 class="card-title">Complete Blood Count</h3>
-                        <div id="cbc" ref="cbcContent"  class="container">
-                            <div class="row align-items-center g-2 my-2">
-                                <div class="col-lg-4 col-md-12">
-                                    <div class="form-group mb-4">
-                                        <label class="form-label">Name</label>
-                                        <input type="text" class="form-control" v-model="viewStudent.name" disabled />
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-12">
-                                    <div class="form-group mb-4">
-                                        <label class="form-label">Age</label>
-                                        <input type="text" class="form-control" v-model="viewStudent.age" disabled />
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-12">
-                                    <div class="form-group mb-4">
-                                        <label class="form-label">Gender</label>
-                                        <input type="text" class="form-control" v-model="viewStudent.gender" disabled />
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-12">
-                                    <div class="form-group mb-4">
-                                        <label class="form-label">Address</label>
-                                        <input type="text" class="form-control" v-model="viewStudent.address" disabled />
-                                    </div>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="row align-items-center g-2 my-2">
-                                <div class="col-lg-4 col-md-12">
-                                    <div class="form-group mb-4">
-                                        <label class="form-label">Hemoglobin:</label>
-                                        <div class="input-group">
-                                            <input type="number" class="form-control" v-model="viewStudent.hemoglobin" disabled/>
-                                            <span class="input-group-text">g/dL</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-12">
-                                    <div class="form-group mb-4">
-                                        <label class="form-label">Hematocrit:</label>
-                                        <div class="input-group">
-                                            <input type="number" class="form-control" v-model="viewStudent.hematocrit" disabled/>
-                                            <span class="input-group-text">% </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-12">
-                                    <div class="form-group mb-4">
-                                        <label class="form-label">White Blood Cell Count (WBC):</label>
-                                        <div class="input-group">
-                                            <input type="number" class="form-control" v-model="viewStudent.wbc" disabled/>
-                                            <span class="input-group-text">x 10^9/L</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row align-items-center g-2 my-2">
-                                <div class="col-lg-4 col-md-12">
-                                    <div class="form-group mb-4">
-                                        <label class="form-label"> Red Blood Cell Count (RBC):</label>
-                                        <div class="input-group">
-                                            <input type="number" class="form-control" v-model="viewStudent.rbc" disabled/>
-                                            <span class="input-group-text">x 10^12/L</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-12">
-                                    <div class="form-group mb-4">
-                                        <label class="form-label"> Mean Corpuscular Volume (MCV):</label>
-                                        <div class="input-group">
-                                            <input type="number" class="form-control" v-model="viewStudent.mcv" disabled/>
-                                            <span class="input-group-text">fL</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-12">
-                                    <div class="form-group mb-4">
-                                        <label class="form-label"> Mean Corpuscular Hemoglobin (MCH):</label>
-                                        <div class="input-group">
-                                            <input type="number" class="form-control" v-model="viewStudent.mch" disabled/>
-                                            <span class="input-group-text">pg</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row align-items-center g-2 my-2">
-                                <div class="col-lg-4 col-md-12">
-                                    <div class="form-group mb-4">
-                                        <label class="form-label">Mean Corpuscular Hemoglobin Concentration (MCHC):</label>
-                                        <div class="input-group">
-                                            <input type="number" class="form-control" v-model="viewStudent.mchc" disabled/>
-                                            <span class="input-group-text"> g/dL</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-12">
-                                    <div class="form-group mb-4">
-                                        <label class="form-label">Platelet Count:</label>
-                                        <div class="input-group">
-                                            <input type="number" class="form-control" v-model="viewStudent.platelet" disabled/>
-                                            <span class="input-group-text">x 10^9/L</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                <div class="row justify-content-center align-items-center g-2 mb-3">
+                    <div class="col-lg-3 col-md-12">
+                        <label class="form-label">Identification No.</label>
+                        <el-input v-model="viewStudent.identification" disabled></el-input>
+                    </div>
+                    <div class="col-lg-3 col-md-12">
+                        <label class="form-label">Year Level</label>
+                        <el-input v-model="viewStudent.year" disabled></el-input>
+                    </div>
+                    <div class="col-lg-3 col-md-12">
+                        <label class="form-label">Section</label>
+                        <el-input v-model="viewStudent.classSection" disabled></el-input>
+                    </div>
+                    <div class="col-lg-3 col-md-12">
+                        <label class="form-label">Course</label>
+                        <el-input v-model="viewStudent.course" disabled></el-input>
+                    </div>
+                </div>
+                <div class="row justify-content-center align-items-center g-2 mb-3">
+                    <div class="col-lg-3 col-md-12">
+                        <label class="form-label">Name</label>
+                        <el-input v-model="viewStudent.name" disabled></el-input>
+                    </div>
+                    <div class="col-lg-3 col-md-12">
+                        <label class="form-label">Gender</label>
+                        <el-input v-model="viewStudent.gender" disabled></el-input>
+                    </div>
+                    <div class="col-lg-3 col-md-12">
+                        <label class="form-label">Birthdate</label>
+                        <el-input v-model="viewStudent.birthdate" disabled></el-input>
+                    </div>
+                    <div class="col-lg-3 col-md-12">
+                        <label class="form-label">Age</label>
+                        <el-input v-model="viewStudent.age" disabled></el-input>
+                    </div>
+                </div>
+                <div class="row justify-content-center align-items-center g-2 mb-3">
+                    <div class="col-lg-3 col-md-12">
+                        <label class="form-label">Address</label>
+                        <el-input v-model="viewStudent.address" disabled></el-input>
+                    </div>
+                    <div class="col-lg-3 col-md-12">
+                        <label class="form-label">Citizenship</label>
+                        <el-input v-model="viewStudent.citizen" disabled></el-input>
+                    </div>
+                    <div class="col-lg-3 col-md-12">
+                        <label class="form-label">Civil Status</label>
+                        <el-input v-model="viewStudent.civil" disabled></el-input>
+                    </div>
+                    <div class="col-lg-3 col-md-12">
+                        <label class="form-label">Phone No.</label>
+                        <el-input v-model="viewStudent.phone_number" disabled></el-input>
+                    </div>
+                </div>
+                <div class="row justify-content-center align-items-center g-2 mb-3">
+                    <div class="col-lg-6 col-md-12">
+                        <label class="form-label">Contact Person</label>
+                        <el-input v-model="viewStudent.guardian" disabled></el-input>
+                    </div>
+                    <div class="col-lg-6 col-md-12">
+                        <label class="form-label">Contact Person Phone No.</label>
+                        <el-input v-model="viewStudent.guardianPhone_number" disabled></el-input>
+                    </div>
+                </div>
+                <hr>
+                <div v-for="cbc in isCbc" class="card">                
+                    <div class="card-body">
+                        <img :src="cbc.result" class="img-fluid rounded-top" alt="Antigen Result">
                     </div>
                 </div>
             </div>
             <span slot="footer" class="dialog-footer">
-                <el-button-group>
-                    <el-button type="primary" @click="closeViewDialog">Close</el-button>
-                    <el-button type="primary" @click="printRecord">Print<i class="el-icon-printer ps-2"></i></el-button>
-                </el-button-group>
+                <el-button type="primary" @click="closeViewDialog">Close</el-button>
             </span>
         </el-dialog>
     </main>
