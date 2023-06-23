@@ -7,6 +7,7 @@ use App\Models\cbcModel;
 use App\Models\userModel;
 use Illuminate\Support\Facades\Hash;
 use Twilio\Rest\Client;
+use Illuminate\Support\Str;
 
 $response = array('error' => false);
 class cbcController extends Controller
@@ -17,13 +18,14 @@ class cbcController extends Controller
         $section = "Complete Blood Count";
         if ($request->hasFile('file')) {
             $image = $request->file('file');
-            $imageName = $image->getClientOriginalName();
-            $image->move(public_path('storage/results'), $imageName);
+            $extension = $image->getClientOriginalExtension();
+            $randomName = Str::random(20) . '.' . $extension;
+            $image->move(public_path('storage/results'), $randomName);
 
             $storeStudent = new cbcModel;
             $storeStudent->student_id = $student_id;
             $storeStudent->section = $section;
-            $storeStudent->result = 'results/' . $imageName;
+            $storeStudent->result = 'results/' . $randomName;
             $storeStudent->save();
         }
 

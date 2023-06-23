@@ -963,8 +963,11 @@
                 }
             },
             submitCbc(){
+                if (this.$refs.file.files.length === 0) {
+                    this.$message.error("Insert Result image first!");
+                    this.error = true;
+                }else{
                 this.loadButton = true;
-                window.location.reload(true);
                 const student_id = localStorage.getItem("student_id");
                 var newData = new FormData()
                 newData.append("student_id", student_id)
@@ -989,12 +992,14 @@
                                 localStorage.removeItem("isAntigen")
                                 localStorage.removeItem("isVaccine")
                                 this.resultDialog = false;
+                                window.location.reload(true);
                             }, 500)
                         }
                     })
                     .catch(error => {
                         console.error(error.response.data);
                     });
+                }
             },
             logout() {
                 this.fullscreenLoading = true
