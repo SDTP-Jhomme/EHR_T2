@@ -140,9 +140,7 @@ class vaxxController extends Controller
                     "phone_number" => $data_row->phone_number,
                     "classSection" => $data_row->classSection,
                     "age" => $data_row->age,
-                    "vaccinationDate" => $data_row->vaccinationDate,
-                    "vaccineBatch" => $data_row->vaccineBatch,
-                    "healthcareProvider" => $data_row->healthcareProvider,
+                    "result" => $data_row->result,
                     "student_id" => $data_row->student_id,
                 );
                 

@@ -11,25 +11,7 @@ class fecaModel extends Model
     protected $table = 'fecalysis_table';
 
     protected $fillable = [
-        'age',
-        'requestBy',
-        'requestDate',
-        'color',
-        'consistency',
-        'occult',
-        'otherOccult',
-        'pus',
-        'rbc',
-        'fat',
-        'ova',
-        'larva',
-        'adult',
-        'cyst',
-        'trophozoites',
-        'otherTrophozoites',
-        'remarks',
-        'pathologist',
-        'technologist',
+        'result',
         'section',
         'student_id',
     ];

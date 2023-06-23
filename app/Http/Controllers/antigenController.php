@@ -138,7 +138,6 @@ class antigenController extends Controller
                     "phone_number" => $data_row->phone_number,
                     "classSection" => $data_row->classSection,
                     "age" => $data_row->age,
-                    "sampleDate" => $data_row->sampleDate,
                     "result" => $data_row->result,
                     "student_id" => $data_row->student_id,
                 );

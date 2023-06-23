@@ -21,7 +21,7 @@
                                         <p class="mb-1 mt-3 fw-light text-muted">Nurse</p>
                                     </div>
                                     <div class="dropdown-item">
-                                        <a class="nav-link" href="{{route('nurseLogout')}}">
+                                        <a class="nav-link" href="#" @click="logout">
                                             <i class="fas fa-power-off text-danger me-2"></i>
                                             Sign Out
                                         </a>

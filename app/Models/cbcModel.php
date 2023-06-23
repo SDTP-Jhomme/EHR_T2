@@ -11,15 +11,7 @@ class cbcModel extends Model
     protected $table = 'cbc_table';
 
     protected $fillable = [
-        'age',
-        'hemoglobin',
-        'hematocrit',
-        'wbc',
-        'rbc',
-        'mcv',
-        'mch',
-        'mchc',
-        'platelet',
+        'result',
         'section',
         'student_id',
     ];

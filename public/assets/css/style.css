@@ -887,3 +887,29 @@ form .input-group .form-control:focus {
     background-color: #08aeea;
     background-image: linear-gradient(142deg, #08aeea 0%, #2af598 100%);
 }
+.el-input.is-disabled .el-input__inner {
+    color: #1756d5 !important;
+}
+.avatar-uploader .el-upload {
+    border: 1px dashed #d9d9d9 !important;
+    border-radius: 6px !important;
+    cursor: pointer !important;
+    position: relative !important;
+    overflow: hidden !important;
+}
+.avatar-uploader .el-upload:hover {
+    border-color: #409eff !important;
+}
+.avatar-uploader-icon {
+    font-size: 28px !important;
+    color: #8c939d !important;
+    width: 178px !important;
+    height: 178px !important;
+    line-height: 178px !important;
+    text-align: center !important;
+}
+.avatar {
+    width: 178px !important;
+    height: 178px !important;
+    display: block !important;
+}

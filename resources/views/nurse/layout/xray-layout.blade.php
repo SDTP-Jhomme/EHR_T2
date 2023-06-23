@@ -290,6 +290,25 @@
             resetFormData() {
                 this.submitCBC = []
             },
+            logout() {
+                this.fullscreenLoading = true
+                axios.post("{{route('nurse-logout')}}")
+                .then(response => {
+                    // console.log(response);
+                    if (response.data.message) {
+                        localStorage.clear();
+                        this.$notify({
+                            title: 'Success',
+                            message: 'Successfully logged out!',
+                            type: 'success',
+                            showClose: false
+                        });
+                        setTimeout(() => {
+                            window.location.href = "{{route('nurse-login')}}"
+                        }, 1000)
+                    }
+                })
+            }
         },
     });
     window.addDashes = function addDashes(f) {

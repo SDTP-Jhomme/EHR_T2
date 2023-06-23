@@ -11,8 +11,6 @@ class antigenModel extends Model
     protected $table = 'antigen_table';
 
     protected $fillable = [
-        'age',
-        'sampleDate',
         'result',
         'section',
         'student_id',

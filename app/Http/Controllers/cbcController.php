@@ -13,55 +13,23 @@ class cbcController extends Controller
 {
     public function storeCbc(Request $request)
     {
-        $password = $this->random_password(8);
+        $student_id = $request->input('student_id');
+        $section = "Complete Blood Count";
+        if ($request->hasFile('file')) {
+            $image = $request->file('file');
+            $imageName = $image->getClientOriginalName();
+            $image->move(public_path('storage/results'), $imageName);
 
-        $gender = $request->input('gender');
-        $avatar = ($gender == 'Male') ? "assets/avatar/default.png" : "assets/avatar/default-woman.png";
+            $storeStudent = new cbcModel;
+            $storeStudent->student_id = $student_id;
+            $storeStudent->section = $section;
+            $storeStudent->result = 'results/' . $imageName;
+            $storeStudent->save();
+        }
 
-        $hashed_password = Hash::make($password);
-
-        $clientInfoData = $request->all();
-        $clientInfoData['password'] = $hashed_password;
-        $clientInfoData['avatar'] = $avatar;
-        $clientInfoData['section'] = "Complete Blood Count";
-        $clientInfoData['status'] = "Active";
-        $phoneNumber = $clientInfoData['phone_number'];
-        $identification = $clientInfoData['identification'];
-        $clientInfo = userModel::create($clientInfoData);
-
-        // Send an SMS notification
-        $to = $phoneNumber; // Replace with the recipient's phone number
-        $message = 'Use this as your username '. $identification.' and this is your Password '. $password; // Customize the message as needed
-        $twilioSid = env('TWILIO_SID');
-        $twilioToken = env('TWILIO_AUTH_TOKEN');
-        $twilioPhoneNumber = env('TWILIO_PHONE_NUMBER');
-
-        $twilioClient = new Client($twilioSid, $twilioToken);
-        $twilioClient->messages->create($to, [
-            'from' => $twilioPhoneNumber,
-            'body' => $message,
-        ]);
-
-        $cbcData = [
-            'age' => $request->input('age'),
-            'hemoglobin' => $request->input('hemoglobin'),
-            'hematocrit' => $request->input('hematocrit'),
-            'wbc' => $request->input('wbc'),
-            'rbc' => $request->input('rbc'),
-            'mcv' => $request->input('mcv'),
-            'mch' => $request->input('mch'),
-            'mchc' => $request->input('mchc'),
-            'platelet' => $request->input('platelet'),
-            'section' => "Complete Blood Count",
-        ];
-
-        $cbc = cbcModel::create(array_merge($cbcData, ['student_id' => $clientInfo->id]));
-
-        if ($clientInfo && $cbc) {
+        if ($storeStudent) {
             $response = array(
-                'password' => $password,
-                'clientInfo' => $clientInfo,
-                'cbc' => $cbc,
+                'storeStudent' => $storeStudent,
             );
             $response["error"] = false;
             $response["message"] = "Successfully stores data";
@@ -134,11 +102,13 @@ class cbcController extends Controller
         $address = $data_row->street . " " . $data_row->barangay . " " . $data_row->city;
         return $address;
     }
-    public function fetchCbc(){
+    public function fetchCbc()
+    {
         $user_data = array();
         $response = userModel::join('cbc_table', 'client_info.id', '=', 'cbc_table.student_id')
-        ->select('client_info.*', 'cbc_table.*') // Select all columns from 'client_info' and 'cbc' tables
-        ->get();;
+            ->select('client_info.*', 'cbc_table.*') // Select all columns from 'client_info' and 'cbc' tables
+            ->get();
+        ;
         if ($response->count() > 0) {
             foreach ($response as $data_row) {
                 $fullname = $this->fetchFullName($data_row);
@@ -167,17 +137,10 @@ class cbcController extends Controller
                     "phone_number" => $data_row->phone_number,
                     "classSection" => $data_row->classSection,
                     "age" => $data_row->age,
-                    "hemoglobin" => $data_row->hemoglobin,
-                    "hematocrit" => $data_row->hematocrit,
-                    "wbc" => $data_row->wbc,
-                    "rbc" => $data_row->rbc,
-                    "mcv" => $data_row->mcv,
-                    "mch" => $data_row->mch,
-                    "mchc" => $data_row->mchc,
-                    "platelet" => $data_row->platelet,
+                    "result" => $data_row->result,
                     "student_id" => $data_row->student_id,
                 );
-                
+
 
                 array_push($user_data, $array_data);
             }
@@ -186,13 +149,13 @@ class cbcController extends Controller
             $response["error"] = true;
             $response["message"] = "Table is empty!";
         }
-        if($user_data){
+        if ($user_data) {
             $response["error"] = false;
             return response()->json($user_data);
-        }else{
-            
+        } else {
+
             $response["error"] = true;
-            return response()->json($user_data,500);
+            return response()->json($user_data, 500);
         }
     }
 }

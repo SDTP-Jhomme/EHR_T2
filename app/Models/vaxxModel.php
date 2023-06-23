@@ -12,12 +12,9 @@ class vaxxModel extends Model
     protected $table = 'vaccine_table';
 
     protected $fillable = [
-        'age',
-        'vaccinationDate',
-        'vaccineBatch',
-        'healthcareProvider',
+        'result',
         'section',
-        'student_id'
+        'student_id',
     ];
     public function user()
 {

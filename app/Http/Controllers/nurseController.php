@@ -27,7 +27,7 @@ class nurseController extends Controller
 
         if (!$user) {
             // Redirect to the login page or handle unauthorized access
-            return view('nurse/index');
+            return view('index');
         }
 
         // Use the $user data as needed in your dashboard logic
@@ -76,7 +76,7 @@ class nurseController extends Controller
                 $hashedPassword = $user->password;
                 if (password_verify($password, $hashedPassword)) {
                     $response["error"] = false;
-                    $request->session()->put('user', $user);
+                    $request->session()->put('user', $user->id);
                     return response()->json($response);
                 } else {
                     $response["error"] = true;
@@ -95,10 +95,9 @@ class nurseController extends Controller
         Session::forget('user');
 
 
-        // Perform any other logout-related actions
-
-        // Redirect the user to the desired page after logout
-        return redirect()->route('nurse-login');
+        $response["error"] = false;
+        $response["message"] = "Logged out Successfully";
+        return response()->json($response);
     }
     //nurse login END
 

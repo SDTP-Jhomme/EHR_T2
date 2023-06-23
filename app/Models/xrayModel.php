@@ -11,14 +11,9 @@ class xrayModel extends Model
     protected $table = 'xray_table';
 
     protected $fillable = [
-        'age',
-        'case_No',
-        'referred_by',
-        'room_bed',
-        'clinical_impression',
-        'type_examination',
+        'result',
         'section',
-        'student_id'
+        'student_id',
     ];
     public function user()
 {

@@ -139,11 +139,7 @@ class xrayController extends Controller
                     "phone_number" => $data_row->phone_number,
                     "classSection" => $data_row->classSection,
                     "age" => $data_row->age,
-                    "case_No" => $data_row->case_No,
-                    "referred_by" => $data_row->referred_by,
-                    "room_bed" => $data_row->room_bed,
-                    "type_examination" => $data_row->type_examination,
-                    "ph" => $data_row->ph,
+                    "result" => $data_row->result,
                     "student_id" => $data_row->student_id,
                 );
                 array_push($user_data, $array_data);

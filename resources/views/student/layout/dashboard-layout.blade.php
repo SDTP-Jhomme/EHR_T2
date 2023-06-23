@@ -10,6 +10,12 @@
                         return date < new Date()
                     }
                 },
+                cbcResult:false,
+                antigenResult:false,
+                vaxxResult:false,
+                urineResult:false,
+                xrayResult:false,
+                fecalResult:false,
                 fullscreenLoading: true,
                 loadButton: false,
                 openAppointmentDialog:false,
@@ -70,12 +76,13 @@
             fetchCbc() {
                 axios.post("{{route('fetch_Cbc')}}")
                     .then(response => {
+                        console.log(response);
                         if (response) {
                             this.isCbc = response.data;
                         }
                     })
                     .catch(error => {
-                        console.error(error);
+                        console.error(error.response);
                     });
             },
             fetch_Antigen() {
@@ -83,11 +90,10 @@
                     .then(response => {
                         if (response) {
                             this.isAntigen = response.data;
-                            console.log(this.isAntigen);
                         }
                     })
                     .catch(error => {
-                        console.error(error);
+                        console.error(error.response);
                     });
             },
             fetch_Urinalysis() {
@@ -186,24 +192,24 @@
                 this.request = []
             },
             logout() {
-                    this.fullscreenLoading = true
-                    axios.post("{{route('studentLogout')}}")
-                        .then(response => {
-                            // console.log(response);
-                            if (response.data.message) {
-                                localStorage.clear();
-                                this.$notify({
-                                    title: 'Success',
-                                    message: 'Successfully logged out!',
-                                    type: 'success',
-                                    showClose: false
-                                });
-                                setTimeout(() => {
-                                    window.location.href = "{{route('student-login')}}"
-                                }, 1000)
-                            }
-                        })
-                },
+                this.fullscreenLoading = true
+                axios.post("{{route('studentLogout')}}")
+                .then(response => {
+                    // console.log(response);
+                    if (response.data.message) {
+                        localStorage.clear();
+                        this.$notify({
+                            title: 'Success',
+                            message: 'Successfully logged out!',
+                            type: 'success',
+                            showClose: false
+                        });
+                        setTimeout(() => {
+                            window.location.href = "{{route('student-login')}}"
+                        }, 1000)
+                    }
+                })
+            }
         },
     });
 </script>

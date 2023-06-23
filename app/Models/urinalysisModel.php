@@ -11,28 +11,9 @@ class urinalysisModel extends Model
     protected $table = 'urinalysis_table';
 
     protected $fillable = [
-        'age',
-        'requestDate',
-        'color',
-        'transparency',
-        'gravity',
-        'ph',
-        'sugar',
-        'protein',
-        'pregnancy',
-        'pus',
-        'rbc',
-        'cast',
-        'urates',
-        'uric',
-        'cal',
-        'epith',
-        'mucus',
-        'otherOthers',
-        'pathologist',
-        'technologist',
-        'student_id',
+        'result',
         'section',
+        'student_id',
     ];
     public function user()
 {
