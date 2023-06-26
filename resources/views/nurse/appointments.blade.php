@@ -66,13 +66,11 @@
                             <div class="row justify-content-center align-items-center g-2">
                                 <div class="col-auto">
                                     <el-tooltip class="item" effect="dark" :content="scope.row.med_status == 'Approved' ? 'Declined' : 'Approved'" placement="top-start">
-                                        <!-- <el-button icon="el-icon-check" size="mini" type="success" @click="handleApprove(scope.$index, scope.row)"></el-button> -->
                                         <el-button icon="el-icon-check" size="small" type="success" v-model="scope.row.med_status" @click="handleApproved(scope.$index, scope.row)" active-value="Approved" inactive-value="Declined" active-color="#13ce66" :active-text="scope.row.med_status == 'Approved' ? 'Approved' : 'Declined'" :disabled="scope.row.med_status == 'Approved'"></el-button>
                                     </el-tooltip>
                                 </div>
                                 <div class="col-auto">
                                     <el-tooltip class="item" effect="dark" :content="scope.row.med_status == 'Declined' ? 'Approved' : 'Declined'" placement="top-start">
-                                        <!-- <el-button icon="el-icon-close" size="mini" type="danger" @click="handleDecline(scope.$index, scope.row)"></el-button> -->
                                         <el-button icon="el-icon-close" size="small" type="danger" v-model="scope.row.med_status" @click="handleRejected(scope.$index, scope.row)" active-value="Declined" inactive-value="Approved" active-color="#13ce66" :active-text="scope.row.med_status == 'Declined' ? 'Declined' : 'Approved'" :disabled="scope.row.med_status == 'Declined'"></el-button>
                                     </el-tooltip>
                                 </div>
