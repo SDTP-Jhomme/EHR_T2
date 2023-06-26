@@ -37,11 +37,53 @@ class requestController extends Controller
             return response()->json($response, 500);
         }
     }
+
     public function countRequest()
     {
         $count = reqModel::where('med_status', 'Pending')->count();
 
         return response()->json($count);
+    }
+
+    public function approvedStatus(Request $update)
+    {
+        $update_user = [
+            'med_status' => $update->input('med_status'),
+
+        ];
+        $id = $update->input('id');
+        $update = reqModel::where('id', $id)->update($update_user);
+        if ($update) {
+            // Success
+            $response["error"] = false;
+            $response["message"] = "Appointment approved successfully";
+            return response()->json($response);
+        } else {
+            // Failed to update or record not found
+            $response["error"] = true;
+            $response["message"] = "Appointment failed approved";
+            return response()->json($response, 500);
+        }
+    }
+    public function rejectedStatus(Request $update)
+    {
+        $update_user = [
+            'med_status' => $update->input('med_status'),
+
+        ];
+        $id = $update->input('id');
+        $update = reqModel::where('id', $id)->update($update_user);
+        if ($update) {
+            // Success
+            $response["error"] = false;
+            $response["message"] = "Appointment declined successfully";
+            return response()->json($response);
+        } else {
+            // Failed to update or record not found
+            $response["error"] = true;
+            $response["message"] = "Appointment failed approved";
+            return response()->json($response, 500);
+        }
     }
 
     public function fetchRequest()
@@ -105,6 +147,7 @@ class requestController extends Controller
             return response()->json($user_data, 500);
         }
     }
+
     public function updateStatus(Request $update)
     {
         $update_user = [
@@ -124,8 +167,8 @@ class requestController extends Controller
             $response["message"] = "Failed updates data";
             return response()->json($response, 500);
         }
-
     }
+
     function fetchFullName($data_row)
     {
         $fullname = ucfirst($data_row->firstname) . " " . trim(substr(ucfirst($data_row->midname), 0, 1), "undefined") . " " . ucfirst($data_row->lastname);

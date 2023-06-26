@@ -33,7 +33,7 @@
                 leftLabel: "left",
                 direction: 'btt',
                 loadButton: false,
-                status: true,
+                med_status: true,
                 switch: false,
                 showAllData: false,
                 searchValue: "",
@@ -93,6 +93,9 @@
                     .filter((data) => {
                         return data.identification.toLowerCase().includes(this.searchID.toLowerCase());
                     })
+                    .filter((data) => {
+                        return data.med_status.toLowerCase().includes(this.searchContact.toLowerCase());
+                    })
                     .slice(this.pageSize * this.page - this.pageSize, this.pageSize * this.page)
             }
         },
@@ -136,9 +139,63 @@
                         console.error(error.response);
                     });
             },
+            handleApproved(index, row) {
+                var updateStatus = new FormData()
+                updateStatus.append("id", row.id)
+                updateStatus.append("med_status", "Approved")
+                axios.post("{{route('approvedStatus')}}", updateStatus)
+                    .then(response => {
+                        if (response.data) {
+                            this.loadButton = false;
+                            this.tableLoad = true;
+                            setTimeout(() => {
+                                this.tableLoad = false;
+                                if (response.data.med_status == "Approved") {
+                                    this.$message({
+                                        message: 'Student has been Rejected!',
+                                        type: 'success'
+                                    });
+                                } else {
+                                    this.$message({
+                                        message: 'Student has been Approved!',
+                                        type: 'success'
+                                    });
+                                }
+
+                            }, 1500)
+                        }
+                    })
+            },
+            handleRejected(index, row) {
+                var updateStatus = new FormData()
+                updateStatus.append("id", row.id)
+                updateStatus.append("med_status", "Declined")
+                axios.post("{{route('rejectedStatus')}}", updateStatus)
+                    .then(response => {
+                        if (response.data) {
+                            this.loadButton = false;
+                            this.tableLoad = true;
+                            setTimeout(() => {
+                                this.tableLoad = false;
+                                if (response.data.med_status == "Declined") {
+                                    this.$message({
+                                        message: 'Student has been Aproved!',
+                                        type: 'danger'
+                                    });
+                                } else {
+                                    this.$message({
+                                        message: 'Student has been Declined!',
+                                        type: 'danger'
+                                    });
+                                }
+
+                            }, 1500)
+                        }
+                    })
+            },
             logout() {
                 this.fullscreenLoading = true
-                axios.post("{{route('nurse-logout')}}")
+                axios.post("{{route('nurseLogout')}}")
                 .then(response => {
                     // console.log(response);
                     if (response.data.message) {
