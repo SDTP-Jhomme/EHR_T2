@@ -161,7 +161,7 @@
                                         type: 'success'
                                     });
                                 }
-
+                                window.location.reload('/nurse/appointments');
                             }, 1500)
                         }
                     })
@@ -188,7 +188,7 @@
                                         type: 'danger'
                                     });
                                 }
-
+                                window.location.reload('/nurse/appointments');
                             }, 1500)
                         }
                     })

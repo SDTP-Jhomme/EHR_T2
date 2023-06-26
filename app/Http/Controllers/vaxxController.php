@@ -7,55 +7,30 @@ use App\Models\vaxxModel;
 use App\Models\userModel;
 use Illuminate\Support\Facades\Hash;
 use Twilio\Rest\Client;
+use Illuminate\Support\Str;
 
 class vaxxController extends Controller
 {
     public function storeVaccine(Request $request)
     {
-        $password = $this->random_password(8);
+        $student_id = $request->input('student_id');
+        $section = "Urinalysis";
+        if ($request->hasFile('file')) {
+            $image = $request->file('file');
+            $extension = $image->getClientOriginalExtension();
+            $randomName = Str::random(20) . '.' . $extension;
+            $image->move(public_path('storage/results'), $randomName);
 
-        $gender = $request->input('gender');
-        $avatar = ($gender == 'Male') ? "assets/avatar/default.png" : "assets/avatar/default-woman.png";
+            $storeStudent = new vaxxModel;
+            $storeStudent->student_id = $student_id;
+            $storeStudent->section = $section;
+            $storeStudent->result = 'results/' . $randomName;
+            $storeStudent->save();
+        }
 
-        $hashed_password = Hash::make($password);
-
-        $clientInfoData = $request->all();
-        $clientInfoData['password'] = $hashed_password;
-        $clientInfoData['avatar'] = $avatar;
-        $clientInfoData['section'] = "Heppa B Vaccine";
-        $clientInfoData['status'] = "Active";
-        $phoneNumber = $clientInfoData['phone_number'];
-        $identification = $clientInfoData['identification'];
-        $clientInfo = userModel::create($clientInfoData);
-
-        // Send an SMS notification
-        $to = $phoneNumber; // Replace with the recipient's phone number
-        $message = 'Use this as your username ' . $identification . ' and this is your Password ' . $password; // Customize the message as needed
-        $twilioSid = env('TWILIO_SID');
-        $twilioToken = env('TWILIO_AUTH_TOKEN');
-        $twilioPhoneNumber = env('TWILIO_PHONE_NUMBER');
-
-        $twilioClient = new Client($twilioSid, $twilioToken);
-        $twilioClient->messages->create($to, [
-            'from' => $twilioPhoneNumber,
-            'body' => $message,
-        ]);
-
-        $vaccineData = [
-            'age' => $request->input('age'),
-            'vaccinationDate' => $request->input('vaccinationDate'),
-            'vaccineBatch' => $request->input('vaccineBatch'),
-            'healthcareProvider' => $request->input('healthcareProvider'),
-            'section' => "Chest X-ray (PA)",
-        ];
-
-        $vaccine = vaxxModel::create(array_merge($vaccineData, ['student_id' => $clientInfo->id]));
-
-        if ($clientInfo && $vaccine) {
+        if ($storeStudent) {
             $response = array(
-                'password' => $password,
-                'clientInfo' => $clientInfo,
-                'vaccine' => $vaccine,
+                'storeStudent' => $storeStudent,
             );
             $response["error"] = false;
             $response["message"] = "Successfully stores data";

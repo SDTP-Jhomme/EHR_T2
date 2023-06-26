@@ -105,6 +105,7 @@
                 tableData: [],
                 tableLoad: false,
                 resultDialog: false,
+                viewResultDialog: false,
                 openAddDrawer: false,
                 fileImg:null,
                 isCBC: false,
@@ -988,6 +989,201 @@
                 newData.append("student_id", student_id)
                 newData.append("file", this.fileImg)
                 axios.post("{{route('storeCbc')}}", newData)
+                    .then(res => {
+                        if (res) {
+                            setTimeout(() => {
+                                this.getData();
+                                this.loadButton = false;
+                                this.fileImg = null;
+                                this.$message({
+                                    message: 'Results has been uploaded successfully!',
+                                    type: 'success'
+                                });
+                                localStorage.removeItem("active")
+                                localStorage.removeItem("student_id")
+                                localStorage.removeItem("isCBC")
+                                localStorage.removeItem("isUrinalysis")
+                                localStorage.removeItem("isFecalysis")
+                                localStorage.removeItem("isXray")
+                                localStorage.removeItem("isAntigen")
+                                localStorage.removeItem("isVaccine")
+                                this.resultDialog = false;
+                                window.location.reload(true);
+                            }, 500)
+                        }
+                    })
+                    .catch(error => {
+                        console.error(error.response.data);
+                    });
+                }
+            },
+            submitUrinalysis(){
+                if (this.$refs.file.files.length === 0) {
+                    this.$message.error("Insert Result image first!");
+                    this.error = true;
+                }else{
+                this.loadButton = true;
+                const student_id = localStorage.getItem("student_id");
+                var newData = new FormData()
+                newData.append("student_id", student_id)
+                newData.append("file", this.fileImg)
+                axios.post("{{route('storeUrinalysis')}}", newData)
+                    .then(res => {
+                        if (res) {
+                            setTimeout(() => {
+                                this.getData();
+                                this.loadButton = false;
+                                this.fileImg = null;
+                                this.$message({
+                                    message: 'Results has been uploaded successfully!',
+                                    type: 'success'
+                                });
+                                localStorage.removeItem("active")
+                                localStorage.removeItem("student_id")
+                                localStorage.removeItem("isCBC")
+                                localStorage.removeItem("isUrinalysis")
+                                localStorage.removeItem("isFecalysis")
+                                localStorage.removeItem("isXray")
+                                localStorage.removeItem("isAntigen")
+                                localStorage.removeItem("isVaccine")
+                                this.resultDialog = false;
+                                window.location.reload(true);
+                            }, 500)
+                        }
+                    })
+                    .catch(error => {
+                        console.error(error.response.data);
+                    });
+                }
+            },
+            submitFecalysis(){
+                if (this.$refs.file.files.length === 0) {
+                    this.$message.error("Insert Result image first!");
+                    this.error = true;
+                }else{
+                this.loadButton = true;
+                const student_id = localStorage.getItem("student_id");
+                var newData = new FormData()
+                newData.append("student_id", student_id)
+                newData.append("file", this.fileImg)
+                axios.post("{{route('storeFecalysis')}}", newData)
+                    .then(res => {
+                        if (res) {
+                            setTimeout(() => {
+                                this.getData();
+                                this.loadButton = false;
+                                this.fileImg = null;
+                                this.$message({
+                                    message: 'Results has been uploaded successfully!',
+                                    type: 'success'
+                                });
+                                localStorage.removeItem("active")
+                                localStorage.removeItem("student_id")
+                                localStorage.removeItem("isCBC")
+                                localStorage.removeItem("isUrinalysis")
+                                localStorage.removeItem("isFecalysis")
+                                localStorage.removeItem("isXray")
+                                localStorage.removeItem("isAntigen")
+                                localStorage.removeItem("isVaccine")
+                                this.resultDialog = false;
+                                window.location.reload(true);
+                            }, 500)
+                        }
+                    })
+                    .catch(error => {
+                        console.error(error.response.data);
+                    });
+                }
+            },
+            submitXray(){
+                if (this.$refs.file.files.length === 0) {
+                    this.$message.error("Insert Result image first!");
+                    this.error = true;
+                }else{
+                this.loadButton = true;
+                const student_id = localStorage.getItem("student_id");
+                var newData = new FormData()
+                newData.append("student_id", student_id)
+                newData.append("file", this.fileImg)
+                axios.post("{{route('storeXray')}}", newData)
+                    .then(res => {
+                        if (res) {
+                            setTimeout(() => {
+                                this.getData();
+                                this.loadButton = false;
+                                this.fileImg = null;
+                                this.$message({
+                                    message: 'Results has been uploaded successfully!',
+                                    type: 'success'
+                                });
+                                localStorage.removeItem("active")
+                                localStorage.removeItem("student_id")
+                                localStorage.removeItem("isCBC")
+                                localStorage.removeItem("isUrinalysis")
+                                localStorage.removeItem("isFecalysis")
+                                localStorage.removeItem("isXray")
+                                localStorage.removeItem("isAntigen")
+                                localStorage.removeItem("isVaccine")
+                                this.resultDialog = false;
+                                window.location.reload(true);
+                            }, 500)
+                        }
+                    })
+                    .catch(error => {
+                        console.error(error.response.data);
+                    });
+                }
+            },
+            submitAntigen(){
+                if (this.$refs.file.files.length === 0) {
+                    this.$message.error("Insert Result image first!");
+                    this.error = true;
+                }else{
+                this.loadButton = true;
+                const student_id = localStorage.getItem("student_id");
+                var newData = new FormData()
+                newData.append("student_id", student_id)
+                newData.append("file", this.fileImg)
+                axios.post("{{route('storeAntigen')}}", newData)
+                    .then(res => {
+                        if (res) {
+                            setTimeout(() => {
+                                this.getData();
+                                this.loadButton = false;
+                                this.fileImg = null;
+                                this.$message({
+                                    message: 'Results has been uploaded successfully!',
+                                    type: 'success'
+                                });
+                                localStorage.removeItem("active")
+                                localStorage.removeItem("student_id")
+                                localStorage.removeItem("isCBC")
+                                localStorage.removeItem("isUrinalysis")
+                                localStorage.removeItem("isFecalysis")
+                                localStorage.removeItem("isXray")
+                                localStorage.removeItem("isAntigen")
+                                localStorage.removeItem("isVaccine")
+                                this.resultDialog = false;
+                                window.location.reload(true);
+                            }, 500)
+                        }
+                    })
+                    .catch(error => {
+                        console.error(error.response.data);
+                    });
+                }
+            },
+            submitVaccine(){
+                if (this.$refs.file.files.length === 0) {
+                    this.$message.error("Insert Result image first!");
+                    this.error = true;
+                }else{
+                this.loadButton = true;
+                const student_id = localStorage.getItem("student_id");
+                var newData = new FormData()
+                newData.append("student_id", student_id)
+                newData.append("file", this.fileImg)
+                axios.post("{{route('storeVaccine')}}", newData)
                     .then(res => {
                         if (res) {
                             setTimeout(() => {
