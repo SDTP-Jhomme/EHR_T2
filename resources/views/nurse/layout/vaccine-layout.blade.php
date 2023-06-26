@@ -296,7 +296,7 @@
                             showClose: false
                         });
                         setTimeout(() => {
-                            window.location.href = "{{route('nurse-login')}}"
+                            window.location.href = "{{route('student-login')}}"
                         }, 1000)
                     }
                 })

@@ -32,7 +32,8 @@ class userModel extends Model
         'last_login',
         'contact_person',
         'contact_person_num',
-        'age'
+        'age',
+        'med_status'
     ];
     public function cbc()
     {

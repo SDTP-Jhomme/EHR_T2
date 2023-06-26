@@ -15,6 +15,7 @@ class cbcController extends Controller
     public function storeCbc(Request $request)
     {
         $student_id = $request->input('student_id');
+        $med_status = $request->input('med_status');
         $section = "Complete Blood Count";
         if ($request->hasFile('file')) {
             $image = $request->file('file');
@@ -27,11 +28,13 @@ class cbcController extends Controller
             $storeStudent->section = $section;
             $storeStudent->result = 'results/' . $randomName;
             $storeStudent->save();
+            $updateMed = userModel::where('med_status', $med_status)->update(['med_status' => $med_status]);
         }
 
         if ($storeStudent) {
             $response = array(
                 'storeStudent' => $storeStudent,
+                'updateMed' => $updateMed,
             );
             $response["error"] = false;
             $response["message"] = "Successfully stores data";

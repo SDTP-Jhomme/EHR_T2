@@ -29,6 +29,8 @@ class fetch_userRecord extends Controller
                     "age" => $data_row->age,
                     "result" => 'storage/'.$data_row->result,
                     "student_id" => $data_row->student_id,
+                    "dataCreated" => date("F d, Y", strtotime($data_row->created_at)),
+                    "section" => $data_row->section,
                 );
                 array_push($user_data, $array_data);
             }
@@ -61,6 +63,8 @@ class fetch_userRecord extends Controller
                     "age" => $data_row->age,
                     "result" => 'storage/'.$data_row->result,
                     "student_id" => $data_row->student_id,
+                    "dataCreated" => date("F d, Y", strtotime($data_row->created_at)),
+                    "section" => $data_row->section,
                 );
 
 
@@ -95,6 +99,8 @@ class fetch_userRecord extends Controller
                     "age" => $data_row->age,
                     "result" => 'storage/'.$data_row->result,
                     "student_id" => $data_row->student_id,
+                    "dataCreated" => date("F d, Y", strtotime($data_row->created_at)),
+                    "section" => $data_row->section,
                 );
 
                 array_push($user_data, $array_data);
@@ -128,6 +134,8 @@ class fetch_userRecord extends Controller
                     "age" => $data_row->age,
                     "result" => 'storage/'.$data_row->result,
                     "student_id" => $data_row->student_id,
+                    "dataCreated" => date("F d, Y", strtotime($data_row->created_at)),
+                    "section" => $data_row->section,
                 );
 
 
@@ -162,6 +170,8 @@ class fetch_userRecord extends Controller
                     "age" => $data_row->age,
                     "result" => 'storage/'.$data_row->result,
                     "student_id" => $data_row->student_id,
+                    "dataCreated" => date("F d, Y", strtotime($data_row->created_at)),
+                    "section" => $data_row->section,
                 );
 
                 array_push($user_data, $array_data);
@@ -195,6 +205,8 @@ class fetch_userRecord extends Controller
                     "age" => $data_row->age,
                     "result" => 'storage/'.$data_row->result,
                     "student_id" => $data_row->student_id,
+                    "dataCreated" => date("F d, Y", strtotime($data_row->created_at)),
+                    "section" => $data_row->section,
                 );
 
 

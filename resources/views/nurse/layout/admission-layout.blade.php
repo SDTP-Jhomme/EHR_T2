@@ -73,7 +73,7 @@
                 dialogTableVisible: false,
                 active: 0,
                 page: 1,
-                pageSize: 10,
+                pageSize: 6,
                 topLabel: "top",
                 leftLabel: "left",
                 direction: 'ltr',
@@ -107,16 +107,25 @@
                 resultDialog: false,
                 openAddDrawer: false,
                 fileImg:null,
+                medStatus:"",
+                med_Status:"",
                 isCBC: false,
                 isUrinalysis: false,
                 isFecalysis: false,
                 isXray: false,
                 isAntigen: false,
                 isVaccine: false,
+                hasCBC: false,
+                hasUrinalysis: [],
+                hasFecalysis: [],
+                hasXray: [],
+                hasAntigen: [],
+                hasVaccine: [],
                 checkIdentification: [],
                 fileResults: [],
-                editStudent: [],
+                fileList: [],
                 printing: false,
+                editStudent: [],
                 updateStudent: {
                     id: 0,
                     identification: "",
@@ -331,6 +340,12 @@
         },
         created() {
             this.getData()
+            this.fetch_Cbc()
+            this.fetch_Antigen()
+            this.fetch_Urinalysis()
+            this.fetch_Xray()
+            this.fetch_Fecalysis()
+            this.fetch_Vaccine()
         },
         mounted() {
             this.getData();
@@ -391,6 +406,9 @@
                         this.pageSize = 10
                     }
                 },
+                medStatus(value) {
+                    this.med_Status = value.medStatus ? value.medStatus : "";
+                }
             },
         computed: {
             usersTable() {
@@ -408,6 +426,18 @@
             }
         },
         methods: {
+            handleRemove(file, fileList) {
+                console.log(file, fileList);
+            },
+            handlePreview(file) {
+                console.log(file);
+            },
+            handleExceed(files, fileList) {
+                this.$message.warning(`The limit is 3, you selected ${files.length} files this time, add up to ${files.length + fileList.length} totally`);
+            },
+            beforeRemove(file, fileList) {
+                return this.$confirm(`Cancel the transfert of ${ file.name } ?`);
+            },
             printTable() {
                 // Create a new table element
                 const table = document.createElement("table");
@@ -543,6 +573,9 @@
                 localStorage.setItem("student_id", row.id)
                 this.viewStudent = row;
                 this.resultDialog = true;
+                this.medStatus={
+                    med_Status: row.medStatus,
+                }
             },
             handleView(index, row) {
                 this.viewStudent = row;
@@ -634,6 +667,73 @@
             resetFormData() {
                 this.submitForm = []
             },
+            fetch_Cbc() {
+                axios.post("{{route('fetchCbc')}}")
+                    .then(response => {
+                        if (response) {
+                            this.hasCBC = response.data;
+                        console.log(this.hasCBC);
+                        }
+                    })
+                    .catch(error => {
+                        console.error(error.response);
+                    });
+            },
+            fetch_Antigen() {
+                axios.post("{{route('fetchAntigen')}}")
+                    .then(response => {
+                        if (response) {
+                            this.hasAntigen = response.data;
+                        }
+                    })
+                    .catch(error => {
+                        console.error(error.response);
+                    });
+            },
+            fetch_Urinalysis() {
+                axios.post("{{route('fetchUrinalysis')}}")
+                    .then(response => {
+                        if (response) {
+                            this.hasUrinalysis = response.data;
+                        }
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
+            },
+            fetch_Xray() {
+                axios.post("{{route('fetchXray')}}")
+                    .then(response => {
+                        if (response) {
+                            this.hasXray = response.data;
+                        }
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
+            },
+            fetch_Fecalysis() {
+                axios.post("{{route('fetchFecalysis')}}")
+                    .then(response => {
+                        if (response) {
+                            this.hasFecalysis = response.data;
+                        }
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
+            },
+            fetch_Vaccine() {
+                axios.post("{{route('fetchVaccine')}}")
+                    .then(response => {
+                        if (response) {
+                            this.hasVaccine = response.data;
+                        }
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
+            },
             getData() {
                 axios.post("{{route('fetchStudent')}}")
                     .then(response => {
@@ -689,71 +789,6 @@
 
                 return age + ` year${age > 1 ? "s" : ""} old`;
             },
-                addUser(addStudent) {
-                    this.$refs[addStudent].validate((valid) => {
-                        if (valid) {
-                            this.loadButton = true;
-                            this.openAddDrawer = false;
-                            const age = localStorage.getItem("age");
-                            const birthday = this.addStudent.birthdate;
-                            const birthdayFormat = birthday.getFullYear() + "-" + ((birthday.getMonth() + 1) > 9 ? '' : '0') + (birthday.getMonth() + 1) + "-" + (birthday.getDate() > 9 ? '' : '0') + birthday.getDate();
-                            var newData = new FormData()
-                            newData.append("identification", this.addStudent.identification)
-                            newData.append("firstname", this.addStudent.firstname)
-                            newData.append("midname", this.addStudent.midname)
-                            newData.append("lastname", this.addStudent.lastname)
-                            newData.append("year", this.addStudent.year)
-                            newData.append("classSection", this.addStudent.classSection)
-                            newData.append("course", this.addStudent.course)
-                            newData.append("gender", this.addStudent.gender)
-                            newData.append("phone_number", this.addStudent.phone_number)
-                            newData.append("birthdate", birthdayFormat)
-                            newData.append("street", this.addStudent.street)
-                            newData.append("brgy", this.addStudent.brgy)
-                            newData.append("city", this.addStudent.city)
-                            newData.append("guardianFname", this.addStudent.guardianFname)
-                            newData.append("guardianMname", this.addStudent.guardianMname)
-                            newData.append("guardianLname", this.addStudent.guardianLname)
-                            newData.append("guardianPhone_number", this.addStudent.guardianPhone_number)
-                            newData.append("age", age)
-                            newData.append("citizen", this.addStudent.citizen)
-                            newData.append("civil", this.addStudent.civil)
-                            axios.post("{{route('storeStudent')}}", newData)
-                                .then(response => {
-                                console.log(response);
-                                    if (response.data) {
-                                        this.tableLoad = true;
-                                        setTimeout(() => {
-                                            this.$message({
-                                                message: 'New Student Account has been added successfully!',
-                                                type: 'success'
-                                            });
-                                            this.tableLoad = false;
-                                            this.getData()
-                                            setTimeout(() => {
-                                                this.openAddDialog = true;
-                                            }, 1500)
-                                        }, 1500);
-                                        this.resetFormData();
-                                        this.newUser = response.data;
-                                        this.loadButton = false;
-                                    }
-                                })
-                                .catch(error => {
-                                    console.error(error.response.data);
-                                });
-                        } else {
-                            this.$message.error("Cannot submit the form. Please check the error(s).")
-                            return false;
-                        }
-                    });
-                },
-                resetForm(addStudent) {
-                    this.$refs[addStudent].resetFields();
-                },
-                resetFormData() {
-                    this.addStudent = []
-                },
             updateUser(updateStudent) {
                     this.$refs[updateStudent].validate((valid) => {
                         if (valid) {
@@ -947,36 +982,50 @@
                 this.isAntigen = false;
                 this.isVaccine = !this.isVaccine;
             },
-            fileUpload() {
-                if (this.$refs.file.files.length > 0) {
-                    if (this.$refs.file.files[0].type != "image/jpeg") {
-                        this.$message.error("Result image must be in JPG format!");
-                        this.fileImg = null;
-                        this.error = true;
-                        this.$refs.file.value = null;
-                    } else {
-                        this.error = false;
+            fileUpload(event) {
+                const files = Array.from(event.target.files);
+                const allowedTypes = ["image/jpeg"];
+                const maxSize = 2000000; // 2MB
+
+                // Clear previous file selection and error message
+                this.fileImg = null;
+                this.error = false;
+
+                const invalidFiles = [];
+                const validFiles = [];
+
+                files.forEach((file) => {
+                    // Check file type
+                    if (!allowedTypes.includes(file.type)) {
+                    invalidFiles.push(file);
+                    return;
                     }
-                }
-                if (this.$refs.file.files.length > 0) {
-                    if (this.$refs.file.files[0].size > 2000000) {
-                        this.$message.error("Result image size can not exceed 2MB!");
-                        this.fileImg = null;
-                        this.error = true;
-                        this.$refs.file.value = null;
-                    } else {
-                        this.error = false;
+
+                    // Check file size
+                    if (file.size > maxSize) {
+                    invalidFiles.push(file);
+                    return;
                     }
+
+                    validFiles.push(file);
+                });
+
+                if (invalidFiles.length > 0) {
+                    invalidFiles.forEach((file) => {
+                    this.$message.error(
+                        file.name +
+                        " is invalid. Please make sure it is a JPG image and does not exceed 2MB."
+                    );
+                    });
+                    this.error = true;
+                    this.$refs.file.value = null;
+                    return;
                 }
-                if (!this.error) {
-                    this.fileImg = this.$refs.file.files[0];
-                    const reader = new FileReader();
-                    reader.readAsDataURL(this.fileImg);
-                    reader.onload = (e) => {
-                        this.fileUrl = e.target.result;
-                    };
-                }
+
+                this.filesToUpload = validFiles;
+                this.previewFiles(validFiles);
             },
+
             submitCbc(){
                 if (this.$refs.file.files.length === 0) {
                     this.$message.error("Insert Result image first!");
@@ -986,6 +1035,7 @@
                 const student_id = localStorage.getItem("student_id");
                 var newData = new FormData()
                 newData.append("student_id", student_id)
+                newData.append("med_status", this.med_Status)
                 newData.append("file", this.fileImg)
                 axios.post("{{route('storeCbc')}}", newData)
                     .then(res => {
@@ -1016,6 +1066,44 @@
                     });
                 }
             },
+            submitUrinalysis() {
+            if (this.fileList.length === 0) {
+                this.$message.error("Insert Result image first!");
+                this.error = true;
+            } else {
+                this.loadButton = true;
+                const student_id = localStorage.getItem("student_id");
+                const promises = [];
+
+                for (let i = 0; i < this.fileList.length; i++) {
+                const file = this.fileList[i];
+                const newData = new FormData();
+                newData.append("student_id", student_id);
+                newData.append("med_status", this.med_Status);
+                newData.append("file", file);
+
+                promises.push(
+                    axios.post("{{route('storeCbc')}}", newData)
+                    .then(res => {
+                        // handle success
+                    })
+                    .catch(error => {
+                        // handle error
+                    })
+                );
+                }
+
+                Promise.all(promises)
+                .then(() => {
+                    setTimeout(() => {
+                    // handle overall success
+                    }, 500);
+                })
+                .catch(error => {
+                    console.error(error.response.data);
+                });
+            }
+            },
             logout() {
                 this.fullscreenLoading = true
                 axios.post("{{route('nurse-logout')}}")
@@ -1030,7 +1118,7 @@
                             showClose: false
                         });
                         setTimeout(() => {
-                            window.location.href = "{{route('nurse-login')}}"
+                            window.location.href = "{{route('student-login')}}"
                         }, 1000)
                     }
                 })

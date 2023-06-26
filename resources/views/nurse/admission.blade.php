@@ -33,7 +33,7 @@
                         <el-button class="ms-2" type="primary" size="mini" @click="printTable">Print Table</el-button>
                     </div>
                 </div>
-                <el-table v-if="this.tableData" :data="usersTable" style="width: 100%" border height="500" v-loading="tableLoad" element-loading-text="Loading. Please wait..." element-loading-spinner="el-icon-loading">
+                <el-table v-if="this.tableData" :data="usersTable" style="width: 100%" border height="400" v-loading="tableLoad" element-loading-text="Loading. Please wait..." element-loading-spinner="el-icon-loading">
                     <el-table-column label="No." type="index" width="50">
                     </el-table-column>
                     <el-table-column sortable label="Identification No." width="200" prop="identification">
@@ -156,12 +156,26 @@
                             <el-input v-model="viewStudent.guardianPhone_number" disabled></el-input>
                         </div>
                     </div>
+                    <div class="row justify-content-center align-items-center g-2 mb-3">
+                        <div class="col-lg-6 col-md-12">
+                            <el-form>
+                                <el-form-item label="Medical Status" prop="this.med_Status">
+                                    <el-radio-group v-model="this.med_Status">
+                                      <el-radio label="Pending"></el-radio>
+                                      <el-radio label="Complete"></el-radio>
+                                      <el-radio label="Open"></el-radio>
+                                    </el-radio-group>
+                                </el-form-item>
+                            </el-form>
+                        </div>
+                    </div>
                     <hr>
                     <div id="categoryStep" v-if="active == 0" class="step container-fluid mt-2">
                         <div class="row justify-content-center align-items-center g-2 mb-4">
                             <div class="col-lg-4 col-md-12">
                                 <div>
                                     <a href="javascript:void(0)" @click="cbc">
+                                        <div style="z-index: 999" v-for="cbc in hasCBC" class="position-absolute p-2" v-if="viewStudent.id === cbc.student_id"><i class="fas fa-check-circle text-success"></i> </div>
                                         <div class="card card-overflow-hidden cbc-checkup" :class="{'card-border-cbc': this.isCBC}">
                                             <img class="w-25 mx-auto" src="<?php echo asset('assets/img/cbc.png') ?>" alt="Complete Blood Count">
                                             <div :class="this.isCBC ? 'card-with-hover-active' : 'card-with-hover'">
@@ -177,6 +191,7 @@
                                 <div>
                                     <a href="javascript:void(0)" @click="urinalysis">
                                         <div class="card card-overflow-hidden urinalysis-checkup" :class="{'card-border-urinalysis': this.isUrinalysis}">
+                                            <div style="z-index: 999" v-for="urine in hasUrinalysis" class="position-absolute p-2" v-if="viewStudent.id === urine.student_id"><i class="fas fa-check-circle text-success"></i> </div>
                                             <img class="w-25 mx-auto" src="<?php echo asset('assets/img/urinalysis.png') ?>" alt="Urinalysis">
                                             <div :class="this.isUrinalysis ? 'card-with-hover-active' : 'card-with-hover'">
                                                 <div class="card-text-center">
@@ -191,6 +206,7 @@
                                 <div>
                                     <a href="javascript:void(0)" @click="fecalysis">
                                         <div class="card card-overflow-hidden fecalysis-checkup" :class="{'card-border-fecalysis': this.isFecalysis}">
+                                            <div style="z-index: 999" v-for="fecal in hasFecalysis" class="position-absolute p-2" v-if="viewStudent.id === fecal.student_id"><i class="fas fa-check-circle text-success"></i> </div>
                                             <img class="w-25 mx-auto" src="<?php echo asset('assets/img/fecalysis.png') ?>" alt="Fecalysis">
                                             <div :class="this.isFecalysis ? 'card-with-hover-active' : 'card-with-hover'">
                                                 <div class="card-text-center">
@@ -207,6 +223,7 @@
                                 <div>
                                     <a href="javascript:void(0)" @click="xray">
                                         <div class="card card-overflow-hidden xray-checkup" :class="{'card-border-xray': this.isXray}">
+                                            <div style="z-index: 999" v-for="xray in hasXray" class="position-absolute p-2" v-if="viewStudent.id === xray.student_id"><i class="fas fa-check-circle text-success"></i> </div>
                                             <img class="w-25 mx-auto" src="<?php echo asset('assets/img/x-ray.png') ?>" alt="Chest X-ray">
                                             <div :class="this.isXray ? 'card-with-hover-active' : 'card-with-hover'">
                                                 <div class="card-text-center">
@@ -221,6 +238,7 @@
                                 <div>
                                     <a href="javascript:void(0)" @click="antigen">
                                         <div class="card card-overflow-hidden antigen-checkup" :class="{'card-border-antigen': this.isAntigen}">
+                                            <div style="z-index: 999" v-for="antigen in hasAntigen" class="position-absolute p-2" v-if="viewStudent.id === antigen.student_id"><i class="fas fa-check-circle text-success"></i> </div>
                                             <img class="w-25 mx-auto" src="<?php echo asset('assets/img/hepa-antigen.png') ?>" alt="Heppa B Antigen">
                                             <div :class="this.isAntigen ? 'card-with-hover-active' : 'card-with-hover'">
                                                 <div class="card-text-center">
@@ -235,6 +253,7 @@
                                 <div>
                                     <a href="javascript:void(0)" @click="vaccine">
                                         <div class="card card-overflow-hidden vaccine-checkup" :class="{'card-border-vaccine': this.isVaccine}">
+                                            <div style="z-index: 999" v-for="vaxx in hasVaccine" class="position-absolute p-2" v-if="viewStudent.id === vaxx.student_id"><i class="fas fa-check-circle text-success"></i> </div>
                                             <img class="w-25 mx-auto" src="<?php echo asset('assets/img/hepa-vaccine.png') ?>" alt="Heppa B Vaccine">
                                             <div :class="this.isVaccine ? 'card-with-hover-active' : 'card-with-hover'">
                                                 <div class="card-text-center">
@@ -266,10 +285,11 @@
                         </div>
                         <div v-if="this.isUrinalysis" class="container-fluid">
                             <div class="d-flex justify-content-center">
+                              <input type="file" ref="file" class="form-control" @change="fileUpload" />
                             </div>
                             <div class="d-flex justify-content-center align-items-center mt-2" v-if="active == 1">
                                 <button class="btn btn-outline-primary btn-sm me-2" @click="back"><i class="fas fa-arrow-circle-left pe-2"></i>Back</button>
-                                <button class="btn btn-outline-primary btn-sm" @click="next">Next <i class="fas fa-arrow-circle-right ps-2"></i></button>
+                                <button :loading="loadButton" class="btn btn-outline-primary btn-sm" @click="submitUrinalysis">Submit <i class="fas fa-arrow-circle-right ps-2"></i></button>
                             </div>
                         </div>
                         <div v-if="this.isFecalysis" class="container-fluid">

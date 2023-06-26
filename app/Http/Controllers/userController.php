@@ -105,6 +105,7 @@ class userController extends Controller
         $storeStudent['age'] = $age;
         $storeStudent['citizen'] = $citizen;
         $storeStudent['civil'] = $civil;
+        $storeStudent['med_status'] = "Open";
         $storeStudent->save();
 
         if ($storeStudent) {
@@ -181,6 +182,7 @@ class userController extends Controller
                     "classSection" => $data_row->classSection,
                     'yearandsection' => $yearSect,
                     "age" => $data_row->age,
+                    "medStatus" => $data_row->med_status,
                 );
 
                 array_push($user_data, $array_data);

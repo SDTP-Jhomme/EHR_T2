@@ -50,8 +50,9 @@
                                     <label>Request Date</label>
                                     <el-date-picker
                                     v-model="request.date"
-                                    type="date"
-                                    placeholder="Pick a day" :picker-options="datePickerOptions">
+                                    type="datetime"
+                                    default-time="8:00:00"
+                                    placeholder="Select day and time" :picker-options="datePickerOptions">
                                     </el-date-picker>
                                 </div>
                             </div>
@@ -143,7 +144,7 @@
                                         <h3 class="text-uppercase">Medical Records</h3>
                                     </div>
                                     <div class="row justify-content-center align-items-center g-2">
-                                        <div class="col-lg-4 col-md-8 d-flex justify-content-center" v-for="cbc in isCbc" v-if="cbc.student_id == user.id">
+                                        <div class="col-lg-4 col-md-8 d-flex justify-content-center" v-for="cbc in isCbc" :key="cbc.id" v-if="cbc.student_id == user.id">
                                             <label class="text-center text-success">Complete Blood Count</label>                                 
                                             <el-tooltip class="item" effect="dark" content="Complete Blood Count" placement="top">
                                                 <i class="fas fa-folder" style="color: #f8d775; font-size:15rem;" @click="cbcResult = true"></i>
@@ -188,55 +189,56 @@
                         </div>
                     </div>
             </section>
+            <!--CBC Modal -->
+            <el-dialog :visible.sync="cbcResult" class="w-100">
+                <div v-for="cbc in isCbc" class="card mb-3">
+                    <div class="card-body">
+                        <img :src="cbc.result" class="img-fluid rounded-top" alt="CBC Result">
+                    </div>
+                </div>
+            </el-dialog>
+            <!--Antigen Modal -->
+            <el-dialog v-for="antigen in isAntigen" :key="antigen.id" v-if="antigen.id == this.indexIncrement" :visible.sync="antigenResult" class="w-100">
+                <div class="card mb-3">                
+                    <div class="card-body">
+                        <label class="form-label"><span v-text="antigen.dataCreated"></span>-<span v-text="antigen.section"></span></label>
+                        <img  :src="antigen.result" class="img-fluid rounded-top" alt="Antigen Result">
+                    </div>
+                </div>
+            </el-dialog>
+            <!--Vaxx Modal -->
+            <el-dialog :visible.sync="vaxxResult" class="w-100">
+                <div v-for="vaxx in isVaccine" class="card mb-3">                
+                    <div class="card-body">
+                        <img :src="vaxx.result" class="img-fluid rounded-top" alt="Vaccine Result">
+                    </div>
+                </div>
+            </el-dialog>
+            <!--Fecalysis Modal -->
+            <el-dialog :visible.sync="fecalResult" class="w-100">
+                <div v-for="fecal in isFecalysis" class="card mb-3">                
+                    <div class="card-body">
+                        <img :src="fecal.result" class="img-fluid rounded-top" alt="Fecalysis Result">
+                    </div>
+                </div>
+            </el-dialog>
+            <!--Urinalysis Modal -->
+            <el-dialog :visible.sync="urineResult" class="w-100">
+                <div v-for="urine in isUrinalysis" class="card mb-3">                
+                    <div class="card-body">
+                        <img :src="urine.result" class="img-fluid rounded-top" alt="Urinalysis Result">
+                    </div>
+                </div>
+            </el-dialog>
+            <!--x-ray Modal -->
+            <el-dialog :visible.sync="xrayResult" class="w-100">
+                <div v-for="xray in isXray" class="card mb-3">           
+                    <div class="card-body">
+                        <img :src="xray.result" class="img-fluid rounded-top" alt="Xray Result">
+                    </div>
+                </div>
+            </el-dialog>
         </main>
-        <!--CBC Modal -->
-        <el-dialog :visible.sync="cbcResult" class="w-100">
-            <div v-for="cbc in isCbc" class="card">
-                <div class="card-body">
-                    <img :src="cbc.result" class="img-fluid rounded-top" alt="CBC Result">
-                </div>
-            </div>
-        </el-dialog>
-        <!--Antigen Modal -->
-        <el-dialog :visible.sync="antigenResult" class="w-100">
-            <div v-for="antigen in isAntigen" class="card">                
-                <div class="card-body">
-                    <img :src="antigen.result" class="img-fluid rounded-top" alt="Antigen Result">
-                </div>
-            </div>
-        </el-dialog>
-        <!--Vaxx Modal -->
-        <el-dialog :visible.sync="vaxxResult" class="w-100">
-            <div v-for="vaxx in isVaccine" class="card">                
-                <div class="card-body">
-                    <img :src="vaxx.result" class="img-fluid rounded-top" alt="Vaccine Result">
-                </div>
-            </div>
-        </el-dialog>
-        <!--Fecalysis Modal -->
-        <el-dialog :visible.sync="fecalResult" class="w-100">
-            <div v-for="fecal in isFecalysis" class="card">                
-                <div class="card-body">
-                    <img :src="fecal.result" class="img-fluid rounded-top" alt="Fecalysis Result">
-                </div>
-            </div>
-        </el-dialog>
-        <!--Urinalysis Modal -->
-        <el-dialog :visible.sync="urineResult" class="w-100">
-            <div v-for="urine in isUrinalysis" class="card">                
-                <div class="card-body">
-                    <img :src="urine.result" class="img-fluid rounded-top" alt="Urinalysis Result">
-                </div>
-            </div>
-        </el-dialog>
-        <!--x-ray Modal -->
-        <el-dialog :visible.sync="xrayResult" class="w-100">
-            <div v-for="xray in isXray" class="card">           
-                <div class="card-body">
-                    <img :src="xray.result" class="img-fluid rounded-top" alt="Xray Result">
-                </div>
-            </div>
-        </el-dialog>
     </div>
 @include('student/imports/body')
 </body>

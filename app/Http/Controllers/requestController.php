@@ -59,7 +59,7 @@ class requestController extends Controller
                 $address = $this->fetchAddress($data_row);
                 $yearSect = $this->getYrSect($data_row);
                 $created_at = date("F d, Y", strtotime($data_row->created_at));
-                $request_date = date("F d, Y", strtotime($data_row->request_date));
+                $request_date = $data_row->request_date;
 
                 $array_data = array(
                     "id" => $data_row->id,

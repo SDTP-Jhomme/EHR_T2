@@ -76,7 +76,7 @@ Route::get('/nurse/appointments','App\Http\Controllers\nurseController@appointme
 
 Route::get('/nurse-login','App\Http\Controllers\nurseController@nurseLogin')->name('nurse-login');
 Route::get('fetch', 'App\Http\Controllers\nurseController@fetch')->name('fetch');
-Route::post('nurse-logout', 'App\Http\Controllers\nurseController@nurse-logout')->name('nurse-logout');
+Route::post('nurse-logout', 'App\Http\Controllers\nurseController@nurseLogout')->name('nurse-logout');
 
 // nurse store,routes,updates and fetch
 Route::post('/nurse-fetch', 'App\Http\Controllers\nurseController@fetchNurse')->name('fetchNurse');
