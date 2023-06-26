@@ -7,57 +7,30 @@ use App\Models\xrayModel;
 use App\Models\userModel;
 use Illuminate\Support\Facades\Hash;
 use Twilio\Rest\Client;
+use Illuminate\Support\Str;
 
 class xrayController extends Controller
 {
     public function storeXray(Request $request)
     {
-        $password = $this->random_password(8);
+        $student_id = $request->input('student_id');
+        $section = "Complete Blood Count";
+        if ($request->hasFile('file')) {
+            $image = $request->file('file');
+            $extension = $image->getClientOriginalExtension();
+            $randomName = Str::random(20) . '.' . $extension;
+            $image->move(public_path('storage/results'), $randomName);
 
-        $gender = $request->input('gender');
-        $avatar = ($gender == 'Male') ? "assets/avatar/default.png" : "assets/avatar/default-woman.png";
+            $storeStudent = new xrayModel;
+            $storeStudent->student_id = $student_id;
+            $storeStudent->section = $section;
+            $storeStudent->result = 'results/' . $randomName;
+            $storeStudent->save();
+        }
 
-        $hashed_password = Hash::make($password);
-
-        $clientInfoData = $request->all();
-        $clientInfoData['password'] = $hashed_password;
-        $clientInfoData['avatar'] = $avatar;
-        $clientInfoData['section'] = "Chest X-ray (PA)";
-        $clientInfoData['status'] = "Active";
-        $phoneNumber = $clientInfoData['phone_number'];
-        $identification = $clientInfoData['identification'];
-        $clientInfo = userModel::create($clientInfoData);
-
-        // Send an SMS notification
-        $to = $phoneNumber; // Replace with the recipient's phone number
-        $message = 'Use this as your username ' . $identification . ' and this is your Password ' . $password; // Customize the message as needed
-        $twilioSid = env('TWILIO_SID');
-        $twilioToken = env('TWILIO_AUTH_TOKEN');
-        $twilioPhoneNumber = env('TWILIO_PHONE_NUMBER');
-
-        $twilioClient = new Client($twilioSid, $twilioToken);
-        $twilioClient->messages->create($to, [
-            'from' => $twilioPhoneNumber,
-            'body' => $message,
-        ]);
-
-        $xrayData = [
-            'age' => $request->input('age'),
-            'case_No' => $request->input('case_No'),
-            'referred_by' => $request->input('referred_by'),
-            'room_bed' => $request->input('room_bed'),
-            'clinical_impression' => $request->input('clinical_impression'),
-            'type_examination' => $request->input('type_examination'),
-            'section' => "Chest X-ray (PA)",
-        ];
-
-        $xray = xrayModel::create(array_merge($xrayData, ['student_id' => $clientInfo->id]));
-
-        if ($clientInfo && $xray) {
+        if ($storeStudent) {
             $response = array(
-                'password' => $password,
-                'clientInfo' => $clientInfo,
-                'xray' => $xray,
+                'storeStudent' => $storeStudent,
             );
             $response["error"] = false;
             $response["message"] = "Successfully stores data";

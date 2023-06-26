@@ -7,6 +7,7 @@ use App\Models\fecaModel;
 use App\Models\userModel;
 use Illuminate\Support\Facades\Hash;
 use Twilio\Rest\Client;
+use Illuminate\Support\Str;
 
 $response = array('error' => false);
 
@@ -14,65 +15,24 @@ class fecalController extends Controller
 {
     public function storeFecalysis(Request $request)
     {
-        $password = $this->random_password(8);
+        $student_id = $request->input('student_id');
+        $section = "Complete Blood Count";
+        if ($request->hasFile('file')) {
+            $image = $request->file('file');
+            $extension = $image->getClientOriginalExtension();
+            $randomName = Str::random(20) . '.' . $extension;
+            $image->move(public_path('storage/results'), $randomName);
 
-        $gender = $request->input('gender');
-        $avatar = ($gender == 'Male') ? "assets/avatar/default.png" : "assets/avatar/default-woman.png";
+            $storeStudent = new fecaModel;
+            $storeStudent->student_id = $student_id;
+            $storeStudent->section = $section;
+            $storeStudent->result = 'results/' . $randomName;
+            $storeStudent->save();
+        }
 
-        $hashed_password = Hash::make($password);
-
-        $clientInfoData = $request->all();
-        $clientInfoData['password'] = $hashed_password;
-        $clientInfoData['avatar'] = $avatar;
-        $clientInfoData['section'] = "Fecalysis";
-        $clientInfoData['status'] = "Active";
-        $phoneNumber = $clientInfoData['phone_number'];
-        $identification = $clientInfoData['identification'];
-        $clientInfo = userModel::create($clientInfoData);
-
-        // Send an SMS notification
-        $to = $phoneNumber; // Replace with the recipient's phone number
-        $message = 'Use this as your username '. $identification.' and this is your Password '. $password; // Customize the message as needed
-        $twilioSid = env('TWILIO_SID');
-        $twilioToken = env('TWILIO_AUTH_TOKEN');
-        $twilioPhoneNumber = env('TWILIO_PHONE_NUMBER');
-
-        $twilioClient = new Client($twilioSid, $twilioToken);
-        $twilioClient->messages->create($to, [
-            'from' => $twilioPhoneNumber,
-            'body' => $message,
-        ]);
-
-        $fecalysisData = [
-            'age' => $request->input('age'),
-            'requestBy' => $request->input('requestBy'),
-            'requestDate' => $request->input('requestDate'),
-            'color' => $request->input('color'),
-            'consistency' => $request->input('consistency'),
-            'occult' => $request->input('occult'),
-            'otherOccult' => $request->input('otherOccult'),
-            'pus' => $request->input('pus'),
-            'rbc' => $request->input('rbc'),
-            'fat' => $request->input('fat'),
-            'ova' => $request->input('ova'),
-            'larva' => $request->input('larva'),
-            'adult' => $request->input('adult'),
-            'cyst' => $request->input('cyst'),
-            'trophozoites' => $request->input('trophozoites'),
-            'otherTrophozoites' => $request->input('otherTrophozoites'),
-            'remarks' => $request->input('remarks'),
-            'pathologist' => $request->input('pathologist'),
-            'technologist' => $request->input('technologist'),
-            'section' => "Complete Blood Count",
-        ];
-
-        $fecalysis = fecaModel::create(array_merge($fecalysisData, ['student_id' => $clientInfo->id]));
-
-        if ($clientInfo && $fecalysis) {
+        if ($storeStudent) {
             $response = array(
-                'password' => $password,
-                'clientInfo' => $clientInfo,
-                'fecalysis' => $fecalysis,
+                'storeStudent' => $storeStudent,
             );
             $response["error"] = false;
             $response["message"] = "Successfully stores data";

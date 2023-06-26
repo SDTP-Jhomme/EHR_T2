@@ -70,7 +70,7 @@
                                     </el-tooltip>
                                 </div>
                                 <div class="col-auto">
-                                    <el-tooltip class="item" effect="dark" content="Add Result" placement="top-start">
+                                    <el-tooltip class="item" effect="dark" content="Add Results" placement="top-start">
                                         <el-button type="primary" size="mini" @click="handleResult(scope.$index, scope.row)" size="small" icon="el-icon-picture"></el-button>
                                     </el-tooltip>
                                 </div>
@@ -285,7 +285,6 @@
                         </div>
                         <div v-if="this.isUrinalysis" class="container-fluid">
                             <div class="d-flex justify-content-center">
-                              <input type="file" ref="file" class="form-control" @change="fileUpload" />
                             </div>
                             <div class="d-flex justify-content-center align-items-center mt-2" v-if="active == 1">
                                 <button class="btn btn-outline-primary btn-sm me-2" @click="back"><i class="fas fa-arrow-circle-left pe-2"></i>Back</button>
@@ -294,34 +293,38 @@
                         </div>
                         <div v-if="this.isFecalysis" class="container-fluid">
                             <div class="d-flex justify-content-center">
+                                <input type="file" ref="file" class="form-control" @change="fileUpload" />
                             </div>
                             <div class="d-flex justify-content-center align-items-center mt-2" v-if="active == 1">
                                 <button class="btn btn-outline-primary btn-sm me-2" @click="back"><i class="fas fa-arrow-circle-left pe-2"></i>Back</button>
-                                <button class="btn btn-outline-primary btn-sm" @click="next">Next <i class="fas fa-arrow-circle-right ps-2"></i></button>
+                                <button :loading="loadButton" class="btn btn-outline-primary btn-sm" @click="submitFecalysis">Submit <i class="fas fa-arrow-circle-right ps-2"></i></button>
                             </div>
                         </div>
                         <div v-if="this.isXray" class="container-fluid">
                             <div class="d-flex justify-content-center">
+                                <input type="file" ref="file" class="form-control" @change="fileUpload" />
                             </div>
                             <div class="d-flex justify-content-center align-items-center mt-2" v-if="active == 1">
                                 <button class="btn btn-outline-primary btn-sm me-2" @click="back"><i class="fas fa-arrow-circle-left pe-2"></i>Back</button>
-                                <button class="btn btn-outline-primary btn-sm" @click="next">Next <i class="fas fa-arrow-circle-right ps-2"></i></button>
+                                <button :loading="loadButton" class="btn btn-outline-primary btn-sm" @click="submitXray">Submit <i class="fas fa-arrow-circle-right ps-2"></i></button>
                             </div>
                         </div>
                         <div v-if="this.isAntigen" class="container-fluid">
                             <div class="d-flex justify-content-center">
+                                <input type="file" ref="file" class="form-control" @change="fileUpload" />
                             </div>
                             <div class="d-flex justify-content-center align-items-center mt-2" v-if="active == 1">
                                 <button class="btn btn-outline-primary btn-sm me-2" @click="back"><i class="fas fa-arrow-circle-left pe-2"></i>Back</button>
-                                <button class="btn btn-outline-primary btn-sm" @click="next">Next <i class="fas fa-arrow-circle-right ps-2"></i></button>
+                                <button :loading="loadButton" class="btn btn-outline-primary btn-sm" @click="submitAntigen">Submit <i class="fas fa-arrow-circle-right ps-2"></i></button>
                             </div>
                         </div>
                         <div v-if="this.isVaccine" class="container-fluid">
                             <div class="d-flex justify-content-center">
+                                <input type="file" ref="file" class="form-control" @change="fileUpload" />
                             </div>
                             <div class="d-flex justify-content-center align-items-center mt-2" v-if="active == 1">
                                 <button class="btn btn-outline-primary btn-sm me-2" @click="back"><i class="fas fa-arrow-circle-left pe-2"></i>Back</button>
-                                <button class="btn btn-outline-primary btn-sm" @click="next">Next <i class="fas fa-arrow-circle-right ps-2"></i></button>
+                                <button :loading="loadButton" class="btn btn-outline-primary btn-sm" @click="submitVaccine">Submit <i class="fas fa-arrow-circle-right ps-2"></i></button>
                             </div>
                         </div>
                         <div class="progress mt-4" :space="800" :active="active" finish-status="success">
@@ -359,6 +362,7 @@
                 <el-button type="primary" @click="closeViewDialog">Close</el-button>
             </span>
         </el-dialog>
+
         <!-- Edit Dialog -->
         <el-drawer title="Edit Student" :direction="direction" :visible.sync="editDialog" size="50%" :before-close="closeEditDialog">
             <div class="container m-0">

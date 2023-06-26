@@ -74,9 +74,17 @@ Route::get('/nurse/dashboard','App\Http\Controllers\nurseController@dashboard')-
 Route::get('/nurse/admission','App\Http\Controllers\nurseController@admission')->name('nurse-admission');
 Route::get('/nurse/appointments','App\Http\Controllers\nurseController@appointments')->name('nurse-appointments');
 
-Route::get('/nurse-login','App\Http\Controllers\nurseController@nurseLogin')->name('nurse-login');
+Route::get('/nurse/login','App\Http\Controllers\nurseController@nurseLogin')->name('nurse-login');
 Route::get('fetch', 'App\Http\Controllers\nurseController@fetch')->name('fetch');
+<<<<<<< HEAD
 Route::post('nurse-logout', 'App\Http\Controllers\nurseController@nurseLogout')->name('nurse-logout');
+=======
+Route::post('nurse-logout', 'App\Http\Controllers\nurseController@nurseLogout')->name('nurseLogout');
+
+//appointment
+Route::post('appointment-approved', 'App\Http\Controllers\requestController@approvedStatus')->name('approvedStatus');
+Route::post('appointment-rejected', 'App\Http\Controllers\requestController@rejectedStatus')->name('rejectedStatus');
+>>>>>>> 5e94e9f11af495f432d3bd6b636c99169edf9323
 
 // nurse store,routes,updates and fetch
 Route::post('/nurse-fetch', 'App\Http\Controllers\nurseController@fetchNurse')->name('fetchNurse');
