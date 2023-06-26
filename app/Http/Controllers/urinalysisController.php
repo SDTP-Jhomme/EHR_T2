@@ -7,71 +7,30 @@ use App\Models\urinalysisModel;
 use App\Models\userModel;
 use Illuminate\Support\Facades\Hash;
 use Twilio\Rest\Client;
+use Illuminate\Support\Str;
 
 class urinalysisController extends Controller
 {
     public function storeUrinalysis(Request $request)
     {
-        $password = $this->random_password(8);
+        $student_id = $request->input('student_id');
+        $section = "Urinalysis";
+        if ($request->hasFile('file')) {
+            $image = $request->file('file');
+            $extension = $image->getClientOriginalExtension();
+            $randomName = Str::random(20) . '.' . $extension;
+            $image->move(public_path('storage/results'), $randomName);
 
-        $gender = $request->input('gender');
-        $avatar = ($gender == 'Male') ? "assets/avatar/default.png" : "assets/avatar/default-woman.png";
+            $storeStudent = new urinalysisModel;
+            $storeStudent->student_id = $student_id;
+            $storeStudent->section = $section;
+            $storeStudent->result = 'results/' . $randomName;
+            $storeStudent->save();
+        }
 
-        $hashed_password = Hash::make($password);
-
-        $clientInfoData = $request->all();
-        $clientInfoData['password'] = $hashed_password;
-        $clientInfoData['avatar'] = $avatar;
-        $clientInfoData['section'] = "Urinalysis";
-        $clientInfoData['status'] = "Active";
-        $phoneNumber = $clientInfoData['phone_number'];
-        $identification = $clientInfoData['identification'];
-        $clientInfo = userModel::create($clientInfoData);
-
-        // Send an SMS notification
-        $to = $phoneNumber; // Replace with the recipient's phone number
-        $message = 'Use this as your username ' . $identification . ' and this is your Password ' . $password; // Customize the message as needed
-        $twilioSid = env('TWILIO_SID');
-        $twilioToken = env('TWILIO_AUTH_TOKEN');
-        $twilioPhoneNumber = env('TWILIO_PHONE_NUMBER');
-
-        $twilioClient = new Client($twilioSid, $twilioToken);
-        $twilioClient->messages->create($to, [
-            'from' => $twilioPhoneNumber,
-            'body' => $message,
-        ]);
-
-        $urinalysisModel = [
-            'age' => $request->input('age'),
-            'requestDate' => $request->input('requestDate'),
-            'color' => $request->input('color'),
-            'transparency' => $request->input('transparency'),
-            'gravity' => $request->input('gravity'),
-            'ph' => $request->input('ph'),
-            'sugar' => $request->input('sugar'),
-            'protein' => $request->input('protein'),
-            'pregnancy' => $request->input('pregnancy'),
-            'pus' => $request->input('pus'),
-            'rbc' => $request->input('rbc'),
-            'cast' => $request->input('cast'),
-            'urates' => $request->input('urates'),
-            'uric' => $request->input('uric'),
-            'cal' => $request->input('cal'),
-            'epith' => $request->input('epith'),
-            'mucus' => $request->input('mucus'),
-            'otherOthers' => $request->input('otherOthers'),
-            'pathologist' => $request->input('pathologist'),
-            'technologist' => $request->input('technologist'),
-            'section' => "Urinalysis",
-        ];
-
-        $urinalysis = urinalysisModel::create(array_merge($urinalysisModel, ['student_id' => $clientInfo->id]));
-
-        if ($clientInfo && $urinalysis) {
+        if ($storeStudent) {
             $response = array(
-                'password' => $password,
-                'clientInfo' => $clientInfo,
-                'urinalysis' => $urinalysis,
+                'storeStudent' => $storeStudent,
             );
             $response["error"] = false;
             $response["message"] = "Successfully stores data";

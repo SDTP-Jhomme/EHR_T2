@@ -211,7 +211,7 @@
             },
             logout() {
                 this.fullscreenLoading = true
-                axios.post("{{route('nurse-logout')}}")
+                axios.post("{{route('nurseLogout')}}")
                 .then(response => {
                     // console.log(response);
                     if (response.data.message) {
