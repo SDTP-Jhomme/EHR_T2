@@ -9,14 +9,6 @@ use Illuminate\Support\Facades\Auth;
 
 class studentController extends Controller
 {
-    protected function attemptLogin(Request $request)
-    {
-        $remember = $request->filled('remember'); // Get the value of the "Remember Me" checkbox
-    
-        return $this->guard()->attempt(
-            $this->credentials($request), $remember
-        );
-    }
     public function studentProfile()
     {
         return view('student/profile');
@@ -152,7 +144,6 @@ class studentController extends Controller
 
         $identification = $request->input('identification');
         $password = $request->input('password');
-        $remember = $request->filled('remember'); // Get the value of the "Remember Me" checkbox
 
         $user = userModel::where('identification', $identification)->first();
 

@@ -81,7 +81,6 @@
                 var data = new FormData()
                 data.append("email", this.email)
                 data.append("password", this.password)
-                data.append("remember", this.remember)  
                 axios.post("{{route('department-loginPost')}}", data)
                     .then(response => {
                         if (response.data.error) {
@@ -123,7 +122,6 @@
                 var data = new FormData()
                 data.append("identification", this.studentIdentification)
                 data.append("password", this.password)
-                data.append("remember", this.remember)  
                 axios.post("{{route('student-loginPost')}}", data)
                     .then(response => {
                         if (response.data.error) {

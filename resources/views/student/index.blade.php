@@ -190,18 +190,19 @@
                     </div>
             </section>
             <!--CBC Modal -->
-            <el-dialog :visible.sync="cbcResult" class="w-100">
-                <div v-for="cbc in isCbc" class="card mb-3">
+            <el-dialog v-for="cbc in isCbc" :visible.sync="cbcResult" class="w-100">
+                <div class="card mb-3">
                     <div class="card-body">
+                        <label class="form-label"><span v-text="cbc.dataCreated"></span>-<span>Complete Blood Count</span></label>
                         <img :src="cbc.result" class="img-fluid rounded-top" alt="CBC Result">
                     </div>
                 </div>
             </el-dialog>
             <!--Antigen Modal -->
-            <el-dialog v-for="antigen in isAntigen" :key="antigen.id" v-if="antigen.id == this.indexIncrement" :visible.sync="antigenResult" class="w-100">
+            <el-dialog v-for="antigen in isAntigen" :key="antigen.id" :visible.sync="antigenResult" class="w-100">
                 <div class="card mb-3">                
                     <div class="card-body">
-                        <label class="form-label"><span v-text="antigen.dataCreated"></span>-<span v-text="antigen.section"></span></label>
+                        <label class="form-label"><span v-text="antigen.dataCreated"></span>-<span>Heppa B Antigen</span></label>
                         <img  :src="antigen.result" class="img-fluid rounded-top" alt="Antigen Result">
                     </div>
                 </div>
@@ -210,6 +211,7 @@
             <el-dialog :visible.sync="vaxxResult" class="w-100">
                 <div v-for="vaxx in isVaccine" class="card mb-3">                
                     <div class="card-body">
+                        <label class="form-label"><span v-text="vaxx.dataCreated"></span>-<span>Heppa B Vaccine</span></label>
                         <img :src="vaxx.result" class="img-fluid rounded-top" alt="Vaccine Result">
                     </div>
                 </div>
@@ -218,6 +220,7 @@
             <el-dialog :visible.sync="fecalResult" class="w-100">
                 <div v-for="fecal in isFecalysis" class="card mb-3">                
                     <div class="card-body">
+                        <label class="form-label"><span v-text="fecal.dataCreated"></span>-<span>Fecalysis</span></label>
                         <img :src="fecal.result" class="img-fluid rounded-top" alt="Fecalysis Result">
                     </div>
                 </div>
@@ -226,6 +229,7 @@
             <el-dialog :visible.sync="urineResult" class="w-100">
                 <div v-for="urine in isUrinalysis" class="card mb-3">                
                     <div class="card-body">
+                        <label class="form-label"><span v-text="urine.dataCreated"></span>-<span>Urinalysis</span></label>
                         <img :src="urine.result" class="img-fluid rounded-top" alt="Urinalysis Result">
                     </div>
                 </div>
@@ -234,6 +238,7 @@
             <el-dialog :visible.sync="xrayResult" class="w-100">
                 <div v-for="xray in isXray" class="card mb-3">           
                     <div class="card-body">
+                        <label class="form-label"><span v-text="xray.dataCreated"></span>-<span>Chest X-ray</span></label>
                         <img :src="xray.result" class="img-fluid rounded-top" alt="Xray Result">
                     </div>
                 </div>
