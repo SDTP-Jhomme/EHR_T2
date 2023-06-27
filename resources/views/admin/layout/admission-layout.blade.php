@@ -357,7 +357,7 @@
                         label: "B",
                     },
                     {
-                        year: "C",
+                        value: "C",
                         label: "C",
                     },
                 ],
