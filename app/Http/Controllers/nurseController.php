@@ -68,7 +68,7 @@ class nurseController extends Controller
         return redirect()->route('nurse-dashboard', ['user' => $user]);
         // return view('nurse.dashboard', ['user' => $user]);
     }
-    public function login(Request $request)
+    public function nurse_login(Request $request)
     {
         $identification = $request->input('identification');
         $password = $request->input('password');

@@ -69,7 +69,7 @@ Route::get('nurse/records/vaccine', 'App\Http\Controllers\nurseController@vaccin
 
 
 //nurse login
-Route::post('/nurse-login','App\Http\Controllers\nurseController@login')->name('nurse-loginPost');
+Route::post('/nurse-login','App\Http\Controllers\nurseController@nurse_login')->name('nurse-loginPost');
 Route::get('/nurse/dashboard','App\Http\Controllers\nurseController@dashboard')->name('nurse-dashboard');
 Route::get('/nurse/admission','App\Http\Controllers\nurseController@admission')->name('nurse-admission');
 Route::get('/nurse/appointments','App\Http\Controllers\nurseController@appointments')->name('nurse-appointments');
@@ -151,3 +151,7 @@ Route::get('department/records/urinalysis', 'App\Http\Controllers\medController@
 Route::get('department/records/xray', 'App\Http\Controllers\medController@xrayFile')->name('xrayFile');
 Route::get('department/records/fecalysis', 'App\Http\Controllers\medController@fecalysisFile')->name('fecalysisFile');
 Route::get('department/records/vaccine', 'App\Http\Controllers\medController@vaccineFile')->name('vaccineFile');
+
+//appointment
+Route::post('appointment-approved', 'App\Http\Controllers\requestController@approvedStatus')->name('approvedStatus');
+Route::post('appointment-rejected', 'App\Http\Controllers\requestController@rejectedStatus')->name('rejectedStatus');

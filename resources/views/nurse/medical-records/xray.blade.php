@@ -87,7 +87,7 @@
         </el-main>
         <!----------------------------------------------------------------------------------- Modals/Drawers ----------------------------------------------------------------------------------->
         <!-- View Dialog -->
-        <el-dialog :visible.sync="viewDialog" width="50%" :before-close="closeViewDialog">
+        <el-dialog v-for="xray in isXray" :visible.sync="viewDialog" width="50%" :before-close="closeViewDialog">
             <template #title>
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="fs-5">User<span class="mx-2" v-text="viewStudent.firstname"></span></div>
@@ -162,7 +162,7 @@
                     </div>
                 </div>
                 <hr>
-                <div v-for="xray in isXray" class="card">                
+                <div class="card">                
                     <div class="card-body">
                         <img :src="xray.result" class="img-fluid rounded-top" alt="Antigen Result">
                     </div>

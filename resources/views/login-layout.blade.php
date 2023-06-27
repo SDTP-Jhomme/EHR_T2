@@ -38,10 +38,9 @@
                 var data = new FormData()
                 data.append("identification", this.nurseIdentification)
                 data.append("password", this.password)
-                axios.post("{{route('nurse-loginPost')}}", data)
+                axios.post("{{ route('nurse-loginPost') }}", data)
                     .then(response => {
                         if (response.data.error) {
-                            console.log(response.data.error);
                             this.userErr = response.data.adminErr
                             this.passErr = response.data.passErr
                             setTimeout(() => {
@@ -60,7 +59,7 @@
                             });
                             this.fullscreenLoading = true;
                             setTimeout(() => {
-                                window.location.href = "{{route('nurse-dashboard')}}"
+                                window.location.href = "{{ route('nurse-dashboard') }}"
                             }, 1000)
                         }
                     })
@@ -81,7 +80,7 @@
                 var data = new FormData()
                 data.append("email", this.email)
                 data.append("password", this.password)
-                axios.post("{{route('department-loginPost')}}", data)
+                axios.post("{{ route('department-loginPost') }}", data)
                     .then(response => {
                         if (response.data.error) {
                             this.userErr = response.data.userErr
@@ -101,7 +100,7 @@
                                 showClose: false
                             });
                             setTimeout(() => {
-                                window.location.href = "{{route('department-dashboard')}}"
+                                window.location.href = "{{ route('department-dashboard') }}"
                             }, 1000)
                         }
                     })
@@ -122,8 +121,9 @@
                 var data = new FormData()
                 data.append("identification", this.studentIdentification)
                 data.append("password", this.password)
-                axios.post("{{route('student-loginPost')}}", data)
+                axios.post("{{ route('student-loginPost') }}", data)
                     .then(response => {
+                        console.log(response.data.error);
                         if (response.data.error) {
                             this.userErr = response.data.studentErr
                             this.passErr = response.data.passErr
@@ -142,15 +142,12 @@
                                 showClose: false
                             });
                             setTimeout(() => {
-                                window.location.href = "{{route('student-dashboard')}}"
+                                window.location.href = "{{ route('student-dashboard') }}"
                             }, 1000)
                         }
                     })
                     .catch(error => {
-                        // Handle error response
-                        console.error(error);
-                        // this.$message.error("Cannot submit the form. Please check the error(s).")
-                        return false;
+                        console.error(error.response.data);
                     });
                 // Simulate a loading delay
                 setTimeout(() => {

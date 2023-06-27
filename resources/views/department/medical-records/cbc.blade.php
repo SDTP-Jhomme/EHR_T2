@@ -93,7 +93,7 @@
         </div>
         <!----------------------------------------------------------------------------------- Modals/Drawers ----------------------------------------------------------------------------------->
         <!-- View Dialog -->
-        <el-dialog :visible.sync="viewDialog" width="75%" :before-close="closeViewDialog">
+        <el-dialog v-for="cbc in isCbc" :visible.sync="viewDialog" width="75%" :before-close="closeViewDialog">
             <template #title>
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="fs-5">User<span class="mx-2" v-text="viewStudent.firstname"></span></div>
@@ -169,7 +169,7 @@
                                 </div>
                             </div>
                             <hr>
-                            <div v-for="cbc in isCbc" class="card">                
+                            <div class="card">                
                                 <div class="card-body">
                                     <img :src="cbc.result" class="img-fluid rounded-top" alt="Antigen Result">
                                 </div>

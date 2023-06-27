@@ -240,17 +240,10 @@ class deptController extends Controller
                     return response()->json($response);
                 } else {
                     $hashedPassword = $user->password;
-                    $db_last_login = $user->last_login;
                     if (password_verify($password, $hashedPassword)) {
-                        if ($db_last_login != "") {
-                            $request->session()->put('teacher_id', $user->id);
-                            teacherModel::where('id', $request)
-                                ->update(['last_login' => $date_now]);
-                        } else {
-                            $response["error"] = false;
-                            $request->session()->put('teacher_id', $user->id);
-                            return response()->json($response);
-                        }
+                        $response["error"] = false;
+                        $request->session()->put('teacher_id', $user->id);
+                        return response()->json($response);
                     } else {
                         $response["error"] = true;
                         $response["passErr"] = "Password is incorrect!";

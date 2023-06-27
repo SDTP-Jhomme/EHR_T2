@@ -139,6 +139,43 @@ class studentController extends Controller
     }
     public function login(Request $request)
     {
+        // $identification = $request->input('identification');
+        // $password = $request->input('password');
+
+        // $user = userModel::where('identification', $identification)->first();
+
+        // if (empty($identification)) {
+        //     $response["error"] = true;
+        //     $response["studentErr"] = "Identification is required!";
+        //     return response()->json($response);
+        // }
+        // if (empty($password)) {
+        //     $response["error"] = true;
+        //     $response["passErr"] = "Password is required!";
+        //     return response()->json($response);
+        // }
+        // if ($identification && $password) {
+        //     if (!$user) {
+        //         $response["error"] = true;
+        //         $response["studentErr"] = "identification is incorrect!";
+        //         return response()->json($response);
+        //     } else {
+        //         $hashedPassword = $user->password;
+        //         if (password_verify($password, $hashedPassword)) {
+        //             $response["error"] = false;
+        //             $request->session()->put('student_id', $user->id);
+        //             return response()->json($response);
+        //         } else {
+        //             $response["error"] = true;
+        //             $response["passErr"] = "Password is incorrect!";
+        //             return response()->json($response);
+        //         }
+        //     }
+        // }else{
+        //     $response["error"] = true;
+        //     $response["studentErr"] = "identification is incorrect!";
+        //     return response()->json($response , 500);
+        // }
         date_default_timezone_set("Asia/Manila");
         $date_now = date("m-d-Y");
 
@@ -172,17 +209,10 @@ class studentController extends Controller
                     return response()->json($response);
                 } else {
                     $hashedPassword = $user->password;
-                    $db_last_login = $user->last_login;
                     if (password_verify($password, $hashedPassword)) {
-                        if ($db_last_login != "") {
-                            $request->session()->put('student_id', $user->id);
-                            userModel::where('id', $request)
-                                ->update(['last_login' => $date_now]);
-                        } else {
-                            $response["error"] = false;
-                            $request->session()->put('student_id', $user->id);
-                            return response()->json($response);
-                        }
+                        $response["error"] = false;
+                        $request->session()->put('student_id', $user->id);
+                        return response()->json($response);
                     } else {
                         $response["error"] = true;
                         $response["passErr"] = "Password is incorrect!";
@@ -232,7 +262,8 @@ class studentController extends Controller
     {
         $yearSect = $data_row->year . " - Section " . $data_row->classSection;
         return $yearSect;
-    }public function loginAll(Request $request)
+    }
+    public function loginAll(Request $request)
     {
 
         return view('login');
