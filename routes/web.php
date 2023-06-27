@@ -50,7 +50,7 @@ Route::post('fetch-cbc', 'App\Http\Controllers\cbcController@fetchCbc')->name('f
 Route::post('fetch-urinalysis', 'App\Http\Controllers\urinalysisController@fetchUrinalysis')->name('fetchUrinalysis');
 Route::post('fetch-xray', 'App\Http\Controllers\xrayController@fetchXray')->name('fetchXray');
 Route::post('fetch-fecalysis', 'App\Http\Controllers\fecalController@fetchFecalysis')->name('fetchFecalysis');
-Route::post('fetch-vaccine', 'App\Http\Controllers\fecalController@fetchVaccine')->name('fetchVaccine');
+Route::post('fetch-vaccine', 'App\Http\Controllers\vaxxController@fetchVaccine')->name('fetchVaccine');
 
 //admin pages records
 Route::get('admin/records/cbc', 'App\Http\Controllers\medController@cbcPage')->name('cbcPage');
@@ -76,15 +76,7 @@ Route::get('/nurse/appointments','App\Http\Controllers\nurseController@appointme
 
 Route::get('/nurse/login','App\Http\Controllers\nurseController@nurseLogin')->name('nurse-login');
 Route::get('fetch', 'App\Http\Controllers\nurseController@fetch')->name('fetch');
-<<<<<<< HEAD
-Route::post('nurse-logout', 'App\Http\Controllers\nurseController@nurseLogout')->name('nurse-logout');
-=======
 Route::post('nurse-logout', 'App\Http\Controllers\nurseController@nurseLogout')->name('nurseLogout');
-
-//appointment
-Route::post('appointment-approved', 'App\Http\Controllers\requestController@approvedStatus')->name('approvedStatus');
-Route::post('appointment-rejected', 'App\Http\Controllers\requestController@rejectedStatus')->name('rejectedStatus');
->>>>>>> 5e94e9f11af495f432d3bd6b636c99169edf9323
 
 // nurse store,routes,updates and fetch
 Route::post('/nurse-fetch', 'App\Http\Controllers\nurseController@fetchNurse')->name('fetchNurse');

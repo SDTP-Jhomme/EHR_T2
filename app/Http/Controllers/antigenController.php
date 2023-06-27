@@ -15,30 +15,45 @@ class antigenController extends Controller
     public function storeAntigen(Request $request)
     {
         $student_id = $request->input('student_id');
+        $med_status = $request->input('med_status');
         $section = "Heppa B Antigen";
+
+        $storeStudent = null; // Initialize the variable
+
+        // Check if files were uploaded
         if ($request->hasFile('file')) {
-            $image = $request->file('file');
-            $extension = $image->getClientOriginalExtension();
-            $randomName = Str::random(20) . '.' . $extension;
-            $image->move(public_path('storage/results'), $randomName);
+            $files = $request->file('file');
 
-            $storeStudent = new antigenModel;
-            $storeStudent->student_id = $student_id;
-            $storeStudent->section = $section;
-            $storeStudent->result = 'results/' . $randomName;
-            $storeStudent->save();
-        }
+            // Loop through each uploaded file
+            foreach ($files as $file) {
+                $extension = $file->getClientOriginalExtension();
+                $randomName = Str::random(20) . '.' . $extension;
+                $file->move(public_path('storage/results'), $randomName);
 
-        if ($storeStudent) {
-            $response = array(
+                // Store the file information in the database
+                $storeStudent = new antigenModel;
+                $storeStudent->student_id = $student_id;
+                $storeStudent->section = $section;
+                $storeStudent->result = 'results/' . $randomName;
+                $storeStudent->save();
+            }
+
+            // Update the medical status
+            $updateMed = userModel::where('med_status', $med_status)->update(['med_status' => $med_status]);
+
+            $response = [
                 'storeStudent' => $storeStudent,
-            );
-            $response["error"] = false;
-            $response["message"] = "Successfully stores data";
+                'updateMed' => $updateMed,
+                'error' => false,
+                'message' => 'Successfully stored data',
+            ];
+
             return response()->json($response);
         } else {
-            $response["error"] = true;
-            $response["message"] = "Failed to store data";
+            $response = [
+                'error' => true,
+                'message' => 'No files were uploaded',
+            ];
 
             return response()->json($response, 500);
         }
@@ -120,7 +135,7 @@ class antigenController extends Controller
                     "midname" => $data_row->midname,
                     "birthdate" => $birthdate,
                     "gender" => $data_row->gender,
-                    "avatar" => $avatar,
+                    "avatar" => '../../storage/'.$data_row->avatar,
                     "year" => $data_row->year,
                     "course" => $data_row->course,
                     "civil" => $data_row->civil,
@@ -139,6 +154,7 @@ class antigenController extends Controller
                     "guardianMname" => $guardianMname,
                     "guardianLname" => $guardianLname,
                     "guardianPhone_number" => $data_row->contact_person_num,
+                    "medStatus" => $data_row->med_status,
                 );
                 
 

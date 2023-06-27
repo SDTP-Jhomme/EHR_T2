@@ -11,18 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('nurse_data', function (Blueprint $table) {
-            $table->string('identification')->nullable();
-            $table->string('firstname')->nullable();
-            $table->string('midname')->nullable();
-            $table->string('lastname')->nullable();
-            $table->string('gender')->nullable();
-            $table->string('phone_number')->nullable();
-            $table->string('birthdate')->nullable();
-            $table->string('street')->nullable();
-            $table->string('barangay')->nullable();
-            $table->string('city')->nullable();
-        });
+        // Schema::create('nurse_data', function (Blueprint $table) {
+        //     $table->string('identification')->nullable();
+        //     $table->string('firstname')->nullable();
+        //     $table->string('midname')->nullable();
+        //     $table->string('lastname')->nullable();
+        //     $table->string('gender')->nullable();
+        //     $table->string('phone_number')->nullable();
+        //     $table->string('birthdate')->nullable();
+        //     $table->string('street')->nullable();
+        //     $table->string('barangay')->nullable();
+        //     $table->string('city')->nullable();
+        // });
     }
 
     /**

@@ -107,9 +107,8 @@
                 resultDialog: false,
                 viewResultDialog: false,
                 openAddDrawer: false,
-                fileImg:null,
+                fileImg:[],
                 medStatus:"",
-                med_Status:"",
                 isCBC: false,
                 isUrinalysis: false,
                 isFecalysis: false,
@@ -407,9 +406,6 @@
                         this.pageSize = 10
                     }
                 },
-                medStatus(value) {
-                    this.med_Status = value.medStatus ? value.medStatus : "";
-                }
             },
         computed: {
             usersTable() {
@@ -574,9 +570,6 @@
                 localStorage.setItem("student_id", row.id)
                 this.viewStudent = row;
                 this.resultDialog = true;
-                this.medStatus={
-                    med_Status: row.medStatus,
-                }
             },
             handleView(index, row) {
                 this.viewStudent = row;
@@ -673,7 +666,6 @@
                     .then(response => {
                         if (response) {
                             this.hasCBC = response.data;
-                        console.log(this.hasCBC);
                         }
                     })
                     .catch(error => {
@@ -732,7 +724,7 @@
                         }
                     })
                     .catch(error => {
-                        console.error(error);
+                        console.error(error.response.data);
                     });
             },
             getData() {
@@ -983,50 +975,36 @@
                 this.isAntigen = false;
                 this.isVaccine = !this.isVaccine;
             },
-            fileUpload(event) {
-                const files = Array.from(event.target.files);
-                const allowedTypes = ["image/jpeg"];
-                const maxSize = 2000000; // 2MB
-
-                // Clear previous file selection and error message
-                this.fileImg = null;
-                this.error = false;
-
-                const invalidFiles = [];
-                const validFiles = [];
-
-                files.forEach((file) => {
-                    // Check file type
-                    if (!allowedTypes.includes(file.type)) {
-                    invalidFiles.push(file);
-                    return;
+            fileUpload() {
+                if (this.$refs.file.files.length > 0) {
+                    if (this.$refs.file.files[0].type != "image/jpeg") {
+                        this.$message.error("Result image must be in JPG format!");
+                        this.fileImg = [];
+                        this.error = true;
+                        this.$refs.file.value = null;
+                    } else {
+                        this.error = false;
                     }
-
-                    // Check file size
-                    if (file.size > maxSize) {
-                    invalidFiles.push(file);
-                    return;
-                    }
-
-                    validFiles.push(file);
-                });
-
-                if (invalidFiles.length > 0) {
-                    invalidFiles.forEach((file) => {
-                    this.$message.error(
-                        file.name +
-                        " is invalid. Please make sure it is a JPG image and does not exceed 2MB."
-                    );
-                    });
-                    this.error = true;
-                    this.$refs.file.value = null;
-                    return;
                 }
-
-                this.filesToUpload = validFiles;
-                this.previewFiles(validFiles);
+                if (this.$refs.file.files.length > 0) {
+                    if (this.$refs.file.files[0].size > 2000000) {
+                        this.$message.error("Result image size can not exceed 2MB!");
+                        this.fileImg = [];
+                        this.error = true;
+                        this.$refs.file.value = null;
+                    } else {
+                        this.error = false;
+                    }
+                }
+                if (!this.error) {
+                    this.fileImg = this.$refs.file.files[0];
+                    const reader = new FileReader();
+                    reader.readAsDataURL(this.fileImg);
+                    reader.onload = (e) => {
+                        this.fileUrl = e.target.result;
+                    };
+                }
             },
-
             submitCbc(){
                 if (this.$refs.file.files.length === 0) {
                     this.$message.error("Insert Result image first!");
@@ -1036,8 +1014,11 @@
                 const student_id = localStorage.getItem("student_id");
                 var newData = new FormData()
                 newData.append("student_id", student_id)
-                newData.append("med_status", this.med_Status)
-                newData.append("file", this.fileImg)
+                newData.append("med_status", this.viewStudent.medStatus);
+                const files = this.$refs.file.files;
+                for (let i = 0; i < files.length; i++) {
+                newData.append("file[]", files[i]);
+                }
                 axios.post("{{route('storeCbc')}}", newData)
                     .then(res => {
                         if (res) {
@@ -1049,63 +1030,18 @@
                                     message: 'Results has been uploaded successfully!',
                                     type: 'success'
                                 });
-                                localStorage.removeItem("active")
-                                localStorage.removeItem("student_id")
-                                localStorage.removeItem("isCBC")
-                                localStorage.removeItem("isUrinalysis")
-                                localStorage.removeItem("isFecalysis")
-                                localStorage.removeItem("isXray")
-                                localStorage.removeItem("isAntigen")
-                                localStorage.removeItem("isVaccine")
                                 this.resultDialog = false;
+                                localStorage.clear();
                                 window.location.reload(true);
                             }, 500)
                         }
+                        this.active--;
                     })
                     .catch(error => {
-                        console.error(error.response.data);
+                        console.error(error.response);
                     });
                 }
             },
-<<<<<<< HEAD
-            submitUrinalysis() {
-            if (this.fileList.length === 0) {
-                this.$message.error("Insert Result image first!");
-                this.error = true;
-            } else {
-                this.loadButton = true;
-                const student_id = localStorage.getItem("student_id");
-                const promises = [];
-
-                for (let i = 0; i < this.fileList.length; i++) {
-                const file = this.fileList[i];
-                const newData = new FormData();
-                newData.append("student_id", student_id);
-                newData.append("med_status", this.med_Status);
-                newData.append("file", file);
-
-                promises.push(
-                    axios.post("{{route('storeCbc')}}", newData)
-                    .then(res => {
-                        // handle success
-                    })
-                    .catch(error => {
-                        // handle error
-                    })
-                );
-                }
-
-                Promise.all(promises)
-                .then(() => {
-                    setTimeout(() => {
-                    // handle overall success
-                    }, 500);
-                })
-                .catch(error => {
-                    console.error(error.response.data);
-                });
-            }
-=======
             submitUrinalysis(){
                 if (this.$refs.file.files.length === 0) {
                     this.$message.error("Insert Result image first!");
@@ -1115,7 +1051,10 @@
                 const student_id = localStorage.getItem("student_id");
                 var newData = new FormData()
                 newData.append("student_id", student_id)
-                newData.append("file", this.fileImg)
+                const files = this.$refs.file.files;
+                for (let i = 0; i < files.length; i++) {
+                newData.append("file[]", files[i]);
+                }
                 axios.post("{{route('storeUrinalysis')}}", newData)
                     .then(res => {
                         if (res) {
@@ -1127,18 +1066,12 @@
                                     message: 'Results has been uploaded successfully!',
                                     type: 'success'
                                 });
-                                localStorage.removeItem("active")
-                                localStorage.removeItem("student_id")
-                                localStorage.removeItem("isCBC")
-                                localStorage.removeItem("isUrinalysis")
-                                localStorage.removeItem("isFecalysis")
-                                localStorage.removeItem("isXray")
-                                localStorage.removeItem("isAntigen")
-                                localStorage.removeItem("isVaccine")
                                 this.resultDialog = false;
+                                localStorage.clear();
                                 window.location.reload(true);
                             }, 500)
                         }
+                        this.active--;
                     })
                     .catch(error => {
                         console.error(error.response.data);
@@ -1154,7 +1087,10 @@
                 const student_id = localStorage.getItem("student_id");
                 var newData = new FormData()
                 newData.append("student_id", student_id)
-                newData.append("file", this.fileImg)
+                const files = this.$refs.file.files;
+                for (let i = 0; i < files.length; i++) {
+                newData.append("file[]", files[i]);
+                }
                 axios.post("{{route('storeFecalysis')}}", newData)
                     .then(res => {
                         if (res) {
@@ -1166,18 +1102,12 @@
                                     message: 'Results has been uploaded successfully!',
                                     type: 'success'
                                 });
-                                localStorage.removeItem("active")
-                                localStorage.removeItem("student_id")
-                                localStorage.removeItem("isCBC")
-                                localStorage.removeItem("isUrinalysis")
-                                localStorage.removeItem("isFecalysis")
-                                localStorage.removeItem("isXray")
-                                localStorage.removeItem("isAntigen")
-                                localStorage.removeItem("isVaccine")
                                 this.resultDialog = false;
+                                localStorage.clear();
                                 window.location.reload(true);
                             }, 500)
                         }
+                        this.active--;
                     })
                     .catch(error => {
                         console.error(error.response.data);
@@ -1193,7 +1123,10 @@
                 const student_id = localStorage.getItem("student_id");
                 var newData = new FormData()
                 newData.append("student_id", student_id)
-                newData.append("file", this.fileImg)
+                const files = this.$refs.file.files;
+                for (let i = 0; i < files.length; i++) {
+                newData.append("file[]", files[i]);
+                }
                 axios.post("{{route('storeXray')}}", newData)
                     .then(res => {
                         if (res) {
@@ -1205,18 +1138,12 @@
                                     message: 'Results has been uploaded successfully!',
                                     type: 'success'
                                 });
-                                localStorage.removeItem("active")
-                                localStorage.removeItem("student_id")
-                                localStorage.removeItem("isCBC")
-                                localStorage.removeItem("isUrinalysis")
-                                localStorage.removeItem("isFecalysis")
-                                localStorage.removeItem("isXray")
-                                localStorage.removeItem("isAntigen")
-                                localStorage.removeItem("isVaccine")
                                 this.resultDialog = false;
+                                localStorage.clear();
                                 window.location.reload(true);
                             }, 500)
                         }
+                        this.active--;
                     })
                     .catch(error => {
                         console.error(error.response.data);
@@ -1232,7 +1159,10 @@
                 const student_id = localStorage.getItem("student_id");
                 var newData = new FormData()
                 newData.append("student_id", student_id)
-                newData.append("file", this.fileImg)
+                const files = this.$refs.file.files;
+                for (let i = 0; i < files.length; i++) {
+                newData.append("file[]", files[i]);
+                }
                 axios.post("{{route('storeAntigen')}}", newData)
                     .then(res => {
                         if (res) {
@@ -1244,18 +1174,12 @@
                                     message: 'Results has been uploaded successfully!',
                                     type: 'success'
                                 });
-                                localStorage.removeItem("active")
-                                localStorage.removeItem("student_id")
-                                localStorage.removeItem("isCBC")
-                                localStorage.removeItem("isUrinalysis")
-                                localStorage.removeItem("isFecalysis")
-                                localStorage.removeItem("isXray")
-                                localStorage.removeItem("isAntigen")
-                                localStorage.removeItem("isVaccine")
                                 this.resultDialog = false;
+                                localStorage.clear();
                                 window.location.reload(true);
                             }, 500)
                         }
+                        this.active--;
                     })
                     .catch(error => {
                         console.error(error.response.data);
@@ -1271,7 +1195,10 @@
                 const student_id = localStorage.getItem("student_id");
                 var newData = new FormData()
                 newData.append("student_id", student_id)
-                newData.append("file", this.fileImg)
+                const files = this.$refs.file.files;
+                for (let i = 0; i < files.length; i++) {
+                newData.append("file[]", files[i]);
+                }
                 axios.post("{{route('storeVaccine')}}", newData)
                     .then(res => {
                         if (res) {
@@ -1283,24 +1210,17 @@
                                     message: 'Results has been uploaded successfully!',
                                     type: 'success'
                                 });
-                                localStorage.removeItem("active")
-                                localStorage.removeItem("student_id")
-                                localStorage.removeItem("isCBC")
-                                localStorage.removeItem("isUrinalysis")
-                                localStorage.removeItem("isFecalysis")
-                                localStorage.removeItem("isXray")
-                                localStorage.removeItem("isAntigen")
-                                localStorage.removeItem("isVaccine")
                                 this.resultDialog = false;
+                                localStorage.clear();
                                 window.location.reload(true);
                             }, 500)
                         }
+                        this.active--;
                     })
                     .catch(error => {
                         console.error(error.response.data);
                     });
                 }
->>>>>>> 5e94e9f11af495f432d3bd6b636c99169edf9323
             },
             logout() {
                 this.fullscreenLoading = true

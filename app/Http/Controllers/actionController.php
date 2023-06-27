@@ -23,9 +23,9 @@ class actionController extends Controller
     }
     public function studentUpdate(Request $update)
     {
-        $guardianFname= $update->input('guardianFname');
-        $guardianMname= $update->input('guardianMname');
-        $guardianLname= $update->input('guardianLname');
+        $guardianFname = $update->input('guardianFname');
+        $guardianMname = $update->input('guardianMname');
+        $guardianLname = $update->input('guardianLname');
         $contact_person = $guardianFname . " " . $guardianMname . " " . $guardianLname;
         $update_user = [
             'identification' => $update->input('identification'),
@@ -117,12 +117,14 @@ class actionController extends Controller
     }
     public function getDataByMonth()
     {
-        $months = userModel::selectRaw('MONTH(created_at) as month, COUNT(*) as count')
-        ->groupBy('month')
-        ->get();
-        $response =[
+        $months = userModel::selectRaw('EXTRACT(MONTH FROM created_at) as month, COUNT(*) as count')
+            ->groupBy('month')
+            ->get();
+
+        $response = [
             'total' => $months
         ];
+
 
         if ($response) {
             // Success

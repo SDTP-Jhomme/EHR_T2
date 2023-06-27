@@ -22,27 +22,17 @@
                     <div class="collapse" id="Registration">
                         <ul class="nav flex-column sub-menu">
                             <li class="nav-item">
+                                <a class="nav-link" href="{{route('admin-admission')}}"><i class="fas fa-user pe-2"></i>Student</a>
+                            </li>
+                        </ul>
+                        <ul class="nav flex-column sub-menu">
+                            <li class="nav-item">
                                 <a class="nav-link" href="{{route('nurse')}}"><i class="fas fa-user-nurse pe-2"></i>Nurse</a>
                             </li>
                         </ul>
                         <ul class="nav flex-column sub-menu">
                             <li class="nav-item">
-                                <a class="nav-link" href="{{route('teacher')}}"><i class="fas fa-user pe-2"></i>Adviser</a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-                <!-- <li class="nav-item nav-category">Admissions</li> -->
-                <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="collapse" href="#students" aria-expanded="false" aria-controls="students">
-                        <i class="fas fa-users pe-2"></i>
-                        <span class="menu-title">Patients</span>
-                        <i class="menu-arrow"></i>
-                    </a>
-                    <div class="collapse" id="students">
-                        <ul class="nav flex-column sub-menu">
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{route('admin-admission')}}"><i class="fas fa-user pe-2"></i>Admissions</a>
+                                <a class="nav-link" href="{{route('teacher')}}"><i class="fas fa-chalkboard-teacher pe-2"></i>Adviser</a>
                             </li>
                         </ul>
                     </div>

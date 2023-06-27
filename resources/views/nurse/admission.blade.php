@@ -158,19 +158,16 @@
                     </div>
                     <div class="row justify-content-center align-items-center g-2 mb-3">
                         <div class="col-lg-6 col-md-12">
-                            <el-form>
-                                <el-form-item label="Medical Status" prop="this.med_Status">
-                                    <el-radio-group v-model="this.med_Status">
-                                      <el-radio label="Pending"></el-radio>
-                                      <el-radio label="Complete"></el-radio>
-                                      <el-radio label="Open"></el-radio>
-                                    </el-radio-group>
-                                </el-form-item>
-                            </el-form>
+                            <label class="form-label">Medical Status</label>
+                            <el-radio-group v-model="viewStudent.medStatus">
+                              <el-radio :disabled="viewStudent.medStatus == 'Complete'" label="Pending"></el-radio>
+                              <el-radio label="Complete"></el-radio>
+                              <el-radio label="Open"></el-radio>
+                            </el-radio-group>
                         </div>
                     </div>
                     <hr>
-                    <div id="categoryStep" v-if="active == 0" class="step container-fluid mt-2">
+                    <div id="categoryStep" v-if="active == 0" v-loading="tableLoad" class="step container-fluid mt-2">
                         <div class="row justify-content-center align-items-center g-2 mb-4">
                             <div class="col-lg-4 col-md-12">
                                 <div>
@@ -276,7 +273,7 @@
                     <div id="categoryStep" v-if="active == 1" class="step container-fluid mt-2">
                         <div v-if="this.isCBC" class="container-fluid">
                             <div class="d-flex justify-content-center">
-                                <input type="file" ref="file" class="form-control" @change="fileUpload" />
+                                <input type="file" multiple ref="file" class="form-control" @change="fileUpload" />
                             </div>
                             <div class="d-flex justify-content-center align-items-center mt-2" v-if="active == 1">
                                 <button class="btn btn-outline-primary btn-sm me-2" @click="back"><i class="fas fa-arrow-circle-left pe-2"></i>Back</button>
@@ -285,6 +282,7 @@
                         </div>
                         <div v-if="this.isUrinalysis" class="container-fluid">
                             <div class="d-flex justify-content-center">
+                                <input type="file" multiple ref="file" class="form-control" @change="fileUpload" />
                             </div>
                             <div class="d-flex justify-content-center align-items-center mt-2" v-if="active == 1">
                                 <button class="btn btn-outline-primary btn-sm me-2" @click="back"><i class="fas fa-arrow-circle-left pe-2"></i>Back</button>
@@ -293,7 +291,7 @@
                         </div>
                         <div v-if="this.isFecalysis" class="container-fluid">
                             <div class="d-flex justify-content-center">
-                                <input type="file" ref="file" class="form-control" @change="fileUpload" />
+                                <input type="file" multiple ref="file" class="form-control" @change="fileUpload" />
                             </div>
                             <div class="d-flex justify-content-center align-items-center mt-2" v-if="active == 1">
                                 <button class="btn btn-outline-primary btn-sm me-2" @click="back"><i class="fas fa-arrow-circle-left pe-2"></i>Back</button>
@@ -302,7 +300,7 @@
                         </div>
                         <div v-if="this.isXray" class="container-fluid">
                             <div class="d-flex justify-content-center">
-                                <input type="file" ref="file" class="form-control" @change="fileUpload" />
+                                <input type="file" multiple ref="file" class="form-control" @change="fileUpload" />
                             </div>
                             <div class="d-flex justify-content-center align-items-center mt-2" v-if="active == 1">
                                 <button class="btn btn-outline-primary btn-sm me-2" @click="back"><i class="fas fa-arrow-circle-left pe-2"></i>Back</button>
@@ -311,7 +309,7 @@
                         </div>
                         <div v-if="this.isAntigen" class="container-fluid">
                             <div class="d-flex justify-content-center">
-                                <input type="file" ref="file" class="form-control" @change="fileUpload" />
+                                <input type="file" multiple ref="file" class="form-control" @change="fileUpload" />
                             </div>
                             <div class="d-flex justify-content-center align-items-center mt-2" v-if="active == 1">
                                 <button class="btn btn-outline-primary btn-sm me-2" @click="back"><i class="fas fa-arrow-circle-left pe-2"></i>Back</button>
@@ -320,7 +318,7 @@
                         </div>
                         <div v-if="this.isVaccine" class="container-fluid">
                             <div class="d-flex justify-content-center">
-                                <input type="file" ref="file" class="form-control" @change="fileUpload" />
+                                <input type="file" multiple ref="file" class="form-control" @change="fileUpload" />
                             </div>
                             <div class="d-flex justify-content-center align-items-center mt-2" v-if="active == 1">
                                 <button class="btn btn-outline-primary btn-sm me-2" @click="back"><i class="fas fa-arrow-circle-left pe-2"></i>Back</button>

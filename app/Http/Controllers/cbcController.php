@@ -17,36 +17,47 @@ class cbcController extends Controller
         $student_id = $request->input('student_id');
         $med_status = $request->input('med_status');
         $section = "Complete Blood Count";
+
+        $storeStudent = null; // Initialize the variable
+
+        // Check if files were uploaded
         if ($request->hasFile('file')) {
-            $image = $request->file('file');
-            $extension = $image->getClientOriginalExtension();
-            $randomName = Str::random(20) . '.' . $extension;
-            $image->move(public_path('storage/results'), $randomName);
+            $files = $request->file('file');
 
-            $storeStudent = new cbcModel;
-            $storeStudent->student_id = $student_id;
-            $storeStudent->section = $section;
-            $storeStudent->result = 'results/' . $randomName;
-            $storeStudent->save();
+            // Loop through each uploaded file
+            foreach ($files as $file) {
+                $extension = $file->getClientOriginalExtension();
+                $randomName = Str::random(20) . '.' . $extension;
+                $file->move(public_path('storage/results'), $randomName);
+
+                // Store the file information in the database
+                $storeStudent = new cbcModel;
+                $storeStudent->student_id = $student_id;
+                $storeStudent->section = $section;
+                $storeStudent->result = 'results/' . $randomName;
+                $storeStudent->save();
+            }
+
+            // Update the medical status
             $updateMed = userModel::where('med_status', $med_status)->update(['med_status' => $med_status]);
-        }
 
-        if ($storeStudent) {
-            $response = array(
+            $response = [
                 'storeStudent' => $storeStudent,
                 'updateMed' => $updateMed,
-            );
-            $response["error"] = false;
-            $response["message"] = "Successfully stores data";
+                'error' => false,
+                'message' => 'Successfully stored data',
+            ];
+
             return response()->json($response);
         } else {
-            $response["error"] = true;
-            $response["message"] = "Failed to store data";
+            $response = [
+                'error' => true,
+                'message' => 'No files were uploaded',
+            ];
 
             return response()->json($response, 500);
         }
     }
-
     function getFullName($data_row)
     {
         $fullname = ucfirst($data_row->firstname) . " " . trim(substr(ucfirst($data_row->midname), 0, 1), "undefined") . " " . ucfirst($data_row->lastname);
@@ -149,7 +160,7 @@ class cbcController extends Controller
                     "midname" => $data_row->midname,
                     "birthdate" => $birthdate,
                     "gender" => $data_row->gender,
-                    "avatar" => $avatar,
+                    "avatar" => '../../' . $data_row->avatar,
                     "year" => $data_row->year,
                     "course" => $data_row->course,
                     "civil" => $data_row->civil,
@@ -161,13 +172,14 @@ class cbcController extends Controller
                     "phone_number" => $data_row->phone_number,
                     "classSection" => $data_row->classSection,
                     "age" => $data_row->age,
-                    "result" => '../../storage/'.$data_row->result,
+                    "result" => '../../storage/' . $data_row->result,
                     "student_id" => $data_row->student_id,
                     "guardian" => $data_row->contact_person,
                     "guardianFname" => $guardianFname,
                     "guardianMname" => $guardianMname,
                     "guardianLname" => $guardianLname,
                     "guardianPhone_number" => $data_row->contact_person_num,
+                    "medStatus" => $data_row->med_status,
                 );
 
 

@@ -26,35 +26,66 @@
                         <div class="col-sm-12">
                             <div class="home-tab">
                                 <div class="row">
-                                    <div class="col-sm-12">
-                                        <div class="statistics-details d-flex align-items-center justify-content-between">
-                                            <div>
-                                                <p class="statistics-title">Complete Blood Count</p>
-                                                <h3 class="rate-percentage d-flex justify-content-between align-items-center"><i class="fas fa-user-circle me-3 text-muted"></i><span class="text-muted" v-text="this.cbcCount"></h3>
+                                    <div class="row justify-content-between align-items-center g-2 mb-3">
+                                        <div class="col-lg-3 col-md-8">
+                                            <div class="card">
+                                                <img class="card-img-top w-25 mx-auto" src="<?php echo asset('assets/img/cbc.png') ?>" alt="Title">
+                                                <div class="card-body text-center">
+                                                    <h4 class="card-title">Complete Blood Count</h4>
+                                                    <p class="card-text fs-2"><i class="fas fa-poll me-3 text-muted"></i><span class="text-muted" v-text="this.cbcCount"></p>
+                                                </div>
                                             </div>
-                                            <div>
-                                                <p class="statistics-title">Urinalysis</p>
-                                                <h3 class="rate-percentage d-flex justify-content-between align-items-center" ><i class="fas fa-user-circle me-3 text-muted"></i><span class="text-muted" v-text="this.countUrine"></h3>
+                                        </div>
+                                        <div class="col-lg-3 col-md-8">
+                                            <div class="card">
+                                                <img class="card-img-top w-25 mx-auto" src="<?php echo asset('assets/img/urinalysis.png') ?>" alt="Title">
+                                                <div class="card-body text-center">
+                                                    <h4 class="card-title">Urinalysis</h4>
+                                                    <p class="card-text fs-2"><i class="fas fa-poll me-3 text-muted"></i><span class="text-muted" v-text="this.countUrine"></p>
+                                                </div>
                                             </div>
-                                            <div>
-                                                <p class="statistics-title">Fecalysis</p>
-                                                <h3 class="rate-percentage d-flex justify-content-between align-items-center"><i class="fas fa-user-circle me-3 text-muted"></i><span class="text-muted" v-text="this.countfecal"></h3>
-                                            </div>
-                                            <div class="d-none d-md-block">
-                                                <p class="statistics-title">Chest X-ray (PA)</p>
-                                                <h3 class="rate-percentage d-flex justify-content-between align-items-center"><i class="fas fa-user-circle me-3 text-muted"></i><span class="text-muted" v-text="this.countXray"></h3>
-                                            </div>
-                                            <div class="d-none d-md-block">
-                                                <p class="statistics-title">Heppa B Antigen</p>
-                                                <h3 class="rate-percentage d-flex justify-content-between align-items-center"><i class="fas fa-user-circle me-3 text-muted"></i><span class="text-muted" v-text="this.countAntigen"></h3>
-                                            </div>
-                                            <div class="d-none d-md-block">
-                                                <p class="statistics-title">Heppa B Vaccine</p>
-                                                <h3 class="rate-percentage d-flex justify-content-between align-items-center"><i class="fas fa-user-circle me-3 text-muted"></i><span class="text-muted" v-text="this.countVaccine"></h3>
+                                        </div>
+                                        <div class="col-lg-3 col-md-8">
+                                            <div class="card">
+                                                <img class="card-img-top w-25 mx-auto" src="<?php echo asset('assets/img/fecalysis.png') ?>" alt="Title">
+                                                <div class="card-body text-center">
+                                                    <h4 class="card-title">Fecalysis</h4>
+                                                    <p class="card-text fs-2"><i class="fas fa-poll me-3 text-muted"></i><span class="text-muted" v-text="this.countfecal"></p>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row">
+                                    <div class="row justify-content-between align-items-center g-2 mb-4">
+                                        <div class="col-lg-3 col-md-8">
+                                            <div class="card">
+                                                <img class="card-img-top w-25 mx-auto" src="<?php echo asset('assets/img/x-ray.png') ?>" alt="Title">
+                                                <div class="card-body text-center">
+                                                    <h4 class="card-title">Chest X-ray (PA)</h4>
+                                                    <p class="card-text fs-2"><i class="fas fa-poll me-3 text-muted"></i><span class="text-muted" v-text="this.countXray"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-8">
+                                            <div class="card">
+                                                <img class="card-img-top w-25 mx-auto" src="<?php echo asset('assets/img/hepa-antigen.png') ?>" alt="Title">
+                                                <div class="card-body text-center">
+                                                    <h4 class="card-title">Heppa B Antigen</h4>
+                                                    <p class="card-text fs-2"><i class="fas fa-poll me-3 text-muted"></i><span class="text-muted" v-text="this.countAntigen"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-8">
+                                            <div class="card">
+                                                <img class="card-img-top w-25 mx-auto" src="<?php echo asset('assets/img/hepa-vaccine.png') ?>" alt="Title">
+                                                <div class="card-body text-center">
+                                                    <h4 class="card-title">Heppa B Vaccine</h4>
+                                                    <p class="card-text fs-2"><i class="fas fa-poll me-3 text-muted"></i><span class="text-muted" v-text="this.countVaccine"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr class="my-2">
+                                    <div class="row mt-4">
                                         <div class="col-lg-8 d-flex flex-column">
                                             <div class="row flex-grow-1">
                                                 <div class="col-12 grid-margin stretch-card">
