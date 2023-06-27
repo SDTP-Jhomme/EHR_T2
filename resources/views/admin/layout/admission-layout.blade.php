@@ -894,7 +894,7 @@
                                     }
                                 })
                                 .catch(error => {
-                                    console.error(error.response.data);
+                                    console.error(error.response);
                                 });
                         } else {
                             this.$message.error("Cannot submit the form. Please check the error(s).")
