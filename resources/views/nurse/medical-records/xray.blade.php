@@ -5,7 +5,7 @@
 <head>
     @include('nurse/imports/head')
     <link rel="shortcut icon" type="image/png" href="<?php echo asset('assets/img/favicon.png') ?>">
-    @section('title', 'X-Ray Records')
+    @section('title', 'Chest X-ray Records')
 </head>
 
 <body>

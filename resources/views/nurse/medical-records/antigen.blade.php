@@ -5,7 +5,11 @@
 <head>
     @include('nurse/imports/head')
     <link rel="shortcut icon" type="image/png" href="<?php echo asset('assets/img/favicon.png') ?>">
+<<<<<<< HEAD
     @section('title', 'Antigen Records')
+=======
+    @section('title', 'Heppa B Antigen Records')
+>>>>>>> 3108961fee40adc3e30c83f1918d2c698aed3ac9
 </head>
 
 <body>
@@ -174,12 +178,12 @@
         </el-main>
         <!----------------------------------------------------------------------------------- Modals/Drawers ----------------------------------------------------------------------------------->
         <!-- View Dialog -->
-        <el-dialog v-for="antigen in isAntigen" :visible.sync="viewDialog" width="75%" :before-close="closeViewDialog">
+        <el-dialog v-for="antigen in isAntigen" :visible.sync="viewDialog" width="50%" :before-close="closeViewDialog">
             <template #title>
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="fs-5">User<span class="mx-2" v-text="viewStudent.firstname"></span></div>
                     <div class="pe-4">
-                        <el-avatar :size="70" :src="viewStudent.avatar"></el-avatar>
+                        <el-avatar :size="70" :src="antigen.avatar"></el-avatar>
                     </div>
                 </div>
             </template>
