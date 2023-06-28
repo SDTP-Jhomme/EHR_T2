@@ -99,6 +99,7 @@ class xrayController extends Controller
         $response = userModel::join('xray_table', 'client_info.id', '=', 'xray_table.student_id')
         ->select('client_info.*', 'xray_table.*') // Select all columns from 'client_info' and 'cbc' tables
         ->get();
+        ;
         if ($response->count() > 0) {
             foreach ($response as $data_row) {
                 $fullname = $this->fetchFullName($data_row);

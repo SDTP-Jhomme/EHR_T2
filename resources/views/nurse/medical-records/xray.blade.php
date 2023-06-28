@@ -251,7 +251,7 @@
                 <hr>
                 <div class="card">                
                     <div class="card-body">
-                        <img :src="xray.result" class="img-fluid rounded-top w-100" alt="Antigen Result">
+                        <img :src="xray.result" class="img-fluid rounded-top w-100" alt="X-ray Result">
                     </div>
                 </div>
             </div>

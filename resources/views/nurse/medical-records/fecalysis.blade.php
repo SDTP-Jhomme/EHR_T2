@@ -251,7 +251,7 @@
                 <hr>
                 <div class="card">                
                     <div class="card-body">
-                        <img :src="fecal.result" class="img-fluid rounded-top w-100" alt="Antigen Result">
+                        <img :src="fecal.result" class="img-fluid rounded-top w-100" alt="Fecalysis Result">
                     </div>
                 </div>
             </div>
