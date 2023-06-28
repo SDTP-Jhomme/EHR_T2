@@ -135,7 +135,7 @@ class antigenController extends Controller
                     "midname" => $data_row->midname,
                     "birthdate" => $birthdate,
                     "gender" => $data_row->gender,
-                    "avatar" => '../../../'.$data_row->avatar,
+                    "avatar" => '../../' . $data_row->avatar,
                     "year" => $data_row->year,
                     "course" => $data_row->course,
                     "civil" => $data_row->civil,

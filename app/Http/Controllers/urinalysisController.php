@@ -94,11 +94,12 @@ class urinalysisController extends Controller
 
         return $password;
     }
-    public function fetchUrinalysis(){
+    public function fetchUrinalysis()
+    {
         $user_data = array();
         $response = userModel::join('urinalysis_table', 'client_info.id', '=', 'urinalysis_table.student_id')
-        ->select('client_info.*', 'urinalysis_table.*') // Select all columns from 'client_info' and 'cbc' tables
-        ->get();
+            ->select('client_info.*', 'urinalysis_table.*') // Select all columns from 'client_info' and 'cbc' tables
+            ->get();
         if ($response->count() > 0) {
             foreach ($response as $data_row) {
                 $fullname = $this->fetchFullName($data_row);
@@ -134,7 +135,7 @@ class urinalysisController extends Controller
                     "midname" => $data_row->midname,
                     "birthdate" => $birthdate,
                     "gender" => $data_row->gender,
-                    "avatar" => $avatar,
+                    "avatar" => '../../' . $data_row->avatar,
                     "year" => $data_row->year,
                     "course" => $data_row->course,
                     "civil" => $data_row->civil,
@@ -146,7 +147,7 @@ class urinalysisController extends Controller
                     "phone_number" => $data_row->phone_number,
                     "classSection" => $data_row->classSection,
                     "age" => $data_row->age,
-                    "result" => '../../storage/'.$data_row->result,
+                    "result" => '../../assets/' . $data_row->result,
                     "student_id" => $data_row->student_id,
                     "guardian" => $data_row->contact_person,
                     "guardianFname" => $guardianFname,
@@ -162,15 +163,15 @@ class urinalysisController extends Controller
             $response["error"] = true;
             $response["message"] = "Table is empty!";
         }
-            if($user_data){
-                $response["error"] = false;
-                return response()->json($user_data);
-            }else{
-                
-                $response["error"] = true;
-                $response["message"] = "Table is empty!";
-                return response()->json($user_data,500);
-            }
+        if ($user_data) {
+            $response["error"] = false;
+            return response()->json($user_data);
+        } else {
+
+            $response["error"] = true;
+            $response["message"] = "Table is empty!";
+            return response()->json($user_data, 500);
+        }
     }
     function fetchFullName($data_row)
     {

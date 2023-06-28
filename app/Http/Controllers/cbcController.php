@@ -172,7 +172,7 @@ class cbcController extends Controller
                     "phone_number" => $data_row->phone_number,
                     "classSection" => $data_row->classSection,
                     "age" => $data_row->age,
-                    "result" => '../../storage/' . $data_row->result,
+                    "result" => '../../assets/'.$data_row->result,
                     "student_id" => $data_row->student_id,
                     "guardian" => $data_row->contact_person,
                     "guardianFname" => $guardianFname,

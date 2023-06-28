@@ -3,11 +3,12 @@
     <header v-for="user in teacher_data" :key="user.id" id="header" class="sticky-top header-bg ">
         <nav class="navbar">
             <div class="container-fluid d-flex align-items-center">
-                <div class="mx-4">
-                    <div class="row justify-content-start align-items-center g-2">
-                        <div class="col">
-                            <img class="w-50 img-fluid rounded-circle" src="<?php echo asset('assets/img/logo.png') ?>" alt="Logo image"> </a>
-                        </div>
+                <div class="row justify-content-start align-items-center">
+                    <div class="col-auto">
+                        <img class="w-75 img-fluid rounded-circle" src="<?php echo asset('assets/img/logo.png'); ?>" alt="Logo image">
+                    </div>
+                    <div class="col-auto">
+                        <h4 class="text-dark">Electronic Health Record System</h4>
                     </div>
                 </div>
                 <div class="nav">

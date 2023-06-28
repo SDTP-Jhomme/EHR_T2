@@ -29,7 +29,7 @@ class fecalController extends Controller
             foreach ($files as $file) {
                 $extension = $file->getClientOriginalExtension();
                 $randomName = Str::random(20) . '.' . $extension;
-                $file->move(public_path('assets/results/'), $randomName);
+                $file->move(public_path('/assets/results/'), $randomName);
 
                 // Store the file information in the database
                 $storeStudent = new fecaModel;
@@ -136,7 +136,7 @@ class fecalController extends Controller
                     "midname" => $data_row->midname,
                     "birthdate" => $birthdate,
                     "gender" => $data_row->gender,
-                    "avatar" => $avatar,
+                    "avatar" => '../../' . $data_row->avatar,
                     "year" => $data_row->year,
                     "course" => $data_row->course,
                     "civil" => $data_row->civil,
@@ -148,7 +148,7 @@ class fecalController extends Controller
                     "phone_number" => $data_row->phone_number,
                     "classSection" => $data_row->classSection,
                     "age" => $data_row->age,
-                    "result" => '../../storage/'.$data_row->result,
+                    "result" => '../../assets/'.$data_row->result,
                     "student_id" => $data_row->student_id,
                     "guardian" => $data_row->contact_person,
                     "guardianFname" => $guardianFname,

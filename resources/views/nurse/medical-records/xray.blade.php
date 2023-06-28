@@ -1,11 +1,11 @@
-@extends('nurse/medical-records/layout/urinalysis-layout')
+@extends('nurse/medical-records/layout/xray-layout')
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     @include('nurse/imports/head')
     <link rel="shortcut icon" type="image/png" href="<?php echo asset('assets/img/favicon.png') ?>">
-    @section('title', 'CBC Records')
+    @section('title', 'Chest X-ray Records')
 </head>
 
 <body>
@@ -179,7 +179,7 @@
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="fs-5">User<span class="mx-2" v-text="viewStudent.firstname"></span></div>
                     <div class="pe-4">
-                        <el-avatar :size="70" :src="viewStudent.avatar"></el-avatar>
+                        <el-avatar :size="70" :src="xray.avatar"></el-avatar>
                     </div>
                 </div>
             </template>

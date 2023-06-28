@@ -5,7 +5,7 @@
 <head>
     @include('nurse/imports/head')
     <link rel="shortcut icon" type="image/png" href="<?php echo asset('assets/img/favicon.png') ?>">
-    @section('title', 'CBC Records')
+    @section('title', 'Heppa B Antigen Records')
 </head>
 
 <body>
@@ -174,12 +174,12 @@
         </el-main>
         <!----------------------------------------------------------------------------------- Modals/Drawers ----------------------------------------------------------------------------------->
         <!-- View Dialog -->
-        <el-dialog v-for="antigen in isAntigen" :visible.sync="viewDialog" width="75%" :before-close="closeViewDialog">
+        <el-dialog v-for="antigen in isAntigen" :visible.sync="viewDialog" width="50%" :before-close="closeViewDialog">
             <template #title>
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="fs-5">User<span class="mx-2" v-text="viewStudent.firstname"></span></div>
                     <div class="pe-4">
-                        <el-avatar :size="70" :src="viewStudent.avatar"></el-avatar>
+                        <el-avatar :size="70" :src="antigen.avatar"></el-avatar>
                     </div>
                 </div>
             </template>
