@@ -28,7 +28,7 @@ class antigenController extends Controller
             foreach ($files as $file) {
                 $extension = $file->getClientOriginalExtension();
                 $randomName = Str::random(20) . '.' . $extension;
-                $file->move(public_path('storage/results'), $randomName);
+                $file->move(public_path('assets/results/'), $randomName);
 
                 // Store the file information in the database
                 $storeStudent = new antigenModel;
@@ -39,7 +39,7 @@ class antigenController extends Controller
             }
 
             // Update the medical status
-            $updateMed = userModel::where('med_status', $med_status)->update(['med_status' => $med_status]);
+            $updateMed = userModel::where('id', $student_id)->update(['med_status' => $med_status]);
 
             $response = [
                 'storeStudent' => $storeStudent,
@@ -135,7 +135,7 @@ class antigenController extends Controller
                     "midname" => $data_row->midname,
                     "birthdate" => $birthdate,
                     "gender" => $data_row->gender,
-                    "avatar" => '../../storage/'.$data_row->avatar,
+                    "avatar" => '../../../'.$data_row->avatar,
                     "year" => $data_row->year,
                     "course" => $data_row->course,
                     "civil" => $data_row->civil,
@@ -147,7 +147,7 @@ class antigenController extends Controller
                     "phone_number" => $data_row->phone_number,
                     "classSection" => $data_row->classSection,
                     "age" => $data_row->age,
-                    "result" => '../../storage/'.$data_row->result,
+                    "result" => '../../assets/'.$data_row->result,
                     "student_id" => $data_row->student_id,
                     "guardian" => $data_row->contact_person,
                     "guardianFname" => $guardianFname,

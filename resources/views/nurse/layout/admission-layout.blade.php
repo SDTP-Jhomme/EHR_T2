@@ -1,23 +1,4 @@
-@include('nurse/imports/head')
 <title>@yield('title')</title>
-<div id="app">
-    <div v-if="fullscreenLoading" class="fullscreen-loading">
-        <div class="spinner-heart" role="status">
-            <span class="visually-hidden">Loading...</span>
-        </div>
-        <span class="spinner-text">Loading...</span>
-    </div>
-    @include('nurse/imports/nav')
-    @yield('header')
-    <!-- sidebar -->
-    <div class="container-fluid page-wrapper">
-        @include('nurse/imports/sidebar')
-        @yield('sidebar')
-    </div>
-</div>
-
-@include('nurse/imports/body')
-
 <script>
     ELEMENT.locale(ELEMENT.lang.en);
     new Vue({
@@ -92,7 +73,8 @@
                 searchNull: "",
                 searchName: "",
                 searchID: "",
-                searchContact: "",
+                searchStatus: "",
+                searchYrandSect: "",
                 options: [{
                     value: 'identification',
                     label: 'Identifiaction No.'
@@ -102,6 +84,9 @@
                 }, {
                     value: 'status',
                     label: 'Status'
+                }, {
+                    value: 'yearandsection',
+                    label: 'Year and Section'
                 }],
                 checkPass: false,
                 currentPassword: "",
@@ -136,6 +121,11 @@
                 fileList: [],
                 printing: false,
                 editStudent: [],
+                editMedStats: [],
+                updateMedStats: {
+                    id: 0,
+                    medStatus: "",
+                },
                 updateStudent: {
                     id: 0,
                     identification: "",
@@ -363,6 +353,10 @@
                 },
                 deep: true
             },
+            editMedStats(value) {
+                this.updateMedStats.id = value.id ? value.id : "";
+                this.updateMedStats.medStatus = value.medStatus ? value.medStatus : "";
+            },
             editStudent(value) {
                 this.updateStudent.id = value.id ? value.id : "";
                 this.updateStudent.identification = value.identification ? value.identification : "";
@@ -383,11 +377,12 @@
                     .guardianPhone_number : "";
             },
             searchValue(value) {
-                if (value == "" || value == "identification" || value == "name" || value == "status") {
+                if (value == "" || value == "identification" || value == "name" || value == "status" || value == "yearandsection") {
                     this.searchNull = '';
                     this.searchID = '';
                     this.searchName = '';
-                    this.searchContact = '';
+                    this.searchStatus = '';
+                    this.searchYrandSect = '';
                 }
             },
             showAllData(value) {
@@ -409,7 +404,10 @@
                         return data.identification.toLowerCase().includes(this.searchID.toLowerCase());
                     })
                     .filter((data) => {
-                        return data.status.toLowerCase().includes(this.searchContact.toLowerCase());
+                        return data.status.toLowerCase().includes(this.searchStatus.toLowerCase());
+                    })
+                    .filter((data) => {
+                        return data.yearandsection.toLowerCase().includes(this.searchYrandSect.toLowerCase());
                     })
                     .slice(this.pageSize * this.page - this.pageSize, this.pageSize * this.page)
             }
@@ -549,6 +547,7 @@
                 this.searchName = ""
                 this.searchID = ""
                 this.searchContact = ""
+                this.searchYr_sect = ""
             },
             setPage(value) {
                 this.page = value
@@ -567,6 +566,10 @@
                 localStorage.setItem("student_id", row.id)
                 this.viewStudent = row;
                 this.resultDialog = true;
+                this.editMedStats = {
+                    id: row.id,
+                    medStatus: row.medStatus,
+                }
             },
             handleView(index, row) {
                 this.viewStudent = row;
@@ -575,36 +578,18 @@
             closeViewDialog() {
                 this.viewDialog = false;
             },
-            closeResultDialog() {
+            closeResultDialog(editMedStats) {
                 this.$confirm('Are you sure you want to cancel adding medical results?', {
                         confirmButtonText: 'Yes',
                         cancelButtonText: 'No',
                     })
                     .then(() => {
                         if (this.active == 0) {
-                            localStorage.removeItem("student_id")
-                            localStorage.removeItem("active")
-                            localStorage.removeItem("isCBC")
-                            localStorage.removeItem("isUrinalysis")
-                            localStorage.removeItem("isFecalysis")
-                            localStorage.removeItem("isXray")
-                            localStorage.removeItem("isAntigen")
-                            localStorage.removeItem("isVaccine")
-                            localStorage.removeItem("age")
-                            localStorage.removeItem("viewStudent")
+                            localStorage.clear()
                             this.resultDialog = false
                         } else {
                             this.active--;
-                            localStorage.removeItem("student_id")
-                            localStorage.removeItem("active")
-                            localStorage.removeItem("isCBC")
-                            localStorage.removeItem("isUrinalysis")
-                            localStorage.removeItem("isFecalysis")
-                            localStorage.removeItem("isXray")
-                            localStorage.removeItem("isAntigen")
-                            localStorage.removeItem("isVaccine")
-                            localStorage.removeItem("age")
-                            localStorage.removeItem("viewStudent")
+                            localStorage.clear()
                             this.resultDialog = false
                         }
                     })
@@ -740,6 +725,7 @@
             getData() {
                 axios.post("{{ route('fetchStudent') }}")
                     .then(response => {
+                        console.log(response);
                         if (response.data.error) {
                             this.tableData = [];
                         } else {
@@ -1043,7 +1029,7 @@
                     const student_id = localStorage.getItem("student_id");
                     var newData = new FormData()
                     newData.append("student_id", student_id)
-                    newData.append("med_status", this.viewStudent.medStatus);
+                    newData.append("med_status", this.updateMedStats.medStatus);
                     const files = this.$refs.file.files;
                     for (let i = 0; i < files.length; i++) {
                         newData.append("file[]", files[i]);
@@ -1051,17 +1037,19 @@
                     axios.post("{{ route('storeCbc') }}", newData)
                         .then(res => {
                             if (res) {
+                                this.tableLoad = true;
                                 setTimeout(() => {
-                                    this.getData();
                                     this.loadButton = false;
+                                    this.resultDialog = false;
                                     this.fileImg = null;
                                     this.$message({
                                         message: 'Results has been uploaded successfully!',
                                         type: 'success'
                                     });
-                                    this.resultDialog = false;
                                     localStorage.clear();
-                                    window.location.reload(true);
+                                    this.getData();
+                                    this.fetch_Cbc();
+                                    this.tableLoad = false;
                                 }, 500)
                             }
                             this.active--;
@@ -1080,6 +1068,7 @@
                     const student_id = localStorage.getItem("student_id");
                     var newData = new FormData()
                     newData.append("student_id", student_id)
+                    newData.append("med_status", this.updateMedStats.medStatus);
                     const files = this.$refs.file.files;
                     for (let i = 0; i < files.length; i++) {
                         newData.append("file[]", files[i]);
@@ -1087,17 +1076,19 @@
                     axios.post("{{ route('storeUrinalysis') }}", newData)
                         .then(res => {
                             if (res) {
+                                this.tableLoad = true;
                                 setTimeout(() => {
-                                    this.getData();
                                     this.loadButton = false;
+                                    this.resultDialog = false;
                                     this.fileImg = null;
                                     this.$message({
                                         message: 'Results has been uploaded successfully!',
                                         type: 'success'
                                     });
-                                    this.resultDialog = false;
                                     localStorage.clear();
-                                    window.location.reload(true);
+                                    this.getData();
+                                    this.fetch_Urinalysis();
+                                    this.tableLoad = false;
                                 }, 500)
                             }
                             this.active--;
@@ -1116,6 +1107,7 @@
                     const student_id = localStorage.getItem("student_id");
                     var newData = new FormData()
                     newData.append("student_id", student_id)
+                    newData.append("med_status", this.updateMedStats.medStatus);
                     const files = this.$refs.file.files;
                     for (let i = 0; i < files.length; i++) {
                         newData.append("file[]", files[i]);
@@ -1123,17 +1115,19 @@
                     axios.post("{{ route('storeFecalysis') }}", newData)
                         .then(res => {
                             if (res) {
+                                this.tableLoad = true;
                                 setTimeout(() => {
-                                    this.getData();
                                     this.loadButton = false;
+                                    this.resultDialog = false;
                                     this.fileImg = null;
                                     this.$message({
                                         message: 'Results has been uploaded successfully!',
                                         type: 'success'
                                     });
-                                    this.resultDialog = false;
                                     localStorage.clear();
-                                    window.location.reload(true);
+                                    this.getData();
+                                    this.fetch_Fecalysis();
+                                    this.tableLoad = false;
                                 }, 500)
                             }
                             this.active--;
@@ -1152,6 +1146,7 @@
                     const student_id = localStorage.getItem("student_id");
                     var newData = new FormData()
                     newData.append("student_id", student_id)
+                    newData.append("med_status", this.updateMedStats.medStatus);
                     const files = this.$refs.file.files;
                     for (let i = 0; i < files.length; i++) {
                         newData.append("file[]", files[i]);
@@ -1159,17 +1154,19 @@
                     axios.post("{{ route('storeXray') }}", newData)
                         .then(res => {
                             if (res) {
+                                this.tableLoad = true;
                                 setTimeout(() => {
-                                    this.getData();
                                     this.loadButton = false;
+                                    this.resultDialog = false;
                                     this.fileImg = null;
                                     this.$message({
                                         message: 'Results has been uploaded successfully!',
                                         type: 'success'
                                     });
-                                    this.resultDialog = false;
                                     localStorage.clear();
-                                    window.location.reload(true);
+                                    this.getData();
+                                    this.fetch_Xray();
+                                    this.tableLoad = false;
                                 }, 500)
                             }
                             this.active--;
@@ -1188,6 +1185,7 @@
                     const student_id = localStorage.getItem("student_id");
                     var newData = new FormData()
                     newData.append("student_id", student_id)
+                    newData.append("med_status", this.updateMedStats.medStatus);
                     const files = this.$refs.file.files;
                     for (let i = 0; i < files.length; i++) {
                         newData.append("file[]", files[i]);
@@ -1195,17 +1193,19 @@
                     axios.post("{{ route('storeAntigen') }}", newData)
                         .then(res => {
                             if (res) {
+                                this.tableLoad = true;
                                 setTimeout(() => {
-                                    this.getData();
                                     this.loadButton = false;
+                                    this.resultDialog = false;
                                     this.fileImg = null;
                                     this.$message({
                                         message: 'Results has been uploaded successfully!',
                                         type: 'success'
                                     });
-                                    this.resultDialog = false;
                                     localStorage.clear();
-                                    window.location.reload(true);
+                                    this.getData();
+                                    this.fetch_Antigen();
+                                    this.tableLoad = false;
                                 }, 500)
                             }
                             this.active--;
@@ -1224,6 +1224,7 @@
                     const student_id = localStorage.getItem("student_id");
                     var newData = new FormData()
                     newData.append("student_id", student_id)
+                    newData.append("med_status", this.updateMedStats.medStatus);
                     const files = this.$refs.file.files;
                     for (let i = 0; i < files.length; i++) {
                         newData.append("file[]", files[i]);
@@ -1231,17 +1232,19 @@
                     axios.post("{{ route('storeVaccine') }}", newData)
                         .then(res => {
                             if (res) {
+                                this.tableLoad = true;
                                 setTimeout(() => {
-                                    this.getData();
                                     this.loadButton = false;
+                                    this.resultDialog = false;
                                     this.fileImg = null;
                                     this.$message({
                                         message: 'Results has been uploaded successfully!',
                                         type: 'success'
                                     });
-                                    this.resultDialog = false;
                                     localStorage.clear();
-                                    window.location.reload(true);
+                                    this.getData();
+                                    this.fetch_Vaccine();
+                                    this.tableLoad = false;
                                 }, 500)
                             }
                             this.active--;

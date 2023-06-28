@@ -42,7 +42,7 @@
                             <div class="col-lg-4 col-md-12 col-sm-12 col-12 right-fade-in">
                                 <div style="z-index: 999" class="position-absolute top-0 end-0 p-5 d-lg-none d-md-block d-block">
                                     <el-dropdown>
-                                        <el-button class="text-uppercase px-5 py-3" size="mini" type="primary">
+                                        <el-button class="text-uppercase" size="mini" type="primary">
                                             Login<i class="ms-2 el-icon-arrow-down el-icon--left"></i>
                                         </el-button>
                                         <el-dropdown-menu slot="dropdown" style="width:15%;!important">

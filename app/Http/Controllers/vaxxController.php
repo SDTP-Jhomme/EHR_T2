@@ -27,7 +27,7 @@ class vaxxController extends Controller
             foreach ($files as $file) {
                 $extension = $file->getClientOriginalExtension();
                 $randomName = Str::random(20) . '.' . $extension;
-                $file->move(public_path('storage/results'), $randomName);
+                $file->move(public_path('assets/results/'), $randomName);
 
                 // Store the file information in the database
                 $storeStudent = new vaxxModel;
@@ -38,7 +38,7 @@ class vaxxController extends Controller
             }
 
             // Update the medical status
-            $updateMed = userModel::where('med_status', $med_status)->update(['med_status' => $med_status]);
+            $updateMed = userModel::where('id', $student_id)->update(['med_status' => $med_status]);
 
             $response = [
                 'storeStudent' => $storeStudent,

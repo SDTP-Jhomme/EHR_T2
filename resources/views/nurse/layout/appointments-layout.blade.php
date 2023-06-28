@@ -53,13 +53,20 @@
                 searchNull: "",
                 searchName: "",
                 searchID: "",
-                searchContact: "",
+                searchStatus: "",
+                searchYrandSect: "",
                 options: [{
                     value: 'identification',
                     label: 'Identifiaction No.'
                 }, {
                     value: 'name',
                     label: 'Name'
+                }, {
+                    value: 'med_status',
+                    label: 'Medical Status'
+                }, {
+                    value: 'yearandsection',
+                    label: 'Year and Section'
                 }],
                 tableData: [],
                 tableLoad: false,
@@ -82,11 +89,12 @@
         },
         watch: {
             searchValue(value) {
-                if (value == "" || value == "identification" || value == "name") {
+                if (value == "" || value == "identification" || value == "name" || value == "med_status" || value == "yearandsection") {
                     this.searchNull = '';
                     this.searchID = '';
                     this.searchName = '';
-                    this.searchContact = '';
+                    this.searchStatus = '';
+                    this.searchYrandSect = '';
                 }
             },
             showAllData(value) {
@@ -108,7 +116,10 @@
                         return data.identification.toLowerCase().includes(this.searchID.toLowerCase());
                     })
                     .filter((data) => {
-                        return data.med_status.toLowerCase().includes(this.searchContact.toLowerCase());
+                        return data.med_status.toLowerCase().includes(this.searchStatus.toLowerCase());
+                    })
+                    .filter((data) => {
+                        return data.yearandsection.toLowerCase().includes(this.searchYrandSect.toLowerCase());
                     })
                     .slice(this.pageSize * this.page - this.pageSize, this.pageSize * this.page)
             }
@@ -227,7 +238,8 @@
                 this.searchNull = ""
                 this.searchName = ""
                 this.searchID = ""
-                this.searchContact = ""
+                this.searchStatus = ""
+                this.searchYrandSect = ""
             },
             setPage(value) {
                 this.page = value

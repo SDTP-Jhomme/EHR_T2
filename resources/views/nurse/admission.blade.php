@@ -3,12 +3,22 @@
 <html lang="en">
 
 <head>
-    <link rel="shortcut icon" type="image/png" href="<?php echo asset('assets/img/favicon.png'); ?>">
+    @include('nurse/imports/head')
+    <link rel="shortcut icon" type="image/png" href="<?php echo asset('assets/img/favicon.png') ?>">
     @section('title', 'Admission')
 </head>
 
 <body>
-    @section('sidebar')
+<div id="app">
+    <div v-if="fullscreenLoading" class="fullscreen-loading">
+        <div class="spinner-heart" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+        <span class="spinner-text">Loading...</span>
+    </div>
+@include('nurse/imports/nav')
+    <div class="container-fluid page-wrapper">
+    @include('nurse/imports/sidebar')
         <main class="main-panel flex-lg-grow-1">
             <el-main class=" mb-4">
                 <el-dialog title="Profile" v-for="data in fetchData" :visible.sync="profile" width="35%"
@@ -98,7 +108,7 @@
                         </div>
                     </div>
                 </el-dialog>
-                <div class="container border rounded p-4 mb-2">
+                <div class="container-fluid border rounded p-4 mb-2">
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <p class="mb-0">Student Information Table</p>
                         <div class="d-flex">
@@ -113,12 +123,16 @@
                                     <el-input v-model="searchID" size="mini" placeholder="Type to search..." clearable />
                                 </div>
                                 <div v-else-if="searchValue == 'name'">
-                                    <el-input v-model="searchName" size="mini" placeholder="Type to search..."
-                                        clearable />
+                                    <el-input v-model="searchName" size="mini" placeholder="Type to search..." clearable />
+                                </div>
+                                <div v-else-if="searchValue == 'status'">
+                                    <el-input v-model="searchStatus" size="mini" placeholder="Type to search..." clearable />
+                                </div>
+                                <div v-else-if="searchValue == 'yearandsection'">
+                                    <el-input v-model="searchYrandSect" size="mini" placeholder="Type to search..." clearable />
                                 </div>
                                 <div v-else>
-                                    <el-input v-model="searchNull" size="mini" placeholder="Type to search..."
-                                        clearable />
+                                    <el-input v-model="searchNull" size="mini" placeholder="Type to search..." clearable />
                                 </div>
                             </div>
                             <el-button class="ms-2" type="primary" size="mini" @click="printTable">Print Table
@@ -143,6 +157,16 @@
                                 <el-tag size="small" v-else type="danger"><span v-text="scope.row.gender"></span>
                                 </el-tag>
                             </template>
+                        </el-table-column>
+                        <el-table-column sortable label="Year and Section" width="250" prop="yearandsection">
+                            <template slot-scope="scope">
+                                <el-tag size="small" v-if="scope.row.year == 'Fourth Year'"><span v-text="scope.row.yearandsection"></span></el-tag>
+                                <el-tag size="small" type="warning" v-if="scope.row.year == 'First Year'"><span v-text="scope.row.yearandsection"></span></el-tag>
+                                <el-tag size="small" type="success" v-if="scope.row.year == 'Second Year'"><span v-text="scope.row.yearandsection"></span></el-tag>
+                                <el-tag size="small" v-if="scope.row.year == 'Third Year'" type="danger"><span v-text="scope.row.yearandsection"></span></el-tag>
+                            </template>
+                        </el-table-column>
+                        <el-table-column sortable label="Address" width="200" prop="address">
                         </el-table-column>
                         <el-table-column label="Status" prop="status" width="150" column-key="status">
                             <template slot-scope="scope">
@@ -267,8 +291,8 @@
                         <div class="row justify-content-center align-items-center g-2 mb-3">
                             <div class="col-lg-6 col-md-12">
                                 <label class="form-label">Medical Status</label>
-                                <el-radio-group v-model="viewStudent.medStatus">
-                                    <el-radio :disabled="viewStudent.medStatus == 'Complete'" label="Pending"></el-radio>
+                                <el-radio-group v-model="updateMedStats.medStatus">
+                                    <el-radio label="Pending"></el-radio>
                                     <el-radio label="Complete"></el-radio>
                                     <el-radio label="Open"></el-radio>
                                 </el-radio-group>
@@ -659,7 +683,9 @@
                 </div>
             </el-drawer>
         </main>
-    @endsection
+    </div>
+</div>
+@include('nurse/imports/body')
 </body>
 
 </html>
