@@ -14,11 +14,9 @@
         <el-container v-for="user in teacher_data">
             <el-main>
                 <div class="row justify-content-center align-items-start g-2 mb-auto">
-                    <div class="col-lg-1 col-md-7">
+                    <div class="col-lg-3 col-md-7">
                         <h3>Profile</h3>
-                    </div>
-                    <div class="col-lg-4 col-md-7">
-                        <div class="card profile shadow">
+                        <div class="card py-4 profile shadow">
                             <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
                                 <img :src="user.avatar" alt="Profile" class="rounded-circle mb-3">
                                 <h4><span v-text = "user.name"></span></h4>
