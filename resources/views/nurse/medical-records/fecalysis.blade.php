@@ -22,6 +22,93 @@
     @include('nurse/imports/sidebar')
     <main class="main-panel flex-lg-grow-1">
         <el-main>
+            <el-dialog title="Profile" v-for="data in fetchData" :visible.sync="profile" width="35%"
+                :before-close="profileClose">
+                <div class="card">
+                    <div class="mt-2 d-flex justify-content-center">
+                        <el-avatar shape="square" :size="100" :src="data.avatar"></el-avatar>
+                    </div>
+                    <div class="card-body">
+                        <div class="row justify-content-center align-items-center g-2 mb-3">
+                            <div class="col-lg-3 col-md-12">
+                                <label class="form-label">Identification</label>
+                                <el-input v-model="data.identification" disabled></el-input>
+                            </div>
+                            <div class="col-lg-3 col-md-12">
+                                <label class="form-label">Name</label>
+                                <el-input v-model="data.name" disabled></el-input>
+                            </div>
+                            <div class="col-lg-3 col-md-12">
+                                <label class="form-label">Gender</label>
+                                <el-input v-model="data.gender" disabled></el-input>
+                            </div>
+                            <div class="col-lg-3 col-md-12">
+                                <label class="form-label">Birthdate</label>
+                                <el-input v-model="data.birthdate" disabled></el-input>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center align-items-center g-2">
+                            <div class="col-lg-6 col-md-12">
+                                <label class="form-label">Address</label>
+                                <el-input v-model="data.address" disabled></el-input>
+                            </div>
+                            <div class="col-lg-6 col-md-12">
+                                <label class="form-label">Phone No.</label>
+                                <el-input v-model="data.phone_number" disabled></el-input>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center align-items-center g-2 my-5">
+                            <div class="col-12">
+                                <el-button class="btn-block" type="primary" @click="changePass = true">Change Password
+                                </el-button>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center align-items-center g-2">
+                            <div class="col-12" v-if="changePass">
+                                <div class="row justify-content-center align-items-center g-2 mb-2" v-if="!checkPass">
+                                    <div class="col-12">
+                                        <label class="form-label mb-0" for=""><span class="text-danger">*</span>
+                                            Current Password</label>
+                                        <el-input placeholder="Enter Current Password" v-model="currentPassword"
+                                            show-password></el-input>
+                                        <span class="text-danger" v-text="currentPassErr"></span>
+                                    </div>
+                                </div>
+                                <div class="" v-else>
+                                    <div class="row justify-content-center align-items-center g-2 mb-2">
+                                        <div class="col-12">
+                                            <label class="form-label mb-0" for=""><span
+                                                    class="text-danger">*</span> Input New Password</label>
+                                            <el-input placeholder="" v-model="newPassword" show-password></el-input>
+                                            <span class="text-danger" v-text="newPassErr"></span>
+                                        </div>
+                                    </div>
+                                    <div class="row justify-content-center align-items-center g-2 mb-2">
+                                        <div class="col-12">
+                                            <label class="form-label mb-0" for=""><span
+                                                    class="text-danger">*</span> Confirm Password</label>
+                                            <el-input placeholder="" v-model="confirmPassword" show-password></el-input>
+                                            <span class="text-danger" v-text="confirmPassErr"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-center align-items-center g-2 mt-2">
+                                    <div class="col-12" v-if="checkPass">
+                                        <button class="btn btn-primary" v-if="loadButton" disabled><i class="el-icon-loading"></i> Loading</button>
+                                        <button class="btn btn-primary" v-else @click="updatePassword">Update Password</button>
+                                        <button class="btn btn-secondary" @click="resetPassword">Reset Form</button>
+                                        <button class="btn btn-secondary" @click="cancelUpdatePassword">Cancel</button>
+                                    </div>
+                                    <div class="col-12" v-else>
+                                        <button type="button" class="btn btn-primary" @click="checkPassword">Submit</button>
+                                        <button class="btn btn-secondary" @click="changePass=false">Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </el-dialog>
             <div class="container border rounded p-4">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <p class="mb-0">Fecalysis Information Table</p>
@@ -164,7 +251,7 @@
                 <hr>
                 <div class="card">                
                     <div class="card-body">
-                        <img :src="fecal.result" class="img-fluid rounded-top" alt="Antigen Result">
+                        <img :src="fecal.result" class="img-fluid rounded-top w-100" alt="Antigen Result">
                     </div>
                 </div>
             </div>

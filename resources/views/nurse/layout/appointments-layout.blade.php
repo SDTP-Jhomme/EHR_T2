@@ -25,6 +25,19 @@
         el: '#app',
         data() {
             return {
+                id: "",
+                changePass: false,
+                checkPass: false,
+                currentPassword: "",
+                newPassword: "",
+                confirmPassword: "",
+                currentPassErr: "",
+                newPassErr: "",
+                confirmPassErr: "",
+                errors: true,
+                fullscreenLoading: true,
+                profile: false,
+                fetchData:[],
                 reqDialog:false,
                 fullscreenLoading: true,
                 page: 1,
@@ -60,6 +73,7 @@
         created() {
             this.approvedData()
             this.countReq()
+            this.nurseData()
         },
         mounted() {
             setTimeout(() => {
@@ -101,6 +115,115 @@
         },
 
         methods: {
+            profileClose() {
+                this.profile = false;
+            },
+            cancelUpdatePassword() {
+                this.checkPass = false
+                this.changePass = false
+                this.newPassword = ""
+                this.confirmPassword = ""
+                this.currentPassword = ""
+            },
+            checkPassword() {
+                this.currentPassErr = ""
+                if (!this.currentPassword) {
+                    this.currentPassErr = "Current password is required!"
+                } else {
+                    const checkPassword = new FormData();
+                    checkPassword.append("id", this.id)
+                    checkPassword.append("currentPassword", this.currentPassword)
+                    axios.post("{{ route('checkNursePass') }}", checkPassword)
+                        .then(res => {
+                            if (res) {
+                                console.log(res);
+                                if (res.data.error) {
+                                    this.currentPassErr = res.data.message;
+                                } else {
+                                    this.checkPass = true;
+                                }
+                            }
+                        })
+                }
+            },
+            updatePassword() {
+                this.newPassErr = ""
+                this.confirmPassErr = ""
+                if (!this.newPassword) {
+                    this.newPassErr = "New password is required!"
+                } else {
+                    if (this.newPassword.length < 8) {
+                        this.newPassErr = "Password should atleast eight(8) characters!"
+                    }
+                    if (this.newPassword == this.currentPassword) {
+                        this.newPassErr = "You have entered your current password!";
+                    }
+                }
+                if (!this.confirmPassword) {
+                    this.confirmPassErr = "Confirm password is required!"
+                }
+                if (this.newPassword && this.confirmPassword) {
+                    if (this.newPassword.length < 8) {
+                        this.newPassErr = "Password should atleast eight(8) characters!";
+                        this.errors = true;
+                        return;
+                    } else {
+                        this.errors = false;
+                    }
+                    if (this.newPassword != this.confirmPassword) {
+                        this.confirmPassErr = "Password does not match!";
+                        this.errors = true;
+                        return;
+                    } else {
+                        this.errors = false;
+                    }
+                    if (this.newPassword == this.currentPassword) {
+                        this.newPassErr = "You have entered your current password!";
+                        this.errors = true;
+                        return;
+                    } else {}
+                }
+                if (!this.errors) {
+                    this.loadButton = true;
+                    const newPassword = new FormData();
+                    newPassword.append("id", this.id)
+                    newPassword.append("newPassword", this.newPassword)
+                    axios.post("{{ route('updateNursePassword') }}", newPassword)
+                        .then(res => {
+                            if (res) {
+                                setTimeout(() => {
+                                    this.$message({
+                                        message: 'Password has been updated successfully!',
+                                        type: 'success'
+                                    });
+                                    this.currentPassword = ""
+                                    this.newPassword = ""
+                                    this.confirmPassword = ""
+                                    this.checkPass = false;
+                                    this.loadButton = false;
+                                    this.changePass = false;
+                                }, 500)
+                            }
+                        })
+                }
+            },
+            resetPassword() {
+                this.newPassword = ""
+                this.confirmPassword = ""
+            },
+            nurseData() {
+                axios.post("{{ route('nurse-fetch') }}")
+                    .then(response => {
+                        if (response) {
+                            this.fetchData = response.data;
+                            this.id = response.data[0].id;
+                            console.log(this.id);
+                        }
+                    })
+                    .catch(error => {
+                        console.error(error.response);
+                    });
+            },
             changeColumn(selected) {
                 this.searchNull = ""
                 this.searchName = ""

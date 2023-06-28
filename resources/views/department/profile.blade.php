@@ -39,7 +39,7 @@
                                     <span slot="label">
                                         <h5><i class="el-icon-lock"></i> Change Password</h5>
                                     </span>
-                                    @include('department/profile/profile-info')
+                                    @include('department/profile/update-pass')
                                 </el-tab-pane>
                             </el-tabs>
                         </div>

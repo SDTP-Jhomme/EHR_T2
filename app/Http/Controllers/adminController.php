@@ -74,7 +74,7 @@ class adminController extends Controller
                 $hashedPassword = $user->password;
                 if (password_verify($password, $hashedPassword)) {
                     $response["error"] = false;
-                    $request->session()->put('user', $user);
+                    $request->session()->put('user', $user->id);
                     return response()->json($response);
                 } else {
                     $response["error"] = true;

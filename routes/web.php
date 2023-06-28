@@ -75,8 +75,12 @@ Route::get('/nurse/admission','App\Http\Controllers\nurseController@admission')-
 Route::get('/nurse/appointments','App\Http\Controllers\nurseController@appointments')->name('nurse-appointments');
 
 Route::get('/nurse/login','App\Http\Controllers\nurseController@nurseLogin')->name('nurse-login');
-Route::get('fetch', 'App\Http\Controllers\nurseController@fetch')->name('fetch');
+Route::post('fetch', 'App\Http\Controllers\nurseController@fetch')->name('nurse-fetch');
 Route::post('nurse-logout', 'App\Http\Controllers\nurseController@nurseLogout')->name('nurseLogout');
+// nurse profile
+Route::get('nurse/profile', 'App\Http\Controllers\nurseController@nurseprofile')->name('nurseprofile');
+Route::post('/nurse-profile-pass', 'App\Http\Controllers\nurseController@checkPass')->name('checkNursePass');
+Route::post('/nurse-update-pass', 'App\Http\Controllers\nurseController@updatePassword')->name('updateNursePassword');
 
 // nurse store,routes,updates and fetch
 Route::post('/nurse-fetch', 'App\Http\Controllers\nurseController@fetchNurse')->name('fetchNurse');

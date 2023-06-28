@@ -848,6 +848,10 @@
                         if (valid) {
                             this.loadButton = true;
                             this.openAddDrawer = false;
+                            let phoneNumber = this.addStudent.phone_number;
+                            let modifiedNumber = '+63' + phoneNumber.slice(1);
+                            let guardianPhoneNo = this.addStudent.guardianPhone_number;
+                            let modifiedguardianPhone_number = '+63' + guardianPhoneNo.slice(1);
                             const age = localStorage.getItem("age");
                             const birthday = this.addStudent.birthdate;
                             const birthdayFormat = birthday.getFullYear() + "-" + ((birthday.getMonth() + 1) > 9 ? '' : '0') + (birthday.getMonth() + 1) + "-" + (birthday.getDate() > 9 ? '' : '0') + birthday.getDate();
@@ -860,7 +864,7 @@
                             newData.append("classSection", this.addStudent.classSection)
                             newData.append("course", this.addStudent.course)
                             newData.append("gender", this.addStudent.gender)
-                            newData.append("phone_number", this.addStudent.phone_number)
+                            newData.append("phone_number", modifiedNumber)
                             newData.append("birthdate", birthdayFormat)
                             newData.append("street", this.addStudent.street)
                             newData.append("brgy", this.addStudent.brgy)
@@ -868,7 +872,7 @@
                             newData.append("guardianFname", this.addStudent.guardianFname)
                             newData.append("guardianMname", this.addStudent.guardianMname)
                             newData.append("guardianLname", this.addStudent.guardianLname)
-                            newData.append("guardianPhone_number", this.addStudent.guardianPhone_number)
+                            newData.append("guardianPhone_number", modifiedguardianPhone_number)
                             newData.append("age", age)
                             newData.append("citizen", this.addStudent.citizen)
                             newData.append("civil", this.addStudent.civil)

@@ -2,23 +2,21 @@
 <title>@yield('title')</title>
 <div id="app">
     <div v-if="fullscreenLoading" class="fullscreen-loading">
-          <div class="spinner-heart" role="status">
+        <div class="spinner-heart" role="status">
             <span class="visually-hidden">Loading...</span>
         </div>
-          <span class="spinner-text">Loading...</span>
+        <span class="spinner-text">Loading...</span>
     </div>
-@include('nurse/imports/nav')
-      @yield('header')
+    @include('nurse/imports/nav')
+    @yield('header')
     <!-- sidebar -->
     <div class="container-fluid page-wrapper">
-@include('nurse/imports/sidebar')
+        @include('nurse/imports/sidebar')
         @yield('sidebar')
     </div>
 </div>
 
-
 @include('nurse/imports/body')
-
 
 <script>
     ELEMENT.locale(ELEMENT.lang.en);
@@ -77,6 +75,9 @@
                 topLabel: "top",
                 leftLabel: "left",
                 direction: 'ltr',
+                profile: false,
+                id: "",
+                changePass: false,
                 loadButton: false,
                 editDialog: false,
                 viewDialog: false,
@@ -85,30 +86,39 @@
                 status: true,
                 switch: false,
                 dateRange: [],
-                excelErrors:true,
+                excelErrors: true,
                 showAllData: false,
-                    searchValue: "",
-                    searchNull: "",
-                    searchName: "",
-                    searchID: "",
-                    searchContact: "",
-                    options: [{
-                        value: 'identification',
-                        label: 'Identifiaction No.'
-                    }, {
-                        value: 'name',
-                        label: 'Name'
-                    }, {
-                        value: 'status',
-                        label: 'Status'
-                    }],
+                searchValue: "",
+                searchNull: "",
+                searchName: "",
+                searchID: "",
+                searchContact: "",
+                options: [{
+                    value: 'identification',
+                    label: 'Identifiaction No.'
+                }, {
+                    value: 'name',
+                    label: 'Name'
+                }, {
+                    value: 'status',
+                    label: 'Status'
+                }],
+                checkPass: false,
+                currentPassword: "",
+                newPassword: "",
+                confirmPassword: "",
+                currentPassErr: "",
+                newPassErr: "",
+                confirmPassErr: "",
+                errors: true,
                 tableData: [],
+                fetchData: [],
                 tableLoad: false,
                 resultDialog: false,
                 viewResultDialog: false,
                 openAddDrawer: false,
-                fileImg:[],
-                medStatus:"",
+                fileImg: [],
+                medStatus: "",
                 isCBC: false,
                 isUrinalysis: false,
                 isFecalysis: false,
@@ -135,7 +145,7 @@
                     midname: "",
                     lastname: "",
                     gender: "",
-                    phone_number:"",
+                    phone_number: "",
                     birthdate: "",
                     guardianFname: "",
                     guardianMname: "",
@@ -144,8 +154,7 @@
                     citizen: "",
                     civil: "",
                 },
-                year: [
-                    {
+                year: [{
                         value: "First Year",
                         label: "First Year",
                     },
@@ -162,8 +171,7 @@
                         label: "Fourth Year",
                     },
                 ],
-                classSection: [
-                    {
+                classSection: [{
                         value: "A",
                         label: "A",
                     },
@@ -176,8 +184,7 @@
                         label: "C",
                     },
                 ],
-                civil: [
-                    {
+                civil: [{
                         value: "Single",
                         label: "Single",
                     },
@@ -194,8 +201,7 @@
                         label: "Divorced",
                     },
                 ],
-                citizen: [
-                    {
+                citizen: [{
                         value: "Filipino",
                         label: "Filipino",
                     },
@@ -204,138 +210,118 @@
                         label: "American",
                     },
                 ],
-                    editRules: {
-                        identification: [
-                            {
-                            required: true,
-                            message: "Identification no. is required!",
-                            trigger: "blur",
-                            }, {
-                            validator: validateBirthdate,
-                            trigger: 'blur'
-                            }
-                        ],
-                        year: [
-                            {
-                            required: true,
-                            message: "Year Level is required!",
-                            trigger: "blur",
-                            },
-                        ],
-                        classSection: [
-                            {
-                            required: true,
-                            message: "Class Section is required!",
-                            trigger: "blur",
-                            },
-                        ],
-                        firstname: [
-                            {
+                editRules: {
+                    identification: [{
+                        required: true,
+                        message: "Identification no. is required!",
+                        trigger: "blur",
+                    }, {
+                        validator: validateBirthdate,
+                        trigger: 'blur'
+                    }],
+                    year: [{
+                        required: true,
+                        message: "Year Level is required!",
+                        trigger: "blur",
+                    }, ],
+                    classSection: [{
+                        required: true,
+                        message: "Class Section is required!",
+                        trigger: "blur",
+                    }, ],
+                    firstname: [{
                             required: true,
                             message: "First name is required!",
                             trigger: "blur",
-                            },
-                            {
+                        },
+                        {
                             pattern: /^[a-zA-Z ]*$/,
                             message: "Invalid first name format!",
                             trigger: "blur",
-                            },
-                            {
+                        },
+                        {
                             min: 2,
                             message: "First name should be at least two(2) characters!",
                             trigger: "blur",
-                            },
-                        ],
-                        midname: [
-                            {
+                        },
+                    ],
+                    midname: [{
                             pattern: /^[a-zA-Z- ]*$/,
                             message: "Invalid last name format!",
                             trigger: "blur",
-                            },
-                            {
+                        },
+                        {
                             min: 2,
                             message: "Last name should be at least two(2) characters!",
                             trigger: "blur",
-                            },
-                        ],
-                        lastname: [
-                            {
+                        },
+                    ],
+                    lastname: [{
                             required: true,
                             message: "Last name is required!",
                             trigger: "blur",
-                            },
-                            {
+                        },
+                        {
                             pattern: /^[a-zA-Z- ]*$/,
                             message: "Invalid last name format!",
                             trigger: "blur",
-                            },
-                            {
+                        },
+                        {
                             min: 2,
                             message: "Last name should be at least two(2) characters!",
                             trigger: "blur",
-                            },
-                        ],
-                        citizen: [
-                            {
-                            required: true,
-                            message: "Citizenship is required!",
-                            trigger: "blur",
-                            },
-                        ],
-                        civil: [
-                            {
-                            required: true,
-                            message: "Civil Status is required!",
-                            trigger: "blur",
-                            },
-                        ],
-                        birthdate: [{
-                            required: true,
-                            message: 'Birthday is required!',
-                            trigger: 'blur'
-                        }, {
-                            validator: validateBirthdate,
-                            trigger: 'blur'
-                        }],
-                        gender: [
-                            {
-                            required: true,
-                            message: "Gender is required!",
-                            trigger: "blur",
-                            },
-                        ],
-                        phone_number: [
-                            {
-                            required: true,
-                            message: "Phone number is required!",
-                            trigger: "blur",
-                            },
-                        ],
-                    guardianName: [
-                        {
-                        required: true,
-                        message: "First name is required!",
-                        trigger: "blur",
-                        },
-                        {
-                        pattern: /^[a-zA-Z ]*$/,
-                        message: "Invalid first name format!",
-                        trigger: "blur",
-                        },
-                        {
-                        min: 2,
-                        message: "First name should be at least two(2) characters!",
-                        trigger: "blur",
                         },
                     ],
-                    guardianPhone_number: [
+                    citizen: [{
+                        required: true,
+                        message: "Citizenship is required!",
+                        trigger: "blur",
+                    }, ],
+                    civil: [{
+                        required: true,
+                        message: "Civil Status is required!",
+                        trigger: "blur",
+                    }, ],
+                    birthdate: [{
+                        required: true,
+                        message: 'Birthday is required!',
+                        trigger: 'blur'
+                    }, {
+                        validator: validateBirthdate,
+                        trigger: 'blur'
+                    }],
+                    gender: [{
+                        required: true,
+                        message: "Gender is required!",
+                        trigger: "blur",
+                    }, ],
+                    phone_number: [{
+                        required: true,
+                        message: "Phone number is required!",
+                        trigger: "blur",
+                    }, ],
+                    guardianName: [{
+                            required: true,
+                            message: "First name is required!",
+                            trigger: "blur",
+                        },
                         {
+                            pattern: /^[a-zA-Z ]*$/,
+                            message: "Invalid first name format!",
+                            trigger: "blur",
+                        },
+                        {
+                            min: 2,
+                            message: "First name should be at least two(2) characters!",
+                            trigger: "blur",
+                        },
+                    ],
+                    guardianPhone_number: [{
                         required: true,
                         message: "City is required!",
                         trigger: "blur",
-                        },
-                    ],
-                    },
+                    }, ],
+                },
             };
         },
         created() {
@@ -346,6 +332,7 @@
             this.fetch_Xray()
             this.fetch_Fecalysis()
             this.fetch_Vaccine()
+            this.nurseData()
         },
         mounted() {
             this.getData();
@@ -355,58 +342,63 @@
 
             this.age = localStorage.age ? localStorage.age : 0
         },
-            watch: {
-                'addStudent.birthdate': {
-                    handler(newDate) {
-                    const birthdayFormat = newDate.getFullYear() + "-" + ((newDate.getMonth() + 1) > 9 ? '' : '0') + (newDate.getMonth() + 1) + "-" + (newDate.getDate() > 9 ? '' : '0') + newDate.getDate();
+        watch: {
+            'addStudent.birthdate': {
+                handler(newDate) {
+                    const birthdayFormat = newDate.getFullYear() + "-" + ((newDate.getMonth() + 1) > 9 ? '' :
+                            '0') + (newDate.getMonth() + 1) + "-" + (newDate.getDate() > 9 ? '' : '0') + newDate
+                        .getDate();
                     const age = this.calculateAge(birthdayFormat);
                     localStorage.setItem("age", age);
-                    },
-                    deep: true
                 },
-                'updateStudent.birthdate': {
-                    handler(newDate) {
-                    const birthdayFormat = newDate.getFullYear() + "-" + ((newDate.getMonth() + 1) > 9 ? '' : '0') + (newDate.getMonth() + 1) + "-" + (newDate.getDate() > 9 ? '' : '0') + newDate.getDate();
-                    const age = this.calculateAge(birthdayFormat);
-                    localStorage.setItem("age", age);
-                    },
-                    deep: true
-                },
-                editStudent(value) {
-                    this.updateStudent.id = value.id ? value.id : "";
-                    this.updateStudent.identification = value.identification ? value.identification : "";
-                    this.updateStudent.firstname = value.firstname ? value.firstname : "";
-                    this.updateStudent.midname = value.midname ? value.midname : "";
-                    this.updateStudent.lastname = value.lastname ? value.lastname : "";
-                    this.updateStudent.birthdate = value.birthdate ? value.birthdate : "";
-                    this.updateStudent.gender = value.gender ? value.gender : "";
-                    this.updateStudent.year = value.year ? value.year : "";
-                    this.updateStudent.classSection = value.classSection ? value.classSection : "";
-                    this.updateStudent.phone_number = value.phone_number ? value.phone_number : "";
-                    this.updateStudent.civil = value.civil ? value.civil : "";
-                    this.updateStudent.citizen = value.citizen ? value.citizen : "";
-                    this.updateStudent.guardianFname = value.guardianFname ? value.guardianFname : "";
-                    this.updateStudent.guardianMname = value.guardianMname ? value.guardianMname : "";
-                    this.updateStudent.guardianLname = value.guardianLname ? value.guardianLname : "";
-                    this.updateStudent.guardianPhone_number = value.guardianPhone_number ? value.guardianPhone_number : "";
-                },
-                searchValue(value) {
-                    if (value == "" || value == "identification" || value == "name" || value == "status") {
-                        this.searchNull = '';
-                        this.searchID = '';
-                        this.searchName = '';
-                        this.searchContact = '';
-                    }
-                },
-                showAllData(value) {
-                    if (value == true) {
-                        this.page = 1;
-                        this.pageSize = this.tableData.length
-                    } else {
-                        this.pageSize = 10
-                    }
-                },
+                deep: true
             },
+            'updateStudent.birthdate': {
+                handler(newDate) {
+                    const birthdayFormat = newDate.getFullYear() + "-" + ((newDate.getMonth() + 1) > 9 ? '' :
+                            '0') + (newDate.getMonth() + 1) + "-" + (newDate.getDate() > 9 ? '' : '0') + newDate
+                        .getDate();
+                    const age = this.calculateAge(birthdayFormat);
+                    localStorage.setItem("age", age);
+                },
+                deep: true
+            },
+            editStudent(value) {
+                this.updateStudent.id = value.id ? value.id : "";
+                this.updateStudent.identification = value.identification ? value.identification : "";
+                this.updateStudent.firstname = value.firstname ? value.firstname : "";
+                this.updateStudent.midname = value.midname ? value.midname : "";
+                this.updateStudent.lastname = value.lastname ? value.lastname : "";
+                this.updateStudent.birthdate = value.birthdate ? value.birthdate : "";
+                this.updateStudent.gender = value.gender ? value.gender : "";
+                this.updateStudent.year = value.year ? value.year : "";
+                this.updateStudent.classSection = value.classSection ? value.classSection : "";
+                this.updateStudent.phone_number = value.phone_number ? value.phone_number : "";
+                this.updateStudent.civil = value.civil ? value.civil : "";
+                this.updateStudent.citizen = value.citizen ? value.citizen : "";
+                this.updateStudent.guardianFname = value.guardianFname ? value.guardianFname : "";
+                this.updateStudent.guardianMname = value.guardianMname ? value.guardianMname : "";
+                this.updateStudent.guardianLname = value.guardianLname ? value.guardianLname : "";
+                this.updateStudent.guardianPhone_number = value.guardianPhone_number ? value
+                    .guardianPhone_number : "";
+            },
+            searchValue(value) {
+                if (value == "" || value == "identification" || value == "name" || value == "status") {
+                    this.searchNull = '';
+                    this.searchID = '';
+                    this.searchName = '';
+                    this.searchContact = '';
+                }
+            },
+            showAllData(value) {
+                if (value == true) {
+                    this.page = 1;
+                    this.pageSize = this.tableData.length
+                } else {
+                    this.pageSize = 10
+                }
+            },
+        },
         computed: {
             usersTable() {
                 return this.tableData
@@ -430,7 +422,9 @@
                 console.log(file);
             },
             handleExceed(files, fileList) {
-                this.$message.warning(`The limit is 3, you selected ${files.length} files this time, add up to ${files.length + fileList.length} totally`);
+                this.$message.warning(
+                    `The limit is 3, you selected ${files.length} files this time, add up to ${files.length + fileList.length} totally`
+                );
             },
             beforeRemove(file, fileList) {
                 return this.$confirm(`Cancel the transfert of ${ file.name } ?`);
@@ -481,39 +475,39 @@
                 // Create the table body
                 const tbody = document.createElement("tbody");
                 this.tableData.forEach(user => {
-                const row = document.createElement("tr");
+                    const row = document.createElement("tr");
 
-                const idCell = document.createElement("td");
-                idCell.classList.add("col-2");
-                idCell.textContent = user.identification;
+                    const idCell = document.createElement("td");
+                    idCell.classList.add("col-2");
+                    idCell.textContent = user.identification;
 
-                const nameCell = document.createElement("td");
-                nameCell.classList.add("col-3");
-                nameCell.textContent = user.name;
+                    const nameCell = document.createElement("td");
+                    nameCell.classList.add("col-3");
+                    nameCell.textContent = user.name;
 
-                const genderCell = document.createElement("td");
-                genderCell.classList.add("col-2");
-                genderCell.textContent = user.gender;
+                    const genderCell = document.createElement("td");
+                    genderCell.classList.add("col-2");
+                    genderCell.textContent = user.gender;
 
-                const birthdateCell = document.createElement("td");
-                birthdateCell.classList.add("col-2");
-                birthdateCell.textContent = user.birthdate;
+                    const birthdateCell = document.createElement("td");
+                    birthdateCell.classList.add("col-2");
+                    birthdateCell.textContent = user.birthdate;
 
-                const yearCell = document.createElement("td");
-                yearCell.classList.add("col-2");
-                yearCell.textContent = user.year;
+                    const yearCell = document.createElement("td");
+                    yearCell.classList.add("col-2");
+                    yearCell.textContent = user.year;
 
-                const sectionCell = document.createElement("td");
-                sectionCell.classList.add("col-3");
-                sectionCell.textContent = user.classSection;
+                    const sectionCell = document.createElement("td");
+                    sectionCell.classList.add("col-3");
+                    sectionCell.textContent = user.classSection;
 
-                row.appendChild(idCell);
-                row.appendChild(nameCell);
-                row.appendChild(genderCell);
-                row.appendChild(birthdateCell);
-                row.appendChild(yearCell);
-                row.appendChild(sectionCell);
-                tbody.appendChild(row);
+                    row.appendChild(idCell);
+                    row.appendChild(nameCell);
+                    row.appendChild(genderCell);
+                    row.appendChild(birthdateCell);
+                    row.appendChild(yearCell);
+                    row.appendChild(sectionCell);
+                    tbody.appendChild(row);
                 });
 
                 table.appendChild(thead);
@@ -525,12 +519,12 @@
                 <html>
                     <head>
                     <title>Students Total Registered</title>
-                    <link rel="stylesheet" href="<?php echo asset('assets/css/style.css') ?>">
-                    <link rel="stylesheet" href="<?php echo asset('assets/css/table.css') ?>">
-                    <link rel="stylesheet" href="<?php echo asset('assets/css/laboratory.css') ?>">
-                    <link rel="stylesheet" href="<?php echo asset('assets/css/bootstrap.min.css') ?>">
-                    <link rel="stylesheet" href="<?php echo asset('assets/fontawesome/css/all.min.css') ?>">
-                    <link rel="shortcut icon" type="image/png" href="<?php echo asset('assets/img/favicon.png') ?>">
+                    <link rel="stylesheet" href="<?php echo asset('assets/css/style.css'); ?>">
+                    <link rel="stylesheet" href="<?php echo asset('assets/css/table.css'); ?>">
+                    <link rel="stylesheet" href="<?php echo asset('assets/css/laboratory.css'); ?>">
+                    <link rel="stylesheet" href="<?php echo asset('assets/css/bootstrap.min.css'); ?>">
+                    <link rel="stylesheet" href="<?php echo asset('assets/fontawesome/css/all.min.css'); ?>">
+                    <link rel="shortcut icon" type="image/png" href="<?php echo asset('assets/img/favicon.png'); ?>">
                     <style>
                         @media print {
                         .print-table button {
@@ -559,6 +553,9 @@
             setPage(value) {
                 this.page = value
             },
+            profileClose() {
+                this.profile = false;
+            },
             handleSelectionChange(val) {
                 this.multiID = Object.values(val).map(i => i.id)
             },
@@ -580,38 +577,38 @@
             },
             closeResultDialog() {
                 this.$confirm('Are you sure you want to cancel adding medical results?', {
-                    confirmButtonText: 'Yes',
-                    cancelButtonText: 'No',
-                })
-                .then(() => {
-                    if(this.active == 0){
-                        localStorage.removeItem("student_id")
-                        localStorage.removeItem("active")
-                        localStorage.removeItem("isCBC")
-                        localStorage.removeItem("isUrinalysis")
-                        localStorage.removeItem("isFecalysis")
-                        localStorage.removeItem("isXray")
-                        localStorage.removeItem("isAntigen")
-                        localStorage.removeItem("isVaccine")
-                        localStorage.removeItem("age")
-                        localStorage.removeItem("viewStudent")
-                        this.resultDialog = false
-                    }else{
-                        this.active--;
-                        localStorage.removeItem("student_id")
-                        localStorage.removeItem("active")
-                        localStorage.removeItem("isCBC")
-                        localStorage.removeItem("isUrinalysis")
-                        localStorage.removeItem("isFecalysis")
-                        localStorage.removeItem("isXray")
-                        localStorage.removeItem("isAntigen")
-                        localStorage.removeItem("isVaccine")
-                        localStorage.removeItem("age")
-                        localStorage.removeItem("viewStudent")
-                        this.resultDialog = false
-                    }
-                })
-                .catch(() => {});
+                        confirmButtonText: 'Yes',
+                        cancelButtonText: 'No',
+                    })
+                    .then(() => {
+                        if (this.active == 0) {
+                            localStorage.removeItem("student_id")
+                            localStorage.removeItem("active")
+                            localStorage.removeItem("isCBC")
+                            localStorage.removeItem("isUrinalysis")
+                            localStorage.removeItem("isFecalysis")
+                            localStorage.removeItem("isXray")
+                            localStorage.removeItem("isAntigen")
+                            localStorage.removeItem("isVaccine")
+                            localStorage.removeItem("age")
+                            localStorage.removeItem("viewStudent")
+                            this.resultDialog = false
+                        } else {
+                            this.active--;
+                            localStorage.removeItem("student_id")
+                            localStorage.removeItem("active")
+                            localStorage.removeItem("isCBC")
+                            localStorage.removeItem("isUrinalysis")
+                            localStorage.removeItem("isFecalysis")
+                            localStorage.removeItem("isXray")
+                            localStorage.removeItem("isAntigen")
+                            localStorage.removeItem("isVaccine")
+                            localStorage.removeItem("age")
+                            localStorage.removeItem("viewStudent")
+                            this.resultDialog = false
+                        }
+                    })
+                    .catch(() => {});
             },
             closeEditDialog(editStudent) {
                 this.$confirm('Are you sure you want to cancel updating Student?', {
@@ -649,20 +646,33 @@
             },
             closeAddDrawer() {
                 this.$confirm('Are you sure you want to cancel adding new Admission?', {
-                    confirmButtonText: 'Yes',
-                    cancelButtonText: 'No',
-                })
-                .then(() => {
-                    this.openAddDrawer = false;
-                    this.$refs[addStudent].resetFields();
-                })
-                .catch(() => {});
+                        confirmButtonText: 'Yes',
+                        cancelButtonText: 'No',
+                    })
+                    .then(() => {
+                        this.openAddDrawer = false;
+                        this.$refs[addStudent].resetFields();
+                    })
+                    .catch(() => {});
             },
             resetFormData() {
                 this.submitForm = []
             },
+            nurseData() {
+                axios.post("{{ route('nurse-fetch') }}")
+                    .then(response => {
+                        if (response) {
+                            this.fetchData = response.data;
+                            this.id = response.data[0].id;
+                            console.log(this.id);
+                        }
+                    })
+                    .catch(error => {
+                        console.error(error.response);
+                    });
+            },
             fetch_Cbc() {
-                axios.post("{{route('fetchCbc')}}")
+                axios.post("{{ route('fetchCbc') }}")
                     .then(response => {
                         if (response) {
                             this.hasCBC = response.data;
@@ -673,7 +683,7 @@
                     });
             },
             fetch_Antigen() {
-                axios.post("{{route('fetchAntigen')}}")
+                axios.post("{{ route('fetchAntigen') }}")
                     .then(response => {
                         if (response) {
                             this.hasAntigen = response.data;
@@ -684,7 +694,7 @@
                     });
             },
             fetch_Urinalysis() {
-                axios.post("{{route('fetchUrinalysis')}}")
+                axios.post("{{ route('fetchUrinalysis') }}")
                     .then(response => {
                         if (response) {
                             this.hasUrinalysis = response.data;
@@ -695,7 +705,7 @@
                     });
             },
             fetch_Xray() {
-                axios.post("{{route('fetchXray')}}")
+                axios.post("{{ route('fetchXray') }}")
                     .then(response => {
                         if (response) {
                             this.hasXray = response.data;
@@ -706,7 +716,7 @@
                     });
             },
             fetch_Fecalysis() {
-                axios.post("{{route('fetchFecalysis')}}")
+                axios.post("{{ route('fetchFecalysis') }}")
                     .then(response => {
                         if (response) {
                             this.hasFecalysis = response.data;
@@ -717,7 +727,7 @@
                     });
             },
             fetch_Vaccine() {
-                axios.post("{{route('fetchVaccine')}}")
+                axios.post("{{ route('fetchVaccine') }}")
                     .then(response => {
                         if (response) {
                             this.hasVaccine = response.data;
@@ -728,9 +738,8 @@
                     });
             },
             getData() {
-                axios.post("{{route('fetchStudent')}}")
+                axios.post("{{ route('fetchStudent') }}")
                     .then(response => {
-                        console.log(response.data);
                         if (response.data.error) {
                             this.tableData = [];
                         } else {
@@ -783,123 +792,142 @@
                 return age + ` year${age > 1 ? "s" : ""} old`;
             },
             updateUser(updateStudent) {
-                    this.$refs[updateStudent].validate((valid) => {
-                        if (valid) {
-                            if (this.editStudent.identification != this.updateStudent.identification || this.editStudent.year != this.updateStudent.year|| this.editStudent.classSection != this.updateStudent.classSection|| this.editStudent.firstname != this.updateStudent.firstname || this.editStudent.midname != this.updateStudent.midname || this.editStudent.lastname != this.updateStudent.lastname || this.editStudent.birthdate != this.updateStudent.birthdate || this.editStudent.gender != this.updateStudent.gender|| this.editStudent.phone_number != this.updateStudent.phone_number ) {
-                                this.loadButton = true;
-                                this.$confirm('This will update user ' + this.editStudent.firstname + '. Continue?', {
+                this.$refs[updateStudent].validate((valid) => {
+                    if (valid) {
+                        if (this.editStudent.identification != this.updateStudent.identification || this
+                            .editStudent.year != this.updateStudent.year || this.editStudent
+                            .classSection != this.updateStudent.classSection || this.editStudent
+                            .firstname != this.updateStudent.firstname || this.editStudent.midname !=
+                            this.updateStudent.midname || this.editStudent.lastname != this
+                            .updateStudent.lastname || this.editStudent.birthdate != this.updateStudent
+                            .birthdate || this.editStudent.gender != this.updateStudent.gender || this
+                            .editStudent.phone_number != this.updateStudent.phone_number) {
+                            this.loadButton = true;
+                            this.$confirm('This will update user ' + this.editStudent.firstname +
+                                    '. Continue?', {
                                         confirmButtonText: 'Confirm',
                                         cancelButtonText: 'Cancel',
                                     })
-                                    .then(() => {
-                                        const age = localStorage.getItem("age");
-                                        const birthday = new Date(Date.parse(this.updateStudent.birthdate));
-                                        const birthdayFormat = birthday.getFullYear() + "-" + ((birthday.getMonth() + 1) > 9 ? '' : '0') + (birthday.getMonth() + 1) + "-" + (birthday.getDate() > 9 ? '' : '0') + birthday.getDate();
-                                        this.editDialog = false;
-                                        var updateData = new FormData()
-                                        updateData.append("id", this.updateStudent.id)
-                                        updateData.append("identification", this.updateStudent.identification)
-                                        updateData.append("year", this.updateStudent.year)
-                                        updateData.append("classSection", this.updateStudent.classSection)
-                                        updateData.append("firstname", this.updateStudent.firstname)
-                                        updateData.append("midname", this.updateStudent.midname)
-                                        updateData.append("lastname", this.updateStudent.lastname)
-                                        updateData.append("birthdate", birthdayFormat)
-                                        updateData.append("gender", this.updateStudent.gender)
-                                        updateData.append("phone_number", this.updateStudent.phone_number)
-                                        updateData.append("guardianFname", this.updateStudent.guardianFname)
-                                        updateData.append("guardianMname", this.updateStudent.guardianMname)
-                                        updateData.append("guardianLname", this.updateStudent.guardianLname)
-                                        updateData.append("guardianPhone_number", this.updateStudent.guardianPhone_number)
-                                        updateData.append("age", age)
-                                        updateData.append("citizen", this.updateStudent.citizen)
-                                        updateData.append("civil", this.updateStudent.civil)
-                                        axios.post("{{route('studentUpdate')}}", updateData)
-                                            .then(response => {
-                                                if (response.data) {
-                                                    this.loadButton = false;
-                                                    this.tableLoad = true;
-                                                    setTimeout(() => {
-                                                        this.tableLoad = false;
-                                                        this.getData();
-                                                        this.$message({
-                                                            message: 'Student Data has been updated successfully!',
-                                                            type: 'success'
-                                                        });
-                                                    }, 1500)
-                                                }else{
-                                                    console.log(response.data.error);
-                                                }
-                                            })
-                                        localStorage.removeItem("identification")
-                                    })
-                                    .catch(() => {
-                                        this.loadButton = false;
-                                    });
-                            } else {
-                                this.$confirm('No changes made. Cancel editing user?', {
-                                        confirmButtonText: 'Yes',
-                                        cancelButtonText: 'No',
-                                    })
-                                    .then(() => {
-                                        this.editDialog = false
-                                        localStorage.removeItem("identification")
-                                    })
-                                    .catch(() => {
-                                        this.editDialog = true
-                                    })
-                            }
+                                .then(() => {
+                                    const age = localStorage.getItem("age");
+                                    const birthday = new Date(Date.parse(this.updateStudent
+                                        .birthdate));
+                                    const birthdayFormat = birthday.getFullYear() + "-" + ((birthday
+                                        .getMonth() + 1) > 9 ? '' : '0') + (birthday
+                                        .getMonth() + 1) + "-" + (birthday.getDate() > 9 ? '' :
+                                        '0') + birthday.getDate();
+                                    this.editDialog = false;
+                                    var updateData = new FormData()
+                                    updateData.append("id", this.updateStudent.id)
+                                    updateData.append("identification", this.updateStudent
+                                        .identification)
+                                    updateData.append("year", this.updateStudent.year)
+                                    updateData.append("classSection", this.updateStudent
+                                        .classSection)
+                                    updateData.append("firstname", this.updateStudent.firstname)
+                                    updateData.append("midname", this.updateStudent.midname)
+                                    updateData.append("lastname", this.updateStudent.lastname)
+                                    updateData.append("birthdate", birthdayFormat)
+                                    updateData.append("gender", this.updateStudent.gender)
+                                    updateData.append("phone_number", this.updateStudent
+                                        .phone_number)
+                                    updateData.append("guardianFname", this.updateStudent
+                                        .guardianFname)
+                                    updateData.append("guardianMname", this.updateStudent
+                                        .guardianMname)
+                                    updateData.append("guardianLname", this.updateStudent
+                                        .guardianLname)
+                                    updateData.append("guardianPhone_number", this.updateStudent
+                                        .guardianPhone_number)
+                                    updateData.append("age", age)
+                                    updateData.append("citizen", this.updateStudent.citizen)
+                                    updateData.append("civil", this.updateStudent.civil)
+                                    axios.post("{{ route('studentUpdate') }}", updateData)
+                                        .then(response => {
+                                            if (response.data) {
+                                                this.loadButton = false;
+                                                this.tableLoad = true;
+                                                setTimeout(() => {
+                                                    this.tableLoad = false;
+                                                    this.getData();
+                                                    this.$message({
+                                                        message: 'Student Data has been updated successfully!',
+                                                        type: 'success'
+                                                    });
+                                                }, 1500)
+                                            } else {
+                                                console.log(response.data.error);
+                                            }
+                                        })
+                                    localStorage.removeItem("identification")
+                                })
+                                .catch(() => {
+                                    this.loadButton = false;
+                                });
                         } else {
-                            this.$message.error("Cannot submit the form. Please check the error(s).")
-                            return false;
+                            this.$confirm('No changes made. Cancel editing user?', {
+                                    confirmButtonText: 'Yes',
+                                    cancelButtonText: 'No',
+                                })
+                                .then(() => {
+                                    this.editDialog = false
+                                    localStorage.removeItem("identification")
+                                })
+                                .catch(() => {
+                                    this.editDialog = true
+                                })
                         }
-                    });
-                },
-                handleSwitch(row) {
-                    var updateStatus = new FormData()
-                    updateStatus.append("id", row.id)
-                    updateStatus.append("status", row.status)
-                    axios.post("{{route('studentStatus')}}", updateStatus)
-                        .then(response => {
-                            if (response.data) {
-                                this.loadButton = false;
-                                this.tableLoad = true;
-                                setTimeout(() => {
-                                    this.tableLoad = false;
-                                    this.getData();
-                                    if (response.data.status == "Inactive") {
-                                        this.$message({
-                                            message: 'User has been deactivated!',
-                                            type: 'success'
-                                        });
-                                    } else {
-                                        this.$message({
-                                            message: 'User has been activated!',
-                                            type: 'success'
-                                        });
-                                    }
+                    } else {
+                        this.$message.error("Cannot submit the form. Please check the error(s).")
+                        return false;
+                    }
+                });
+            },
+            handleSwitch(row) {
+                var updateStatus = new FormData()
+                updateStatus.append("id", row.id)
+                updateStatus.append("status", row.status)
+                axios.post("{{ route('studentStatus') }}", updateStatus)
+                    .then(response => {
+                        if (response.data) {
+                            this.loadButton = false;
+                            this.tableLoad = true;
+                            setTimeout(() => {
+                                this.tableLoad = false;
+                                this.getData();
+                                if (response.data.status == "Inactive") {
+                                    this.$message({
+                                        message: 'User has been deactivated!',
+                                        type: 'success'
+                                    });
+                                } else {
+                                    this.$message({
+                                        message: 'User has been activated!',
+                                        type: 'success'
+                                    });
+                                }
 
-                                }, 1500)
-                            }
-                        })
-                },
+                            }, 1500)
+                        }
+                    })
+            },
             back() {
                 if (this.active == 1) {
                     this.$confirm('There are unsaved changes. Continue?', {
-                        confirmButtonText: 'Yes',
-                        cancelButtonText: 'No',
-                    })
-                    .then(() => {
-                        this.active--
-                        localStorage.removeItem("active")
-                        localStorage.removeItem("isCBC")
-                        localStorage.removeItem("isUrinalysis")
-                        localStorage.removeItem("isFecalysis")
-                        localStorage.removeItem("isXray")
-                        localStorage.removeItem("isAntigen")
-                        localStorage.removeItem("isVaccine")
-                    })
-                    .catch(() => {});
+                            confirmButtonText: 'Yes',
+                            cancelButtonText: 'No',
+                        })
+                        .then(() => {
+                            this.active--
+                            localStorage.removeItem("active")
+                            localStorage.removeItem("isCBC")
+                            localStorage.removeItem("isUrinalysis")
+                            localStorage.removeItem("isFecalysis")
+                            localStorage.removeItem("isXray")
+                            localStorage.removeItem("isAntigen")
+                            localStorage.removeItem("isVaccine")
+                        })
+                        .catch(() => {});
                 }
 
             },
@@ -918,7 +946,8 @@
                     localStorage.setItem("isVaccine", this.isVaccine)
                 }
 
-                if (this.isCBC || this.isUrinalysis || this.isFecalysis || this.isXray || this.isAntigen || this.isVaccine) {
+                if (this.isCBC || this.isUrinalysis || this.isFecalysis || this.isXray || this.isAntigen || this
+                    .isVaccine) {
                     this.active++;
                     localStorage.setItem("active", this.active)
                 } else {
@@ -1005,253 +1034,347 @@
                     };
                 }
             },
-            submitCbc(){
+            submitCbc() {
                 if (this.$refs.file.files.length === 0) {
                     this.$message.error("Insert Result image first!");
                     this.error = true;
-                }else{
-                this.loadButton = true;
-                const student_id = localStorage.getItem("student_id");
-                var newData = new FormData()
-                newData.append("student_id", student_id)
-                newData.append("med_status", this.viewStudent.medStatus);
-                const files = this.$refs.file.files;
-                for (let i = 0; i < files.length; i++) {
-                newData.append("file[]", files[i]);
-                }
-                axios.post("{{route('storeCbc')}}", newData)
-                    .then(res => {
-                        if (res) {
-                            setTimeout(() => {
-                                this.getData();
-                                this.loadButton = false;
-                                this.fileImg = null;
-                                this.$message({
-                                    message: 'Results has been uploaded successfully!',
-                                    type: 'success'
-                                });
-                                this.resultDialog = false;
-                                localStorage.clear();
-                                window.location.reload(true);
-                            }, 500)
-                        }
-                        this.active--;
-                    })
-                    .catch(error => {
-                        console.error(error.response);
-                    });
+                } else {
+                    this.loadButton = true;
+                    const student_id = localStorage.getItem("student_id");
+                    var newData = new FormData()
+                    newData.append("student_id", student_id)
+                    newData.append("med_status", this.viewStudent.medStatus);
+                    const files = this.$refs.file.files;
+                    for (let i = 0; i < files.length; i++) {
+                        newData.append("file[]", files[i]);
+                    }
+                    axios.post("{{ route('storeCbc') }}", newData)
+                        .then(res => {
+                            if (res) {
+                                setTimeout(() => {
+                                    this.getData();
+                                    this.loadButton = false;
+                                    this.fileImg = null;
+                                    this.$message({
+                                        message: 'Results has been uploaded successfully!',
+                                        type: 'success'
+                                    });
+                                    this.resultDialog = false;
+                                    localStorage.clear();
+                                    window.location.reload(true);
+                                }, 500)
+                            }
+                            this.active--;
+                        })
+                        .catch(error => {
+                            console.error(error.response);
+                        });
                 }
             },
-            submitUrinalysis(){
+            submitUrinalysis() {
                 if (this.$refs.file.files.length === 0) {
                     this.$message.error("Insert Result image first!");
                     this.error = true;
-                }else{
-                this.loadButton = true;
-                const student_id = localStorage.getItem("student_id");
-                var newData = new FormData()
-                newData.append("student_id", student_id)
-                const files = this.$refs.file.files;
-                for (let i = 0; i < files.length; i++) {
-                newData.append("file[]", files[i]);
-                }
-                axios.post("{{route('storeUrinalysis')}}", newData)
-                    .then(res => {
-                        if (res) {
-                            setTimeout(() => {
-                                this.getData();
-                                this.loadButton = false;
-                                this.fileImg = null;
-                                this.$message({
-                                    message: 'Results has been uploaded successfully!',
-                                    type: 'success'
-                                });
-                                this.resultDialog = false;
-                                localStorage.clear();
-                                window.location.reload(true);
-                            }, 500)
-                        }
-                        this.active--;
-                    })
-                    .catch(error => {
-                        console.error(error.response.data);
-                    });
+                } else {
+                    this.loadButton = true;
+                    const student_id = localStorage.getItem("student_id");
+                    var newData = new FormData()
+                    newData.append("student_id", student_id)
+                    const files = this.$refs.file.files;
+                    for (let i = 0; i < files.length; i++) {
+                        newData.append("file[]", files[i]);
+                    }
+                    axios.post("{{ route('storeUrinalysis') }}", newData)
+                        .then(res => {
+                            if (res) {
+                                setTimeout(() => {
+                                    this.getData();
+                                    this.loadButton = false;
+                                    this.fileImg = null;
+                                    this.$message({
+                                        message: 'Results has been uploaded successfully!',
+                                        type: 'success'
+                                    });
+                                    this.resultDialog = false;
+                                    localStorage.clear();
+                                    window.location.reload(true);
+                                }, 500)
+                            }
+                            this.active--;
+                        })
+                        .catch(error => {
+                            console.error(error.response.data);
+                        });
                 }
             },
-            submitFecalysis(){
+            submitFecalysis() {
                 if (this.$refs.file.files.length === 0) {
                     this.$message.error("Insert Result image first!");
                     this.error = true;
-                }else{
-                this.loadButton = true;
-                const student_id = localStorage.getItem("student_id");
-                var newData = new FormData()
-                newData.append("student_id", student_id)
-                const files = this.$refs.file.files;
-                for (let i = 0; i < files.length; i++) {
-                newData.append("file[]", files[i]);
-                }
-                axios.post("{{route('storeFecalysis')}}", newData)
-                    .then(res => {
-                        if (res) {
-                            setTimeout(() => {
-                                this.getData();
-                                this.loadButton = false;
-                                this.fileImg = null;
-                                this.$message({
-                                    message: 'Results has been uploaded successfully!',
-                                    type: 'success'
-                                });
-                                this.resultDialog = false;
-                                localStorage.clear();
-                                window.location.reload(true);
-                            }, 500)
-                        }
-                        this.active--;
-                    })
-                    .catch(error => {
-                        console.error(error.response.data);
-                    });
+                } else {
+                    this.loadButton = true;
+                    const student_id = localStorage.getItem("student_id");
+                    var newData = new FormData()
+                    newData.append("student_id", student_id)
+                    const files = this.$refs.file.files;
+                    for (let i = 0; i < files.length; i++) {
+                        newData.append("file[]", files[i]);
+                    }
+                    axios.post("{{ route('storeFecalysis') }}", newData)
+                        .then(res => {
+                            if (res) {
+                                setTimeout(() => {
+                                    this.getData();
+                                    this.loadButton = false;
+                                    this.fileImg = null;
+                                    this.$message({
+                                        message: 'Results has been uploaded successfully!',
+                                        type: 'success'
+                                    });
+                                    this.resultDialog = false;
+                                    localStorage.clear();
+                                    window.location.reload(true);
+                                }, 500)
+                            }
+                            this.active--;
+                        })
+                        .catch(error => {
+                            console.error(error.response.data);
+                        });
                 }
             },
-            submitXray(){
+            submitXray() {
                 if (this.$refs.file.files.length === 0) {
                     this.$message.error("Insert Result image first!");
                     this.error = true;
-                }else{
-                this.loadButton = true;
-                const student_id = localStorage.getItem("student_id");
-                var newData = new FormData()
-                newData.append("student_id", student_id)
-                const files = this.$refs.file.files;
-                for (let i = 0; i < files.length; i++) {
-                newData.append("file[]", files[i]);
-                }
-                axios.post("{{route('storeXray')}}", newData)
-                    .then(res => {
-                        if (res) {
-                            setTimeout(() => {
-                                this.getData();
-                                this.loadButton = false;
-                                this.fileImg = null;
-                                this.$message({
-                                    message: 'Results has been uploaded successfully!',
-                                    type: 'success'
-                                });
-                                this.resultDialog = false;
-                                localStorage.clear();
-                                window.location.reload(true);
-                            }, 500)
-                        }
-                        this.active--;
-                    })
-                    .catch(error => {
-                        console.error(error.response.data);
-                    });
+                } else {
+                    this.loadButton = true;
+                    const student_id = localStorage.getItem("student_id");
+                    var newData = new FormData()
+                    newData.append("student_id", student_id)
+                    const files = this.$refs.file.files;
+                    for (let i = 0; i < files.length; i++) {
+                        newData.append("file[]", files[i]);
+                    }
+                    axios.post("{{ route('storeXray') }}", newData)
+                        .then(res => {
+                            if (res) {
+                                setTimeout(() => {
+                                    this.getData();
+                                    this.loadButton = false;
+                                    this.fileImg = null;
+                                    this.$message({
+                                        message: 'Results has been uploaded successfully!',
+                                        type: 'success'
+                                    });
+                                    this.resultDialog = false;
+                                    localStorage.clear();
+                                    window.location.reload(true);
+                                }, 500)
+                            }
+                            this.active--;
+                        })
+                        .catch(error => {
+                            console.error(error.response.data);
+                        });
                 }
             },
-            submitAntigen(){
+            submitAntigen() {
                 if (this.$refs.file.files.length === 0) {
                     this.$message.error("Insert Result image first!");
                     this.error = true;
-                }else{
-                this.loadButton = true;
-                const student_id = localStorage.getItem("student_id");
-                var newData = new FormData()
-                newData.append("student_id", student_id)
-                const files = this.$refs.file.files;
-                for (let i = 0; i < files.length; i++) {
-                newData.append("file[]", files[i]);
-                }
-                axios.post("{{route('storeAntigen')}}", newData)
-                    .then(res => {
-                        if (res) {
-                            setTimeout(() => {
-                                this.getData();
-                                this.loadButton = false;
-                                this.fileImg = null;
-                                this.$message({
-                                    message: 'Results has been uploaded successfully!',
-                                    type: 'success'
-                                });
-                                this.resultDialog = false;
-                                localStorage.clear();
-                                window.location.reload(true);
-                            }, 500)
-                        }
-                        this.active--;
-                    })
-                    .catch(error => {
-                        console.error(error.response.data);
-                    });
+                } else {
+                    this.loadButton = true;
+                    const student_id = localStorage.getItem("student_id");
+                    var newData = new FormData()
+                    newData.append("student_id", student_id)
+                    const files = this.$refs.file.files;
+                    for (let i = 0; i < files.length; i++) {
+                        newData.append("file[]", files[i]);
+                    }
+                    axios.post("{{ route('storeAntigen') }}", newData)
+                        .then(res => {
+                            if (res) {
+                                setTimeout(() => {
+                                    this.getData();
+                                    this.loadButton = false;
+                                    this.fileImg = null;
+                                    this.$message({
+                                        message: 'Results has been uploaded successfully!',
+                                        type: 'success'
+                                    });
+                                    this.resultDialog = false;
+                                    localStorage.clear();
+                                    window.location.reload(true);
+                                }, 500)
+                            }
+                            this.active--;
+                        })
+                        .catch(error => {
+                            console.error(error.response.data);
+                        });
                 }
             },
-            submitVaccine(){
+            submitVaccine() {
                 if (this.$refs.file.files.length === 0) {
                     this.$message.error("Insert Result image first!");
                     this.error = true;
-                }else{
-                this.loadButton = true;
-                const student_id = localStorage.getItem("student_id");
-                var newData = new FormData()
-                newData.append("student_id", student_id)
-                const files = this.$refs.file.files;
-                for (let i = 0; i < files.length; i++) {
-                newData.append("file[]", files[i]);
+                } else {
+                    this.loadButton = true;
+                    const student_id = localStorage.getItem("student_id");
+                    var newData = new FormData()
+                    newData.append("student_id", student_id)
+                    const files = this.$refs.file.files;
+                    for (let i = 0; i < files.length; i++) {
+                        newData.append("file[]", files[i]);
+                    }
+                    axios.post("{{ route('storeVaccine') }}", newData)
+                        .then(res => {
+                            if (res) {
+                                setTimeout(() => {
+                                    this.getData();
+                                    this.loadButton = false;
+                                    this.fileImg = null;
+                                    this.$message({
+                                        message: 'Results has been uploaded successfully!',
+                                        type: 'success'
+                                    });
+                                    this.resultDialog = false;
+                                    localStorage.clear();
+                                    window.location.reload(true);
+                                }, 500)
+                            }
+                            this.active--;
+                        })
+                        .catch(error => {
+                            console.error(error.response.data);
+                        });
                 }
-                axios.post("{{route('storeVaccine')}}", newData)
-                    .then(res => {
-                        if (res) {
-                            setTimeout(() => {
-                                this.getData();
-                                this.loadButton = false;
-                                this.fileImg = null;
-                                this.$message({
-                                    message: 'Results has been uploaded successfully!',
-                                    type: 'success'
-                                });
-                                this.resultDialog = false;
-                                localStorage.clear();
-                                window.location.reload(true);
-                            }, 500)
-                        }
-                        this.active--;
-                    })
-                    .catch(error => {
-                        console.error(error.response.data);
-                    });
+            },
+            cancelUpdatePassword() {
+                this.checkPass = false
+                this.changePass = false
+                this.newPassword = ""
+                this.confirmPassword = ""
+                this.currentPassword = ""
+            },
+            checkPassword() {
+                this.currentPassErr = ""
+                if (!this.currentPassword) {
+                    this.currentPassErr = "Current password is required!"
+                } else {
+                    const checkPassword = new FormData();
+                    checkPassword.append("id", this.id)
+                    checkPassword.append("currentPassword", this.currentPassword)
+                    axios.post("{{ route('checkNursePass') }}", checkPassword)
+                        .then(res => {
+                            if (res) {
+                                console.log(res);
+                                if (res.data.error) {
+                                    this.currentPassErr = res.data.message;
+                                } else {
+                                    this.checkPass = true;
+                                }
+                            }
+                        })
                 }
+            },
+            updatePassword() {
+                this.newPassErr = ""
+                this.confirmPassErr = ""
+                if (!this.newPassword) {
+                    this.newPassErr = "New password is required!"
+                } else {
+                    if (this.newPassword.length < 8) {
+                        this.newPassErr = "Password should atleast eight(8) characters!"
+                    }
+                    if (this.newPassword == this.currentPassword) {
+                        this.newPassErr = "You have entered your current password!";
+                    }
+                }
+                if (!this.confirmPassword) {
+                    this.confirmPassErr = "Confirm password is required!"
+                }
+                if (this.newPassword && this.confirmPassword) {
+                    if (this.newPassword.length < 8) {
+                        this.newPassErr = "Password should atleast eight(8) characters!";
+                        this.errors = true;
+                        return;
+                    } else {
+                        this.errors = false;
+                    }
+                    if (this.newPassword != this.confirmPassword) {
+                        this.confirmPassErr = "Password does not match!";
+                        this.errors = true;
+                        return;
+                    } else {
+                        this.errors = false;
+                    }
+                    if (this.newPassword == this.currentPassword) {
+                        this.newPassErr = "You have entered your current password!";
+                        this.errors = true;
+                        return;
+                    } else {}
+                }
+                if (!this.errors) {
+                    this.loadButton = true;
+                    const newPassword = new FormData();
+                    newPassword.append("id", this.id)
+                    newPassword.append("newPassword", this.newPassword)
+                    axios.post("{{ route('updateNursePassword') }}", newPassword)
+                        .then(res => {
+                            if (res) {
+                                setTimeout(() => {
+                                    this.$message({
+                                        message: 'Password has been updated successfully!',
+                                        type: 'success'
+                                    });
+                                    this.currentPassword = ""
+                                    this.newPassword = ""
+                                    this.confirmPassword = ""
+                                    this.checkPass = false;
+                                    this.loadButton = false;
+                                    this.changePass = false;
+                                }, 500)
+                            }
+                        })
+                }
+            },
+            resetPassword() {
+                this.newPassword = ""
+                this.confirmPassword = ""
             },
             logout() {
                 this.fullscreenLoading = true
-                axios.post("{{route('nurseLogout')}}")
-                .then(response => {
-                    // console.log(response);
-                    if (response.data.message) {
-                        localStorage.clear();
-                        this.$notify({
-                            title: 'Success',
-                            message: 'Successfully logged out!',
-                            type: 'success',
-                            showClose: false
-                        });
-                        setTimeout(() => {
-                            window.location.href = "{{route('student-login')}}"
-                        }, 1000)
-                    }
-                })
+                axios.post("{{ route('nurseLogout') }}")
+                    .then(response => {
+                        // console.log(response);
+                        if (response.data.message) {
+                            localStorage.clear();
+                            this.$notify({
+                                title: 'Success',
+                                message: 'Successfully logged out!',
+                                type: 'success',
+                                showClose: false
+                            });
+                            setTimeout(() => {
+                                window.location.href = "{{ route('student-login') }}"
+                            }, 1000)
+                        }
+                    })
                     .catch(error => {
                         console.error(error.response.data);
                     });
             }
         },
     });
+
     function printAndRemoveButtons(button) {
         window.print();
         const cancelButton = button.previousElementSibling;
         cancelButton.parentNode.removeChild(cancelButton);
         button.parentNode.removeChild(button);
-        }
+    }
     window.addDashes = function addDashes(f) {
         // Remove any non-alphanumeric characters
         var alphanumericOnly = f.value.replace(/\W/g, '');

@@ -112,6 +112,8 @@
                         this.newPassErr = "You have entered your current password!";
                         this.errors = true;
                     } else {
+                        this.errors = false;
+                        return;
                     }
                 }
                 if (!this.errors) {

@@ -28,12 +28,75 @@ class nurseController extends Controller
     public function vaccinePage(){
         return view('nurse/medical-records/vaccine');
     }
-    
+    public function nurseprofile(){
+        return view('nurse/profile');
+    }
+    // nurse password check and update
+    public function checkPass(Request $check)
+    {
+        $user_id = $check->input('id');
+        $user_record = nurseModel::find($user_id);
+
+        if (!$user_record || !password_verify($check->input("currentPassword"), $user_record->password)) {
+            $response["error"] = true;
+            $response["message"] = "Password is incorrect!";
+        } else {
+            $response = true;
+        }
+
+        return response()->json($response);
+    }
+    public function updatePassword(Request $request)
+    {
+        $user_id = $request->input("id");
+        $new_password = $request->input("newPassword");
+
+        $user = nurseModel::find($user_id);
+
+        if (!$user) {
+            return response()->json(['message' => 'User not found'], 404);
+        }
+
+        $user->password = bcrypt($new_password);
+        $user->save();
+
+        return response()->json(['message' => 'Password updated successfully']);
+    }
     //nurse login
     public function fetch()
     {
-        $response = nurseModel::all();
-        return response()->json($response);
+
+        $user_data = array();
+        $nurseId = Session::get('user');
+
+        $fetchAll = nurseModel::all()->where('id', $nurseId);
+        if ($fetchAll->count() > 0) {
+            foreach ($fetchAll as $data_row) {
+                $fullname = $this->getFullName($data_row);
+                $birthdate = date("F d, Y", strtotime($data_row->birthdate));
+                $avatar = $this->getAvatarPath($data_row->avatar);
+                $address = $this->getAddress($data_row);
+
+                $array_data = array(
+                    "id" => $data_row->id,
+                    "identification" => $data_row->identification,
+                    "name" => $fullname,
+                    "lastname" => $data_row->lastname,
+                    "firstname" => $data_row->firstname,
+                    "midname" => $data_row->midname,
+                    "birthdate" => $birthdate,
+                    "gender" => $data_row->gender,
+                    "avatar" => '../../'.$avatar,
+                    "address" => $address,
+                    "password" => $data_row->password,
+                    "status" => $data_row->status,
+                    "phone_number" => $data_row->phone_number,
+                );
+
+                array_push($user_data, $array_data);
+            }
+        }
+        return response()->json($user_data);
     }
     public function admission()
     {
