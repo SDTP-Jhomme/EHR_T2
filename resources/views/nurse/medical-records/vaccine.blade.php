@@ -5,11 +5,7 @@
 <head>
     @include('nurse/imports/head')
     <link rel="shortcut icon" type="image/png" href="<?php echo asset('assets/img/favicon.png') ?>">
-<<<<<<< HEAD
-    @section('title', 'Vaccine Records')
-=======
     @section('title', 'Heppa B Vaccine Records')
->>>>>>> 3108961fee40adc3e30c83f1918d2c698aed3ac9
 </head>
 
 <body>
