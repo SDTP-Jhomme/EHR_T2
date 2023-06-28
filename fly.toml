@@ -26,9 +26,9 @@ console_command = "php /var/www/html/artisan tinker"
   LOG_STDERR_FORMATTER = "Monolog\\Formatter\\JsonFormatter"
   SESSION_DRIVER = "cookie"
   SESSION_SECURE_COOKIE = "true"
-  VONAGE_API_KEY="e0f71074"
-  VONAGE_API_SECRET="lCF5qIFwcS4C4sXx"
-  BRAND_NAME="+639476371070"
+  TWILIO_SID="ACf37a4f81ce8d9a0b9974efbd46d935c9"
+TWILIO_AUTH_TOKEN="7c19788e9b0d7745da0bc4e77b383784"
+TWILIO_PHONE_NUMBER="+13612733390"
 
 [http_service]
   internal_port = 8080

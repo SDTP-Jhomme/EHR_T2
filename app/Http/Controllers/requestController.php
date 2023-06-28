@@ -6,9 +6,10 @@ use Illuminate\Http\Request;
 use App\Models\reqModel;
 use App\Models\userModel;
 use Carbon\Carbon;
-use Vonage\Client;
-use Vonage\Client\Credentials\Basic;
-use Vonage\SMS\Message\SMS;
+// use Vonage\Client;
+// use Vonage\Client\Credentials\Basic;
+// use Vonage\SMS\Message\SMS;
+use Twilio\Rest\Client;
 
 
 class requestController extends Controller
@@ -74,14 +75,25 @@ class requestController extends Controller
         $name = $update->input('name');
         $request_date = $update->input('request_date');
 
-        $basic = new Basic(env('VONAGE_API_KEY'), env('VONAGE_API_SECRET'));
-        $client = new Client($basic);
+        // $basic = new Basic(env('VONAGE_API_KEY'), env('VONAGE_API_SECRET'));
+        // $client = new Client($basic);
 
-        // Send an SMS
-        $client->sms()->send(
-            new SMS($phone_number, env('BRAND_NAME'),  'Good day! Mr./Ms. ' . $name . ', your Request appointment this ' . $request_date .' has been Approved!')
-        );
+        // // Send an SMS
+        // $client->sms()->send(
+        //     new SMS($phone_number, env('BRAND_NAME'),  'Good day! Mr./Ms. ' . $name . ', your Request appointment this ' . $request_date .' has been Approved!')
+        // );
+ // Send an SMS notification
+        $to = $phone_number; // Replace with the recipient's phone number
+        $message = 'Good day! Mr./Ms. ' . $name . ', your Request appointment this ' . $request_date .' has been Approved!'; // Customize the message as needed
+        $twilioSid = env('TWILIO_SID');
+        $twilioToken = env('TWILIO_AUTH_TOKEN');
+        $twilioPhoneNumber = env('TWILIO_PHONE_NUMBER');
 
+        $twilioClient = new Client($twilioSid, $twilioToken);
+        $twilioClient->messages->create($to, [
+            'from' => $twilioPhoneNumber,
+            'body' => $message,
+        ]);
         $update_user = [
             'med_status' => $update->input('med_status'),
         ];
@@ -105,13 +117,24 @@ class requestController extends Controller
         $name = $update->input('name');
         $request_date = $update->input('request_date');
 
-        $basic = new Basic(env('VONAGE_API_KEY'), env('VONAGE_API_SECRET'));
-        $client = new Client($basic);
+        // $basic = new Basic(env('VONAGE_API_KEY'), env('VONAGE_API_SECRET'));
+        // $client = new Client($basic);
 
-        // Send an SMS
-        $client->sms()->send(
-            new SMS($phone_number, env('BRAND_NAME'),  'Good day! Mr./Ms. ' . $name . ', your Request appointment this ' . $request_date .' has been Declined!. Please reschedule your appointment! Thank you!.')
-        );
+        // // Send an SMS
+        // $client->sms()->send(
+        //     new SMS($phone_number, env('BRAND_NAME'),  'Good day! Mr./Ms. ' . $name . ', your Request appointment this ' . $request_date .' has been Declined!. Please reschedule your appointment! Thank you!.')
+        // );
+        $to = $phone_number; // Replace with the recipient's phone number
+        $message = 'Good day! Mr./Ms. ' . $name . ', your Request appointment this ' . $request_date .' has been Declined!. Please reschedule your appointment! Thank you!.'; // Customize the message as needed
+        $twilioSid = env('TWILIO_SID');
+        $twilioToken = env('TWILIO_AUTH_TOKEN');
+        $twilioPhoneNumber = env('TWILIO_PHONE_NUMBER');
+
+        $twilioClient = new Client($twilioSid, $twilioToken);
+        $twilioClient->messages->create($to, [
+            'from' => $twilioPhoneNumber,
+            'body' => $message,
+        ]);
         $update_user = [
             'med_status' => $update->input('med_status'),
 
@@ -145,7 +168,7 @@ class requestController extends Controller
                 $address = $this->fetchAddress($data_row);
                 $yearSect = $this->getYrSect($data_row);
                 $created_at = date("F d, Y", strtotime($data_row->created_at));
-                $request_date = $data_row->request_date;
+                $request_date =date("F d, Y - h:i A", strtotime($data_row->request_date));
 
                 $array_data = array(
                     "id" => $data_row->id,

@@ -36,15 +36,21 @@
                         <el-form ref="form" :model="request" label-width="120px">
                             <div class="row justify-content-start align-items-center g-2">
                                 <div class="col-lg-6 col-md-10">
-                                    <label>Appointment</label>
-                                    <el-select v-model="request.appointment" placeholder="Select Medical Appointment">
-                                        <el-option
-                                        v-for="item in medOptions"
-                                        :key="item.value"
-                                        :label="item.label"
-                                        :value="item.value">
-                                        </el-option>
-                                    </el-select>
+                                    <div class="row justify-content-center align-items-center g-2">
+                                        <div class="col-auto">
+                                            <label>Appointment</label>
+                                        </div>
+                                        <div class="col-lg-6 col-md-10">
+                                            <el-select v-model="request.appointment" placeholder="Select Medical Appointment">
+                                                <el-option
+                                                v-for="item in medOptions"
+                                                :key="item.value"
+                                                :label="item.label"
+                                                :value="item.value">
+                                                </el-option>
+                                            </el-select>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="col-lg-6 col-md-10">
                                     <label>Request Date</label>

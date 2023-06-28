@@ -7,11 +7,11 @@
         </div>
         <span class="spinner-text">Loading...</span>
     </div>
-@include('admin/imports/nav')
+    @include('admin/imports/nav')
     @yield('header')
     <!-- sidebar -->
     <div class="container-fluid page-wrapper">
-@include('admin/imports/sidebar')
+        @include('admin/imports/sidebar')
         @yield('sidebar')
     </div>
 </div>
@@ -25,7 +25,7 @@
         el: '#app',
         data() {
             return {
-                reqDialog:false,
+                reqDialog: false,
                 fullscreenLoading: true,
                 page: 1,
                 pageSize: 10,
@@ -40,20 +40,27 @@
                 searchNull: "",
                 searchName: "",
                 searchID: "",
-                searchContact: "",
+                searchStatus: "",
+                searchYrandSect: "",
                 options: [{
                     value: 'identification',
                     label: 'Identifiaction No.'
                 }, {
                     value: 'name',
                     label: 'Name'
+                }, {
+                    value: 'med_status',
+                    label: 'Medical Status'
+                }, {
+                    value: 'yearandsection',
+                    label: 'Year and Section'
                 }],
                 tableData: [],
                 tableLoad: false,
                 reqCount: [],
-                med_status:{
-                    approved:'approved',
-                    rejected:'rejected'
+                med_status: {
+                    approved: 'approved',
+                    rejected: 'rejected'
                 }
             };
         },
@@ -66,24 +73,26 @@
                 this.fullscreenLoading = false
             }, 1000)
         },
-            watch: {
-                searchValue(value) {
-                    if (value == "" || value == "identification" || value == "name") {
-                        this.searchNull = '';
-                        this.searchID = '';
-                        this.searchName = '';
-                        this.searchContact = '';
-                    }
-                },
-                showAllData(value) {
-                    if (value == true) {
-                        this.page = 1;
-                        this.pageSize = this.tableData.length
-                    } else {
-                        this.pageSize = 10
-                    }
-                },
+        watch: {
+            searchValue(value) {
+                if (value == "" || value == "identification" || value == "name" || value == "med_status" ||
+                    value == "yearandsection") {
+                    this.searchNull = '';
+                    this.searchID = '';
+                    this.searchName = '';
+                    this.searchStatus = '';
+                    this.searchYrandSect = '';
+                }
             },
+            showAllData(value) {
+                if (value == true) {
+                    this.page = 1;
+                    this.pageSize = this.tableData.length
+                } else {
+                    this.pageSize = 10
+                }
+            },
+        },
         computed: {
             usersTable() {
                 return this.tableData
@@ -92,6 +101,13 @@
                     })
                     .filter((data) => {
                         return data.identification.toLowerCase().includes(this.searchID.toLowerCase());
+                    })
+                    .filter((data) => {
+                        return data.med_status.toLowerCase().includes(this.searchStatus.toLowerCase());
+                    })
+                    .filter((data) => {
+                        return data.yearandsection.toLowerCase().includes(this.searchYrandSect
+                        .toLowerCase());
                     })
                     .slice(this.pageSize * this.page - this.pageSize, this.pageSize * this.page)
             }
@@ -102,7 +118,8 @@
                 this.searchNull = ""
                 this.searchName = ""
                 this.searchID = ""
-                this.searchContact = ""
+                this.searchStatus = ""
+                this.searchYrandSect = ""
             },
             setPage(value) {
                 this.page = value
@@ -115,7 +132,7 @@
                 return row[property] === value;
             },
             approvedData() {
-                axios.post("{{route('fetchRequest')}}")
+                axios.post("{{ route('fetchRequest') }}")
                     .then(response => {
                         if (response.data.error) {
                             this.tableData = [];
@@ -128,7 +145,7 @@
                     });
             },
             countReq() {
-                axios.post("{{route('countRequest')}}")
+                axios.post("{{ route('countRequest') }}")
                     .then(response => {
                         this.reqCount = response.data;
                     })

@@ -6,10 +6,10 @@ use Illuminate\Http\Request;
 use App\Models\userModel;
 use App\Models\nurseModel;
 use Illuminate\Support\Facades\Hash;
-// use Twilio\Rest\Client;
-use Vonage\Client;
-use Vonage\Client\Credentials\Basic;
-use Vonage\SMS\Message\SMS;
+use Twilio\Rest\Client;
+// use Vonage\Client;
+// use Vonage\Client\Credentials\Basic;
+// use Vonage\SMS\Message\SMS;
 
 
 
@@ -74,25 +74,25 @@ class userController extends Controller
 
 
         // Send an SMS notification
-        // $to = $phone_number; // Replace with the recipient's phone number
-        // $message = 'Use this as your username ' . $identification . ' and this is your Password ' . $password; // Customize the message as needed
-        // $twilioSid = env('TWILIO_SID');
-        // $twilioToken = env('TWILIO_AUTH_TOKEN');
-        // $twilioPhoneNumber = env('TWILIO_PHONE_NUMBER');
+        $to = $phone_number; // Replace with the recipient's phone number
+        $message = 'Use this as your username ' . $identification . ' and this is your Password ' . $password; // Customize the message as needed
+        $twilioSid = env('TWILIO_SID');
+        $twilioToken = env('TWILIO_AUTH_TOKEN');
+        $twilioPhoneNumber = env('TWILIO_PHONE_NUMBER');
 
-        // $twilioClient = new Client($twilioSid, $twilioToken);
-        // $twilioClient->messages->create($to, [
-        //     'from' => $twilioPhoneNumber,
-        //     'body' => $message,
-        // ]);
-        // Create a new Vonage client instance
-        $basic = new Basic(env('VONAGE_API_KEY'), env('VONAGE_API_SECRET'));
-        $client = new Client($basic);
+        $twilioClient = new Client($twilioSid, $twilioToken);
+        $twilioClient->messages->create($to, [
+            'from' => $twilioPhoneNumber,
+            'body' => $message,
+        ]);
+        // // Create a new Vonage client instance
+        // $basic = new Basic(env('VONAGE_API_KEY'), env('VONAGE_API_SECRET'));
+        // $client = new Client($basic);
 
-        // Send an SMS
-        $message = $client->sms()->send(
-            new SMS($phone_number, env('BRAND_NAME'),  'Use this as your username ' . $identification . ' and this is your Password ' . $password)
-        );
+        // // Send an SMS
+        // $message = $client->sms()->send(
+        //     new SMS($phone_number, env('BRAND_NAME'),  'Use this as your username ' . $identification . ' and this is your Password ' . $password)
+        // );
 
         $storeStudent = new userModel;
         $storeStudent['identification'] = $identification;
