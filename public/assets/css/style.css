@@ -88,7 +88,7 @@
     content: "";
     background: rgba(0, 0, 0, 0.6);
     position: absolute;
-    bottom: -6.6rem;
+    bottom: 0;
     top: 0;
     left: 0;
     right: 0;
@@ -911,4 +911,38 @@ form .input-group .form-control:focus {
     width: 178px !important;
     height: 178px !important;
     display: block !important;
+}
+
+/* main-page */
+#login-main {
+    width: 100%;
+    height: 100vh;
+    background: url("../img/bg-img.jpg") top center;
+    background-size: cover;
+    position: relative;
+}
+
+#login-main:before {
+    content: "";
+    background: rgba(0, 0, 0, 0.6);
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+#login-main .login-main-container {
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+    flex-direction: column;
+    text-align: center;
+    padding: 80px 15px 0;
+    margin: 0 5rem;
 }

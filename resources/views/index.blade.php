@@ -10,25 +10,53 @@
 
 <body>
     <div id="app" v-loading.fullscreen.lock="fullscreenLoading">
-        @include('imports/nav')
-        <section id="main" class="slide-in">
-            <div class="main-container">
+        {{-- @include('imports/nav') --}}
+        <div style="z-index: 999" class="position-absolute top-0 end-0 p-5 d-lg-block d-md-none d-none">
+            <el-dropdown>
+                <el-button class="text-uppercase px-5 py-3" type="primary">
+                    Login<i class="ms-2 el-icon-arrow-down el-icon--left"></i>
+                </el-button>
+                <el-dropdown-menu slot="dropdown" style="width:15%;!important">
+                    <el-link class="dropdown-item" type="primary" :underline="false"
+                        @click="studentLogin = true; teacherLogin = false; nurseLogin = false">Student</el-link>
+                    <el-link class="dropdown-item" type="primary":underline="false"
+                        @click="teacherLogin = true; studentLogin = false; nurseLogin = false">Teacher</el-link>
+                    <el-link class="dropdown-item" type="primary":underline="false"
+                        @click="nurseLogin = true; studentLogin = false; teacherLogin = false">Nurse</el-link>
+                </el-dropdown-menu>
+            </el-dropdown>
+        </div>
+        <section id="login-main" class="slide-in">
+            <div class="login-main-container">
                 <div class="row justify-content-center align-items-center">
                     <div class="col-lg-12 col-md-10 col-sm-12">
-                        <div class="row row-cols-2 align-items-center g-2">
+                        <div class="row justify-content-center align-items-center g-2">
                             <div class="col-lg-6 col-md-12 col-sm-12 d-none d-sm-none d-lg-block left-fade-in">
-                                <h1 class="header-1">
-                                    Learn From The Expert
+                                <h1 class="header-1 text-light">
+                                    Electronic Health Record System
                                 </h1>
-                                <h3 class="header-3">
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime ipsa nulla sed quis
-                                    rerum amet
-                                    natus quas necessitatibus
+                                <h3 class="header-3 text-light">
+                                    Software Development Training Program - NOLITC
                                 </h3>
                             </div>
-                            <div class="col-lg-5 col-md-12 col-sm-12 col-12 right-fade-in">
+                            <div class="col-lg-4 col-md-12 col-sm-12 col-12 right-fade-in">
+                                <div style="z-index: 999" class="position-absolute top-0 end-0 p-5 d-lg-none d-md-block d-block">
+                                    <el-dropdown>
+                                        <el-button class="text-uppercase px-5 py-3" size="mini" type="primary">
+                                            Login<i class="ms-2 el-icon-arrow-down el-icon--left"></i>
+                                        </el-button>
+                                        <el-dropdown-menu slot="dropdown" style="width:15%;!important">
+                                            <el-link class="dropdown-item" type="primary" :underline="false"
+                                                @click="studentLogin = true; teacherLogin = false; nurseLogin = false">Student</el-link>
+                                            <el-link class="dropdown-item" type="primary":underline="false"
+                                                @click="teacherLogin = true; studentLogin = false; nurseLogin = false">Teacher</el-link>
+                                            <el-link class="dropdown-item" type="primary":underline="false"
+                                                @click="nurseLogin = true; studentLogin = false; teacherLogin = false">Nurse</el-link>
+                                        </el-dropdown-menu>
+                                    </el-dropdown>
+                                </div>
                                 <!-- student login -->
-                                <div class="card" v-if="studentLogin">
+                                <div class="card" v-if="studentLogin"style="border-radius:10px;!important">
                                     <div class="card-body p-md-5 mx-md-4">
                                         <div class="text-center">
                                             <img src="<?php echo asset('assets/img/logo.png'); ?>" style="width: 110px;" alt="logo">
@@ -46,9 +74,9 @@
                                         </div>
                                         <label class="form-label mt-4" for="password">Password</label>
                                         <div class="form-outline input-group">
-                                            <input v-on:keyup.enter="student_Login" :type="type" id="password"
-                                                class="form-control" :class="{ 'has-error': this.passErr }"
-                                                v-model="password" />
+                                            <input v-on:keyup.enter="student_Login" :type="type"
+                                                id="password" class="form-control"
+                                                :class="{ 'has-error': this.passErr }" v-model="password" />
                                             <button class="input-group-text" @click="showPassword"
                                                 v-if="type == 'password'">
                                                 <span>
