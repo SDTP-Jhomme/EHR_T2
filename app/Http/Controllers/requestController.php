@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\reqModel;
 use App\Models\userModel;
 use Carbon\Carbon;
+use Vonage\Client;
+use Vonage\Client\Credentials\Basic;
+use Vonage\SMS\Message\SMS;
 
 
 class requestController extends Controller
@@ -45,13 +48,43 @@ class requestController extends Controller
         return response()->json($count);
     }
 
-    public function approvedStatus(Request $update)
+    public function doneReqStatus(Request $update)
     {
+        $id = $update->input('id');
         $update_user = [
             'med_status' => $update->input('med_status'),
-
         ];
+        $update = reqModel::where('id', $id)->update($update_user);
+        if ($update) {
+            // Success
+            $response["error"] = false;
+            $response["message"] = "Appointment has been done successfully";
+            return response()->json($response);
+        } else {
+            // Failed to update or record not found
+            $response["error"] = true;
+            $response["message"] = "Appointment failed approved";
+            return response()->json($response, 500);
+        }
+    }
+    public function approvedStatus(Request $update)
+    {
         $id = $update->input('id');
+        $phone_number = $update->input('phone_number');
+        $name = $update->input('name');
+        $request_date = $update->input('request_date');
+
+        $basic = new Basic(env('VONAGE_API_KEY'), env('VONAGE_API_SECRET'));
+        $client = new Client($basic);
+
+        // Send an SMS
+        $client->sms()->send(
+            new SMS($phone_number, env('BRAND_NAME'),  'Good day! Mr./Ms. ' . $name . ', your Request appointment this ' . $request_date .' has been Approved!')
+        );
+
+        $update_user = [
+            'med_status' => $update->input('med_status'),
+        ];
         $update = reqModel::where('id', $id)->update($update_user);
         if ($update) {
             // Success
@@ -67,11 +100,22 @@ class requestController extends Controller
     }
     public function rejectedStatus(Request $update)
     {
+        $id = $update->input('id');
+        $phone_number = $update->input('phone_number');
+        $name = $update->input('name');
+        $request_date = $update->input('request_date');
+
+        $basic = new Basic(env('VONAGE_API_KEY'), env('VONAGE_API_SECRET'));
+        $client = new Client($basic);
+
+        // Send an SMS
+        $client->sms()->send(
+            new SMS($phone_number, env('BRAND_NAME'),  'Good day! Mr./Ms. ' . $name . ', your Request appointment this ' . $request_date .' has been Declined!. Please reschedule your appointment! Thank you!.')
+        );
         $update_user = [
             'med_status' => $update->input('med_status'),
 
         ];
-        $id = $update->input('id');
         $update = reqModel::where('id', $id)->update($update_user);
         if ($update) {
             // Success

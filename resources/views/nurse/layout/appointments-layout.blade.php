@@ -7,11 +7,11 @@
         </div>
         <span class="spinner-text">Loading...</span>
     </div>
-@include('nurse/imports/nav')
+    @include('nurse/imports/nav')
     @yield('header')
     <!-- sidebar -->
     <div class="container-fluid page-wrapper">
-@include('nurse/imports/sidebar')
+        @include('nurse/imports/sidebar')
         @yield('sidebar')
     </div>
 </div>
@@ -37,8 +37,8 @@
                 errors: true,
                 fullscreenLoading: true,
                 profile: false,
-                fetchData:[],
-                reqDialog:false,
+                fetchData: [],
+                reqDialog: false,
                 fullscreenLoading: true,
                 page: 1,
                 pageSize: 10,
@@ -64,9 +64,9 @@
                 tableData: [],
                 tableLoad: false,
                 reqCount: [],
-                med_status:{
-                    approved:'approved',
-                    rejected:'rejected'
+                med_status: {
+                    approved: 'approved',
+                    rejected: 'rejected'
                 }
             };
         },
@@ -80,24 +80,24 @@
                 this.fullscreenLoading = false
             }, 1000)
         },
-            watch: {
-                searchValue(value) {
-                    if (value == "" || value == "identification" || value == "name") {
-                        this.searchNull = '';
-                        this.searchID = '';
-                        this.searchName = '';
-                        this.searchContact = '';
-                    }
-                },
-                showAllData(value) {
-                    if (value == true) {
-                        this.page = 1;
-                        this.pageSize = this.tableData.length
-                    } else {
-                        this.pageSize = 10
-                    }
-                },
+        watch: {
+            searchValue(value) {
+                if (value == "" || value == "identification" || value == "name") {
+                    this.searchNull = '';
+                    this.searchID = '';
+                    this.searchName = '';
+                    this.searchContact = '';
+                }
             },
+            showAllData(value) {
+                if (value == true) {
+                    this.page = 1;
+                    this.pageSize = this.tableData.length
+                } else {
+                    this.pageSize = 10
+                }
+            },
+        },
         computed: {
             usersTable() {
                 return this.tableData
@@ -217,7 +217,6 @@
                         if (response) {
                             this.fetchData = response.data;
                             this.id = response.data[0].id;
-                            console.log(this.id);
                         }
                     })
                     .catch(error => {
@@ -241,8 +240,9 @@
                 return row[property] === value;
             },
             approvedData() {
-                axios.post("{{route('fetchRequest')}}")
+                axios.post("{{ route('fetchRequest') }}")
                     .then(response => {
+                        console.log(response);
                         if (response.data.error) {
                             this.tableData = [];
                         } else {
@@ -254,7 +254,7 @@
                     });
             },
             countReq() {
-                axios.post("{{route('countRequest')}}")
+                axios.post("{{ route('countRequest') }}")
                     .then(response => {
                         this.reqCount = response.data;
                     })
@@ -262,78 +262,99 @@
                         console.error(error.response);
                     });
             },
-            handleApproved(index, row) {
-                var updateStatus = new FormData()
-                updateStatus.append("id", row.id)
-                updateStatus.append("med_status", "Approved")
-                axios.post("{{route('approvedStatus')}}", updateStatus)
+            handleDone(index, row) {
+                const doneReq = new FormData();
+                doneReq.append('id', row.id)
+                doneReq.append("med_status", "Done")
+                axios.post("{{ route('doneReqStatus') }}", doneReq)
                     .then(response => {
                         if (response.data) {
                             this.loadButton = false;
                             this.tableLoad = true;
                             setTimeout(() => {
+                                this.$message({
+                                    message: 'Student appointment has been set to DONE!',
+                                    type: 'success'
+                                });
                                 this.tableLoad = false;
-                                if (response.data.med_status == "Approved") {
-                                    this.$message({
-                                        message: 'Student has been Rejected!',
-                                        type: 'success'
-                                    });
-                                } else {
-                                    this.$message({
-                                        message: 'Student has been Approved!',
-                                        type: 'success'
-                                    });
-                                }
-                                window.location.reload('/nurse/appointments');
-                            }, 1500)
+                                this.approvedData()
+                            }, 1500);
                         }
                     })
+                    .catch(error => {
+                        console.error(error.response.data);
+                    });
+            },
+            handleApproved(index, row) {
+                const approvedReq = new FormData();
+                approvedReq.append('id', row.id)
+                approvedReq.append('name', row.name)
+                approvedReq.append('phone_number', row.phone_number)
+                approvedReq.append('request_date', row.request_date)
+                approvedReq.append("med_status", "Approved")
+                axios.post("{{ route('approvedStatus') }}", approvedReq)
+                    .then(response => {
+                        if (response.data) {
+                            this.loadButton = false;
+                            this.tableLoad = true;
+                            setTimeout(() => {
+                                this.$message({
+                                    message: 'Student appointment has been Approved!',
+                                    type: 'success'
+                                });
+                                this.tableLoad = false;
+                                this.approvedData()
+                            }, 1500);
+                        }
+                    })
+                    .catch(error => {
+                        console.error(error.response.data);
+                    });
             },
             handleRejected(index, row) {
-                var updateStatus = new FormData()
-                updateStatus.append("id", row.id)
-                updateStatus.append("med_status", "Declined")
-                axios.post("{{route('rejectedStatus')}}", updateStatus)
+                const declinedReq = new FormData();
+                declinedReq.append('id', row.id)
+                declinedReq.append('name', row.name)
+                declinedReq.append('phone_number', row.phone_number)
+                declinedReq.append('request_date', row.request_date)
+                declinedReq.append("med_status", "Declined")
+                axios.post("{{ route('rejectedStatus') }}", declinedReq)
                     .then(response => {
                         if (response.data) {
                             this.loadButton = false;
                             this.tableLoad = true;
                             setTimeout(() => {
+                                this.$message({
+                                    message: 'Student appointment has been Declined!',
+                                    type: 'success'
+                                });
                                 this.tableLoad = false;
-                                if (response.data.med_status == "Declined") {
-                                    this.$message({
-                                        message: 'Student has been Aproved!',
-                                        type: 'danger'
-                                    });
-                                } else {
-                                    this.$message({
-                                        message: 'Student has been Declined!',
-                                        type: 'danger'
-                                    });
-                                }
-                                window.location.reload('/nurse/appointments');
-                            }, 1500)
+                                this.approvedData()
+                            }, 1500);
                         }
                     })
+                    .catch(error => {
+                        console.error(error.response.data);
+                    });
             },
             logout() {
                 this.fullscreenLoading = true
-                axios.post("{{route('nurseLogout')}}")
-                .then(response => {
-                    // console.log(response);
-                    if (response.data.message) {
-                        localStorage.clear();
-                        this.$notify({
-                            title: 'Success',
-                            message: 'Successfully logged out!',
-                            type: 'success',
-                            showClose: false
-                        });
-                        setTimeout(() => {
-                            window.location.href = "{{route('student-login')}}"
-                        }, 1000)
-                    }
-                })
+                axios.post("{{ route('nurseLogout') }}")
+                    .then(response => {
+                        // console.log(response);
+                        if (response.data.message) {
+                            localStorage.clear();
+                            this.$notify({
+                                title: 'Success',
+                                message: 'Successfully logged out!',
+                                type: 'success',
+                                showClose: false
+                            });
+                            setTimeout(() => {
+                                window.location.href = "{{ route('student-login') }}"
+                            }, 1000)
+                        }
+                    })
             }
         },
     });

@@ -157,5 +157,6 @@ Route::get('department/records/fecalysis', 'App\Http\Controllers\medController@f
 Route::get('department/records/vaccine', 'App\Http\Controllers\medController@vaccineFile')->name('vaccineFile');
 
 //appointment
+Route::post('appointment-done', 'App\Http\Controllers\requestController@doneReqStatus')->name('doneReqStatus');
 Route::post('appointment-approved', 'App\Http\Controllers\requestController@approvedStatus')->name('approvedStatus');
 Route::post('appointment-rejected', 'App\Http\Controllers\requestController@rejectedStatus')->name('rejectedStatus');
