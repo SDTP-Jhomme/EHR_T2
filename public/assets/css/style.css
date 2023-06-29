@@ -542,7 +542,7 @@ button span.hide-pass {
     font-family: "Manrope", sans-serif;
     font-weight: 500;
     padding: 0;
-    width: 220px;
+    width: 260px;
     z-index: 11;
     transition: width 0.25s ease, background 0.25s ease;
     -webkit-transition: width 0.25s ease, background 0.25s ease;
