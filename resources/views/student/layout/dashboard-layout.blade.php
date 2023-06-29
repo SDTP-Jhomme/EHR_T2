@@ -23,6 +23,7 @@
                 avatar:"",
                 error:true,
                 id:"",
+                reqData:[],
                 isAntigen: [],
                 isCbc: [],
                 isUrinalysis: [],
@@ -65,7 +66,7 @@
             this.fetch_Urinalysis()
             this.fetch_Xray()
             this.fetch_Fecalysis()
-            this.fetch_Vaccine()
+            this.getAppointment()
         },
         mounted() {
             this.getID();
@@ -77,7 +78,6 @@
             fetchCbc() {
                 axios.post("{{route('fetch_Cbc')}}")
                     .then(response => {
-                        console.log(response);
                         if (response) {
                             this.isCbc = response.data;
                         }
@@ -149,6 +149,20 @@
                             this.student_data = response.data;
                             this.avatar = response.data[0].avatar;
                             this.id = response.data[0].id;
+                        } else {
+                            console.error(500);
+                        }
+                })
+                .catch(error => {
+                    console.error(error.response);
+                });
+            },
+            getAppointment() {
+                axios.post("{{route('fetch_Appointment')}}")
+                    .then(response => {
+                        console.log(response);
+                        if (response) {
+                            this.reqData = response.data;
                         } else {
                             console.error(500);
                         }

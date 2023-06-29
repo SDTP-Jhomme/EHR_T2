@@ -9,6 +9,7 @@ use App\Models\fecaModel;
 use App\Models\urinalysisModel;
 use App\Models\vaxxModel;
 use App\Models\xrayModel;
+use App\Models\reqModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -27,7 +28,7 @@ class fetch_userRecord extends Controller
                 $array_data = array(
                     "id" => $data_row->id,
                     "age" => $data_row->age,
-                    "result" => '../../assets/'.$data_row->result,
+                    "result" => '../../assets/' . $data_row->result,
                     "student_id" => $data_row->student_id,
                     "dataCreated" => date("F d, Y", strtotime($data_row->created_at)),
                     "section" => $data_row->section,
@@ -61,7 +62,7 @@ class fetch_userRecord extends Controller
                 $array_data = array(
                     "id" => $data_row->id,
                     "age" => $data_row->age,
-                    "result" => '../../assets/'.$data_row->result,
+                    "result" => '../../assets/' . $data_row->result,
                     "student_id" => $data_row->student_id,
                     "dataCreated" => date("F d, Y", strtotime($data_row->created_at)),
                     "section" => $data_row->section,
@@ -97,7 +98,7 @@ class fetch_userRecord extends Controller
                 $array_data = array(
                     "id" => $data_row->id,
                     "age" => $data_row->age,
-                    "result" => '../../assets/'.$data_row->result,
+                    "result" => '../../assets/' . $data_row->result,
                     "student_id" => $data_row->student_id,
                     "dataCreated" => date("F d, Y", strtotime($data_row->created_at)),
                     "section" => $data_row->section,
@@ -132,7 +133,7 @@ class fetch_userRecord extends Controller
                 $array_data = array(
                     "id" => $data_row->id,
                     "age" => $data_row->age,
-                    "result" => '../../assets/'.$data_row->result,
+                    "result" => '../../assets/' . $data_row->result,
                     "student_id" => $data_row->student_id,
                     "dataCreated" => date("F d, Y", strtotime($data_row->created_at)),
                     "section" => $data_row->section,
@@ -168,7 +169,7 @@ class fetch_userRecord extends Controller
                 $array_data = array(
                     "id" => $data_row->id,
                     "age" => $data_row->age,
-                    "result" => '../../assets/'.$data_row->result,
+                    "result" => '../../assets/' . $data_row->result,
                     "student_id" => $data_row->student_id,
                     "dataCreated" => date("F d, Y", strtotime($data_row->created_at)),
                     "section" => $data_row->section,
@@ -190,11 +191,72 @@ class fetch_userRecord extends Controller
             return response()->json($user_data, 500);
         }
     }
+    public function fetch_Appointment()
+    {
+        $user_data = array();
+        $studentId = Session::get('student_id');
+        $response = reqModel::join('client_info', 'request_table.student_id', '=', 'client_info.id')
+            ->select('client_info.*', 'request_table.*')
+            ->where('request_table.student_id', $studentId)
+            ->get();
+        if ($response->count() > 0) {
+            foreach ($response as $data_row) {
+                $fullname = $this->fetchFullName($data_row);
+                $birthdate = date("F d, Y", strtotime($data_row->birthdate));
+                $avatar = $this->fetchAvatarPath($data_row->avatar);
+                $address = $this->fetchAddress($data_row);
+                $yearSect = $this->getYrSect($data_row);
+                $created_at = date("F d, Y", strtotime($data_row->created_at));
+                $request_date = date("F d, Y - h:i A", strtotime($data_row->request_date));
+                $array_data = array(
+                    "id" => $data_row->id,
+                    "identification" => $data_row->identification,
+                    "name" => $fullname,
+                    "lastname" => $data_row->lastname,
+                    "firstname" => $data_row->firstname,
+                    "midname" => $data_row->midname,
+                    "birthdate" => $birthdate,
+                    "gender" => $data_row->gender,
+                    "avatar" => $avatar,
+                    "year" => $data_row->year,
+                    "course" => $data_row->course,
+                    "civil_status" => $data_row->civil,
+                    "citizenship" => $data_row->citizen,
+                    "section" => $data_row->section,
+                    "address" => $address,
+                    "password" => $data_row->password,
+                    "status" => $data_row->status,
+                    "med_status" => $data_row->med_status,
+                    "phone_number" => $data_row->phone_number,
+                    "classSection" => $data_row->classSection,
+                    "request_date" => $request_date,
+                    "student_id" => $data_row->student_id,
+                    'yearandsection' => $yearSect,
+                    "created_at" => $created_at,
+                );
+
+
+                array_push($user_data, $array_data);
+            }
+        } else {
+            $response = array();
+            $response["error"] = true;
+            return response()->json($user_data, 500);
+        }
+        if ($user_data) {
+            $response["error"] = false;
+            return response()->json($user_data);
+        } else {
+
+            $response["error"] = true;
+            return response()->json($user_data, 500);
+        }
+    }
     public function fetch_Vaccine()
     {
         $user_data = array();
         $studentId = Session::get('student_id');
-        $response = fecaModel::join('client_info', 'vaccine_table.student_id', '=', 'client_info.id')
+        $response = vaxxModel::join('client_info', 'vaccine_table.student_id', '=', 'client_info.id')
             ->select('client_info.*', 'vaccine_table.*')
             ->where('vaccine_table.student_id', $studentId)
             ->get();
@@ -203,7 +265,7 @@ class fetch_userRecord extends Controller
                 $array_data = array(
                     "id" => $data_row->id,
                     "age" => $data_row->age,
-                    "result" => '../../assets/'.$data_row->result,
+                    "result" => '../../assets/' . $data_row->result,
                     "student_id" => $data_row->student_id,
                     "dataCreated" => date("F d, Y", strtotime($data_row->created_at)),
                     "section" => $data_row->section,
@@ -249,5 +311,10 @@ class fetch_userRecord extends Controller
     {
         $address = $data_row->street . " " . $data_row->barangay . " " . $data_row->city;
         return $address;
+    }
+    function getYrSect($data_row)
+    {
+        $yearSect = $data_row->year . " - Section " . $data_row->classSection;
+        return $yearSect;
     }
 }

@@ -125,6 +125,7 @@ Route::get('/','App\Http\Controllers\studentController@studentLogin')->name('stu
 Route::post('student-fetch', 'App\Http\Controllers\studentController@fetch')->name('student-fetch');
 Route::post('fetch-avatar', 'App\Http\Controllers\studentController@fetchAvatar')->name('fetchAvatar');
 Route::post('student/logout', 'App\Http\Controllers\studentController@studentLogout')->name('studentLogout');
+Route::post('student/appointment', 'App\Http\Controllers\fetch_userRecord@fetch_Appointment')->name('fetch_Appointment');
 // students fetch records
 Route::post('student-cbc', 'App\Http\Controllers\fetch_userRecord@fetch_Cbc')->name('fetch_Cbc');
 Route::post('student-antigen', 'App\Http\Controllers\fetch_userRecord@fetch_Antigen')->name('fetch_Antigen');

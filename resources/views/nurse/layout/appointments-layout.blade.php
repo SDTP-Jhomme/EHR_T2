@@ -26,6 +26,7 @@
         data() {
             return {
                 id: "",
+                pendingReq:0,
                 changePass: false,
                 checkPass: false,
                 currentPassword: "",
@@ -81,6 +82,7 @@
             this.approvedData()
             this.countReq()
             this.nurseData()
+            this.reqData()
         },
         mounted() {
             setTimeout(() => {
@@ -126,6 +128,18 @@
         },
 
         methods: {
+            reqData() {
+                axios.post("{{ route('countRequest') }}")
+                    .then(response => {
+                        console.log(response);
+                        if (response) {
+                            this.pendingReq = response.data.count;
+                        } 
+                    })
+                    .catch(error => {
+                        console.error(error.response);
+                    });
+            },
             profileClose() {
                 this.profile = false;
             },

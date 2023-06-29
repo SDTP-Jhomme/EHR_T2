@@ -9,7 +9,9 @@
         <li class="nav-item active">
             <a class="nav-link" href="{{ route('nurse-appointments') }}">
                 <i class="fas fa-calendar pe-2"></i>
-                <span class="menu-title">Appointments</span>
+                <span class="menu-title">List of Appointments<span class="badge bg-primary ms-2 rounded"
+                        v-text="pendingReq"></span>
+                </span>
             </a>
         </li>
         <!-- <li class="nav-item nav-category">Admissions</li> -->
@@ -17,14 +19,14 @@
             <a class="nav-link" data-bs-toggle="collapse" href="#students" aria-expanded="false"
                 aria-controls="students">
                 <i class="fas fa-users pe-2"></i>
-                <span class="menu-title">Patients</span>
+                <span class="menu-title">Students</span>
                 <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="students">
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('nurse-admission') }}"><i
-                                class="fas fa-user pe-2"></i>Admissions</a>
+                                class="fas fa-user pe-2"></i>Student Records</a>
                     </li>
                 </ul>
             </div>

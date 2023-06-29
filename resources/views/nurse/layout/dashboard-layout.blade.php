@@ -7,6 +7,7 @@
         data() {
             return {
                 id: "",
+                pendingReq:0,
                 loadButton:false,
                 changePass: false,
                 checkPass: false,
@@ -48,6 +49,7 @@
             this.getUrine()
             this.getVaxx()
             this.nurseData()
+            this.reqData()
 
         },
         mounted() {
@@ -58,6 +60,18 @@
             }, 1000)
         },
         methods: {
+            reqData() {
+                axios.post("{{ route('countRequest') }}")
+                    .then(response => {
+                        console.log(response);
+                        if (response) {
+                            this.pendingReq = response.data.count;
+                        } 
+                    })
+                    .catch(error => {
+                        console.error(error.response);
+                    });
+            },
             profileClose() {
                 this.profile = false;
             },

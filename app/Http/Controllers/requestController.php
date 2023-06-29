@@ -46,8 +46,7 @@ class requestController extends Controller
     public function countRequest()
     {
         $count = reqModel::where('med_status', 'Pending')->count();
-
-        return response()->json($count);
+        return response()->json(['count' => $count]);
     }
 
     public function doneReqStatus(Request $update)

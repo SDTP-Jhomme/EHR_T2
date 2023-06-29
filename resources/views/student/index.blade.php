@@ -227,6 +227,40 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="card mt-4">
+                                <div class="card-body">
+                                    <div class="section-title">
+                                        <h3 class="text-uppercase">Appointment History</h3>
+                                    </div>
+                                    <div class="table-responsive">
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">Date Requested</th>
+                                                    <th scope="col">Identification</th>
+                                                    <th scope="col">Name</th>
+                                                    <th scope="col">Year and Section</th>
+                                                    <th scope="col">Requested Schedule</th>
+                                                    <th scope="col">Requested Appointment</th>
+                                                    <th scope="col">Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr class="" v-for="data in reqData">
+                                                    <td><span v-text="data.created_at"></span></td>
+                                                    <td><span v-text="data.identification"></span></td>
+                                                    <td><span v-text="data.name"></span></td>
+                                                    <td><span v-text="data.yearandsection"></span></td>
+                                                    <td><span v-text="data.request_date"></span></td>
+                                                    <td><span v-text="data.section"></span></td>
+                                                    <td><span v-text="data.med_status"></span></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    
+                                </div>
+                            </div>
                         </div>
                         </div>
                     </div>

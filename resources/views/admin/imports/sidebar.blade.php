@@ -10,7 +10,7 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="{{route('admin-appointments')}}">
                         <i class="fas fa-calendar pe-2"></i>
-                        <span class="menu-title">Appointments</span>
+                        <span class="menu-title">List of Appointments</span>
                     </a>
                 </li>
                 <li class="nav-item">

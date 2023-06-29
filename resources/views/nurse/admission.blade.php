@@ -529,7 +529,7 @@
             <el-dialog :visible.sync="viewDialog" width="35%" :before-close="closeViewDialog">
                 <template #title>
                     <div class="d-flex justify-content-between align-items-center">
-                        <div class="fs-5">User<span class="mx-2" v-text="viewStudent.firstname"></span></div>
+                        <div class="fs-5">Student<span class="mx-2" v-text="viewStudent.firstname"></span></div>
                         <div class="pe-4">
                             <el-avatar :size="70" :src="viewStudent.avatar"></el-avatar>
                         </div>

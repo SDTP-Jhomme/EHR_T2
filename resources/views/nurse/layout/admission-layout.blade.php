@@ -64,6 +64,7 @@
                 viewDialog: false,
                 viewStudent: [],
                 studentTable: false,
+                pendingReq:0,
                 status: true,
                 switch: false,
                 dateRange: [],
@@ -323,6 +324,7 @@
             this.fetch_Fecalysis()
             this.fetch_Vaccine()
             this.nurseData()
+            this.reqData()
         },
         mounted() {
             this.getData();
@@ -722,6 +724,18 @@
                     })
                     .catch(error => {
                         console.error(error.response.data);
+                    });
+            },
+            reqData() {
+                axios.post("{{ route('countRequest') }}")
+                    .then(response => {
+                        console.log(response);
+                        if (response) {
+                            this.pendingReq = response.data.count;
+                        } 
+                    })
+                    .catch(error => {
+                        console.error(error.response);
                     });
             },
             getData() {
