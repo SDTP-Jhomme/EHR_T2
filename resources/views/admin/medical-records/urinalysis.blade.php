@@ -164,7 +164,7 @@
                 <hr>
                 <div class="card">                
                     <div class="card-body">
-                        <img :src="urine.result" class="img-fluid rounded-top w-100" alt="Antigen Result">
+                        <img :src="viewStudent.result" class="img-fluid rounded-top w-100" alt="Antigen Result">
                     </div>
                 </div>
             </div>

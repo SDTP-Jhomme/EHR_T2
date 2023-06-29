@@ -139,7 +139,7 @@
                             </el-button>
                         </div>
                     </div>
-                    <el-table v-if="this.tableData" :data="usersTable" style="width: 100%" border height="400"
+                    <el-table v-if="this.tableData" :data="usersTable" style="width: 100%" border height="500"
                         v-loading="tableLoad" element-loading-text="Loading. Please wait..."
                         element-loading-spinner="el-icon-loading">
                         <el-table-column label="No." type="index" width="50">

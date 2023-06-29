@@ -377,7 +377,8 @@
                     .guardianPhone_number : "";
             },
             searchValue(value) {
-                if (value == "" || value == "identification" || value == "name" || value == "status" || value == "yearandsection") {
+                if (value == "" || value == "identification" || value == "name" || value == "status" || value ==
+                    "yearandsection") {
                     this.searchNull = '';
                     this.searchID = '';
                     this.searchName = '';
@@ -407,7 +408,8 @@
                         return data.status.toLowerCase().includes(this.searchStatus.toLowerCase());
                     })
                     .filter((data) => {
-                        return data.yearandsection.toLowerCase().includes(this.searchYrandSect.toLowerCase());
+                        return data.yearandsection.toLowerCase().includes(this.searchYrandSect
+                            .toLowerCase());
                     })
                     .slice(this.pageSize * this.page - this.pageSize, this.pageSize * this.page)
             }
@@ -1024,6 +1026,9 @@
                 if (this.$refs.file.files.length === 0) {
                     this.$message.error("Insert Result image first!");
                     this.error = true;
+                } else if (this.updateMedStats.medStatus === "") {
+                    this.$message.error("Medical Status is Empty!");
+                    this.error = true;
                 } else {
                     this.loadButton = true;
                     const student_id = localStorage.getItem("student_id");
@@ -1062,6 +1067,9 @@
             submitUrinalysis() {
                 if (this.$refs.file.files.length === 0) {
                     this.$message.error("Insert Result image first!");
+                    this.error = true;
+                } else if (this.updateMedStats.medStatus === "") {
+                    this.$message.error("Medical Status is Empty!");
                     this.error = true;
                 } else {
                     this.loadButton = true;
@@ -1102,6 +1110,9 @@
                 if (this.$refs.file.files.length === 0) {
                     this.$message.error("Insert Result image first!");
                     this.error = true;
+                } else if (this.updateMedStats.medStatus === "") {
+                    this.$message.error("Medical Status is Empty!");
+                    this.error = true;
                 } else {
                     this.loadButton = true;
                     const student_id = localStorage.getItem("student_id");
@@ -1140,6 +1151,9 @@
             submitXray() {
                 if (this.$refs.file.files.length === 0) {
                     this.$message.error("Insert Result image first!");
+                    this.error = true;
+                } else if (this.updateMedStats.medStatus === "") {
+                    this.$message.error("Medical Status is Empty!");
                     this.error = true;
                 } else {
                     this.loadButton = true;
@@ -1180,6 +1194,9 @@
                 if (this.$refs.file.files.length === 0) {
                     this.$message.error("Insert Result image first!");
                     this.error = true;
+                } else if (this.updateMedStats.medStatus === "") {
+                    this.$message.error("Medical Status is Empty!");
+                    this.error = true;
                 } else {
                     this.loadButton = true;
                     const student_id = localStorage.getItem("student_id");
@@ -1218,6 +1235,9 @@
             submitVaccine() {
                 if (this.$refs.file.files.length === 0) {
                     this.$message.error("Insert Result image first!");
+                    this.error = true;
+                } else if (this.updateMedStats.medStatus === "") {
+                    this.$message.error("Medical Status is Empty!");
                     this.error = true;
                 } else {
                     this.loadButton = true;

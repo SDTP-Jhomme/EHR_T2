@@ -6,7 +6,7 @@
         data() {
             return {
                 id: "",
-                loadButton:false,
+                loadButton: false,
                 changePass: false,
                 checkPass: false,
                 currentPassword: "",
@@ -17,10 +17,11 @@
                 confirmPassErr: "",
                 errors: true,
                 profile: false,
-                fetchData:[],
+                fetchData: [],
+                fetch_Student: [],
                 fullscreenLoading: true,
                 teacher_data: [],
-                backToHome:false,
+                backToHome: false,
                 tableData: [],
                 tableLoad: false,
                 showAllData: false,
@@ -37,12 +38,12 @@
                     value: 'name',
                     label: 'Name'
                 }],
-                viewStudent:[],
-                isCbc:[],
-                viewDialog:false,
+                viewStudent: [],
+                isCbc: [],
+                viewDialog: false,
             };
         },
-        watch:{
+        watch: {
             searchValue(value) {
                 if (value == "" || value == "identification" || value == "name") {
                     this.searchNull = '';
@@ -72,6 +73,7 @@
             }
         },
         created() {
+            this.fetchStudent()
             this.getData()
             this.nurseData()
         },
@@ -209,15 +211,25 @@
             setPage(value) {
                 this.page = value
             },
-            getData() {
-                axios.post("{{route('fetchCbc')}}")
+            fetchStudent() {
+                axios.post("{{ route('fetchStudent') }}")
                     .then(response => {
+                        console.log(response);
+                        this.fetch_Student = response.data;
+                    })
+                    .catch(error => {
+                        console.error(error.response);
+                    });
+            },
+            getData() {
+                axios.post("{{ route('fetchCbc') }}")
+                    .then(response => {
+                        console.log(response);
                         if (response.data.error) {
                             this.tableData = [];
                         } else {
                             this.isCbc = response.data;
                             this.tableData = response.data;
-                            console.log(this.tableData);
                             this.checkIdentification = response.data.map(res => res.identification);
                         }
                     })
@@ -226,24 +238,24 @@
                     });
             },
             logout() {
-                    this.fullscreenLoading = true
-                    axios.post("{{route('departmentLogout')}}")
-                        .then(response => {
-                            // console.log(response);
-                            if (response.data.message) {
-                                localStorage.clear();
-                                this.$notify({
-                                    title: 'Success',
-                                    message: 'Successfully logged out!',
-                                    type: 'success',
-                                    showClose: false
-                                });
-                                setTimeout(() => {
-                                    window.location.href = "{{route('student-login')}}"
-                                }, 1000)
-                            }
-                        })
-                },
+                this.fullscreenLoading = true
+                axios.post("{{ route('departmentLogout') }}")
+                    .then(response => {
+                        // console.log(response);
+                        if (response.data.message) {
+                            localStorage.clear();
+                            this.$notify({
+                                title: 'Success',
+                                message: 'Successfully logged out!',
+                                type: 'success',
+                                showClose: false
+                            });
+                            setTimeout(() => {
+                                window.location.href = "{{ route('student-login') }}"
+                            }, 1000)
+                        }
+                    })
+            },
         },
     });
 </script>
