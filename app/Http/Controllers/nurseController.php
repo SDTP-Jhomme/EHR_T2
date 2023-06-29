@@ -10,25 +10,32 @@ use Twilio\Rest\Client;
 
 class nurseController extends Controller
 {
-    public function cbcPage(){
+    public function cbcPage()
+    {
         return view('nurse/medical-records/cbc');
     }
-    public function antigenPage(){
+    public function antigenPage()
+    {
         return view('nurse/medical-records/antigen');
     }
-    public function urinalysisPage(){
+    public function urinalysisPage()
+    {
         return view('nurse/medical-records/urinalysis');
     }
-    public function xrayPage(){
+    public function xrayPage()
+    {
         return view('nurse/medical-records/xray');
     }
-    public function fecalysisPage(){
+    public function fecalysisPage()
+    {
         return view('nurse/medical-records/fecalysis');
     }
-    public function vaccinePage(){
+    public function vaccinePage()
+    {
         return view('nurse/medical-records/vaccine');
     }
-    public function nurseprofile(){
+    public function nurseprofile()
+    {
         return view('nurse/profile');
     }
     // nurse password check and update
@@ -86,7 +93,7 @@ class nurseController extends Controller
                     "midname" => $data_row->midname,
                     "birthdate" => $birthdate,
                     "gender" => $data_row->gender,
-                    "avatar" => '../../'.$avatar,
+                    "avatar" => '../../' . $avatar,
                     "address" => $address,
                     "password" => $data_row->password,
                     "status" => $data_row->status,
@@ -165,10 +172,10 @@ class nurseController extends Controller
                     return response()->json($response);
                 }
             }
-        }else{
+        } else {
             $response["error"] = true;
             $response["nurseErr"] = "identification is incorrect!";
-            return response()->json($response , 500);
+            return response()->json($response, 500);
         }
     }
     public function nurseLogout(Request $request)
@@ -227,7 +234,7 @@ class nurseController extends Controller
         $storeNurse['last_login'] = $date_now;
         $storeNurse->save();
 
-        if( $storeNurse){
+        if ($storeNurse) {
             $response = array(
                 'identification' => $identification,
                 'password' => $password,
@@ -236,7 +243,7 @@ class nurseController extends Controller
             $response["error"] = false;
             $response["message"] = "Successfully stores data";
             return response()->json($response);
-        }else {
+        } else {
             $response["error"] = true;
             $response["message"] = "Failed to store data";
 
@@ -283,16 +290,21 @@ class nurseController extends Controller
 
         return response()->json($user_data);
     }
-    public function nurseUpdate(Request $update){
-        $update_user =[
+    public function nurseUpdate(Request $update)
+    {
+
+        $gender = $update->input('gender');
+        $avatar = ($gender == 'Male') ? "assets/avatar/default.png" : "assets/avatar/default-woman.png";
+        $update_user = [
             'identification' => $update->input('identification'),
             'firstname' => $update->input('firstname'),
             'midname' => $update->input('midname'),
             'lastname' => $update->input('lastname'),
-            'gender' => $update->input('gender'),
+            'gender' => $gender,
+            'avatar' => $avatar,
             'birthdate' => $update->input('birthdate'),
             'phone_number' => $update->input('phone_number'),
-        
+
         ];
         $id = $update->input('id');
         $update = nurseModel::where('id', $id)->update($update_user);
@@ -305,14 +317,15 @@ class nurseController extends Controller
             // Failed to update or record not found
             $response["error"] = true;
             $response["message"] = "Failed updates data";
-            return response()->json($response , 500);
+            return response()->json($response, 500);
         }
-        
+
     }
-    public function nurseStatus(Request $update){
-        $update_user =[
+    public function nurseStatus(Request $update)
+    {
+        $update_user = [
             'status' => $update->input('status'),
-        
+
         ];
         $id = $update->input('id');
         $update = nurseModel::where('id', $id)->update($update_user);
@@ -325,9 +338,9 @@ class nurseController extends Controller
             // Failed to update or record not found
             $response["error"] = true;
             $response["message"] = "Failed updates data";
-            return response()->json($response , 500);
+            return response()->json($response, 500);
         }
-        
+
     }
     function getFullName($data_row)
     {
@@ -365,5 +378,5 @@ class nurseController extends Controller
 
         return $password;
     }
-    
+
 }

@@ -558,7 +558,8 @@
                         return data.status.toLowerCase().includes(this.searchStatus.toLowerCase());
                     })
                     .filter((data) => {
-                        return data.yearandsection.toLowerCase().includes(this.searchYrandSect.toLowerCase());
+                        return data.yearandsection.toLowerCase().includes(this.searchYrandSect
+                            .toLowerCase());
                     })
                     .slice(this.pageSize * this.page - this.pageSize, this.pageSize * this.page)
             }
@@ -712,6 +713,7 @@
                         this.editDialog = false
                         this.$refs[editStudent].resetFields();
                         localStorage.removeItem("identification")
+                        localStorage.clear()
                     })
                     .catch(() => {});
             },
@@ -851,8 +853,8 @@
                                             message: 'New Student Account has been added successfully!',
                                             type: 'success'
                                         });
+                                        this.getData();
                                         this.tableLoad = false;
-                                        this.getData()
                                         setTimeout(() => {
                                             this.openAddDialog = true;
                                         }, 1500)
@@ -899,7 +901,7 @@
                                     const birthday = new Date(Date.parse(this.updateStudent
                                         .birthdate));
                                     const birthdayFormat = birthday.getFullYear() + "-" + ((birthday
-                                            .getMonth() + 1) > 9 ? '' : '0') + (birthday
+                                        .getMonth() + 1) > 9 ? '' : '0') + (birthday
                                         .getMonth() + 1) + "-" + (birthday.getDate() > 9 ? '' :
                                         '0') + birthday.getDate();
                                     this.editDialog = false;
@@ -934,12 +936,12 @@
                                                 this.loadButton = false;
                                                 this.tableLoad = true;
                                                 setTimeout(() => {
-                                                    this.tableLoad = false;
                                                     this.getData();
                                                     this.$message({
                                                         message: 'Student Data has been updated successfully!',
                                                         type: 'success'
                                                     });
+                                                    this.tableLoad = false;
                                                 }, 1500)
                                             } else {
                                                 console.log(response.data.error);

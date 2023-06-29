@@ -7,11 +7,11 @@
         </div>
         <span class="spinner-text">Loading...</span>
     </div>
-@include('admin/imports/nav')
+    @include('admin/imports/nav')
     @yield('header')
     <!-- sidebar -->
     <div class="container-fluid page-wrapper">
-@include('admin/imports/sidebar')
+        @include('admin/imports/sidebar')
         @yield('sidebar')
     </div>
 </div>
@@ -75,97 +75,93 @@
                 viewTeacher: [],
                 newUser: [],
                 showAllData: false,
-                    searchValue: "",
-                    searchNull: "",
-                    searchName: "",
-                    searchID: "",
-                    searchContact: "",
-                    options: [{
-                        value: 'email',
-                        label: 'Email Address.'
-                    }, {
-                        value: 'name',
-                        label: 'Name'
-                    }, {
-                        value: 'status',
-                        label: 'Status'
-                    }],
+                searchValue: "",
+                searchNull: "",
+                searchName: "",
+                searchID: "",
+                searchContact: "",
+                options: [{
+                    value: 'email',
+                    label: 'Email Address.'
+                }, {
+                    value: 'name',
+                    label: 'Name'
+                }, {
+                    value: 'status',
+                    label: 'Status'
+                }],
                 tableData: [],
-                status:true,
+                status: true,
                 tableLoad: false,
                 openAddDialog: false,
                 openAddDrawer: false,
                 checkIdentification: [],
-                addTeacher:{
+                addTeacher: {
                     email: "",
                     firstname: "",
                     midname: "",
                     lastname: "",
                     gender: "",
-                    phone_number:"",
+                    phone_number: "",
                     birthdate: "",
                 },
-                rules:{
-                    email: [
-                        {
-                        required: true,
-                        message: "Email Address is required!",
-                        trigger: "blur",
-                        }, 
-                        {
-                        validator: validateAddID,
-                        trigger: 'blur'
+                rules: {
+                    email: [{
+                            required: true,
+                            message: "Email Address is required!",
+                            trigger: "blur",
                         },
                         {
-                        pattern: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
-                        message: "Invalid Email Address format!",
-                        trigger: "blur",
-                        },
-                    ],
-                    firstname: [
-                        {
-                        required: true,
-                        message: "First name is required!",
-                        trigger: "blur",
+                            validator: validateAddID,
+                            trigger: 'blur'
                         },
                         {
-                        pattern: /^[a-zA-Z ]*$/,
-                        message: "Invalid first name format!",
-                        trigger: "blur",
-                        },
-                        {
-                        min: 2,
-                        message: "First name should be at least two(2) characters!",
-                        trigger: "blur",
+                            pattern: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
+                            message: "Invalid Email Address format!",
+                            trigger: "blur",
                         },
                     ],
-                    midname: [
-                        {
-                        pattern: /^[a-zA-Z- ]*$/,
-                        message: "Invalid last name format!",
-                        trigger: "blur",
+                    firstname: [{
+                            required: true,
+                            message: "First name is required!",
+                            trigger: "blur",
                         },
                         {
-                        min: 2,
-                        message: "Last name should be at least two(2) characters!",
-                        trigger: "blur",
+                            pattern: /^[a-zA-Z ]*$/,
+                            message: "Invalid first name format!",
+                            trigger: "blur",
+                        },
+                        {
+                            min: 2,
+                            message: "First name should be at least two(2) characters!",
+                            trigger: "blur",
                         },
                     ],
-                    lastname: [
-                        {
-                        required: true,
-                        message: "Last name is required!",
-                        trigger: "blur",
+                    midname: [{
+                            pattern: /^[a-zA-Z- ]*$/,
+                            message: "Invalid last name format!",
+                            trigger: "blur",
                         },
                         {
-                        pattern: /^[a-zA-Z- ]*$/,
-                        message: "Invalid last name format!",
-                        trigger: "blur",
+                            min: 2,
+                            message: "Last name should be at least two(2) characters!",
+                            trigger: "blur",
+                        },
+                    ],
+                    lastname: [{
+                            required: true,
+                            message: "Last name is required!",
+                            trigger: "blur",
                         },
                         {
-                        min: 2,
-                        message: "Last name should be at least two(2) characters!",
-                        trigger: "blur",
+                            pattern: /^[a-zA-Z- ]*$/,
+                            message: "Invalid last name format!",
+                            trigger: "blur",
+                        },
+                        {
+                            min: 2,
+                            message: "Last name should be at least two(2) characters!",
+                            trigger: "blur",
                         },
                     ],
                     birthdate: [{
@@ -176,20 +172,16 @@
                         validator: validateBirthdate,
                         trigger: 'blur'
                     }],
-                    gender: [
-                        {
+                    gender: [{
                         required: true,
                         message: "Gender is required!",
                         trigger: "blur",
-                        },
-                    ],
-                    phone_number: [
-                        {
+                    }, ],
+                    phone_number: [{
                         required: true,
                         message: "Phone number is required!",
                         trigger: "blur",
-                        },
-                    ],
+                    }, ],
                 },
                 editTeacher: [],
                 updateTeacher: {
@@ -199,89 +191,80 @@
                     midname: "",
                     lastname: "",
                     gender: "",
-                    phone_number:"",
+                    phone_number: "",
                     birthdate: "",
                 },
-                    editRules: {
-                        email: [
-                            {
-                            required: true,
-                            message: "Email Address is required!",
-                            trigger: "blur",
-                            }, {
-                            validator: validateUpdateID,
-                            trigger: 'blur'
-                            }
-                        ],
-                        firstname: [
-                            {
+                editRules: {
+                    email: [{
+                        required: true,
+                        message: "Email Address is required!",
+                        trigger: "blur",
+                    }, {
+                        validator: validateUpdateID,
+                        trigger: 'blur'
+                    }],
+                    firstname: [{
                             required: true,
                             message: "First name is required!",
                             trigger: "blur",
-                            },
-                            {
+                        },
+                        {
                             pattern: /^[a-zA-Z ]*$/,
                             message: "Invalid first name format!",
                             trigger: "blur",
-                            },
-                            {
+                        },
+                        {
                             min: 2,
                             message: "First name should be at least two(2) characters!",
                             trigger: "blur",
-                            },
-                        ],
-                        midname: [
-                            {
+                        },
+                    ],
+                    midname: [{
                             pattern: /^[a-zA-Z- ]*$/,
                             message: "Invalid last name format!",
                             trigger: "blur",
-                            },
-                            {
+                        },
+                        {
                             min: 2,
                             message: "Last name should be at least two(2) characters!",
                             trigger: "blur",
-                            },
-                        ],
-                        lastname: [
-                            {
+                        },
+                    ],
+                    lastname: [{
                             required: true,
                             message: "Last name is required!",
                             trigger: "blur",
-                            },
-                            {
+                        },
+                        {
                             pattern: /^[a-zA-Z- ]*$/,
                             message: "Invalid last name format!",
                             trigger: "blur",
-                            },
-                            {
+                        },
+                        {
                             min: 2,
                             message: "Last name should be at least two(2) characters!",
                             trigger: "blur",
-                            },
-                        ],
-                        birthdate: [{
-                            required: true,
-                            message: 'Birthday is required!',
-                            trigger: 'blur'
-                        }, {
-                            validator: validateBirthdate,
-                            trigger: 'blur'
-                        }],
-                        gender: [
-                            {
-                            required: true,
-                            message: "Gender is required!",
-                            trigger: "blur",
-                            },
-                        ],
-                        phone_number: [
-                            {
-                            required: true,
-                            message: "Phone number is required!",
-                            trigger: "blur",
-                            },
-                        ],
-                    },
+                        },
+                    ],
+                    birthdate: [{
+                        required: true,
+                        message: 'Birthday is required!',
+                        trigger: 'blur'
+                    }, {
+                        validator: validateBirthdate,
+                        trigger: 'blur'
+                    }],
+                    gender: [{
+                        required: true,
+                        message: "Gender is required!",
+                        trigger: "blur",
+                    }, ],
+                    phone_number: [{
+                        required: true,
+                        message: "Phone number is required!",
+                        trigger: "blur",
+                    }, ],
+                },
             };
         },
         created() {
@@ -308,34 +291,34 @@
             const formData = JSON.parse(localStorage.getItem('formData'));
             this.age = localStorage.age ? localStorage.age : 0
         },
-            watch: {
-                editTeacher(value) {
-                    this.updateTeacher.id = value.id ? value.id : "";
-                    this.updateTeacher.email = value.email ? value.email : "";
-                    this.updateTeacher.firstname = value.firstname ? value.firstname : "";
-                    this.updateTeacher.midname = value.midname ? value.midname : "";
-                    this.updateTeacher.lastname = value.lastname ? value.lastname : "";
-                    this.updateTeacher.birthdate = value.birthdate ? value.birthdate : "";
-                    this.updateTeacher.phone_number = value.phone_number ? value.phone_number : "";
-                    this.updateTeacher.gender = value.gender ? value.gender : "";
-                },
-                searchValue(value) {
-                    if (value == "" || value == "email" || value == "name" || value == "status") {
-                        this.searchNull = '';
-                        this.searchID = '';
-                        this.searchName = '';
-                        this.searchContact = '';
-                    }
-                },
-                showAllData(value) {
-                    if (value == true) {
-                        this.page = 1;
-                        this.pageSize = this.tableData.length
-                    } else {
-                        this.pageSize = 10
-                    }
-                },
+        watch: {
+            editTeacher(value) {
+                this.updateTeacher.id = value.id ? value.id : "";
+                this.updateTeacher.email = value.email ? value.email : "";
+                this.updateTeacher.firstname = value.firstname ? value.firstname : "";
+                this.updateTeacher.midname = value.midname ? value.midname : "";
+                this.updateTeacher.lastname = value.lastname ? value.lastname : "";
+                this.updateTeacher.birthdate = value.birthdate ? value.birthdate : "";
+                this.updateTeacher.phone_number = value.phone_number ? value.phone_number : "";
+                this.updateTeacher.gender = value.gender ? value.gender : "";
             },
+            searchValue(value) {
+                if (value == "" || value == "email" || value == "name" || value == "status") {
+                    this.searchNull = '';
+                    this.searchID = '';
+                    this.searchName = '';
+                    this.searchContact = '';
+                }
+            },
+            showAllData(value) {
+                if (value == true) {
+                    this.page = 1;
+                    this.pageSize = this.tableData.length
+                } else {
+                    this.pageSize = 10
+                }
+            },
+        },
         computed: {
             formattedDate() {
                 if (this.requestDate) {
@@ -344,19 +327,19 @@
                 }
                 return '';
             },
-                usersTable() {
-                    return this.tableData
-                        .filter((data) => {
-                            return data.name.toLowerCase().includes(this.searchName.toLowerCase());
-                        })
-                        .filter((data) => {
-                            return data.email.toLowerCase().includes(this.searchID.toLowerCase());
-                        })
-                        .filter((data) => {
-                            return data.status.toLowerCase().includes(this.searchContact.toLowerCase());
-                        })
-                        .slice(this.pageSize * this.page - this.pageSize, this.pageSize * this.page)
-                }
+            usersTable() {
+                return this.tableData
+                    .filter((data) => {
+                        return data.name.toLowerCase().includes(this.searchName.toLowerCase());
+                    })
+                    .filter((data) => {
+                        return data.email.toLowerCase().includes(this.searchID.toLowerCase());
+                    })
+                    .filter((data) => {
+                        return data.status.toLowerCase().includes(this.searchContact.toLowerCase());
+                    })
+                    .slice(this.pageSize * this.page - this.pageSize, this.pageSize * this.page)
+            }
         },
 
         methods: {
@@ -392,6 +375,7 @@
                         this.editDialog = false
                         this.$refs[editTeacher].resetFields();
                         localStorage.removeItem("email")
+                        localStorage.clear()
                     })
                     .catch(() => {});
             },
@@ -422,20 +406,20 @@
             },
             closeAddDrawer() {
                 this.$confirm('Are you sure you want to cancel adding new Admission?', {
-                    confirmButtonText: 'Yes',
-                    cancelButtonText: 'No',
-                })
-                .then(() => {
-                    this.openAddDrawer = false
-                    this.$refs[addTeacher].resetFields();
-                })
-                .catch(() => {});
+                        confirmButtonText: 'Yes',
+                        cancelButtonText: 'No',
+                    })
+                    .then(() => {
+                        this.openAddDrawer = false
+                        this.$refs[addTeacher].resetFields();
+                    })
+                    .catch(() => {});
             },
             resetFormData() {
                 this.submitForm = []
             },
             getData() {
-                axios.post("{{route('teacherFetch')}}")
+                axios.post("{{ route('teacherFetch') }}")
                     .then(response => {
                         console.log(response.data);
                         if (response.data.error) {
@@ -491,143 +475,156 @@
 
                 return age + ` year${age > 1 ? "s" : ""} old`;
             },
-                addUser(addTeacher) {
-                    this.$refs[addTeacher].validate((valid) => {
-                        if (valid) {
-                            this.loadButton = true;
-                            this.openAddDrawer = false;
-                            const birthday = this.addTeacher.birthdate;
-                            const birthdayFormat = birthday.getFullYear() + "-" + ((birthday.getMonth() + 1) > 9 ? '' : '0') + (birthday.getMonth() + 1) + "-" + (birthday.getDate() > 9 ? '' : '0') + birthday.getDate();
-                            var newData = new FormData()
-                            newData.append("email", this.addTeacher.email)
-                            newData.append("firstname", this.addTeacher.firstname)
-                            newData.append("midname", this.addTeacher.midname)
-                            newData.append("lastname", this.addTeacher.lastname)
-                            newData.append("gender", this.addTeacher.gender)
-                            newData.append("phone_number", this.addTeacher.phone_number)
-                            newData.append("birthdate", birthdayFormat)
-                            axios.post("{{route('storeTeacher')}}", newData)
-                                .then(response => {
+            addUser(addTeacher) {
+                this.$refs[addTeacher].validate((valid) => {
+                    if (valid) {
+                        this.loadButton = true;
+                        this.openAddDrawer = false;
+                        const birthday = this.addTeacher.birthdate;
+                        const birthdayFormat = birthday.getFullYear() + "-" + ((birthday.getMonth() +
+                            1) > 9 ? '' : '0') + (birthday.getMonth() + 1) + "-" + (birthday
+                            .getDate() > 9 ? '' : '0') + birthday.getDate();
+                        var newData = new FormData()
+                        newData.append("email", this.addTeacher.email)
+                        newData.append("firstname", this.addTeacher.firstname)
+                        newData.append("midname", this.addTeacher.midname)
+                        newData.append("lastname", this.addTeacher.lastname)
+                        newData.append("gender", this.addTeacher.gender)
+                        newData.append("phone_number", this.addTeacher.phone_number)
+                        newData.append("birthdate", birthdayFormat)
+                        axios.post("{{ route('storeTeacher') }}", newData)
+                            .then(response => {
                                 console.log(response);
-                                    if (response.data) {
-                                        this.tableLoad = true;
+                                if (response.data) {
+                                    this.tableLoad = true;
+                                    setTimeout(() => {
+                                        this.$message({
+                                            message: 'New Teacher Account has been added successfully!',
+                                            type: 'success'
+                                        });
+                                        this.getData();
+                                        this.tableLoad = false;
                                         setTimeout(() => {
-                                            this.$message({
-                                                message: 'New Teacher Account has been added successfully!',
-                                                type: 'success'
-                                            });
-                                            this.tableLoad = false;
-                                            this.getData()
-                                            setTimeout(() => {
-                                                this.openAddDialog = true;
-                                            }, 1500)
-                                        }, 1500);
-                                        this.resetFormData();
-                                        this.newUser = response.data;
-                                        this.loadButton = false;
-                                    }
-                                })
-                                .catch(error => {
-                                    console.error(error.response.data);
-                                });
-                        } else {
-                            this.$message.error("Cannot submit the form. Please check the error(s).")
-                            return false;
-                        }
-                    });
-                },
-                resetForm(addTeacher) {
-                    this.$refs[addTeacher].resetFields();
-                },
-                resetFormData() {
-                    this.addTeacher = []
-                },
-                updateUser(updateTeacher) {
-                    this.$refs[updateTeacher].validate((valid) => {
-                        if (valid) {
-                            if (this.editTeacher.email != this.updateTeacher.email || this.editTeacher.firstname != this.updateTeacher.firstname || this.editTeacher.midname != this.updateTeacher.midname || this.editTeacher.lastname != this.updateTeacher.lastname || this.editTeacher.birthdate != this.updateTeacher.birthdate || this.editTeacher.gender != this.updateTeacher.gender|| this.editTeacher.phone_number != this.updateTeacher.phone_number ) {
-                                this.loadButton = true;
-                                this.$confirm('This will update user ' + this.editTeacher.firstname + '. Continue?', {
+                                            this.openAddDialog = true;
+                                        }, 1500)
+                                    }, 1500);
+                                    this.resetFormData();
+                                    this.newUser = response.data;
+                                    this.loadButton = false;
+                                }
+                            })
+                            .catch(error => {
+                                console.error(error.response.data);
+                            });
+                    } else {
+                        this.$message.error("Cannot submit the form. Please check the error(s).")
+                        return false;
+                    }
+                });
+            },
+            resetForm(addTeacher) {
+                this.$refs[addTeacher].resetFields();
+            },
+            resetFormData() {
+                this.addTeacher = []
+            },
+            updateUser(updateTeacher) {
+                this.$refs[updateTeacher].validate((valid) => {
+                    if (valid) {
+                        if (this.editTeacher.email != this.updateTeacher.email || this.editTeacher
+                            .firstname != this.updateTeacher.firstname || this.editTeacher.midname !=
+                            this.updateTeacher.midname || this.editTeacher.lastname != this
+                            .updateTeacher.lastname || this.editTeacher.birthdate != this.updateTeacher
+                            .birthdate || this.editTeacher.gender != this.updateTeacher.gender || this
+                            .editTeacher.phone_number != this.updateTeacher.phone_number) {
+                            this.loadButton = true;
+                            this.$confirm('This will update user ' + this.editTeacher.firstname +
+                                    '. Continue?', {
                                         confirmButtonText: 'Confirm',
                                         cancelButtonText: 'Cancel',
                                     })
-                                    .then(() => {
-                                        const birthday = new Date(Date.parse(this.updateTeacher.birthdate));
-                                        const birthdayFormat = birthday.getFullYear() + "-" + ((birthday.getMonth() + 1) > 9 ? '' : '0') + (birthday.getMonth() + 1) + "-" + (birthday.getDate() > 9 ? '' : '0') + birthday.getDate();
-                                        this.editDialog = false;
-                                        var updateData = new FormData()
-                                        updateData.append("id", this.updateTeacher.id)
-                                        updateData.append("email", this.updateTeacher.email)
-                                        updateData.append("firstname", this.updateTeacher.firstname)
-                                        updateData.append("midname", this.updateTeacher.midname)
-                                        updateData.append("lastname", this.updateTeacher.lastname)
-                                        updateData.append("birthdate", birthdayFormat)
-                                        updateData.append("gender", this.updateTeacher.gender)
-                                        updateData.append("phone_number", this.updateTeacher.phone_number)
-                                        axios.post("{{route('teacherUpdate')}}", updateData)
-                                            .then(response => {
-                                                if (response.data) {
-                                                    this.loadButton = false;
-                                                    this.tableLoad = true;
-                                                    setTimeout(() => {
-                                                        this.tableLoad = false;
-                                                        this.getData();
-                                                        this.$message({
-                                                            message: 'Teacher Data has been updated successfully!',
-                                                            type: 'success'
-                                                        });
-                                                    }, 1500)
-                                                }else{
-                                                    console.log(response.data.error);
-                                                }
-                                            })
-                                        localStorage.removeItem("email")
-                                    })
-                                    .catch(() => {
-                                        this.loadButton = false;
-                                    });
-                            } else {
-                                this.$confirm('No changes made. Cancel editing user?', {
-                                        confirmButtonText: 'Yes',
-                                        cancelButtonText: 'No',
-                                    })
-                                    .then(() => {
-                                        this.editDialog = false
-                                        localStorage.removeItem("email")
-                                    })
-                                    .catch(() => {
-                                        this.editDialog = true
-                                    })
-                            }
+                                .then(() => {
+                                    const birthday = new Date(Date.parse(this.updateTeacher
+                                        .birthdate));
+                                    const birthdayFormat = birthday.getFullYear() + "-" + ((birthday
+                                        .getMonth() + 1) > 9 ? '' : '0') + (birthday
+                                        .getMonth() + 1) + "-" + (birthday.getDate() > 9 ? '' :
+                                        '0') + birthday.getDate();
+                                    this.editDialog = false;
+                                    var updateData = new FormData()
+                                    updateData.append("id", this.updateTeacher.id)
+                                    updateData.append("email", this.updateTeacher.email)
+                                    updateData.append("firstname", this.updateTeacher.firstname)
+                                    updateData.append("midname", this.updateTeacher.midname)
+                                    updateData.append("lastname", this.updateTeacher.lastname)
+                                    updateData.append("birthdate", birthdayFormat)
+                                    updateData.append("gender", this.updateTeacher.gender)
+                                    updateData.append("phone_number", this.updateTeacher
+                                        .phone_number)
+                                    axios.post("{{ route('teacherUpdate') }}", updateData)
+                                        .then(response => {
+                                            if (response.data) {
+                                                this.loadButton = false;
+                                                this.tableLoad = true;
+                                                this.getData();
+                                                setTimeout(() => {
+                                                    this.tableLoad = false;
+                                                    this.$message({
+                                                        message: 'Teacher Data has been updated successfully!',
+                                                        type: 'success'
+                                                    });
+                                                }, 1500)
+                                            } else {
+                                                console.log(response.data.error);
+                                            }
+                                        })
+                                    localStorage.removeItem("email")
+                                })
+                                .catch(() => {
+                                    this.loadButton = false;
+                                });
                         } else {
-                            this.$message.error("Cannot submit the form. Please check the error(s).")
-                            return false;
+                            this.$confirm('No changes made. Cancel editing user?', {
+                                    confirmButtonText: 'Yes',
+                                    cancelButtonText: 'No',
+                                })
+                                .then(() => {
+                                    this.editDialog = false
+                                    localStorage.removeItem("email")
+                                })
+                                .catch(() => {
+                                    this.editDialog = true
+                                })
                         }
-                    });
-                },
-                handleSwitch(row) {
-                    var updateStatus = new FormData()
-                    updateStatus.append("id", row.id)
-                    updateStatus.append("status", row.status)
-                    axios.post("{{route('nurseStatus')}}", updateStatus)
-                        .then(response => {
-                            if (response.data) {
-                                this.loadButton = false;
-                                this.tableLoad = true;
-                                setTimeout(() => {
-                                    this.tableLoad = false;
-                                    this.getData();
-                                    if (response.data.status == "Inactive") {
-                                        this.$message({
-                                            message: 'User has been deactivated!',
-                                            type: 'success'
-                                        });
-                                    } 
+                    } else {
+                        this.$message.error("Cannot submit the form. Please check the error(s).")
+                        return false;
+                    }
+                });
+            },
+            handleSwitch(row) {
+                var updateStatus = new FormData()
+                updateStatus.append("id", row.id)
+                updateStatus.append("status", row.status)
+                axios.post("{{ route('nurseStatus') }}", updateStatus)
+                    .then(response => {
+                        if (response.data) {
+                            this.loadButton = false;
+                            this.tableLoad = true;
+                            setTimeout(() => {
+                                this.tableLoad = false;
+                                this.getData();
+                                if (response.data.status == "Inactive") {
+                                    this.$message({
+                                        message: 'User has been deactivated!',
+                                        type: 'success'
+                                    });
+                                }
 
-                                }, 1500)
-                            }
-                        })
-                },
+                            }, 1500)
+                        }
+                    })
+            },
         },
     });
     window.addDashes = function addDashes(f) {

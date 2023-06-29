@@ -9,14 +9,16 @@
     <div v-else>
         <el-row :gutter="20" class="mt-3">
             <el-col>
-                <label class="form-label mb-0" for=""><span class="text-danger">*</span> Input New Password</label>
+                <label class="form-label mb-0" for=""><span class="text-danger">*</span> Input New
+                    Password</label>
                 <el-input placeholder="" v-model="newPassword" show-password></el-input>
                 <span class="text-danger" v-text="newPassErr"></span>
             </el-col>
         </el-row>
         <el-row :gutter="20" class="mt-3">
             <el-col>
-                <label class="form-label mb-0" for=""><span class="text-danger">*</span> Confirm Password</label>
+                <label class="form-label mb-0" for=""><span class="text-danger">*</span> Confirm
+                    Password</label>
                 <el-input placeholder="" v-model="confirmPassword" show-password></el-input>
                 <span class="text-danger" v-text="confirmPassErr"></span>
             </el-col>

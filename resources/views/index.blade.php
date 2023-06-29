@@ -33,10 +33,10 @@
                         <div class="row justify-content-center align-items-center g-2">
                             <div class="col-lg-6 col-md-12 col-sm-12 d-none d-sm-none d-lg-block left-fade-in">
                                 <h1 class="header-1 text-light">
-                                    Electronic Health Record System
+                                    Christian School
                                 </h1>
                                 <h3 class="header-3 text-light">
-                                    Software Development Training Program - NOLITC
+                                    Electronic Health Record System
                                 </h3>
                             </div>
                             <div class="col-lg-4 col-md-12 col-sm-12 col-12 right-fade-in">

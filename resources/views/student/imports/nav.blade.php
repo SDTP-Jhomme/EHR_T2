@@ -6,7 +6,7 @@
                 <div class="col-auto">
                     <img class="w-75 img-fluid rounded-circle" src="<?php echo asset('assets/img/logo.png'); ?>" alt="Logo image">
                 </div>
-                <div class="col-auto">
+                <div class="col-auto d-none d-lg-block">
                     <h4 class="text-dark">Electronic Health Record System</h4>
                 </div>
             </div>

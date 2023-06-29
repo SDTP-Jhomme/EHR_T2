@@ -41,7 +41,7 @@ class deptController extends Controller
         $storeTeacher['last_login'] = $date_now;
         $storeTeacher->save();
 
-        if( $storeTeacher){
+        if ($storeTeacher) {
             $response = array(
                 'email' => $email,
                 'password' => $password,
@@ -50,7 +50,7 @@ class deptController extends Controller
             $response["error"] = false;
             $response["message"] = "Successfully stores data";
             return response()->json($response);
-        }else {
+        } else {
             $response["error"] = true;
             $response["message"] = "Failed to store data";
 
@@ -94,16 +94,21 @@ class deptController extends Controller
 
         return response()->json($user_data);
     }
-    public function teacherUpdate(Request $update){
-        $update_user =[
+    public function teacherUpdate(Request $update)
+    {
+
+        $gender = $update->input('gender');
+        $avatar = ($gender == 'Male') ? "assets/avatar/default.png" : "assets/avatar/default-woman.png";
+        $update_user = [
             'email' => $update->input('email'),
             'firstname' => $update->input('firstname'),
             'midname' => $update->input('midname'),
             'lastname' => $update->input('lastname'),
-            'gender' => $update->input('gender'),
+            'gender' => $gender,
+            'avatar' => $avatar,
             'birthdate' => $update->input('birthdate'),
             'phone_number' => $update->input('phone_number'),
-        
+
         ];
         $id = $update->input('id');
         $update = teacherModel::where('id', $id)->update($update_user);
@@ -116,14 +121,15 @@ class deptController extends Controller
             // Failed to update or record not found
             $response["error"] = true;
             $response["message"] = "Failed updates data";
-            return response()->json($response , 500);
+            return response()->json($response, 500);
         }
-        
+
     }
-    public function teacherStatus(Request $update){
-        $update_user =[
+    public function teacherStatus(Request $update)
+    {
+        $update_user = [
             'status' => $update->input('status'),
-        
+
         ];
         $id = $update->input('id');
         $update = teacherModel::where('id', $id)->update($update_user);
@@ -136,9 +142,9 @@ class deptController extends Controller
             // Failed to update or record not found
             $response["error"] = true;
             $response["message"] = "Failed updates data";
-            return response()->json($response , 500);
+            return response()->json($response, 500);
         }
-        
+
     }
     function getFullName($data_row)
     {
@@ -257,7 +263,7 @@ class deptController extends Controller
             return response()->json($response, 500);
         }
     }
-    
+
     public function departmentLogout(Request $request)
     {
         Session::forget('teacher_id');

@@ -27,6 +27,8 @@ class actionController extends Controller
         $guardianMname = $update->input('guardianMname');
         $guardianLname = $update->input('guardianLname');
         $contact_person = $guardianFname . " " . $guardianMname . " " . $guardianLname;
+        $gender = $update->input('gender');
+        $avatar = ($gender == 'Male') ? "assets/avatar/default.png" : "assets/avatar/default-woman.png";
         $update_user = [
             'identification' => $update->input('identification'),
             'year' => $update->input('year'),
@@ -34,9 +36,10 @@ class actionController extends Controller
             'firstname' => $update->input('firstname'),
             'midname' => $update->input('midname'),
             'lastname' => $update->input('lastname'),
-            'gender' => $update->input('gender'),
             'birthdate' => $update->input('birthdate'),
             'phone_number' => $update->input('phone_number'),
+            'gender' => $gender,
+            'avatar' => $avatar,
             'contact_person' => $contact_person,
             'contact_person_num' => $update->input('guardianPhone_number'),
             'age' => $update->input('age'),

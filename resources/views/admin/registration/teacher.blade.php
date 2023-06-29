@@ -157,7 +157,8 @@
         <el-dialog :visible.sync="viewDialog" width="35%" :before-close="closeViewDialog">
             <template #title>
                 <div class="d-flex justify-content-between align-items-center">
-                    <div class="fs-5">User<span class="mx-2" v-text="viewTeacher.firstname"></span></div>
+                    <div class="fs-5">Nursing Teacher:<span class="mx-2" v-text="viewTeacher.firstname"></span>
+                    </div>
                     <div class="pe-4">
                         <el-avatar :size="70" :src="viewTeacher.avatar"></el-avatar>
                     </div>
@@ -183,7 +184,8 @@
         <!-- Edit Dialog -->
         <el-dialog :visible.sync="editDialog" width="40%" :before-close="closeEditDialog">
             <template #title>
-                Edit User <span class="mx-2" v-text="editTeacher.firstname"></span>
+                <div class="fs-5 mb-3">Edit Teacher:<span class="mx-2" v-text="editTeacher.firstname"></span>
+                </div>
             </template>
             <el-form :label-position="leftLabel" label-width="160px" :model="updateTeacher" :rules="editRules" ref="updateTeacher">
                 <el-form-item label="Email Address" prop="email">
