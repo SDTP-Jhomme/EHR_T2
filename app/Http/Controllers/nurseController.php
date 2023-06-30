@@ -158,7 +158,7 @@ class nurseController extends Controller
         if ($identification && $password) {
             if (!$user) {
                 $response["error"] = true;
-                $response["nurseErr"] = "identification is incorrect!";
+                $response["nurseErr"] = "Identification is incorrect!";
                 return response()->json($response);
             } else {
                 $hashedPassword = $user->password;
@@ -174,7 +174,7 @@ class nurseController extends Controller
             }
         } else {
             $response["error"] = true;
-            $response["nurseErr"] = "identification is incorrect!";
+            $response["nurseErr"] = "Identification is incorrect!";
             return response()->json($response, 500);
         }
     }

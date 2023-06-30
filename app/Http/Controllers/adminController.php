@@ -15,9 +15,18 @@ class adminController extends Controller
         $response = adminModel::all();
         return response()->json($response);
     }
-    public function admission()
+    public function admission(Request $request)
     {
-        return view('admin/admission');
+        $user = $request->session()->get('user');
+
+        if (!$user) {
+            // Redirect to the login page or handle unauthorized access
+            return view('index');
+        }
+
+        // Use the $user data as needed in your dashboard logic
+
+        return view('admin/admission', ['user' => $user]);
     }
     public function dashboard(Request $request)
     {
@@ -25,7 +34,7 @@ class adminController extends Controller
 
         if (!$user) {
             // Redirect to the login page or handle unauthorized access
-            return view('admin/index');
+            return view('index');
         }
 
         // Use the $user data as needed in your dashboard logic
@@ -40,7 +49,7 @@ class adminController extends Controller
 
         if (!$user) {
             // Redirect to the login page or handle unauthorized access
-            return view('admin/index');
+            return view('index');
         }
 
         // Use the $user data as needed in your dashboard logic
@@ -96,13 +105,22 @@ class adminController extends Controller
         // Perform any other logout-related actions
 
         // Redirect the user to the desired page after logout
-        return redirect()->route('admin-login');
+        return redirect()->route('student-login');
     }
 
     // lab-forms
-    public function appointments()
+    public function appointments(Request $request)
     {
-        return view('admin/appointments');
+        $user = $request->session()->get('user');
+
+        if (!$user) {
+            // Redirect to the login page or handle unauthorized access
+            return view('index');
+        }
+
+        // Use the $user data as needed in your dashboard logic
+
+        return view('admin/appointments', ['user' => $user]);
     }
     // public function downloadExcel(Request $request)
     // {

@@ -7,6 +7,7 @@
         data() {
             return {
                 type: "password",
+                adminUsername: "",
                 nurseIdentification: "",
                 studentIdentification: "",
                 email: "",
@@ -17,6 +18,7 @@
                 studentLogin: true,
                 teacherLogin: false,
                 nurseLogin: false,
+                adminLogin: false,
             };
         },
         mounted() {
@@ -32,6 +34,49 @@
             hidePassword() {
                 this.type = "password"
             },
+            admin_Login() {
+                this.userErr = ""
+                this.passErr = ""
+                var data = new FormData()
+                data.append("username", this.adminUsername)
+                data.append("password", this.password)
+                axios.post("{{ route('admin-loginPost') }}", data)
+                    .then(response => {
+                        console.log(response);
+                        if (response.data.error) {
+                            this.userErr = response.data.adminErr
+                            this.passErr = response.data.passErr
+                            setTimeout(() => {
+                                this.userErr = response.data.adminErr
+                            }, 2000)
+                            setTimeout(() => {
+                                this.passErr = response.data.passErr
+                            }, 2000)
+                        } else {
+                            this.$notify({
+                                title: 'Success',
+                                message: 'Successfully logged in!',
+                                type: 'success',
+                                position: 'top-left',
+                                showClose: false
+                            });
+                            this.fullscreenLoading = true;
+                            setTimeout(() => {
+                                window.location.href = "{{ route('admin-dashboard') }}"
+                            }, 1000)
+                        }
+                    })
+                    .catch(error => {
+                        // Handle error response
+                        console.error(error.response);
+                        // this.$message.error("Cannot submit the form. Please check the error(s).")
+                        return false;
+                    });
+                // Simulate a loading delay
+                setTimeout(() => {
+                    this.fullscreenLoading = false;
+                }, 2000);
+            },
             nurse_Login() {
                 this.userErr = ""
                 this.passErr = ""
@@ -41,10 +86,10 @@
                 axios.post("{{ route('nurse-loginPost') }}", data)
                     .then(response => {
                         if (response.data.error) {
-                            this.userErr = response.data.adminErr
+                            this.userErr = response.data.nurseErr
                             this.passErr = response.data.passErr
                             setTimeout(() => {
-                                this.userErr = response.data.adminErr
+                                this.userErr = response.data.nurseErr
                             }, 2000)
                             setTimeout(() => {
                                 this.passErr = response.data.passErr
@@ -123,7 +168,6 @@
                 data.append("password", this.password)
                 axios.post("{{ route('student-loginPost') }}", data)
                     .then(response => {
-                        console.log(response.data.error);
                         if (response.data.error) {
                             this.userErr = response.data.studentErr
                             this.passErr = response.data.passErr

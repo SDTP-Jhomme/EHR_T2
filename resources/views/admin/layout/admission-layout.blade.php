@@ -44,6 +44,14 @@
                     callback();
                 }
             };
+            const validateAddName = (rule, value, callback) => {
+                if (this.checkName.includes(value.trim())) {
+                    callback(new Error('Identification no. already exist!'));
+                } else {
+                    callback();
+                }
+
+            };
             const validateBirthdate = (rule, value, callback) => {
                 var today = new Date();
                 var birthDate = new Date(value);
@@ -110,6 +118,7 @@
                 openAddDialog: false,
                 openAddDrawer: false,
                 checkIdentification: [],
+                checkName: [],
                 editStudent: [],
                 printing: false,
                 addStudent: {
@@ -156,7 +165,10 @@
                             min: 2,
                             message: "First name should be at least two(2) characters!",
                             trigger: "blur",
-                        },
+                        }, {
+                            validator: validateAddName,
+                            trigger: 'blur'
+                        }
                     ],
                     midname: [{
                             pattern: /^[a-zA-Z- ]*$/,
@@ -762,6 +774,7 @@
                         } else {
                             this.tableData = response.data;
                             this.checkIdentification = response.data.map(res => res.identification);
+                            this.checkName = response.data.map(res => res.name);
                         }
                     })
                     .catch(error => {
