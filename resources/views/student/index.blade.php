@@ -253,7 +253,10 @@
                                                     <td><span v-text="data.yearandsection"></span></td>
                                                     <td><span v-text="data.request_date"></span></td>
                                                     <td><span v-text="data.section"></span></td>
-                                                    <td><span v-text="data.med_status"></span></td>
+                                                    <td><span class="badge bg-warning" v-if="data.med_status == 'Pending'" v-text="data.med_status"></span>
+                                                        <span class="badge bg-success" v-if="data.med_status == 'Approved'" v-text="data.med_status"></span>
+                                                        <span class="badge bg-danger" v-if="data.med_status == 'Declined'"v-text="data.med_status"></span>
+                                                    </td>
                                                 </tr>
                                             </tbody>
                                         </table>
